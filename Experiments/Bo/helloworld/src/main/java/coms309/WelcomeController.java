@@ -19,6 +19,6 @@ class WelcomeController {
 
     @GetMapping("/welcome/{name}/{age}")
     public String welcome(@PathVariable String name,@PathVariable int age){
-        return "Hello" + name + ", and welcome to COMS 309: and your age is " + age;
+        return "Hello " + name + ", and welcome to COMS 309: and your age is " + age;
     }
 }
