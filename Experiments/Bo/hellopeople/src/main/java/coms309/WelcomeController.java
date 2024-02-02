@@ -16,4 +16,6 @@ class WelcomeController {
     public String welcome() {
         return "Hello and welcome to COMS 309";
     }
+
+    @GetMaping("")
 }
