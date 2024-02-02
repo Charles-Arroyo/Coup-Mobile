@@ -17,15 +17,25 @@ public class Person {
 
     private String telephone;
 
+    private String age;
+//    using this for age
+
+    private String hobby;
+    //using this for hobby
+
+
+
     public Person(){
         
     }
 
-    public Person(String firstName, String lastName, String address, String telephone){
+    public Person(String firstName, String lastName, String address, String telephone,String age, String hobby){
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.telephone = telephone;
+        this.age = age;
+        this.hobby = hobby;
     }
 
     public String getFirstName() {
@@ -60,11 +70,21 @@ public class Person {
         this.telephone = telephone;
     }
 
+    public String getAge(){return this.age; }
+
+    public void setAge(String age){this.age = age; }
+
+    public String getHobby(){return this.hobby; }
+
+    public void setHobby(String hobby){this.hobby = hobby; }
+
     @Override
     public String toString() {
-        return firstName + " " 
-               + lastName + " "
-               + address + " "
-               + telephone;
+         return firstName   + " "
+                + lastName  + " "
+                + address   + " "
+                + telephone + " "
+                + age       + " "
+                 + hobby;
     }
 }
