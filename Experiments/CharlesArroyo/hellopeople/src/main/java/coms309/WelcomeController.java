@@ -16,8 +16,6 @@ import java.util.HashMap;
 @RestController
 class WelcomeController {
 
-
-
     @GetMapping("/")
     public String welcome() {
 
