@@ -46,7 +46,7 @@ public class PeopleController {
     // in this case because of @ResponseBody
     // Note: To CREATE we use POST method
     @PostMapping("/people")
-    public  String createPerson(Person person) {
+    public  String createPerson(@RequestBody Person person) {
         System.out.println(person);
         peopleList.put(person.getFirstName(), person);
         return "New person "+ person.getFirstName() + " Saved";
