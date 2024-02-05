@@ -21,10 +21,13 @@ public class MainActivity extends AppCompatActivity {
 
         /* initialize UI elements */
         messageText = findViewById(R.id.main_msg_txt);      // link to message textview in the Main activity XML
-        for (int i =0; i <100; i++){
+        String x = " Hello Nhi" + "\n";
 
-            messageText.setText("Hello World");
-
+        for (int i = 0; i < 10; i++) {
+            x = x.concat(" Hello Nhi\n");
         }
+        messageText.setText(x);
+
+
     }
 }

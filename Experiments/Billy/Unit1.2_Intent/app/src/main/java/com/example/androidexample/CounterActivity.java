@@ -32,7 +32,16 @@ public class CounterActivity extends AppCompatActivity {
         increaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numberTxt.setText(String.valueOf(++counter));
+                if (++counter == 50) {
+                    // If the counter reaches 50, start mitraActivity
+                    Intent intent = new Intent(CounterActivity.this, MitraActivity.class);
+                    startActivity(intent);
+                    // Optionally, you may want to finish the CounterActivity to prevent going back
+                    finish();
+                } else {
+                    // If the counter is less than 50, update the number textview
+                    numberTxt.setText(String.valueOf(counter));
+                }
             }
         });
 
