@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">CyTracker</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_calendar_screen">calendarScreen</string>
+    <string name="title_activity_story_screen">storyScreen</string>
+    <string name="title_activity_profile_screen">profileScreen</string>
+
+    <string name="title_activity_message_list">messageList</string>
+
+    <string name="title_activity_login_screen">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="title_activity_conversations">conversationsActivity</string>
+
+    <string name="refreshButton">Refresh</string>
+    <string name="sendButton">Send</string>
+    <string name="messageField">Type Here</string>
+    <string name="recievedField">Received Messages appear here</string>
+    <string name="title_activity_chat_window">chatWindow</string>
+    <string name="title_activity_registration_screen">RegistrationScreen</string>
+    <string name="title_activity_add_story_screen">addStoryScreen</string>
+
+    <!-- Registration Activity Strings-->
+    <string name="nameText">Name</string>
+    <string name="nameHintText">Enter Full Name</string>
+    <string name="emailText">Email</string>
+    <string name="emailHintText">Enter Your Email</string>
+    <string name="passwordText">Password</string>
+    <string name="passwordHintText">Enter Desired Password</string>
+    <string name="registerSubmitButtonText">Register</string>
+    <string name="registerErrorMessageText">Please fill in all fields</string>
+</resources>
