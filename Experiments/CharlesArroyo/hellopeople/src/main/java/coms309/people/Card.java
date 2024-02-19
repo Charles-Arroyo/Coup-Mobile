@@ -8,10 +8,7 @@ This is a card class, it mimics how a card will work
  */
 
 public class Card {
-
     private String name;
-
-
     public Card(){
 
     }
@@ -24,7 +21,6 @@ public class Card {
     public String getName() {
         return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
