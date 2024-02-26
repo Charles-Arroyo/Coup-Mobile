@@ -42,6 +42,13 @@
         <scope>runtime</scope>
     </dependency>
 
+    <!-- MYSQL dependencies-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
     <!-- The ORM JPA specs/hibernate impl -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
