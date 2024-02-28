@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Accounts/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Accounts/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Laptops/Laptop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Laptops/LaptopController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Laptops/LaptopRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Accounts/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Accounts/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +113,7 @@
       <workItem from="1708987387770" duration="3530000" />
       <workItem from="1708996363878" duration="10942000" />
       <workItem from="1709055352867" duration="2466000" />
+      <workItem from="1709153734816" duration="1413000" />
     </task>
     <servers />
   </component>
