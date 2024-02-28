@@ -1,10 +1,7 @@
 package onetoone.Accounts;
 import java.util.List;
-
-import onetoone.Laptops.Laptop;
 import onetoone.Players.Player;
 import onetoone.Players.PlayerRepository;
-import onetoone.Users.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
