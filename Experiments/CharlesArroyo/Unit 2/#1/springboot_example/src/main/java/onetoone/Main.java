@@ -10,6 +10,9 @@ import onetoone.Laptops.Laptop;
 import onetoone.Laptops.LaptopRepository;
 import onetoone.Users.User;
 import onetoone.Users.UserRepository;
+import onetoone.Accounts.Account;
+import onetoone.Accounts.AccountRepository;
+
 
 /**
  * 
@@ -49,6 +52,10 @@ class Main {
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
+
+            Account account1 = new Account("Cfarroyo", "cfarroyo@iastate.edu");
+
+
 
         };
     }

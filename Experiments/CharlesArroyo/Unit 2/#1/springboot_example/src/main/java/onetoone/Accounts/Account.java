@@ -86,13 +86,15 @@ public class Account {
         this.ifActive = ifActive;
     }
 
-    public Player getLaptop(){
+    public Player getPlayer(){
+
         return player;
     }
 
-    public void setLaptop(Laptop laptop){
+    public void setPlayer(Player player){
         this.player = player;
     }
+
 
 
 

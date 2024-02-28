@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @author Vivek Bengre
+ * @author s
  * 
  */ 
 
-@RestController
+@RestController //creation of restfuls servies
 public class LaptopController {
 
     @Autowired

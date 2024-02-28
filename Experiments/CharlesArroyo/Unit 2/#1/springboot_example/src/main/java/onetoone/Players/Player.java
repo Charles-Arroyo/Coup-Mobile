@@ -85,5 +85,11 @@ public class Player {
         this.experiencePoints = experiencePoints;
     }
 
+    public void setAccount(Account account){
+        this.account = account;
+
+    }
+
+
 
 }
