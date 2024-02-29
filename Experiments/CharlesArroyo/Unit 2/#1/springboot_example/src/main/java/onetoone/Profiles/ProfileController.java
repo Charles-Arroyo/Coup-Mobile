@@ -1,6 +1,6 @@
+package onetoone.Profiles;
 
 import java.util.List;
-
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;

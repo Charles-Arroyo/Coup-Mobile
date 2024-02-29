@@ -9,6 +9,7 @@ import javax.sound.sampled.Port;
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String gamerTag;
     private int level;
     private int XP;
