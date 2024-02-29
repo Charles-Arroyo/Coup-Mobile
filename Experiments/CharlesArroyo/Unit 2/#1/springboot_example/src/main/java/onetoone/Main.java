@@ -1,19 +1,16 @@
 package onetoone;
 
-import onetoone.Players.Player;
-import onetoone.Players.PlayerRepository;
+
+import onetoone.Profiles.Profile;
+import onetoone.Profiles.ProfileRepository;
+import onetoone.Users.User;
+import onetoone.Users.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import onetoone.Laptops.Laptop;
-import onetoone.Laptops.LaptopRepository;
-import onetoone.Users.User;
-import onetoone.Users.UserRepository;
-import onetoone.Accounts.Account;
-import onetoone.Accounts.AccountRepository;
 
 
 /**
@@ -37,19 +34,15 @@ class Main {
      * As mentioned in User.java just associating the Laptop object with the User will save it into the database because of the CascadeType
      */
     @Bean
-    CommandLineRunner initUser(AccountRepository accountRepository, PlayerRepository playerRepository) {
+    CommandLineRunner initUser(UserRepository userRepository, ProfileRepository profileRepository) {
         return args ->
         {
 
-            Account account1 = new Account("Cfarroyo", "cfarroyo@iastate.edu");
-            Player player1 = new Player(001,1,200,"Pro","2026");
+            User user1 = new User("Cfarroyo", "cfarroyo@iastate.edu");
+            Profile profile1 = new Profile("Chuck",1,200);
 
-            Account account2 = new Account("boOo", "BoOo@iastate.edu");
-            Player player2 = new Player(002,1,200,"Free","n/a");
-            account1.setPlayer(player1);
-            account2.setPlayer(player2);
-            accountRepository.save(account1);
-            accountRepository.save(account2);
+            user1.setProfile(profile1);
+            userRepository.save(user1);
         };
     }
 
