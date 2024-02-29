@@ -22,7 +22,7 @@ public class Card {
             strategy = GenerationType.IDENTITY
     )
 
-    private String CardID;
+    private int id;
 
     private String CardAbility;
 
@@ -38,8 +38,8 @@ public class Card {
     @JsonIgnore
     private User user;
 
-    public Card(String CardID,String CardHolderName,int actionCost, int numOfCards){
-        this.CardID = CardID;
+    public Card(int id,String CardHolderName,int actionCost, int numOfCards){
+        this.id = id;
         this.CardHolderName = CardHolderName;
         this.actionCost = actionCost;
         this.numOfCards = numOfCards;
@@ -50,21 +50,21 @@ public class Card {
 
     }
 
-    public String getCardID() {
-        return CardID;
+    public int getCardID() {
+        return id;
     }
 
-    public void setCardID(String cardID) {
-        CardID = cardID;
+    public void setCardID(int cardID) {
+        id = cardID;
     }
 
-    public String getCardAbility() {
-        return CardAbility;
-    }
-
-    public void setCardAbility(String cardAbility) {
-        CardAbility = cardAbility;
-    }
+//    public String getCardAbility() {
+//        return CardAbility;
+//    }
+//
+//    public void setCardAbility(String cardAbility) {
+//        CardAbility = cardAbility;
+//    }
 
     public String getCardHolderName() {
         return CardHolderName;

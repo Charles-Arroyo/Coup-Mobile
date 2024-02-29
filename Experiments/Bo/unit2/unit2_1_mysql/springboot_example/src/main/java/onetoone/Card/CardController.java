@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CardController {
+
     @Autowired
     CardRepository cardRepository;
 
@@ -30,7 +31,7 @@ public class CardController {
         return cardRepository.findById(id);
     }
 
-    @PostMapping(path = "/card")
+    @PostMapping(path = "/cards")
     String createCard(@RequestBody Card Card){
         if (Card == null)
             return failure;
