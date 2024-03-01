@@ -17,7 +17,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);            // link to Login activity XML
+        setContentView(R.layout.activity_mitra);            // link to Login activity XML
 
     }
 }
