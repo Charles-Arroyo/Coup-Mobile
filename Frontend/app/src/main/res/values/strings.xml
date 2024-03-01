@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">CoupV2</string>
+    <string name="app_name">Coup V2</string>
+    <string name="create_game">Create Game</string>
+    <string name="join_game">Join Game</string>
+    <string name="instructions">Instructions</string>
+    <string name="friends_stats">Friends/Stats</string>
+    <string name="game_icon_description">Game Icon</string>
 </resources>
