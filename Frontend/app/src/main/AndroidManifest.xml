@@ -17,18 +17,47 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-        </activity>
-
-        <!-- LoginActivity that might be launched from MainActivity or other places -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true">
             <!-- This activity is the main entry point of the app and appears in the app launcher -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Sign up activity -->
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true" />
+
+        <!-- LoginActivity that might be launched from MainActivity or other places -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".MenuActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".FriendsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PlayActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RulesActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".StatsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

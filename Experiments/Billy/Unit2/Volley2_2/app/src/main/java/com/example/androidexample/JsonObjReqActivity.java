@@ -26,7 +26,7 @@ public class JsonObjReqActivity extends AppCompatActivity {
     private Button btnJsonObjReq;
     private TextView tvName, tvEmail, tvPhone;
 
-    private static final String URL_JSON_OBJECT = "https://jsonplaceholder.typicode.com/users/1";
+    private static final String URL_JSON_OBJECT = "https://87690fe4-6a04-4120-b424-acf8a6038de0.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class JsonObjReqActivity extends AppCompatActivity {
                         Log.d("Volley Response", response.toString());
                         try {
                             // Parse JSON object data
-                            String name = response.getString("name");
+                            String name = response.getString("username");
                             String email = response.getString("email");
                             String phone = response.getString("phone");
 

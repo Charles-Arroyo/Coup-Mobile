@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c92f7f9a-d7ff-483b-9e97-5b74f1284915" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.idea/Billy.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Volley2_2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fe/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/androidTest/java/com/example/androidexample/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/ImageReqActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/JsonArrReqActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/JsonObjReqActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/StringReqActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/java/com/example/androidexample/VolleySingleton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/layout/activity_image_req.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/layout/activity_json_arr_req.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/layout/activity_json_obj_req.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/layout/activity_string_req.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/app/src/test/java/com/example/androidexample/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../unit2/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Unit1/Login_Example/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Unit1/Login_Example/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_1/app/src/main/java/com/example/androidexample/JsonArrReqActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_1/app/src/main/java/com/example/androidexample/JsonObjReqActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_1/app/src/main/res/layout/activity_json_arr_req.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_1/app/src/main/res/layout/activity_json_obj_req.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/JsonArrReqActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/JsonArrReqActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/JsonObjReqActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/JsonObjReqActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/StringReqActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_2/app/src/main/java/com/example/androidexample/StringReqActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_2/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_2/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_2/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_2/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_3/app/src/main/java/com/example/androidexample/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_3/app/src/main/java/com/example/androidexample/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Volley2_3/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Volley2_3/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/androidTest/java/com/example/sumon/androidvolley/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/ImageRequestActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/JsonRequestActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/StringRequestActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/app/AppController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/utils/Const.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/java/com/example/sumon/androidvolley/utils/LruBitmapCache.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/drawable-v24/ico_error.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/drawable-v24/ico_loading.GIF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/layout/image_request.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/layout/json_request.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/layout/string_request.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/app/src/test/java/com/example/sumon/androidvolley/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../example_phases_2_4/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend2_3/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend2_3/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend2_3/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend2_3/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend2_3/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend2_3/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend2_3/app/src/main/java/cs309/godclass/Logic/RegistrationLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend2_3/app/src/main/java/cs309/godclass/Logic/RegistrationLogic.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\billx\.android\avd\Pixel_3a_XL_API_34_1.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="phase" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="phase" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="phase" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="phase" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="2d3sklMvjC1PAoV16kUdZzkpAz6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/billx/mk1_8/Experiments/Billy/Unit2/phases2_4"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="phase.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c92f7f9a-d7ff-483b-9e97-5b74f1284915" name="Changes" comment="" />
+      <created>1709248241642</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709248241642</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String url = "https://jsonplaceholder.typicode.com/users/1";
+    private String url = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
 
     private Spinner spMethod;
     private EditText etUrl;
