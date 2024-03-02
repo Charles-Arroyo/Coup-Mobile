@@ -1,9 +1,15 @@
 package onetoone.Profiles;
 
 import java.util.List;
+
+import onetoone.Friends.Friend;
+import onetoone.Friends.FriendRepository;
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +29,8 @@ public class ProfileController {
 
     @Autowired
     ProfileRepository profileRepository;
+
+
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
@@ -50,13 +58,16 @@ public class ProfileController {
         Profile profile = profileRepository.findById(id);
         if(profile == null)
             return null;
+        profile.setGamerTag(request.getGamerTag());
+        profile.setLevel(request.getLevel());
+        profile.setXP(request.getXP());
         profileRepository.save(request);
         return profileRepository.findById(id);
     }
 
     @DeleteMapping(path = "/Profiles/{id}")
     String deleteProfile(@PathVariable int id){
-        profileRepository.deleteById(id);
-        return success;
+            profileRepository.deleteById(id);
+            return success;
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 @RestController
 public class FriendController {
 
@@ -31,7 +30,7 @@ public class FriendController {
     }
 
     @PostMapping(path = "/friends")
-    String createFriend(@RequestBody Friend friend){ // Ensure request body is used
+    String createFriend(@RequestBody Friend friend){
         if (friend == null)
             return failure;
         friendRepository.save(friend);
@@ -40,7 +39,7 @@ public class FriendController {
 
     @PutMapping("/friends/{id}")
     Friend updateFriend(@PathVariable int id, @RequestBody Friend request){
-        Friend friend = friendRepository.findById(id); // Adjust for optional return type
+        Friend friend = friendRepository.findById(id);
         if(friend == null)
             return null;
         friendRepository.save(request);

@@ -41,11 +41,12 @@ public class User {
     private List<Friend> friends = new ArrayList<>();
 
 
-    public User(String name, String emailId) {
+    public User(String name, String emailId, int id) {
         this.name = name;
         this.emailId = emailId;
         this.ifActive = true;
         friends = new ArrayList<>();
+        this.id = id;
     }
 
     public User() {
@@ -105,7 +106,11 @@ public class User {
     public void addFriends(Friend friend){
         this.friends.add(friend);
     }
-    
+
+
+    public void setFriend(Friend friend) {
+
+    }
 }
 
 

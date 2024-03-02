@@ -1,11 +1,15 @@
 package onetoone.Users;
 
+import onetoone.Friends.Friend;
+import onetoone.Friends.FriendRepository;
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
+
 
 /**
  * 
@@ -21,6 +25,9 @@ public class UserController {
 
     @Autowired
     ProfileRepository profileRepository;
+
+    @Autowired
+    FriendRepository friendRepository;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
@@ -63,6 +70,19 @@ public class UserController {
         userRepository.save(user);
         return success;
     }
+
+    @PutMapping("/users/{userId}/friends/{friendId}")
+    String assignFriendToUser(@PathVariable int userId,@PathVariable int friendId){
+        User user = userRepository.findById(userId);
+        Friend friend = friendRepository.findById(friendId);
+        if(user == null || friend == null)
+            return failure;
+        friend.setUser(user);
+        user.addFriends(friend);
+        userRepository.save(user);
+        return success;
+    }
+
 
     @DeleteMapping(path = "/users/{id}")
     String deleteUser(@PathVariable int id){

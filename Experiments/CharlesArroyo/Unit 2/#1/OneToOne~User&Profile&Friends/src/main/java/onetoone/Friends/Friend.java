@@ -41,4 +41,8 @@ public class Friend {
 
     public Friend() {
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

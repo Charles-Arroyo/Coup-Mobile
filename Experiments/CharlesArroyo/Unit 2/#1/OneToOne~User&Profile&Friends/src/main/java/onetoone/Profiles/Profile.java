@@ -14,7 +14,7 @@ public class Profile {
     private int level;
     private int XP;
 
-    @OneToOne
+    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private User user;
 
@@ -27,6 +27,16 @@ public class Profile {
     public Profile(){
 
     }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+
 
     public String getGamerTag() {
         return gamerTag;

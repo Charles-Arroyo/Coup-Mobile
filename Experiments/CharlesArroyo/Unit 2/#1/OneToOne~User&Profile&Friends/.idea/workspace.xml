@@ -5,42 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b/storage_v2/_src_/schema/DB309.PgTdAw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../springboot_example/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Profiles/Profile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Profiles/ProfileController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Profiles/ProfileRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Users/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Users/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/java/onetoone/Users/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Profiles/Profile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Profiles/ProfileController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Profiles/ProfileRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Users/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Users/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/classes/onetoone/Users/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/onetoone-1.0.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../springboot_example/target/onetoone-1.0.0.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/Friend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Profiles/Profile.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Profiles/Profile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Profiles/ProfileController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Profiles/ProfileController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +128,7 @@
       <workItem from="1709166854309" duration="8387000" />
       <workItem from="1709277358508" duration="33000" />
       <workItem from="1709277536403" duration="740000" />
-      <workItem from="1709278283874" duration="461000" />
+      <workItem from="1709278283874" duration="13282000" />
     </task>
     <servers />
   </component>
