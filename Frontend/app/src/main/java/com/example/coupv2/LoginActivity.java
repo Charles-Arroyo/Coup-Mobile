@@ -26,11 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
 
-    private static final String URL_JSON_OBJECT = "https://coms-309-023.class.las.iastate.ed:8080/signin";
+    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
     // success
 //    private static final String URL_JSON_OBJECT = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
     //fail
-//    private static final String URL_JSON_OBJECT = "https://e240d7cb-1f58-4450-aafc-17819ecd7566.mock.pstmn.io";
+//    private static final String URL_JSON_OBJECT = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +74,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_JSON_OBJECT, jsonRequest,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_JSON_OBJECT, jsonRequest,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
+//                            String message = response.getString("message");
+//
+//                            if (message.equals("success"))
+
                             boolean success = response.getBoolean("success");
+
                             if (success) {
                                 // Successful login
                                 Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);

@@ -1,8 +1,5 @@
 package com.example.coupv2;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -23,25 +20,25 @@ public class SignupActivity extends AppCompatActivity {
     //fail
 //    private static final String URL_JSON_OBJECT = "https://e240d7cb-1f58-4450-aafc-17819ecd7566.mock.pstmn.io";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-
-        usernameEditText = findViewById(R.id.signup_username_edt);
-        passwordEditText = findViewById(R.id.signup_password_edt);
-        confirmEditText = findViewById(R.id.signup_confirm_edt);
-        loginButton = findViewById(R.id.signup_login_btn);
-        signupButton = findViewById(R.id.signup_signup_btn);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_signup);
+//
+//        usernameEditText = findViewById(R.id.signup_username_edt);
+//        passwordEditText = findViewById(R.id.signup_password_edt);
+//        confirmEditText = findViewById(R.id.signup_confirm_edt);
+//        loginButton = findViewById(R.id.signup_login_btn);
+//        signupButton = findViewById(R.id.signup_signup_btn);
+//
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
 //        signupButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -100,4 +97,4 @@ public class SignupActivity extends AppCompatActivity {
 //
 //        requestQueue.add(jsonObjectRequest);
 //    }
-}}
+}
