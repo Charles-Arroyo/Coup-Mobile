@@ -5,58 +5,99 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText usernameEditText;  // define username edittext variable
-    private EditText passwordEditText;  // define password edittext variable
-    private EditText confirmEditText;   // define confirm edittext variable
-    private Button loginButton;         // define login button variable
-    private Button signupButton;        // define signup button variable
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private EditText confirmEditText;
+    private Button loginButton;
+    private Button signupButton;
+
+    private static final String URL_SIGNUP = "https://example.com/signup"; // Adjust the URL_SIGNUP according to your server's signup endpoint
+//    private static final String URL_JSON_OBJECT = "https://coms-309-023.class.las.iastate.edu";
+    // success
+    private static final String URL_JSON_OBJECT = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
+    //fail
+//    private static final String URL_JSON_OBJECT = "https://e240d7cb-1f58-4450-aafc-17819ecd7566.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        /* initialize UI elements */
-        usernameEditText = findViewById(R.id.signup_username_edt);  // link to username edtext in the Signup activity XML
-        passwordEditText = findViewById(R.id.signup_password_edt);  // link to password edtext in the Signup activity XML
-        confirmEditText = findViewById(R.id.signup_confirm_edt);    // link to confirm edtext in the Signup activity XML
-        loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
-        signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
+        usernameEditText = findViewById(R.id.signup_username_edt);
+        passwordEditText = findViewById(R.id.signup_password_edt);
+        confirmEditText = findViewById(R.id.signup_confirm_edt);
+        loginButton = findViewById(R.id.signup_login_btn);
+        signupButton = findViewById(R.id.signup_signup_btn);
 
-        /* click listener on login button pressed */
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /* when login button is pressed, use intent to switch to Login Activity */
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);  // go to LoginActivity
+                startActivity(intent);
             }
         });
 
-        /* click listener on signup button pressed */
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /* grab strings from user inputs */
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                String confirm = confirmEditText.getText().toString();
-
-                if (password.equals(confirm)){
-                    Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-}
+//        signupButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String username = usernameEditText.getText().toString();
+//                String password = passwordEditText.getText().toString();
+//                String confirm = confirmEditText.getText().toString();
+//
+//                if (!username.isEmpty() && !password.isEmpty() && !confirm.isEmpty()) {
+//                    if (password.equals(confirm)) {
+//                        performSignup(username, password);
+//                    } else {
+//                        Toast.makeText(SignupActivity.this, "Password does not match confirmation", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(SignupActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+//
+//    private void performSignup(String username, String password) {
+//        JSONObject jsonRequest = new JSONObject();
+//        try {
+//            jsonRequest.put("username", username);
+//            jsonRequest.put("password", password);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+////        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_SIGNUP, jsonRequest,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            boolean success = response.getBoolean("success");
+//                            if (success) {
+//                                Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
+//                                Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
+//                                startActivity(loginIntent);
+//                            } else {
+//                                Toast.makeText(SignupActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                            Toast.makeText(SignupActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(SignupActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//        requestQueue.add(jsonObjectRequest);
+//    }
+}}

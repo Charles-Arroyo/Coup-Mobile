@@ -18,16 +18,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username: "
+            android:text="email: "
             android:textColor="#000000"
             android:textSize="20dp"></TextView>
 
         <EditText
-            android:id="@+id/login_username_edt"
+            android:id="@+id/login_email_edt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
-            android:hint="Enter Username Here"></EditText>
+            android:hint="Enter Email Here"></EditText>
 
     </LinearLayout>
 
