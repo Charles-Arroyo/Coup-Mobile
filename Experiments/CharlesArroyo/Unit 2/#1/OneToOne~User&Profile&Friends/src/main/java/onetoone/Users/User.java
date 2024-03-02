@@ -27,6 +27,8 @@ public class User {
     private String emailId;
     private boolean ifActive;
 
+    private String password;
+
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
@@ -41,12 +43,13 @@ public class User {
     private List<Friend> friends = new ArrayList<>();
 
 
-    public User(String name, String emailId, int id) {
+    public User(String name, String emailId, int id,String password) {
         this.name = name;
         this.emailId = emailId;
         this.ifActive = true;
         friends = new ArrayList<>();
         this.id = id;
+        this.password = password;
     }
 
     public User() {
@@ -58,6 +61,15 @@ public class User {
     public int getId(){
         return id;
     }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
 
     public void setId(int id){
         this.id = id;
@@ -106,7 +118,6 @@ public class User {
     public void addFriends(Friend friend){
         this.friends.add(friend);
     }
-
 
     public void setFriend(Friend friend) {
 

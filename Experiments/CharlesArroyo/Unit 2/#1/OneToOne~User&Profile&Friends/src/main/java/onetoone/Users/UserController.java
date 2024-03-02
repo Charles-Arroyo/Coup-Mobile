@@ -50,6 +50,19 @@ public class UserController {
         return success;
     }
 
+
+    @GetMapping(path = "/signin")
+    String signIn(@RequestBody User user){
+        User user1 = userRepository.findByEmailId(user.getEmailId()); // Retrieve user by username
+        User user2 = userRepository.findByPassword(user.getPassword()); // Retrieve user by password
+        if(user1 != null && user2 != null && user1.getEmailId().equals(user.getEmailId()) && user2.getPassword().equals(user.getPassword())) {
+            return success;
+        } else {
+            return failure;
+        }
+    }
+
+
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable int id, @RequestBody User request){
         User user = userRepository.findById(id);
@@ -71,6 +84,7 @@ public class UserController {
         return success;
     }
 
+
     @PutMapping("/users/{userId}/friends/{friendId}")
     String assignFriendToUser(@PathVariable int userId,@PathVariable int friendId){
         User user = userRepository.findById(userId);
@@ -82,7 +96,6 @@ public class UserController {
         userRepository.save(user);
         return success;
     }
-
 
     @DeleteMapping(path = "/users/{id}")
     String deleteUser(@PathVariable int id){
