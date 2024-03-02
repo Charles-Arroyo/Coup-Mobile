@@ -5,6 +5,8 @@ import onetoone.Friends.FriendRepository;
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -49,19 +51,24 @@ public class UserController {
         userRepository.save(user);
         return success;
     }
+//Request body = json body
+    //Path varible == https
 
 
-    @GetMapping(path = "/signin")
-    String signIn(@RequestBody User user){
-        User user1 = userRepository.findByEmailId(user.getEmailId()); // Retrieve user by username
-        User user2 = userRepository.findByPassword(user.getPassword()); // Retrieve user by password
-        if(user1 != null && user2 != null && user1.getEmailId().equals(user.getEmailId()) && user2.getPassword().equals(user.getPassword())) {
-            return success;
-        } else {
-            return failure;
+    @PostMapping(path = "/signin")
+    public ResponseEntity<String> signIn(@RequestBody User user){
+        try {
+            User foundUser = userRepository.findByEmailId(user.getEmailId());
+            if(foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+                return ResponseEntity.ok("success");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("failure");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
         }
     }
-
 
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable int id, @RequestBody User request){
