@@ -29,7 +29,7 @@ public class JsonArrReqActivity extends AppCompatActivity {
     private ListAdapter adapter;
     private ListView listView;
 
-    private static final String URL_JSON_ARRAY = "https://jsonplaceholder.typicode.com/users";
+    private static final String URL_JSON_ARRAY = "https://87690fe4-6a04-4120-b424-acf8a6038d0.mock.pstmn.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

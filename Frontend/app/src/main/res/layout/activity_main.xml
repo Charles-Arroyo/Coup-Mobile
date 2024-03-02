@@ -1,53 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:gravity="center_horizontal"
-    android:background="#FFC0CB"> <!-- Replace with your desired background color -->
+    android:gravity="center"
+    android:orientation="horizontal"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="COUP V2"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"
-        android:gravity="center" />
-
-<!--    <ImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--&lt;!&ndash;        android:src="@drawable/game_icon" &lt;!&ndash; Replace with your actual drawable resource &ndash;&gt;&ndash;&gt;-->
-<!--    android:contentDescription="@string/game_icon_description"-->
-<!--    android:layout_marginBottom="24dp" />-->
 
     <Button
-        android:id="@+id/button_create_game"
-        android:layout_width="match_parent"
+        android:id="@+id/main_login_btn"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/create_game"
-        android:layout_marginBottom="16dp" />
+        android:layout_gravity="center|center_horizontal"
+        android:backgroundTint="#C760D8"
+        android:text="Login"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:translationX="-10sp"
+        app:iconPadding="30dp"></Button>
 
     <Button
-        android:id="@+id/button_join_game"
-        android:layout_width="match_parent"
+        android:id="@+id/main_signup_btn"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/join_game"
-        android:layout_marginBottom="16dp" />
+        android:layout_gravity="center"
+        android:text="Signup"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:translationX="10dp"
+        app:iconPadding="30dp"></Button>
 
-    <Button
-        android:id="@+id/button_instructions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/instructions"
-        android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/button_friends_stats"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/friends_stats"
-        android:layout_marginBottom="16dp" />
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

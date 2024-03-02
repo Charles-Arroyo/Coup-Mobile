@@ -23,7 +23,7 @@ public class RegistrationLogic implements IVolleyListener {
     }
 
     public void registerUser(String name, String email, String password) throws JSONException {
-        final String url = "http://10.0.2.2:8080/";
+        final String url = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
         JSONObject newUserObj = new JSONObject();
         newUserObj.put("name", name);
         newUserObj.put("email", email);
