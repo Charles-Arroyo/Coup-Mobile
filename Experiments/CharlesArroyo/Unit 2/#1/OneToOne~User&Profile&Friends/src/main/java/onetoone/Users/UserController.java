@@ -5,8 +5,6 @@ import onetoone.Friends.FriendRepository;
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -32,22 +30,26 @@ public class UserController {
     FriendRepository friendRepository;
 
     private String success = "{\"message\":\"success\"}";
+
     private String failure = "{\"message\":\"failure\"}";
 
+
+
     @GetMapping(path = "/users")
-    List<User> getAllUsers(){
+    List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @GetMapping(path = "/users/{id}")
-    User getUserById( @PathVariable int id){
+    User getUserById(@PathVariable int id) {
         return userRepository.findById(id);
     }
 
     @PostMapping(path = "/users")
-    String createUser(@RequestBody User user){
-        if (user == null)
-            return failure;
+    String createUser(@RequestBody User user) {
+        if (user == null) {
+            return success;
+        }
         userRepository.save(user);
         return success;
     }
@@ -55,20 +57,32 @@ public class UserController {
     //Path varible == https
 
 
+//    @PostMapping(path = "/signin")
+//    public ResponseEntity<String> signIn(@RequestBody User user){
+//        try {
+//            User foundUser = userRepository.findByEmailId(user.getEmailId());
+//            if(foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+//                return ResponseEntity.ok("success");
+//            } else {
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("failure");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+//        }
+//    }
+
     @PostMapping(path = "/signin")
-    public ResponseEntity<String> signIn(@RequestBody User user){
-        try {
-            User foundUser = userRepository.findByEmailId(user.getEmailId());
-            if(foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
-                return ResponseEntity.ok("success");
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("failure");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+    public String signIn(@RequestBody User user) {
+
+        User foundUser = userRepository.findByEmailId(user.getEmailId());
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+            return success;
+        }else{
+           return failure;
         }
     }
+
 
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable int id, @RequestBody User request){
