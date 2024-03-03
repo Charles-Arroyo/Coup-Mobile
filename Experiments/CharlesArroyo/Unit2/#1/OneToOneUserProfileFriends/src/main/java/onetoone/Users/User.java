@@ -6,6 +6,7 @@ import onetoone.Profiles.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -23,7 +24,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
+
+
     private String emailId;
     private boolean ifActive;
 
@@ -42,8 +47,7 @@ public class User {
     @OneToMany
     private List<Friend> friends = new ArrayList<>();
 
-
-    public User(String name, String emailId, int id,String password) {
+    public User(String name, String emailId, int id,String password, int UniqueID) {
         this.name = name;
         this.emailId = emailId;
         this.ifActive = true;

@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FriendRepository extends JpaRepository<Friend, Long>{
     Friend findById(int id);
 
+
+
     @Transactional
     void deleteById(int id);
 }

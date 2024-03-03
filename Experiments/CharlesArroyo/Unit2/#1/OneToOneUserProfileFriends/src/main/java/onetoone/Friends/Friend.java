@@ -12,13 +12,13 @@ import onetoone.Users.User;
 
 @Entity
 public class Friend {
-    public Friend(String name) {
-        this.name = name;
+    public Friend() {
+
     }
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int id;
-    private String name;
+    private int id; // Primary Key, not exposed to users.
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -27,19 +27,8 @@ public class Friend {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Friend() {
     }
 
     public void setUser(User user) {
