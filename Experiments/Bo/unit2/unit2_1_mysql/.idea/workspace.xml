@@ -4,11 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eace887b-92fc-4a41-967e-d9e5b4f5041e" name="Changes" comment="" />
+    <list default="true" id="eace887b-92fc-4a41-967e-d9e5b4f5041e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Setting/Setting.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Setting/SettingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Setting/SettingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Laptops/Laptop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Laptops/LaptopController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Laptops/LaptopRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Card/CardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Card/CardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/Laptop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/LaptopController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/LaptopRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar.original" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
@@ -23,10 +55,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
     "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/bohte/OneDrive/Desktop/COMS309/coms309/Experiments/Bo/unit2/unit2_1_mysql",
     "node.js.detected.package.eslint": "true",
@@ -46,6 +84,13 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -57,6 +102,8 @@
       <workItem from="1709354626688" duration="151000" />
       <workItem from="1709354915119" duration="142000" />
       <workItem from="1709432904931" duration="756000" />
+      <workItem from="1709434024657" duration="910000" />
+      <workItem from="1709435210679" duration="8998000" />
     </task>
     <servers />
   </component>

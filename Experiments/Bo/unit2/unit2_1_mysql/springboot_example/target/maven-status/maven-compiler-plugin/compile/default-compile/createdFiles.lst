@@ -1,0 +1,10 @@
+onetoone\Card\Card.class
+onetoone\Setting\Setting.class
+onetoone\Main.class
+onetoone\Users\UserController.class
+onetoone\Setting\SettingRepository.class
+onetoone\Users\UserRepository.class
+onetoone\Card\CardRepository.class
+onetoone\Setting\SettingController.class
+onetoone\Users\User.class
+onetoone\Card\CardController.class
