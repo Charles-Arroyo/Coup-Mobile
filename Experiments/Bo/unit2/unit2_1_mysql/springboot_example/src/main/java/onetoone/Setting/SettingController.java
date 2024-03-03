@@ -1,16 +1,17 @@
 package onetoone.Setting;
 
-import java.security.Principal;
-
-import onetoone.Users.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+
 import java.util.Optional;
 
-import onetoone.Setting.Setting;
 
 @RestController
 public class SettingController {
@@ -18,7 +19,7 @@ public class SettingController {
     @Autowired
     SettingRepository settingRepository;
 
-    private String success = "{\"message\":\"true\"}";
+    private String success = "{\"success\":true}";
     private String failure = "{\"message\":\"failure\"}";
 
     public SettingController(SettingRepository settingRepository){
@@ -56,7 +57,7 @@ public class SettingController {
     }
 
 
-    @GetMapping(path = "/Email")
+    @GetMapping(path = "/changeEmail")
 //    public ResponseEntity<String> getSetting(@PathVariable("id") Long settingId) {
 //        // Fetch the setting from the database using the provided ID
 //        Optional<Setting> setting = settingRepository.findById(settingId);
@@ -68,22 +69,29 @@ public class SettingController {
         return settingRepository.findAll();
     }
 
-    @PostMapping(path = "/Email")
+    @PostMapping(path = "/changeEmail")
     String addEmail(@RequestBody Setting setting){
-        if (setting == null)
+        if (setting == null){
             return failure;
-        settingRepository.save(setting);
-        return success;
+        }
+        // Check if the email already exists
+        Optional<Setting> existingSetting = settingRepository.findByupdateEmail(setting.getUpdateEmail());
+        if(existingSetting.isPresent()){
+            return "Email already exists."; // Email exists, so return an appropriate message or handle as desired.
+        } else {
+            settingRepository.save(setting);
+            return "success"; // Again, consider defining what `success` string is.
+        }
     }
 
-    @PutMapping(path = "/Email")
-    String changeEmail(@RequestBody Setting setting){
-//        Setting setting = userRespository.
-        if (setting == null)
-            return failure;
-        settingRepository.save(setting);
-        return success;
-    }
+//    @PutMapping(path = "/changeEmail/{ch}")
+//    String changeEmail(@RequestBody Setting setting){
+////        Setting setting = userRespository.
+//        if (setting == null)
+//            return failure;
+//        settingRepository.save(setting);
+//        return success;
+//    }
 
 
 
