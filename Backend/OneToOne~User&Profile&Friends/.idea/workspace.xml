@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Card/CardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Card/CardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/classes/onetoone/Card/CardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/classes/onetoone/Card/CardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_1_mysql/springboot_example/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_2/springboot_example/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/unit2_2/springboot_example/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/target/classes/onetoone/Users/User.class" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2cv012loMQsaPWYAjlYLAiinBLy" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JAR Application.onetoone-1.0.0.jar.executor": "Run",
+    "Maven.onetoone [clean].executor": "Run",
+    "Maven.onetoone [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Main.executor": "Run",
+    "git-widget-placeholder": "login2",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/bohte/OneDrive/Desktop/temp/OneToOne~User&Profile&Friends",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/onetoone" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/onetoone/Laptops" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Main">
+    <configuration name="onetoone-1.0.0.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/onetoone-1.0.0.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="onetoone" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="onetoone.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="" />
+      <created>1708976526529</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708976526529</updated>
+      <workItem from="1708976528020" duration="143000" />
+      <workItem from="1708976674069" duration="350000" />
+      <workItem from="1708977029899" duration="1542000" />
+      <workItem from="1708979062954" duration="177000" />
+      <workItem from="1708979244589" duration="3556000" />
+      <workItem from="1708987387770" duration="3530000" />
+      <workItem from="1708996363878" duration="10942000" />
+      <workItem from="1709055352867" duration="2466000" />
+      <workItem from="1709153734816" duration="1413000" />
+      <workItem from="1709155294658" duration="2144000" />
+      <workItem from="1709161596558" duration="4956000" />
+      <workItem from="1709166854309" duration="8387000" />
+      <workItem from="1709277358508" duration="33000" />
+      <workItem from="1709277536403" duration="740000" />
+      <workItem from="1709278283874" duration="13282000" />
+      <workItem from="1709350218099" duration="1543000" />
+      <workItem from="1709351769839" duration="2018000" />
+      <workItem from="1709354252834" duration="185000" />
+      <workItem from="1709354448485" duration="20000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../../../../.." />
+    </ignored-roots>
+  </component>
+</project>

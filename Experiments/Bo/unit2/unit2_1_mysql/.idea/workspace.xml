@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="eace887b-92fc-4a41-967e-d9e5b4f5041e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Card/CardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Card/CardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/src/main/java/onetoone/Users/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Card/Card.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Card/CardController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Card/CardRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/Laptop.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/LaptopController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Laptops/LaptopRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/classes/onetoone/Users/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/springboot_example/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unit2_2/springboot_example/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../unit2_2/springboot_example/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Friends/FriendRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Friends/FriendRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Friends/FriendRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Friends/FriendRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit 2/#1/OneToOne~User&amp;Profile&amp;Friends/target/onetoone-1.0.0.jar.original" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2d7MNotkb91vWNUtGZ9zEsNFCPU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Main.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/bohte/OneDrive/Desktop/COMS309/coms309/Experiments/Bo/unit2/unit2_1_mysql",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="onetoone" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="onetoone.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eace887b-92fc-4a41-967e-d9e5b4f5041e" name="Changes" comment="" />
+      <created>1709354625667</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709354625667</updated>
+      <workItem from="1709354626688" duration="151000" />
+      <workItem from="1709354915119" duration="142000" />
+      <workItem from="1709432904931" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
