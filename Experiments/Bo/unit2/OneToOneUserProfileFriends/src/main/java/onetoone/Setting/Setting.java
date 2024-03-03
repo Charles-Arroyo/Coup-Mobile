@@ -27,8 +27,7 @@ public class Setting {
 
     @OneToOne
     // This annotation indicates a one-to-one relationship between the Setting entity and another entity (User).
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    // Specifies the foreign key column (user_id) in the Setting table that references the primary key (id) of the User table.
+    @JoinColumn(name = "user_id")
     private User user;
     // Declares a field of type User. This field represents the user associated with a particular setting.
     // It enables direct access to the User entity associated with this Setting entity in the application code.

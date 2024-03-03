@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../OneToOne~User&amp;Profile&amp;Friends/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../unit2_1_mysql/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../unit2_1_mysql/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Setting/Setting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Main.executor": "Run",
+    "Spring Boot.Main.executor": "Debug",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -115,7 +114,7 @@
       <workItem from="1709412882699" duration="808000" />
       <workItem from="1709413879245" duration="3403000" />
       <workItem from="1709436552211" duration="11209000" />
-      <workItem from="1709450143244" duration="23000" />
+      <workItem from="1709450143244" duration="335000" />
     </task>
     <servers />
   </component>
