@@ -1,0 +1,171 @@
+package onetoone.Users;
+
+import onetoone.Friends.Friend;
+import onetoone.Friends.FriendRepository;
+import onetoone.Profiles.Profile;
+import onetoone.Profiles.ProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.List;
+
+
+/**
+ * 
+ * @author Charles Arroyo
+ * 
+ */ 
+
+@RestController
+public class UserController {
+
+
+
+    @Autowired
+    UserRepository userRepository; //Creating a repository(mySQL of users)
+
+    @Autowired
+    ProfileRepository profileRepository; //Creating a repository(mySQL of profiles)
+
+    @Autowired
+    FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
+
+    private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
+
+    private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
+
+
+    /**
+     * Gets all users in the user repo
+     * @return
+     */
+    @GetMapping(path = "/users")
+    List<User> getAllUsers() {
+        return userRepository.findAll();
+
+
+    }
+
+    /**
+     * Gets a user based on unique ID
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/users/{id}")
+    User getUserById(@PathVariable int id) {
+        return userRepository.findById(id);
+    }
+
+    /**
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(path = "/signup")
+    String signUp(@RequestBody User user) {
+        if (user != null) { //user is not null
+            userRepository.save(user); //Create User and Save
+            return success;
+        }else{ //Null
+            return failure; //Return a Failure
+        }
+    }
+
+    @PostMapping(path = "/addFriend")
+    String addFriend(@RequestBody User user) {
+        User foundUser = userRepository.findByEmailId(user.getEmailId()); // Creates a user object
+            
+            return success;
+
+    }
+
+
+    /**
+     * Checks the repo, and allows user to sign in
+     * @param user
+     * @return
+     */
+    @PostMapping(path = "/signin")
+    public String signIn(@RequestBody User user) { //sends a request body of password & username
+        User foundUser = userRepository.findByEmailId(user.getEmailId()); // Creates a user object with the users email passed in
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+            return success;
+        }else{
+           return failure;
+        }
+    }
+
+    /**
+     * This method finds an existing user, and updates to change username/password. This can be used for
+     * a user settings
+     * @param id
+     * @param request
+     * @return
+     */
+
+    @PutMapping("/users/{id}")
+    User updateUser(@PathVariable int id, @RequestBody User request){
+        User user = userRepository.findById(id);
+        if(user == null)
+            return null;
+        userRepository.save(request);
+        return userRepository.findById(id);
+    }
+
+    /**
+     * This assigns a profile object to a user.
+     * @param userId
+     * @param profileId
+     * @return
+     */
+    @PutMapping("/users/{userId}/profiles/{profileId}")
+    String assignProfileToUser(@PathVariable int userId,@PathVariable int profileId){
+        User user = userRepository.findById(userId);
+        Profile profile = profileRepository.findById(profileId);
+        if(user == null || profile == null) {
+            return failure;
+        }else {
+            profile.setUser(user);
+            user.setProfile(profile);
+            userRepository.save(user);
+            return success;
+        }
+    }
+
+    /**
+     * This assigns friend to a user
+     * @param userId
+     * @param friendId
+     * @return
+     */
+
+        @PutMapping("/users/{userId}/friends/{friendId}")
+        String assignFriendToUser(@PathVariable int userId,@PathVariable int friendId) {
+            User user = userRepository.findById(userId);
+            Friend friend = friendRepository.findById(friendId);
+            if (user == null || friend == null){
+                return failure;
+            }else
+            {
+                friend.setUser(user);
+                user.addFriends(friend);
+                userRepository.save(user);
+                return success;
+            }
+
+
+
+    }
+
+    /**
+     * Deletes a user, can be used in the user setting ss
+     * @param id
+     * @return
+     */
+    @DeleteMapping(path = "/users/{id}")
+    String deleteUser(@PathVariable int id){
+        userRepository.deleteById(id);
+        return success;
+    }
+}
