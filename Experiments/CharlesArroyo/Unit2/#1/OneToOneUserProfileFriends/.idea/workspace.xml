@@ -7,9 +7,9 @@
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
@@ -131,7 +131,8 @@
       <workItem from="1709521834560" duration="19310000" />
       <workItem from="1709551134341" duration="51000" />
       <workItem from="1709551200526" duration="52000" />
-      <workItem from="1709551508385" duration="2620000" />
+      <workItem from="1709551508385" duration="3565000" />
+      <workItem from="1709555086298" duration="2206000" />
     </task>
     <servers />
   </component>

@@ -19,8 +19,9 @@ public class FriendController {
     @Autowired
     FriendRepository friendRepository; // Adjusted to use FriendRepository
     UserRepository userRepository;
-    private String success = "{\"message\":\"success\"}";
-    private String failure = "{\"message\":\"failure\"}";
+    private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
+
+    private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
     @GetMapping(path = "/friends")
     List<Friend> getAllFriends(){
@@ -42,13 +43,17 @@ public class FriendController {
 //        return ResponseEntity.ok(friends);
 //    }
 
-    @DeleteMapping("/deleteFriend/{id}")
-    String deleteFriendRelationship(@PathVariable int id){
-        friendRepository.deleteById(id);
+    @DeleteMapping("/deleteFriend/{friendEmail1}/{friendEmail2}")
+   String deleteFriendRelationship(@PathVariable String friendEmail1, @PathVariable String friendEmail2){
+        List<Friend> friends = friendRepository.findByFriendEmail1AndFriendEmail2(friendEmail1,friendEmail2);
+        if (friends.isEmpty()) {
+            return failure; // Returns a 404 if no friends are found
+        }
+      for(Friend friend : friends){
+          friendRepository.deleteById(friend.getId());
+      }
         return success;
     }
-
-
 
 
     /**
