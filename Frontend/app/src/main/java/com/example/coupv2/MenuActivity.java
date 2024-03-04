@@ -15,7 +15,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button settingsButton;
     private Button statsButton;
     private Button rulesButton;
-    
+    private Button backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class MenuActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
-
+        backButton = findViewById(R.id.back_button);
         // Set up click listeners for each button
 
 
@@ -67,6 +67,14 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Start the statistics activity
                 Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the rules activity
+                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
