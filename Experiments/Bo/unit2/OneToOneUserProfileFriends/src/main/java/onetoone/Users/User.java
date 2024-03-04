@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import onetoone.Setting.Setting;
+import onetoone.game.Game;
 
 /**
  * 
@@ -50,6 +51,11 @@ public class User {
     @JoinColumn(name = "setting_id")
     @JsonManagedReference
     private Setting setting;
+
+    @OneToOne
+    @JoinColumn(name = "game_id")
+    @JsonManagedReference
+    private Game game;
 
 
     @OneToMany
@@ -143,6 +149,12 @@ public class User {
     public void setSetting(Setting setting) {
         this.setting = setting;
         setting.setUser(this); // Ensure the bidirectional link is established
+    }
+
+    public Game getGame(){return game;}
+    public void setGaming(Game game) {
+        this.game = game;
+        game.setUser(this); // Ensure the bidirectional link is established
     }
 
 

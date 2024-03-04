@@ -6,6 +6,8 @@ import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import onetoone.Setting.Setting;
 import onetoone.Setting.SettingRepository;
+import onetoone.game.Game;
+import onetoone.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,9 @@ public class UserController {
 
     @Autowired
     SettingRepository settingRepository;
+    @Autowired
+    GameRepository gameRepository;
+
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
@@ -74,18 +79,19 @@ public class UserController {
             // User already exists
             return failure;
         } else {
-            // No user found, proceed with sign-up
-            Setting newSetting = new Setting();
-            // Set default values for the newSetting object if necessary
 
-            // Save the new Setting to generate an ID (assuming this happens automatically upon saving)
+            Setting newSetting = new Setting(); // Assume default properties are set in the constructor
+            Game newGame = new Game();
+            // Initialize newGame properties...
+            gameRepository.save(newGame);
             settingRepository.save(newSetting);
 
-            // Associate the new Setting with the user
-            user.setSetting(newSetting);
+            User newUser = new User();
+            newUser.setGaming(newGame); // Assuming setUser correctly sets up the relationship
+            newUser.setSetting(newSetting);
+            // Initialize other newUser properties...
+            userRepository.save(newUser);
 
-            // Save the new User along with the associated Setting
-            userRepository.save(user);
 
             // Return a success response
             return success;
@@ -179,17 +185,6 @@ public class UserController {
 
     }
 
-    public User createUser(User user) {
-        // Create and set the User's Setting here
-        Setting setting = new Setting();
-        // Initialize setting properties if needed
-
-        user.setSetting(setting); // Associate setting with user
-        setting.setUser(user); // Link back the user to the setting, if bidirectional
-
-        settingRepository.save(setting); // Persist the setting
-        return userRepository.save(user); // Save the user, which now includes the setting
-    }
 
     /**
      * Deletes a user, can be used in the user setting ss
@@ -207,9 +202,9 @@ public class UserController {
     public int getUserIdByEmail(@PathVariable String email) {
         User user = userRepository.findByEmailId(email);
         if (user != null) {
-            return user.getId();
+            return user.getSetting().getId();
         } else {
-            return 1;
+            return -1;
         }
     }
 

@@ -6,6 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Setting/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Setting/SettingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Setting/SettingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/game/GameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/game/GameRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Setting/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Setting/SettingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Setting/SettingRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Setting/SettingRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +137,7 @@
       <workItem from="1709436552211" duration="11209000" />
       <workItem from="1709450143244" duration="21748000" />
       <workItem from="1709539338606" duration="1471000" />
-      <workItem from="1709540818857" duration="5834000" />
+      <workItem from="1709540818857" duration="11449000" />
     </task>
     <servers />
   </component>

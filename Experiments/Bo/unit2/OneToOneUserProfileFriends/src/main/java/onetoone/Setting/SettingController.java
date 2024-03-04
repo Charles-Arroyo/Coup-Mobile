@@ -48,30 +48,6 @@ public class SettingController {
         return success;
     }
 
-
-//    @PutMapping(path = "/changePass/{userPass}")
-//    @Transactional
-//    public String changePassword(@PathVariable Long userPass, @RequestBody Setting updatedSetting) {
-//        if (updatedSetting.getUpdatePassword() == null) {
-//            return failure;
-//        }
-//
-//        Setting setting = settingRepository.findById(userPass)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
-//
-//        User user = setting.getUser();
-//
-//        if (user == null) {
-//            return failure;
-//        }
-//
-//        user.setPassword(updatedSetting.getUpdatePassword());
-//        userRepository.save(user);
-//
-//        return success;
-//    }
-
-
     @PutMapping(path = "/changePass/{userId}")
     @Transactional
     public ResponseEntity<String> changePassword(@PathVariable Long userId, @RequestBody Setting updatedSetting) {

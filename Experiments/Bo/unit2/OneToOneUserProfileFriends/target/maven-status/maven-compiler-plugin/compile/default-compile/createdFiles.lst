@@ -3,11 +3,14 @@ onetoone\Friends\Friend.class
 onetoone\Friends\FriendRepository.class
 onetoone\Profiles\Profile.class
 onetoone\Main.class
+onetoone\game\Game.class
 onetoone\Users\User.class
 onetoone\Setting\Setting.class
 onetoone\Profiles\ProfileRepository.class
 onetoone\Users\UserController.class
+onetoone\game\GameRepository.class
 onetoone\Setting\SettingRepository.class
 onetoone\Users\UserRepository.class
 onetoone\Setting\SettingController.class
+onetoone\game\GameController.class
 onetoone\Profiles\ProfileController.class
