@@ -1,8 +1,11 @@
 package com.example.coupv2;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
@@ -19,6 +22,7 @@ public class StatsActivity extends AppCompatActivity {
 
     private TextView playerEmail, playerWins, playerLosses, playerGamesPlayed;
     private String currentUserEmail;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +40,18 @@ public class StatsActivity extends AppCompatActivity {
 
         // Now fetch the primary key using the current user's email
         fetchPrimaryKey(currentUserEmail);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the rules activity
+                Intent intent = new Intent(StatsActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void fetchPrimaryKey(String email) {
-        String url = "http://yourbackend.com/api/getPrimaryKey/" + Uri.encode(email);
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(email);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
