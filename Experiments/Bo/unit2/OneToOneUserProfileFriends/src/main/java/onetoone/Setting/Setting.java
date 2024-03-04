@@ -16,8 +16,8 @@ public class Setting {
     private int id;
 
     private String updateEmail;
-    private Boolean soundEffect;
-    //this is the sound effect, true or false
+    private String updatePassword;
+
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -28,8 +28,9 @@ public class Setting {
 
 
 
-    public Setting(String updateEmail){
+    public Setting(String updateEmail,String updatePassword){
         this.updateEmail = updateEmail;
+        this.updatePassword = updatePassword;
     }
     public Setting(){
     }
@@ -46,6 +47,9 @@ public class Setting {
         return this.updateEmail;
     }
 
+    public String getUpdatePassword(){return this.updatePassword;}
+
+
     public void setUpdateEmail(String updateEmail) {
         this.updateEmail = updateEmail;
         if (this.user != null) {
@@ -53,27 +57,17 @@ public class Setting {
         }
     }
 
+    public void setUpdatePassword(String updatePassword) {
+        this.updatePassword = updatePassword;
+        if (this.user != null) {
+            this.user.setPassword(updatePassword);
+        }
+    }
 
-//    public String getUpdateEmail() {
-//        return updateEmail;
-//    }
-//
-//    public void setUpdateEmail(String updateEmail) {
-//        this.updateEmail = updateEmail;
-//    }
-
-//    public Boolean getSoundEffect() {
-//        return soundEffect;
-//    }
-//
-//    public void setSoundEffect(Boolean soundEffect) {
-//        this.soundEffect = soundEffect;
-//    }
 
 
     public void setUser(User user){
         this.user = user;
-
     }
 
     public User getUser(){

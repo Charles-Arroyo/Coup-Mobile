@@ -64,23 +64,6 @@ public class UserController {
 
 
 
-
-    /**
-     * @param user
-     * @return
-     */
-//    @PostMapping(path = "/signup")
-//    String signUp(@RequestBody User user) {
-//        if (user != null) { //user is not null
-//            userRepository.save(user); //Create User and Save
-//
-//
-//            return success;
-//        }else{ //Null
-//            return failure; //Return a Failure
-//        }
-//    }
-
     @PostMapping(path = "/signup")
     public String signUp(@RequestBody User user) {
         // Check if a user with the provided email already exists
@@ -95,7 +78,6 @@ public class UserController {
             Setting newSetting = new Setting();
             // Set default values for the newSetting object if necessary
 
-//            newSetting.setUser(user);
             // Save the new Setting to generate an ID (assuming this happens automatically upon saving)
             settingRepository.save(newSetting);
 
@@ -219,4 +201,16 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
+
+    // Endpoint to get a user's ID based on their email
+    @GetMapping("/getId/{email}")
+    public int getUserIdByEmail(@PathVariable String email) {
+        User user = userRepository.findByEmailId(email);
+        if (user != null) {
+            return user.getId();
+        } else {
+            return 1;
+        }
+    }
+
 }
