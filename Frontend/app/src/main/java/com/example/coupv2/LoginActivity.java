@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
+import com.example.coupv2.utils.Const;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
                                 mainIntent.putExtra("EMAIL", emailId);
                                 startActivity(mainIntent);
+                                Const.setCurrentEmail(emailId);
                             } else {
                                 // Failed login
                                 Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();

@@ -1,11 +1,12 @@
 package com.example.coupv2;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.coupv2.utils.Const;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +24,7 @@ public class SettingActivity extends AppCompatActivity {
     //variables
     private EditText userNameText;
     private Button updateUser;
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/{ch}";
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class SettingActivity extends AppCompatActivity {
     private void updateUserSettings(String userEmail) {
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("userId", userId); // Assuming you have the userId stored locally after login
+            jsonRequest.put("userEmail", Const.getCurrentEmail());// Assuming you have the userId stored locally after login
             jsonRequest.put("updateEmail", userEmail); // newEmail is the updated email provided by the user
         } catch (JSONException e) {
             e.printStackTrace();
