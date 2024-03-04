@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SignupActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,16 +18,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="username: "
+            android:text="Email: "
             android:textColor="#000000"
             android:textSize="20dp"></TextView>
 
         <EditText
-            android:id="@+id/signup_username_edt"
+            android:id="@+id/signup_email_edt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
-            android:hint="Enter Username Here"></EditText>
+            android:hint="Enter Email Here"
+            android:inputType="textEmailAddress"></EditText>
 
     </LinearLayout>
 
@@ -41,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="password: "
+            android:text="Password: "
             android:textColor="#000000"
             android:textSize="20dp"></TextView>
 
@@ -59,31 +60,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="70sp"
-            android:gravity="center"
-            android:text="confirm\npassword: "
-            android:textColor="#000000"
-            android:textSize="20dp"></TextView>
-
-        <EditText
-            android:id="@+id/signup_confirm_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:hint="Enter Password Here"
-            android:inputType="textPassword"></EditText>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
         android:orientation="horizontal">
 
         <Button
@@ -107,6 +83,5 @@
             android:textSize="20sp"></Button>
 
     </LinearLayout>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

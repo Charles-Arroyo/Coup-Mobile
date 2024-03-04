@@ -23,8 +23,7 @@ public class SettingActivity extends AppCompatActivity {
     //variables
     private EditText userNameText;
     private Button updateUser;
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail" +
-            "";
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/{ch}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +42,11 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUserSettings(String username) {
+    private void updateUserSettings(String userEmail) {
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("updateEmail", username);
+            jsonRequest.put("userId", userId); // Assuming you have the userId stored locally after login
+            jsonRequest.put("updateEmail", userEmail); // newEmail is the updated email provided by the user
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
