@@ -27,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
 
-    private static final String URL_JSON_OBJECT = "https://d1869ff7-8c0f-45b8-9f60-49943d078a92.mock.pstmn.io";
-//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+//    private static final String URL_JSON_OBJECT = "https://d1869ff7-8c0f-45b8-9f60-49943d078a92.mock.pstmn.io";
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
     // success
 //    private static final String URL_JSON_OBJECT = "https://fc027c91-5b3c-49e3-8239-a0223c763b2a.mock.pstmn.io";
     //fail

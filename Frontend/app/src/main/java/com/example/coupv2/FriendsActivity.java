@@ -41,9 +41,9 @@ public class FriendsActivity extends AppCompatActivity {
     private static final String URL_ADD_FRIEND = "http://10.90.73.176:8080/createFriend";
 
     private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/deleteFriend/?friendEmail2=";
-//    private static final String URL_REFRESH_FRIENDS = "http://10.90.73.176:8080/getFriend/";
+    private static final String URL_REFRESH_FRIENDS = "http://10.90.73.176:8080/getFriends/";
 
-    private static final String URL_REFRESH_FRIENDS = "https://529b5ed2-87db-46c0-94b1-ae697d03b3ad.mock.pstmn.io";
+//    private static final String URL_REFRESH_FRIENDS = "https://529b5ed2-87db-46c0-94b1-ae697d03b3ad.mock.pstmn.io";
 
     private EditText friendEmailEditText; // Changed from friendNumberEditText
     private ListView friendsListView;
@@ -153,7 +153,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     // Method to perform DELETE request to delete a friend
     private void performDeleteFriendRequest(String friendEmail) {
-        String deleteUrl = URL_DELETE_FRIEND + "?friendEmail2=" + friendEmail;
+        String deleteUrl = URL_DELETE_FRIEND + "/" + friendEmail + "/" + userEmail;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, deleteUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -189,25 +189,21 @@ public class FriendsActivity extends AppCompatActivity {
         performRefreshRequest();
     }
 
+    // Method to perform GET request to refresh the friend list
     private void performRefreshRequest() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS + userEmail, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray friendsArray = response.getJSONArray("friends");
+                            JSONArray friendsArray = response.getJSONArray("friend");
                             List<String> formattedFriendsList = new ArrayList<>();
-
-                            // Iterate through each object in the array
                             for (int i = 0; i < friendsArray.length(); i++) {
-                                JSONObject friendObject = friendsArray.getJSONObject(i);
-
-                                String email = friendObject.getString("friendEmail2");
-
-                                formattedFriendsList.add(email);
+                                JSONObject friend = friendsArray.getJSONObject(i);
+                                String email = friend.getString("friendEmail2");
+                                String formattedFriend =  "Friend: " + email;
+                                formattedFriendsList.add(formattedFriend);
                             }
-
-                            // Populate list view with extracted email addresses
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(FriendsActivity.this, android.R.layout.simple_list_item_1, formattedFriendsList);
                             friendsListView.setAdapter(adapter);
                         } catch (JSONException e) {
@@ -215,7 +211,6 @@ public class FriendsActivity extends AppCompatActivity {
                             Toast.makeText(FriendsActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -226,5 +221,6 @@ public class FriendsActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
+
 
 }
