@@ -2,12 +2,14 @@ package onetoone.Users;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
-import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +23,6 @@ import java.util.List;
 public class UserController {
 
 
-
     @Autowired
     UserRepository userRepository; //Creating a repository(mySQL of users)
 
@@ -33,22 +34,22 @@ public class UserController {
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
-    private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
+    private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
 
     /**
      * Gets all users in the user repo
+     *
      * @return
      */
     @GetMapping(path = "/users")
     List<User> getAllUsers() {
         return userRepository.findAll();
-
-
     }
 
     /**
      * Gets a user based on unique ID
+     *
      * @param id
      * @return
      */
@@ -57,27 +58,42 @@ public class UserController {
         return userRepository.findById(id);
     }
 
+
+//    /**
+//     * This returns all friends associated with the email
+//     * @param
+//     * @return
+//     */
+//    @PostMapping(path = "/listFriends")
+//    ArrayList<String> getUserFriends(@RequestBody User userEmail) {
+//        ArrayList<String> list = new ArrayList<>();
+//        User user = userRepository.findByUserEmail(userEmail.getUserEmail());
+//        if (user == null) {
+//            // Handle the case where the user does not exist
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+//        }
+//
+//        List<Friend> friends = friendRepository.findByFriendEmail1(user.getUserEmail());
+//
+//        for (Friend friend : friends) {
+//            list.add((friend.getFriendEmail2()));
+//        }
+//        return list;
+//    }
+
     /**
-     *
+     * Creates a user, need to account for same emails
      * @param user
      * @return
      */
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
-        if (user != null) { //user is not null
+        if (user != null ) { //user is not null
             userRepository.save(user); //Create User and Save
             return success;
         }else{ //Null
             return failure; //Return a Failure
         }
-    }
-
-    @PostMapping(path = "/addFriend")
-    String addFriend(@RequestBody User user) {
-        User foundUser = userRepository.findByEmailId(user.getEmailId()); // Creates a user object
-            
-            return success;
-
     }
 
 
@@ -88,7 +104,7 @@ public class UserController {
      */
     @PostMapping(path = "/signin")
     public String signIn(@RequestBody User user) { //sends a request body of password & username
-        User foundUser = userRepository.findByEmailId(user.getEmailId()); // Creates a user object with the users email passed in
+        User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return success;
         }else{
@@ -103,7 +119,6 @@ public class UserController {
      * @param request
      * @return
      */
-
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable int id, @RequestBody User request){
         User user = userRepository.findById(id);
@@ -113,50 +128,26 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    /**
-     * This assigns a profile object to a user.
-     * @param userId
-     * @param profileId
-     * @return
-     */
-    @PutMapping("/users/{userId}/profiles/{profileId}")
-    String assignProfileToUser(@PathVariable int userId,@PathVariable int profileId){
-        User user = userRepository.findById(userId);
-        Profile profile = profileRepository.findById(profileId);
-        if(user == null || profile == null) {
-            return failure;
-        }else {
-            profile.setUser(user);
-            user.setProfile(profile);
-            userRepository.save(user);
-            return success;
+
+    @PostMapping(path = "/createFriend")
+    String createFriendRelationship(@RequestBody Friend friend){ //creating table
+
+        User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
+        User user2 = userRepository.findByUserEmail(friend.getFriendEmail2()); // Creates second temp user object with second email
+
+//        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
+//            return failure;
+//        }
+
+        if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
+            return "Friendship exists";
         }
+
+        friendRepository.save(friend);
+        return success;
     }
 
-    /**
-     * This assigns friend to a user
-     * @param userId
-     * @param friendId
-     * @return
-     */
 
-        @PutMapping("/users/{userId}/friends/{friendId}")
-        String assignFriendToUser(@PathVariable int userId,@PathVariable int friendId) {
-            User user = userRepository.findById(userId);
-            Friend friend = friendRepository.findById(friendId);
-            if (user == null || friend == null){
-                return failure;
-            }else
-            {
-                friend.setUser(user);
-                user.addFriends(friend);
-                userRepository.save(user);
-                return success;
-            }
-
-
-
-    }
 
     /**
      * Deletes a user, can be used in the user setting ss
