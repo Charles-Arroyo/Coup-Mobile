@@ -81,7 +81,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void fetchUserStats(int primaryKey) {
-        String urlWithPrimaryKey = "http://yourbackend.com/api/fetchStats/" + primaryKey;
+        String urlWithPrimaryKey = "http://coms-309-023.class.las.iastate.edu:8080/gameStats" + primaryKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlWithPrimaryKey, null,
                 response -> {
