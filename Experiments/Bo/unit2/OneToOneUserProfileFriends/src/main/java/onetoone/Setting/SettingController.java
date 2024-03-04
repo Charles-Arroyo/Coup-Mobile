@@ -2,7 +2,10 @@ package onetoone.Setting;
 
 import java.util.List;
 
+import jakarta.persistence.EntityNotFoundException;
+import onetoone.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,12 +15,18 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
+import onetoone.Users.UserRepository;
+import onetoone.Users.User;
+
+
 
 @RestController
 public class SettingController {
 
     @Autowired
     SettingRepository settingRepository;
+    @Autowired
+    UserRepository userRepository;
 
     private String success = "{\"success\":true}";
     private String failure = "{\"message\":\"failure\"}";
@@ -56,33 +65,59 @@ public class SettingController {
         return success;
     }
 
-
-    @GetMapping(path = "/changeEmail")
-//    public ResponseEntity<String> getSetting(@PathVariable("id") Long settingId) {
-//        // Fetch the setting from the database using the provided ID
-//        Optional<Setting> setting = settingRepository.findById(settingId);
 //
-//        return setting.map(s -> ResponseEntity.ok(s.toString()))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    @GetMapping(path = "/changeEmail")
+////    public ResponseEntity<String> getSetting(@PathVariable("id") Long settingId) {
+////        // Fetch the setting from the database using the provided ID
+////        Optional<Setting> setting = settingRepository.findById(settingId);
+////
+////        return setting.map(s -> ResponseEntity.ok(s.toString()))
+////                .orElseGet(() -> ResponseEntity.notFound().build());
+////    }
+//    List<Setting> getAllSetting(){
+//        return settingRepository.findAll();
 //    }
-    List<Setting> getAllSetting(){
-        return settingRepository.findAll();
+//
+//    @PostMapping(path = "/changeEmail")
+//    String addEmail(@RequestBody Setting setting){
+//        if (setting == null){
+//            return failure;
+//        }
+//        // Check if the email already exists
+//        Optional<Setting> existingSetting = settingRepository.findByupdateEmail(setting.getUpdateEmail());
+//        if(existingSetting.isPresent()){
+//            return "Email already exists."; // Email exists, so return an appropriate message or handle as desired.
+//        } else {
+//            settingRepository.save(setting);
+//            return "success"; // Again, consider defining what `success` string is.
+//        }
+//    }
+
+    @Transactional // Marks the method to be executed within a transactional context.
+    public void updateUserEmailFromSetting(Long settingId) {
+        // Find the Setting entity by its ID. If not found, throw an EntityNotFoundException.
+        Setting setting = settingRepository.findById(settingId)
+                .orElseThrow(() -> new EntityNotFoundException("Setting not found"));
+
+        // Check if the Setting entity contains a non-null updateEmail value.
+        if (setting.getUpdateEmail() != null) {
+            // Retrieve the User entity associated with this Setting.
+            User user = setting.getUser(); // Assuming there's a getUser() in Setting that returns the associated User.
+
+            // Update the User's email with the new email from Setting.
+            user.setEmailId(setting.getUpdateEmail());
+
+            // Save the updated User entity back to the database.
+            userRepository.save(user);
+        }
     }
 
-    @PostMapping(path = "/changeEmail")
-    String addEmail(@RequestBody Setting setting){
-        if (setting == null){
-            return failure;
-        }
-        // Check if the email already exists
-        Optional<Setting> existingSetting = settingRepository.findByupdateEmail(setting.getUpdateEmail());
-        if(existingSetting.isPresent()){
-            return "Email already exists."; // Email exists, so return an appropriate message or handle as desired.
-        } else {
-            settingRepository.save(setting);
-            return "success"; // Again, consider defining what `success` string is.
-        }
+    public Setting getSettingForUser(int userId) {
+        return settingRepository.findByUserId(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Setting not found for user: " + userId));
     }
+
+
 
 //    @PutMapping(path = "/changeEmail/{ch}")
 //    String changeEmail(@RequestBody Setting setting){

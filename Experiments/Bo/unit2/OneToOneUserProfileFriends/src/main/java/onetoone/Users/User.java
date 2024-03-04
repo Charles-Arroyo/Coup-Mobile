@@ -7,6 +7,7 @@ import onetoone.Profiles.Profile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import onetoone.Setting.Setting;
 
 /**
  * 
@@ -43,6 +44,11 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private Profile profile;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "setting_id", referencedColumnName = "id")
+    private Setting setting;
+
 
     @OneToMany
     private List<Friend> friends = new ArrayList<>();
@@ -125,6 +131,14 @@ public class User {
 
     public void setFriend(Friend friend) {
 
+    }
+
+    public void setUserSetting(Setting setting){
+        this.setting = setting;
+    }
+
+    public Setting getUserSetting(){
+        return setting;
     }
 }
 

@@ -1,16 +1,9 @@
 package onetoone.Setting;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
-import jakarta.persistence.JoinColumn;
 // this will connect the foreign key to the user database
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import onetoone.Users.User;
 
@@ -25,16 +18,15 @@ public class Setting {
     private Boolean soundEffect;
     //this is the sound effect, true or false
 
-    @OneToOne
+    @OneToOne(mappedBy = "setting", fetch = FetchType.LAZY)
     // This annotation indicates a one-to-one relationship between the Setting entity and another entity (User).
-    @JoinColumn(name = "user_id")
     private User user;
     // Declares a field of type User. This field represents the user associated with a particular setting.
     // It enables direct access to the User entity associated with this Setting entity in the application code.
 
 
-    public Setting(Boolean soundEffect,String updateEmail){
-        this.soundEffect = soundEffect;
+
+    public Setting(String updateEmail){
         this.updateEmail = updateEmail;
     }
     public Setting(){
@@ -64,7 +56,19 @@ public class Setting {
         this.soundEffect = soundEffect;
     }
 
+
+
     public void setUser(User user){
         this.user = user;
     }
+
+    public User getUser(){
+        return user;
+    }
+
+
+
+
+
+
 }

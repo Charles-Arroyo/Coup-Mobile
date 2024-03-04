@@ -4,12 +4,13 @@ import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
 import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
+import onetoone.Setting.Setting;
+import onetoone.Setting.SettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-
 
 /**
  * 
@@ -31,6 +32,8 @@ public class UserController {
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
 
+    @Autowired
+    SettingRepository settingRepository;
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
@@ -44,8 +47,9 @@ public class UserController {
     List<User> getAllUsers() {
         return userRepository.findAll();
 
-
     }
+
+
 
     /**
      * Gets a user based on unique ID
@@ -156,6 +160,18 @@ public class UserController {
 
 
 
+    }
+
+    public User createUser(User user) {
+        // Create and set the User's Setting here
+        Setting setting = new Setting();
+        // Initialize setting properties if needed
+
+        user.setUserSetting(setting); // Associate setting with user
+        setting.setUser(user); // Link back the user to the setting, if bidirectional
+
+        settingRepository.save(setting); // Persist the setting
+        return userRepository.save(user); // Save the user, which now includes the setting
     }
 
     /**
