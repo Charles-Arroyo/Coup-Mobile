@@ -7,11 +7,11 @@ import onetoone.Profiles.ProfileRepository;
 import onetoone.Setting.Setting;
 import onetoone.Setting.SettingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * 
@@ -63,35 +63,53 @@ public class UserController {
     }
 
 
-    // Example method for generating a setting ID. Implementation depends on your requirements.
-    private Integer generateSettingId() {
-        // Generate a unique ID for the user setting. This is just a placeholder.
-        // The actual implementation would depend on how you're managing IDs.
-        return new Random().nextInt();
-    }
+
 
     /**
-     *
      * @param user
      * @return
      */
+//    @PostMapping(path = "/signup")
+//    String signUp(@RequestBody User user) {
+//        if (user != null) { //user is not null
+//            userRepository.save(user); //Create User and Save
+//
+//
+//            return success;
+//        }else{ //Null
+//            return failure; //Return a Failure
+//        }
+//    }
+
     @PostMapping(path = "/signup")
-    String signUp(@RequestBody User user) {
-        if (user != null) { //user is not null
-            Integer settingId = generateSettingId();
-            userRepository.save(user); //Create User and Save
+    public String signUp(@RequestBody User user) {
+        // Check if a user with the provided email already exists
+        User foundUser = userRepository.findByEmailId(user.getEmailId());
 
-            Setting userSetting = new Setting();
-            userSetting.setId(settingId);
+        // If a user is found, and the passwords match, it means they are already signed up
+        if (foundUser != null) {
+            // User already exists
+            return failure;
+        } else {
+            // No user found, proceed with sign-up
+            Setting newSetting = new Setting();
+            // Set default values for the newSetting object if necessary
 
-            // Set the userSetting on the user object
-            user.setSetting(userSetting);
+//            newSetting.setUser(user);
+            // Save the new Setting to generate an ID (assuming this happens automatically upon saving)
+            settingRepository.save(newSetting);
 
+            // Associate the new Setting with the user
+            user.setSetting(newSetting);
+
+            // Save the new User along with the associated Setting
+            userRepository.save(user);
+
+            // Return a success response
             return success;
-        }else{ //Null
-            return failure; //Return a Failure
         }
     }
+
 
     @PostMapping(path = "/addFriend")
     String addFriend(@RequestBody User user) {

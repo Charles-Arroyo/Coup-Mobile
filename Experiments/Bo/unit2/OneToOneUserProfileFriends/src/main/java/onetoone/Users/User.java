@@ -46,7 +46,8 @@ public class User {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "setting_id")
     @JsonManagedReference
     private Setting setting;
 
@@ -138,10 +139,13 @@ public class User {
         return setting;
     }
 
+
     public void setSetting(Setting setting) {
         this.setting = setting;
         setting.setUser(this); // Ensure the bidirectional link is established
     }
+
+
 }
 
 

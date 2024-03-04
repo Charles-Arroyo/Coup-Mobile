@@ -73,6 +73,7 @@ public class Setting {
 
     public void setUser(User user){
         this.user = user;
+
     }
 
     public User getUser(){

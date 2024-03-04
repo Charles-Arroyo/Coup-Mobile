@@ -1,8 +1,5 @@
 package onetoone.Setting;
 
-import java.util.List;
-
-import jakarta.persistence.EntityNotFoundException;
 import onetoone.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Optional;
-
 import onetoone.Users.UserRepository;
-import onetoone.Users.User;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -136,9 +130,9 @@ public class SettingController {
 
     @PutMapping(path = "/changeEmail/{settingId}")
     @Transactional
-    public ResponseEntity<?> changeEmail(@PathVariable Long settingId, @RequestBody Setting updatedSetting) {
+    public String changeEmail(@PathVariable Long settingId, @RequestBody Setting updatedSetting) {
         if (updatedSetting.getUpdateEmail() == null) {
-            return ResponseEntity.badRequest().body("Invalid request data");
+            return failure;
         }
 
         Setting setting = settingRepository.findById(settingId)
@@ -146,13 +140,13 @@ public class SettingController {
 
         User user = setting.getUser();
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            return failure;
         }
 
         user.setEmailId(updatedSetting.getUpdateEmail());
         userRepository.save(user);
 
-        return ResponseEntity.ok("Email updated successfully");
+        return success;
     }
 
 
