@@ -1,5 +1,6 @@
 package com.example.coupv2;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.ParseError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.coupv2.utils.Const;
 
 
@@ -21,60 +23,83 @@ import com.example.coupv2.app.AppController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class SettingActivity extends AppCompatActivity {
     //variables
     private EditText userNameText;
+    private EditText userPassText;
     private Button updateUser;
+    private Button updatePass;
 
 
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/24";
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/24";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings); // link to Login activity XML
         userNameText = findViewById(R.id.settings_username_edt);
+        userPassText = findViewById(R.id.settings_password_edt);
         updateUser = findViewById(R.id.settings_login_btn);
+        updatePass = findViewById(R.id.settings_pass_btn);
         updateUser.setOnClickListener(v -> {
             String username = userNameText.getText().toString();
+            String currentUser = Const.getCurrentEmail();
             if (!username.isEmpty()) {
                 //this fetches id and updates it
-                fetchPrimaryKeyForEmail(username);
+                fetchPrimaryKeyForEmail(username, currentUser);
+            } else {
+                Toast.makeText(SettingActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
+            }
+        });
+        updatePass.setOnClickListener(v -> {
+            String username = userNameText.getText().toString();
+            String currentUser = Const.getCurrentEmail();
+            if (!username.isEmpty()) {
+                //this fetches id and updates it
+                fetchPrimaryKeyForEmail(username, currentUser);
             } else {
                 Toast.makeText(SettingActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void fetchPrimaryKeyForEmail(String email) {
-        String url = "http://yourbackend.com/api/getUserPrimaryKey?email=";
+    private void fetchPrimaryKeyForEmail(String emailToChange, String firstEmail) {
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        int primaryKey = response.getInt("primaryKey");
-                        // Now that you have the primary key, you can update the user settings
-                        updateUserSettings(primaryKey, email);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
+        // Create a request for a response that expects a raw string
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
+                            updateUserSettings(primaryKey, emailToChange);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                            Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
-                error -> {
-                    // Handle error
-                    Log.e("SettingActivity", "Error fetching primary key: " + error.toString());
-                    Toast.makeText(SettingActivity.this, "Error fetching primary key", Toast.LENGTH_SHORT).show();
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("SettingActivity", "Error fetching primary key: " + error.toString());
+                        Toast.makeText(SettingActivity.this, "Error fetching primary key", Toast.LENGTH_SHORT).show();
+                    }
                 }
         );
 
+        // Use AppController to add the request to the queue
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        requestQueue.add(jsonObjectRequest);
-
+        requestQueue.add(stringRequest);
     }
+
 
     private void updateUserSettings(int primaryKey, String userEmail) {
         String url = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/" + primaryKey;
+
         JSONObject jsonRequest = new JSONObject();
         try {
             jsonRequest.put("updateEmail", userEmail); // newEmail is the updated email provided by the user
@@ -85,7 +110,8 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, URL_JSON_OBJECT, jsonRequest,
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, URL_JSON_OBJECT, jsonRequest,
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest,
                 response -> {
                     try {
                         boolean success = response.getBoolean("success");
