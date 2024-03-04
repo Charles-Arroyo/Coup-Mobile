@@ -40,7 +40,7 @@ public class FriendsActivity extends AppCompatActivity {
     //Postman Servers
     private static final String URL_ADD_FRIEND = "http://10.90.73.176:8080/createFriend";
 
-    private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/deleteFriend/?friendEmail2=";
+    private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/deleteFriend/";
     private static final String URL_REFRESH_FRIENDS = "http://10.90.73.176:8080/getFriends/";
 
 //    private static final String URL_REFRESH_FRIENDS = "https://529b5ed2-87db-46c0-94b1-ae697d03b3ad.mock.pstmn.io";
@@ -153,7 +153,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     // Method to perform DELETE request to delete a friend
     private void performDeleteFriendRequest(String friendEmail) {
-        String deleteUrl = URL_DELETE_FRIEND + "/" + friendEmail + "/" + userEmail;
+        String deleteUrl = URL_DELETE_FRIEND + userEmail + "/" + friendEmail;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, deleteUrl, null,
                 new Response.Listener<JSONObject>() {
                     @Override
