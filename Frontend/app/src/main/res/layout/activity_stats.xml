@@ -21,6 +21,7 @@
 
     <!-- Email -->
     <TextView
+        android:id="@+id/stats_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -32,6 +33,7 @@
 
     <!-- Wins -->
     <TextView
+        android:id="@+id/stats_wins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -42,6 +44,7 @@
 
     <!-- Losses -->
     <TextView
+        android:id="@+id/stats_losses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -52,6 +55,7 @@
 
     <!-- Games Played -->
     <TextView
+        android:id="@+id/stats_games_played"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
