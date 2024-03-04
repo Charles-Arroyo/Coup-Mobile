@@ -9,23 +9,54 @@ import jakarta.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import onetoone.Users.User;
 
+/**
+ * This class simulates a relationship between a two emails known as a friendship
+ */
 
 @Entity
-public class Friend {
-    public Friend() {
 
-    }
+public class Friend {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id; // Primary Key, not exposed to users.
 
+    private String friendEmail1;
+    private String friendEmail2;
+
+
+    public Friend(String friendEmail1, String friendEmail2) {
+        this.friendEmail1 = friendEmail1;
+        this.friendEmail2 = friendEmail2;
+    }
+
+
+    public Friend() {
+
+    }
+
+    public String getFriendEmail2() {
+        return friendEmail2;
+    }
+
+
+    public String getFriendEmail1() {
+        return friendEmail1;
+    }
+
+    public void setFriendEmail2(String friendEmail2) {
+        this.friendEmail2 = friendEmail2;
+    }
+
+    public void setFriendEmail1(String friendEmail1) {
+        this.friendEmail1 = friendEmail1;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "friendId")
     @JsonIgnore
     private User user;
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public int getId() {
         return id;

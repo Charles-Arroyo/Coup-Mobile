@@ -6,7 +6,6 @@ import onetoone.Profiles.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 
@@ -27,12 +26,12 @@ public class User {
 
     private String name;
 
-
-
-    private String emailId;
+    private String userEmail;
     private boolean ifActive;
 
     private String password;
+
+    private String potentialFriend;
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
@@ -44,16 +43,15 @@ public class User {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    @OneToMany
-    private List<Friend> friends = new ArrayList<>();
 
-    public User(String name, String emailId, int id,String password, int UniqueID) {
+
+    public User(String name, String userEmail, int id,String password, int UniqueID, String potentialFriend) {
         this.name = name;
-        this.emailId = emailId;
+        this.userEmail = userEmail;
         this.ifActive = true;
-        friends = new ArrayList<>();
         this.id = id;
         this.password = password;
+        this.potentialFriend = potentialFriend;
     }
 
     public User() {
@@ -79,6 +77,14 @@ public class User {
         this.id = id;
     }
 
+    public String getPotentialFriend() {
+        return potentialFriend;
+    }
+
+    public void setPotentialFriend(String potentialFriend) {
+        this.potentialFriend = potentialFriend;
+    }
+
     public String getName(){
         return name;
     }
@@ -87,12 +93,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmailId(){
-        return emailId;
+    public String getUserEmail(){
+        return userEmail;
     }
 
-    public void setEmailId(String emailId){
-        this.emailId = emailId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public boolean getIsActive(){
@@ -111,21 +117,6 @@ public class User {
         this.profile = profile;
     }
 
-    public List<Friend> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
-    }
-
-    public void addFriends(Friend friend){
-        this.friends.add(friend);
-    }
-
-    public void setFriend(Friend friend) {
-
-    }
 }
 
 
