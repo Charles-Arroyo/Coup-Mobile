@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.EntityNotFoundException;
 import onetoone.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 import onetoone.Users.UserRepository;
 import onetoone.Users.User;
-
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -31,35 +32,7 @@ public class SettingController {
         this.settingRepository = settingRepository;
     }
 
-    @GetMapping(path = "/sound")
-    public ResponseEntity<Boolean> getSetting() {
-        // Fetch the setting from the database. This assumes there's only one setting entity.
-        Optional<Setting> setting = settingRepository.findById(1L); // Example: using a static ID
 
-        if(setting.isPresent()) {
-            return ResponseEntity.ok(setting.get().getSoundEffect()); // Assuming Setting has a getSound() method
-        } else {
-            // Default value if no setting is found
-            return ResponseEntity.ok(false);
-        }
-    }
-
-    @PostMapping(path = "/sound")
-    String makeSound(@RequestBody Setting setting){
-        if (setting == null)
-            return failure;
-        settingRepository.save(setting);
-        return success;
-    }
-
-    @PutMapping(path = "/sound")
-    String changeSound(@RequestBody Setting setting){
-//        Setting setting = userRespository.
-        if (setting == null)
-            return failure;
-        settingRepository.save(setting);
-        return success;
-    }
 
 //
 //    @GetMapping(path = "/changeEmail")
@@ -110,38 +83,76 @@ public class SettingController {
 
 
 
-    public Setting getSettingForUser(int userId) {
-        return settingRepository.findByUserId(userId)
-                .orElseThrow(() -> new EntityNotFoundException("Setting not found for user: " + userId));
-    }
+//    public Setting getSettingForUser(int userId) {
+//        return settingRepository.findByUserId(userId)
+//                .orElseThrow(() -> new EntityNotFoundException("Setting not found for user: " + userId));
+//    }
 
 
 
 //    @PutMapping(path = "/changeEmail")
 //    String changeEmail(@RequestBody Setting setting){
 ////        Setting setting = userRespository.
-//        if (setting == null)
-//            return failure;
-//        settingRepository.save(setting);
-//        return success;
+////       Assuming the Setting entity has a method to get the associated User
+//                    User user = setting.getUser();
+//
+//                    // Corrected to getUpdateEmail() to retrieve the email from updatedSetting
+//                    if (user != null && setting.getUpdateEmail() != null) {
+//                        // Corrected to use getUpdateEmail() for fetching the new email
+//                        user.setEmailId(setting.getUpdateEmail());
+//
+//                        // Save the updated User entity
+//                        userRepository.save(user);
+//
+//                        return success;
+//                    } else {
+//                        return failure;
+//                    }
+////        if (setting == null)
+////            return failure;
+////        settingRepository.save(setting);
+////        return success;
 //    }
 
 
-    @PutMapping(path = "/changeEmail/{ch}")
-    public String changeEmail(@PathVariable("ch") Long settingId, @RequestBody Setting updatedSetting) {
-        return settingRepository.findById(settingId).map(setting -> {
-            // Assuming the Setting entity has a method to get the associated User
-            User user = setting.getUser();
-            if (user != null && updatedSetting.getUpdateEmail() != null) {
-                // Update the User's email with the new email from the Setting
-                user.setEmailId(updatedSetting.getUpdateEmail());
-                // Save the updated User entity
-                userRepository.save(user);
-                return success;
-            } else {
-                return failure;
-            }
-        }).orElse(failure); // Return failure if the setting with the specified ID is not found
+
+//    @PutMapping(path = "/changeEmail")
+//    @Transactional
+//    public ResponseEntity<?> changeEmail(@RequestBody Setting setting) {
+//        if (setting == null || setting.getUpdateEmail() == null) {
+//            return ResponseEntity.badRequest().body("Invalid request data");
+//        }
+//
+//        User user = setting.getUser();
+//        if (user == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        user.setEmailId(setting.getUpdateEmail());
+//        userRepository.save(user);
+//
+//        return ResponseEntity.ok("Email updated successfully");
+//    }
+
+    @PutMapping(path = "/changeEmail/{settingId}")
+    @Transactional
+    public ResponseEntity<?> changeEmail(@PathVariable Long settingId, @RequestBody Setting updatedSetting) {
+        if (updatedSetting.getUpdateEmail() == null) {
+            return ResponseEntity.badRequest().body("Invalid request data");
+        }
+
+        Setting setting = settingRepository.findById(settingId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
+
+        User user = setting.getUser();
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        user.setEmailId(updatedSetting.getUpdateEmail());
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Email updated successfully");
     }
 
 

@@ -1,5 +1,6 @@
 package onetoone.Users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import onetoone.Friends.Friend;
 import onetoone.Profiles.Profile;
@@ -45,9 +46,9 @@ public class User {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "setting_id", referencedColumnName = "id")
-        private Setting setting;
+    @OneToOne(mappedBy = "user")
+    @JsonManagedReference
+    private Setting setting;
 
 
     @OneToMany
@@ -133,14 +134,13 @@ public class User {
 
     }
 
-
-
-    public void setUserSetting(Setting setting){
-        this.setting = setting;
+    public Setting getSetting() {
+        return setting;
     }
 
-    public Setting getUserSetting(){
-        return setting;
+    public void setSetting(Setting setting) {
+        this.setting = setting;
+        setting.setUser(this); // Ensure the bidirectional link is established
     }
 }
 

@@ -85,7 +85,7 @@ public class UserController {
             userSetting.setId(settingId);
 
             // Set the userSetting on the user object
-            user.setUserSetting(userSetting);
+            user.setSetting(userSetting);
 
             return success;
         }else{ //Null
@@ -184,7 +184,7 @@ public class UserController {
         Setting setting = new Setting();
         // Initialize setting properties if needed
 
-        user.setUserSetting(setting); // Associate setting with user
+        user.setSetting(setting); // Associate setting with user
         setting.setUser(user); // Link back the user to the setting, if bidirectional
 
         settingRepository.save(setting); // Persist the setting
