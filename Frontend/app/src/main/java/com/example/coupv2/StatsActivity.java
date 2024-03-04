@@ -22,7 +22,7 @@ public class StatsActivity extends AppCompatActivity {
 
     private TextView playerEmail, playerWins, playerLosses, playerGamesPlayed;
     private String currentUserEmail;
-    private Button backButton;
+//    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         // Initialize TextViews
-        playerEmail = findViewById(R.id.stats_email);
+//        playerEmail = findViewById(R.id.stats_email);
         playerWins = findViewById(R.id.stats_wins);
         playerLosses = findViewById(R.id.stats_losses);
         playerGamesPlayed = findViewById(R.id.stats_games_played);
@@ -40,14 +40,14 @@ public class StatsActivity extends AppCompatActivity {
 
         // Now fetch the primary key using the current user's email
         fetchPrimaryKey(currentUserEmail);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the rules activity
-                Intent intent = new Intent(StatsActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
-        });
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Start the rules activity
+//                Intent intent = new Intent(StatsActivity.this, MenuActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void fetchPrimaryKey(String email) {
@@ -81,42 +81,40 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void fetchUserStats(int primaryKey) {
-        String urlWithPrimaryKey = "http://coms-309-023.class.las.iastate.edu:8080/gameStats" + primaryKey;
+        String urlWithPrimaryKey = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + primaryKey;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlWithPrimaryKey, null,
                 response -> {
+                    Log.d("StatsActivity", "Response received: " + response.toString()); // Debug log
                     try {
-                        if (response.getBoolean("success")) {
-                            // Assuming the JSON response has a 'stats' JSONObject
-                            JSONObject stats = response.getJSONObject("stats");
-                            String email = stats.getString("email");
-                            int wins = stats.getInt("wins");
-                            int losses = stats.getInt("losses");
-                            int gamesPlayed = stats.getInt("gamesPlayed");
+                        int wins = response.optInt("gameWon", 0); // Use optInt for default value
+                        int losses = response.optInt("gameLost", 0);
+                        int gamesPlayed = response.optInt("gamePlayed", wins + losses); // Use optInt
 
-                            // Set the text of the TextViews to the fetched stats
-                            playerEmail.setText(String.format("Email: %s", email));
-                            playerWins.setText(String.format("Wins: %d", wins));
-                            playerLosses.setText(String.format("Losses: %d", losses));
-                            playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
-                        } else {
-                            Log.e("StatsActivity", "Fetching stats failed: " + response.getString("message"));
-                        }
+                        playerWins.setText(String.format("Wins: %d", wins));
+                        playerLosses.setText(String.format("Losses: %d", losses));
+                        playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
                     } catch (Exception e) {
                         Log.e("StatsActivity", "Parsing error: " + e.getMessage(), e);
                     }
                 },
-                error -> Log.e("StatsActivity", "Volley error: " + error.toString())
+                error -> {
+                    Log.e("StatsActivity", "Volley error: " + error.toString());
+                    if (error.networkResponse != null) {
+                        Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
+                    }
+                }
         );
 
-        // Add the request to the RequestQueue.
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
         requestQueue.add(jsonObjectRequest);
     }
 
+
+
     // Handle the back button click by finishing the StatsActivity
-    public void onBackButtonClick(View view) {
-        finish();
-    }
+//    public void onBackButtonClick(View view) {
+//        finish();
+//    }
 }
 

@@ -100,7 +100,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void fetchPrimaryKeyForPassword(String passwordToChange, String firstEmail) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail) + "?password=" + Uri.encode(passwordToChange);
+//        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail) + "?password=" + Uri.encode(passwordToChange);
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail);
 
         // Create a request for a response that expects a raw string
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -184,7 +185,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void updateUserPassword(int primaryKey, String userPassword) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/changePassword/" + primaryKey;
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/changePass/" + primaryKey;
 
         JSONObject jsonRequest = new JSONObject();
         try {

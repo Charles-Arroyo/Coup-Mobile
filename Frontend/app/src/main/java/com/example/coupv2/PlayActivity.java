@@ -1,6 +1,7 @@
 package com.example.coupv2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.coupv2.app.AppController;
+import com.example.coupv2.utils.Const;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 public class PlayActivity extends AppCompatActivity {
     private Button winButton;
     private Button lossButton;
-    private static final String URL_UPDATE_GAME_RESULT = "http://yourbackend.com/api/updateGameResult";
+//    private static final String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +37,16 @@ public class PlayActivity extends AppCompatActivity {
         winButton = findViewById(R.id.win_btn);
         lossButton = findViewById(R.id.loss_btn);
 
-        winButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateGameResult(true); // true for win
-                navigateToMenu();
-            }
+        winButton.setOnClickListener(v -> {
+            fetchPrimaryKeyAndUpdateGameResult(true); // true for win
+            navigateToMenu();
         });
 
-        lossButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateGameResult(false); // false for loss
-                navigateToMenu();
-            }
+        lossButton.setOnClickListener(v -> {
+            fetchPrimaryKeyAndUpdateGameResult(false); // false for loss
+            navigateToMenu();
         });
+
     }
     //go back to main menu function
     private void navigateToMenu() {
@@ -56,10 +54,38 @@ public class PlayActivity extends AppCompatActivity {
         startActivity(menuIntent);
     }
 
-    private void updateGameResult(boolean won) {
+    private void fetchPrimaryKeyAndUpdateGameResult(boolean won) {
+        String currentUser = Const.getCurrentEmail();
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(currentUser);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        int primaryKey = Integer.parseInt(response);
+                        updateGameResult(primaryKey, won);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        Toast.makeText(PlayActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Toast.makeText(PlayActivity.this, "Error fetching primary key: " + responseBody, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(PlayActivity.this, "Network error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        AppController.getInstance().getRequestQueue().add(stringRequest);
+    }
+    private void updateGameResult(int primaryKey, boolean won) {
+           String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/" + primaryKey;
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("gameResult", won ? "win" : "loss");
+//            jsonRequest.put("primaryKey", primaryKey);
+            jsonRequest.put("gameResult", won ? "Win" : "Loss");
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(PlayActivity.this, "Error creating game result update request", Toast.LENGTH_SHORT).show();
@@ -79,4 +105,6 @@ public class PlayActivity extends AppCompatActivity {
 
         AppController.getInstance().getRequestQueue().add(jsonObjectRequest);
     }
+
+
 }

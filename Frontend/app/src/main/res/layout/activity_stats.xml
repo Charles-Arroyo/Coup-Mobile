@@ -19,16 +19,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Email -->
-    <TextView
-        android:id="@+id/stats_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Email:"
-        android:textSize="18sp" />
 
 
     <!-- Wins -->
@@ -66,11 +56,12 @@
 
 
     <!-- Back Button -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:onClick="onBackButtonClick"
-        android:text="Back" />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        -->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:onClick="onBackButtonClick"-->
+<!--        android:text="Back" />-->
 </androidx.appcompat.widget.LinearLayoutCompat>
