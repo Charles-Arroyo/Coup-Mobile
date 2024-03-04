@@ -6,11 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import onetoone.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
@@ -93,24 +89,26 @@ public class SettingController {
 //        }
 //    }
 
-    @Transactional // Marks the method to be executed within a transactional context.
-    public void updateUserEmailFromSetting(Long settingId) {
-        // Find the Setting entity by its ID. If not found, throw an EntityNotFoundException.
-        Setting setting = settingRepository.findById(settingId)
-                .orElseThrow(() -> new EntityNotFoundException("Setting not found"));
+//    @Transactional // Marks the method to be executed within a transactional context.
+//    public void updateUserEmailFromSetting(Long settingId) {
+//        // Find the Setting entity by its ID. If not found, throw an EntityNotFoundException.
+//        Setting setting = settingRepository.findById(settingId)
+//                .orElseThrow(() -> new EntityNotFoundException("Setting not found"));
+//
+//        // Check if the Setting entity contains a non-null updateEmail value.
+//        if (setting.getUpdateEmail() != null) {
+//            // Retrieve the User entity associated with this Setting.
+//            User user = setting.getUser(); // Assuming there's a getUser() in Setting that returns the associated User.
+//
+//            // Update the User's email with the new email from Setting.
+//            user.setEmailId(setting.getUpdateEmail());
+//
+//            // Save the updated User entity back to the database.
+//            userRepository.save(user);
+//        }
+//    }
 
-        // Check if the Setting entity contains a non-null updateEmail value.
-        if (setting.getUpdateEmail() != null) {
-            // Retrieve the User entity associated with this Setting.
-            User user = setting.getUser(); // Assuming there's a getUser() in Setting that returns the associated User.
 
-            // Update the User's email with the new email from Setting.
-            user.setEmailId(setting.getUpdateEmail());
-
-            // Save the updated User entity back to the database.
-            userRepository.save(user);
-        }
-    }
 
     public Setting getSettingForUser(int userId) {
         return settingRepository.findByUserId(userId)
@@ -119,7 +117,7 @@ public class SettingController {
 
 
 
-//    @PutMapping(path = "/changeEmail/{ch}")
+//    @PutMapping(path = "/changeEmail")
 //    String changeEmail(@RequestBody Setting setting){
 ////        Setting setting = userRespository.
 //        if (setting == null)
@@ -127,6 +125,25 @@ public class SettingController {
 //        settingRepository.save(setting);
 //        return success;
 //    }
+
+
+    @PutMapping(path = "/changeEmail/{ch}")
+    public String changeEmail(@PathVariable("ch") Long settingId, @RequestBody Setting updatedSetting) {
+        return settingRepository.findById(settingId).map(setting -> {
+            // Assuming the Setting entity has a method to get the associated User
+            User user = setting.getUser();
+            if (user != null && updatedSetting.getUpdateEmail() != null) {
+                // Update the User's email with the new email from the Setting
+                user.setEmailId(updatedSetting.getUpdateEmail());
+                // Save the updated User entity
+                userRepository.save(user);
+                return success;
+            } else {
+                return failure;
+            }
+        }).orElse(failure); // Return failure if the setting with the specified ID is not found
+    }
+
 
 
 

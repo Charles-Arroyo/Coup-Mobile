@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -61,6 +62,14 @@ public class UserController {
         return userRepository.findById(id);
     }
 
+
+    // Example method for generating a setting ID. Implementation depends on your requirements.
+    private Integer generateSettingId() {
+        // Generate a unique ID for the user setting. This is just a placeholder.
+        // The actual implementation would depend on how you're managing IDs.
+        return new Random().nextInt();
+    }
+
     /**
      *
      * @param user
@@ -69,7 +78,15 @@ public class UserController {
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
         if (user != null) { //user is not null
+            Integer settingId = generateSettingId();
             userRepository.save(user); //Create User and Save
+
+            Setting userSetting = new Setting();
+            userSetting.setId(settingId);
+
+            // Set the userSetting on the user object
+            user.setUserSetting(userSetting);
+
             return success;
         }else{ //Null
             return failure; //Return a Failure

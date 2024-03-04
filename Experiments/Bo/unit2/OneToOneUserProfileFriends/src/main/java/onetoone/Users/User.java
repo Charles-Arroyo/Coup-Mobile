@@ -47,7 +47,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "setting_id", referencedColumnName = "id")
-    private Setting setting;
+        private Setting setting;
 
 
     @OneToMany
@@ -132,6 +132,8 @@ public class User {
     public void setFriend(Friend friend) {
 
     }
+
+
 
     public void setUserSetting(Setting setting){
         this.setting = setting;
