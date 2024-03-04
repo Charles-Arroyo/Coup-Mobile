@@ -30,8 +30,6 @@ public class User {
 
     private String name;
 
-
-
     private String emailId;
     private boolean ifActive;
 
@@ -151,7 +149,9 @@ public class User {
         setting.setUser(this); // Ensure the bidirectional link is established
     }
 
-    public Game getGame(){return game;}
+    public Game getGame(){
+        return game;
+    }
     public void setGaming(Game game) {
         this.game = game;
         game.setUser(this); // Ensure the bidirectional link is established

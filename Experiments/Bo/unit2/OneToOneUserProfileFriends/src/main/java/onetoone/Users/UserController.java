@@ -74,11 +74,11 @@ public class UserController {
         // Check if a user with the provided email already exists
         User foundUser = userRepository.findByEmailId(user.getEmailId());
 
-        // If a user is found, and the passwords match, it means they are already signed up
-        if (foundUser != null) {
-            // User already exists
-            return failure;
-        } else {
+//        // If a user is found, and the passwords match, it means they are already signed up
+//        if (foundUser != null) {
+//            // User already exists
+//            return failure;
+//        } else {
 
             Setting newSetting = new Setting(); // Assume default properties are set in the constructor
             Game newGame = new Game();
@@ -86,16 +86,15 @@ public class UserController {
             gameRepository.save(newGame);
             settingRepository.save(newSetting);
 
-            User newUser = new User();
-            newUser.setGaming(newGame); // Assuming setUser correctly sets up the relationship
-            newUser.setSetting(newSetting);
+            user.setGaming(newGame); // Assuming setUser correctly sets up the relationship
+            user.setSetting(newSetting);
             // Initialize other newUser properties...
-            userRepository.save(newUser);
+            userRepository.save(user);
 
 
             // Return a success response
             return success;
-        }
+        //}
     }
 
 

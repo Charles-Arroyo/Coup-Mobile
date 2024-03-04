@@ -1,13 +1,17 @@
 package onetoone.game;
 
 
+import onetoone.Friends.Friend;
+import onetoone.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import onetoone.Users.User;
 import onetoone.Users.UserRepository;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -24,40 +28,91 @@ public class GameController {
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
 
-    @GetMapping(path = "/totalGame/{id}")
-    public ResponseEntity<?> getTotalGame(@PathVariable Long id) {
-        Optional<Game> game = gameRepository.findById(id); // Assuming you have a gameRepository
 
-        if (!game.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"Game not found\"}");
+//    @GetMapping(path = "/gameTotal/{userId}")
+//    public String getGameTotalScore(@PathVariable Long userId) {
+//        Optional<Game> gameOpt = gameRepository.findById(userId);
+//        if (gameOpt.isPresent()) {
+//            Game game = gameOpt.get();
+//            // Assuming the Game entity has a method to get the total score
+//            String totalScore = game.getGameResult();
+//            return totalScore;
+//        } else {
+//            return failure;
+//        }
+//    }
+
+
+//
+    // Endpoint to increment the win counter for a user's game
+    @PostMapping(path = "/gameTotal/{id}")
+    public String gameWon(@RequestBody Game gameResult,@PathVariable int id) {
+
+        User user = userRepository.findBySettingId(id);
+        if (user == null){
+            return failure;
+        }
+        Game game = user.getGame(); // Assuming User has a direct association with Game
+
+        // Increment the number of games played
+        game.addGamePlayed();
+        if(gameResult.getGameResult().equals("Win")){
+            game.incrementGameWon(); // Method to increment the win counter
+            gameRepository.save(game);
+            return success;
+
         }
 
-        return ResponseEntity.ok(game.get().getGame());
+        if(gameResult.getGameResult().equals("Loss")){
+            game.incrementGameLost(); // Method to increment the loss counter
+            gameRepository.save(game);
+            return success;
+
+        }
+        gameRepository.save(game); // Save the updated game statistics
+        return failure;
     }
 
-    @GetMapping(path = "/totalWonGame/{id}")
-    public ResponseEntity<?> totalWonGame(@PathVariable Long id) {
-        Optional<Game> game = gameRepository.findById(id); // Assuming you have a gameRepository
 
-        if (!game.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"Game not found\"}");
+        @GetMapping(path = "/getStats/{id}")
+        public Game list(@PathVariable int id) {
+            //ID
+            //Game
+            //Print Game
+            User user = userRepository.findBySettingId(id);
+            Game userGame = user.getGame();
+            return userGame;
+
         }
 
-        return ResponseEntity.ok(game.get().getGameWon());
-    }
-
-    @GetMapping(path = "/totalGameLost/{id}")
-    public ResponseEntity<?> totalGameLost(@PathVariable Long id) {
-        Optional<Game> game = gameRepository.findById(id); // Assuming you have a gameRepository
-
-        if (!game.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"Game not found\"}");
-        }
-
-        return ResponseEntity.ok(game.get().getGameLost());
-    }
-
-
+//
+//    @PostMapping(path = "/gameTotal/{id}")
+//    public ResponseEntity<?> gameWon(@RequestBody String gameResult, @PathVariable Long id) {
+//        Optional<User> userOpt = userRepository.findById(id);
+//
+//        if (!userOpt.isPresent()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"User not found\"}");
+//        }
+//
+//        User user = userOpt.get();
+//        Game game = user.getGame(); // Assuming User has a direct association with Game
+//
+//        if (game == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"Game not found for user\"}");
+//        }
+//
+//        if ("win".equals(gameResult)) {
+//            game.incrementGameWon(); // Method to increment the win counter
+//            gameRepository.save(game);
+//            return ResponseEntity.ok("{\"message\":\"Game win incremented successfully\"}");
+//        } else if ("loss".equals(gameResult)) {
+//            game.incrementGameLost(); // Method to increment the loss counter
+//            gameRepository.save(game);
+//            return ResponseEntity.ok("{\"message\":\"Game loss incremented successfully\"}");
+//        } else {
+//            return ResponseEntity.badRequest().body("{\"message\":\"Invalid game result\"}");
+//        }
+//    }
 
 
 }
