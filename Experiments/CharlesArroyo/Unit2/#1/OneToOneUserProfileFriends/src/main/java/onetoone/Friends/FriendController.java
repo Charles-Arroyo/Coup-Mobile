@@ -27,23 +27,6 @@ public class FriendController {
         return friendRepository.findAll();
     }
 
-/**
- * Special code below for sending an String array list of friends
- *
- */
-//    @GetMapping(path = "/getFriends/{friendEmail1}")
-//    public ResponseEntity<List<String>> getFriendsByEmail(@PathVariable String friendEmail1) {
-//        List<String> listOfFriends = new ArrayList<>();
-//
-//        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
-//        for (Friend f : friends) {
-//            listOfFriends.add(f.getFriendEmail2());
-//        }
-//
-//
-//        return ResponseEntity.ok(listOfFriends);
-//    }
-
     /**
      * Returns all the friends of a specfic user.
      * @param friendEmail1
@@ -59,6 +42,31 @@ public class FriendController {
 //        return ResponseEntity.ok(friends);
 //    }
 
+    @DeleteMapping("/deleteFriend/{id}")
+    String deleteFriendRelationship(@PathVariable int id){
+        friendRepository.deleteById(id);
+        return success;
+    }
+
+
+
+
+    /**
+     *
+     *
+     *
+     *
+     * Helpful code below
+     *
+     *
+     *
+     *
+     */
+
+
+    /**
+     * returns json object of friends
+     */
     @GetMapping(path = "/getFriends/{friendEmail1}")
     public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
         List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
@@ -71,11 +79,22 @@ public class FriendController {
     }
 
 
-    @DeleteMapping("/deleteFriend/{id}")
-    String deleteFriendRelationship(@PathVariable int id){
-        friendRepository.deleteById(id);
-        return success;
-    }
+    /**
+     * Special code below for sending an String array list of friends
+     *
+     */
+//    @GetMapping(path = "/getFriends/{friendEmail1}")
+//    public ResponseEntity<List<String>> getFriendsByEmail(@PathVariable String friendEmail1) {
+//        List<String> listOfFriends = new ArrayList<>();
+//
+//        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
+//        for (Friend f : friends) {
+//            listOfFriends.add(f.getFriendEmail2());
+//        }
+//
+//
+//        return ResponseEntity.ok(listOfFriends);
+//    }
 
 }
 

@@ -58,29 +58,6 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-
-//    /**
-//     * This returns all friends associated with the email
-//     * @param
-//     * @return
-//     */
-//    @PostMapping(path = "/listFriends")
-//    ArrayList<String> getUserFriends(@RequestBody User userEmail) {
-//        ArrayList<String> list = new ArrayList<>();
-//        User user = userRepository.findByUserEmail(userEmail.getUserEmail());
-//        if (user == null) {
-//            // Handle the case where the user does not exist
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-//        }
-//
-//        List<Friend> friends = friendRepository.findByFriendEmail1(user.getUserEmail());
-//
-//        for (Friend friend : friends) {
-//            list.add((friend.getFriendEmail2()));
-//        }
-//        return list;
-//    }
-
     /**
      * Creates a user, need to account for same emails
      * @param user
@@ -88,7 +65,7 @@ public class UserController {
      */
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
-        if (user != null ) { //user is not null
+        if (user != null) { //user is not null
             userRepository.save(user); //Create User and Save
             return success;
         }else{ //Null
@@ -96,7 +73,11 @@ public class UserController {
         }
     }
 
-
+    /**
+     * Checks the repo, and allows user to sign in
+     * @param user
+     * @return
+     */
     /**
      * Checks the repo, and allows user to sign in
      * @param user
@@ -108,7 +89,7 @@ public class UserController {
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return success;
         }else{
-           return failure;
+            return failure;
         }
     }
 
@@ -131,18 +112,14 @@ public class UserController {
 
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
-
         User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
         User user2 = userRepository.findByUserEmail(friend.getFriendEmail2()); // Creates second temp user object with second email
-
 //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
 //            return failure;
 //        }
-
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
-
         friendRepository.save(friend);
         return success;
     }
@@ -159,4 +136,30 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
+
+
+
+
+
+//    /**
+//     * This returns all friends associated with the email
+//     * @param
+//     * @return
+//     */
+//    @PostMapping(path = "/listFriends")
+//    ArrayList<String> getUserFriends(@RequestBody User userEmail) {
+//        ArrayList<String> list = new ArrayList<>();
+//        User user = userRepository.findByUserEmail(userEmail.getUserEmail());
+//        if (user == null) {
+//            // Handle the case where the user does not exist
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+//        }
+//
+//        List<Friend> friends = friendRepository.findByFriendEmail1(user.getUserEmail());
+//
+//        for (Friend friend : friends) {
+//            list.add((friend.getFriendEmail2()));
+//        }
+//        return list;
+//    }
 }
