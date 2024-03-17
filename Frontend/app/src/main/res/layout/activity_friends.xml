@@ -58,16 +58,18 @@
             android:id="@+id/add_friend_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Friend"
-            android:onClick="onAddFriendClick" />
+            android:backgroundTint="#4CAF50"
+            android:onClick="onAddFriendClick"
+            android:text="Add Friend" />
 
         <Button
             android:id="@+id/delete_friend_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Friend"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#F44336"
             android:onClick="onDeleteFriendClick"
-            android:layout_marginStart="8dp" />
+            android:text="Delete Friend" />
     </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

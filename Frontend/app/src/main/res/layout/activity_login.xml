@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_marginBottom="4dp"
+        android:text="LOGIN"
+        android:textColor="#9C27B0"
+        android:textSize="20dp"></TextView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,6 +77,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:backgroundTint="#9C27B0"
             android:gravity="center"
             android:text="Login"
             android:textColor="#ffffff"

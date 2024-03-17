@@ -50,10 +50,6 @@
             android:exported="false" />
 
         <activity
-            android:name=".RulesActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".SettingActivity"
             android:exported="false" />
 
