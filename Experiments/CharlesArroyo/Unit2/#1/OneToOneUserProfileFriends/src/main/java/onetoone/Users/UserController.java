@@ -2,7 +2,6 @@ package onetoone.Users;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
-import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +21,8 @@ import java.util.List;
 @RestController
 public class UserController {
 
-
     @Autowired
     UserRepository userRepository; //Creating a repository(mySQL of users)
-
-    @Autowired
-    ProfileRepository profileRepository; //Creating a repository(mySQL of profiles)
 
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
@@ -103,6 +98,8 @@ public class UserController {
         userRepository.save(request);
         return userRepository.findById(id);
     }
+
+
 
 
     @PostMapping(path = "/createFriend")

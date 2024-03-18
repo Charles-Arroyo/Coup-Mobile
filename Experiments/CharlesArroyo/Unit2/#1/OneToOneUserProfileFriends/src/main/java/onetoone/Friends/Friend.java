@@ -24,10 +24,12 @@ public class Friend {
     private String friendEmail1;
     private String friendEmail2;
 
+    private boolean acceptance;
 
     public Friend(String friendEmail1, String friendEmail2) {
         this.friendEmail1 = friendEmail1;
         this.friendEmail2 = friendEmail2;
+
     }
 
 
