@@ -2,7 +2,6 @@ package onetoone.Users;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
-import onetoone.Profiles.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +21,8 @@ import java.util.List;
 @RestController
 public class UserController {
 
-
     @Autowired
     UserRepository userRepository; //Creating a repository(mySQL of users)
-
-    @Autowired
-    ProfileRepository profileRepository; //Creating a repository(mySQL of profiles)
 
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
@@ -78,11 +73,6 @@ public class UserController {
      * @param user
      * @return
      */
-    /**
-     * Checks the repo, and allows user to sign in
-     * @param user
-     * @return
-     */
     @PostMapping(path = "/signin")
     public String signIn(@RequestBody User user) { //sends a request body of password & username
         User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
@@ -110,6 +100,8 @@ public class UserController {
     }
 
 
+
+
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
         User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
@@ -127,7 +119,7 @@ public class UserController {
 
 
     /**
-     * Deletes a user, can be used in the user setting ss
+     * Deletes a user, can be used in the user setting
      * @param id
      * @return
      */
@@ -136,8 +128,6 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
-
-
 
 
 

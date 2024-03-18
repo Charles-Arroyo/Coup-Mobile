@@ -9,6 +9,18 @@
       <change beforePath="$PROJECT_DIR$/../../../../Bo/unit2/OneToOneUserProfileFriends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Bo/unit2/OneToOneUserProfileFriends/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/Friend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/Profile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +53,10 @@
   "keyToString": {
     "JAR Application.onetoone-1.0.0.jar.executor": "Run",
     "Maven.onetoone [clean].executor": "Run",
+<<<<<<< HEAD
+=======
+    "Maven.onetoone [compile].executor": "Run",
+>>>>>>> 9f67661c55e9cbfdb2959b2e0de59a28ccdb7cd5
     "Maven.onetoone [package].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -51,9 +67,14 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
     "git-widget-placeholder": "main",
+<<<<<<< HEAD
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/bohte/OneDrive - Iowa State University/Desktop/COMS309/coms309/Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends",
+=======
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/CharlesDylan/Desktop/309/mk1_8/Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends",
+>>>>>>> 9f67661c55e9cbfdb2959b2e0de59a28ccdb7cd5
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,7 +146,11 @@
       <workItem from="1709551508385" duration="3565000" />
       <workItem from="1709555086298" duration="3738000" />
       <workItem from="1709688948096" duration="1796000" />
+<<<<<<< HEAD
       <workItem from="1710794014578" duration="60000" />
+=======
+      <workItem from="1710793807227" duration="6988000" />
+>>>>>>> 9f67661c55e9cbfdb2959b2e0de59a28ccdb7cd5
     </task>
     <servers />
   </component>

@@ -1,8 +1,10 @@
 package onetoone.Users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import onetoone.Friends.Friend;
-import onetoone.Profiles.Profile;
+import onetoone.Setting.Setting;
+import onetoone.game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,27 +33,31 @@ public class User {
 
     private String password;
 
-    private String potentialFriend;
-
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
      * in the database (more info : https://www.baeldung.com/jpa-cascade-types)
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+
+    @OneToOne
+    @JoinColumn(name = "setting_id")
+//    @JsonManagedReference
+    private Setting setting;
+
+    @OneToOne
+    @JoinColumn(name = "game_id")
+//    @JsonManagedReference
+    private Game game;
 
 
 
-    public User(String name, String userEmail, int id,String password, int UniqueID, String potentialFriend) {
+    public User(String name, String userEmail, int id,String password, int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
         this.ifActive = true;
         this.id = id;
         this.password = password;
-        this.potentialFriend = potentialFriend;
     }
 
     public User() {
@@ -70,19 +76,6 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
-    }
-
-
-    public void setId(int id){
-        this.id = id;
-    }
-
-    public String getPotentialFriend() {
-        return potentialFriend;
-    }
-
-    public void setPotentialFriend(String potentialFriend) {
-        this.potentialFriend = potentialFriend;
     }
 
     public String getName(){
@@ -109,12 +102,21 @@ public class User {
         this.ifActive = ifActive;
     }
 
-    public Profile getProfile(){
-        return profile;
+    public Setting getSetting() {
+        return setting;
     }
 
-    public void setProfile(Profile profile){
-        this.profile = profile;
+    public void setSetting(Setting setting) {
+        this.setting = setting;
+        setting.setUser(this); // Ensure the bidirectional link is established
+    }
+
+    public Game getGame(){
+        return game;
+    }
+    public void setGaming(Game game) {
+        this.game = game;
+        game.setUser(this); // Ensure the bidirectional link is established
     }
 
 }

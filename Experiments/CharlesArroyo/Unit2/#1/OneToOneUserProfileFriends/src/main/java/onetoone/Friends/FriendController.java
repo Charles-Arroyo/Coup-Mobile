@@ -26,7 +26,12 @@ public class FriendController {
     @GetMapping(path = "/friends")
     List<Friend> getAllFriends(){
         return friendRepository.findAll();
+
     }
+
+
+
+
 
     /**
      * Returns all the friends of a specfic user.
@@ -74,6 +79,23 @@ public class FriendController {
      */
     @GetMapping(path = "/getFriends/{friendEmail1}")
     public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
+        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
+        if (friends.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
+        }
+        Map<String, List<Friend>> response = new HashMap<>();
+        response.put("friend", friends);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * This one returns all the pending friends
+     * @param friendEmail1
+     * @return
+     */
+
+    @GetMapping(path = "/getFriends/{friendEmail1}")
+    public ResponseEntity<Map<String, List<Friend>>> getPendingFriendsByEmail(@PathVariable String friendEmail1) {
         List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
         if (friends.isEmpty()) {
             return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
