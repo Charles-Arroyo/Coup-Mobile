@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#673AB7"
+    android:backgroundTint="#673AB7"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".SignupActivity">
@@ -10,17 +12,50 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
-        android:text="Email: "
-        android:textColor="#000000"
-        android:textSize="20dp"></TextView>
+        android:padding="15dp"
+        android:text="SIGN UP"
+        android:textColor="#673AB7"
+        android:textSize="40dp"></TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Name: "
+            android:textColor="#000000"
+            android:textSize="20dp"></TextView>
+
+        <EditText
+            android:id="@+id/signup_name_edt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:hint="Enter Name Here"
+            android:inputType="textEmailAddress"></EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="30dp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +79,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,8 +104,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <Button
@@ -87,6 +124,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="#673AB7"
             android:gravity="center"
             android:text="Signup"
             android:textColor="#ffffff"

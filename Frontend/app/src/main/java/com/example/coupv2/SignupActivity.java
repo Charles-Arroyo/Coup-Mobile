@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SignupActivity extends AppCompatActivity {
-
+    private EditText nameEditText;
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -36,7 +36,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
+        nameEditText = findViewById(R.id.signup_name_edt);
         emailIdEditText = findViewById(R.id.signup_email_edt);
         passwordEditText = findViewById(R.id.signup_password_edt);
         loginButton = findViewById(R.id.signup_login_btn);
@@ -53,20 +53,22 @@ public class SignupActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = nameEditText.getText().toString();
                 String email = emailIdEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                if (!email.isEmpty() && !password.isEmpty()) {
-                    performSignup(email, password);
+                if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty()) {
+                    performSignup(name, email, password);
                 } else {
-                    Toast.makeText(SignupActivity.this, "Please enter both email and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Please enter in blanks", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void performSignup(String emailId, String password) {
+    private void performSignup(String name, String emailId, String password) {
         JSONObject jsonRequest = new JSONObject();
         try {
+            jsonRequest.put("name", name);
             jsonRequest.put("userEmail", emailId);
             jsonRequest.put("password", password);
         } catch (JSONException e) {
