@@ -1,11 +1,15 @@
 package com.example.coupv2;
 
+import android.content.Intent;
+import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,29 +32,26 @@ import java.util.List;
 
 public class FriendsActivity extends AppCompatActivity {
 
-    // Private static URL variables
-
-    //http://10.90.73.176:8080/signin
-
-    //School Server
 //    private static final String URL_ADD_FRIEND = "http://10.90.73.176:8080/createFriend";
-//    private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/signin";
+//    private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/deleteFriend/";
 //    private static final String URL_REFRESH_FRIENDS = "http://10.90.73.176:8080/getFriends/";
+//    private static final String URL_CHECK_FRIEND_REQUESTS = "http://10.90.73.176:8080/checkFriendRequests";
+
+    private static final String URL_ADD_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_DELETE_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_REFRESH_FRIENDS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendlist";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendrequest";
+    private static final String URL_ACCEPT_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_DECLINE_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
 
 
-    //Postman Servers
-    private static final String URL_ADD_FRIEND = "http://10.90.73.176:8080/createFriend";
-
-    private static final String URL_DELETE_FRIEND = "http://10.90.73.176:8080/deleteFriend/";
-    private static final String URL_REFRESH_FRIENDS = "http://10.90.73.176:8080/getFriends/";
-
-//    private static final String URL_REFRESH_FRIENDS = "https://529b5ed2-87db-46c0-94b1-ae697d03b3ad.mock.pstmn.io";
-
-    private EditText friendEmailEditText; // Changed from friendNumberEditText
+    private EditText friendEmailEditText;
     private ListView friendsListView;
     private Button addFriendButton;
+    private Button exitButton;
     private Button deleteFriendButton;
     private Button refreshButton;
+    private Button requestButton;
     private RequestQueue requestQueue;
 
     private String userEmail;
@@ -59,17 +61,25 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        // Initialize views
-        friendEmailEditText = findViewById(R.id.friend_email_edittext); // Updated ID
+        friendEmailEditText = findViewById(R.id.friend_email_edittext);
         friendsListView = findViewById(R.id.friends_list);
+        exitButton = findViewById(R.id.exit_btn);
         addFriendButton = findViewById(R.id.add_friend_btn);
         deleteFriendButton = findViewById(R.id.delete_friend_btn);
         refreshButton = findViewById(R.id.refresh_btn);
+        requestButton = findViewById(R.id.request_btn);
+
         userEmail = Const.getCurrentEmail();
-        // Initialize the RequestQueue
         requestQueue = AppController.getInstance().getRequestQueue();
 
-        // Set click listeners
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendsActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
         addFriendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,24 +100,31 @@ public class FriendsActivity extends AppCompatActivity {
                 onRefreshClick(v);
             }
         });
+
+        requestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayFriendRequestsPopup();
+            }
+        });
+
+        checkForFriendRequests(); // Check for friend requests when the activity starts
     }
 
-    // Method to handle "Add Friend" button click
     public void onAddFriendClick(View view) {
-        String friendEmail = friendEmailEditText.getText().toString(); // Changed from friendNumber
+        String friendEmail = friendEmailEditText.getText().toString();
         if (!friendEmail.isEmpty()) {
             performAddFriendRequest(friendEmail);
         } else {
-            Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show(); // Updated message
+            Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Method to perform POST request to add a friend
     private void performAddFriendRequest(String friendEmail) {
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put("friendEmail1", userEmail); // Use the current user's email
-            requestBody.put("friendEmail2", friendEmail); // Use the entered friend's email
+            requestBody.put("friendEmail1", userEmail);
+            requestBody.put("friendEmail2", friendEmail);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,17 +158,15 @@ public class FriendsActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    // Method to handle "Delete Friend" button click
     public void onDeleteFriendClick(View view) {
-        String friendEmail = friendEmailEditText.getText().toString(); // Changed from friendNumber
+        String friendEmail = friendEmailEditText.getText().toString();
         if (!friendEmail.isEmpty()) {
             performDeleteFriendRequest(friendEmail);
         } else {
-            Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show(); // Updated message
+            Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
         }
     }
 
-    // Method to perform DELETE request to delete a friend
     private void performDeleteFriendRequest(String friendEmail) {
         String deleteUrl = URL_DELETE_FRIEND + userEmail + "/" + friendEmail;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, deleteUrl, null,
@@ -183,15 +198,15 @@ public class FriendsActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    // Method to handle "Refresh" button click
     public void onRefreshClick(View view) {
-        Toast.makeText(this, "Refreshing friend list", Toast.LENGTH_SHORT).show();
         performRefreshRequest();
     }
 
-    // Method to perform GET request to refresh the friend list
     private void performRefreshRequest() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS + userEmail, null,
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS + userEmail, null,
+        //Postman Test
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS, null,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -201,7 +216,7 @@ public class FriendsActivity extends AppCompatActivity {
                             for (int i = 0; i < friendsArray.length(); i++) {
                                 JSONObject friend = friendsArray.getJSONObject(i);
                                 String email = friend.getString("friendEmail2");
-                                String formattedFriend =  "Friend: " + email;
+                                String formattedFriend = "Friend: " + email;
                                 formattedFriendsList.add(formattedFriend);
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(FriendsActivity.this, android.R.layout.simple_list_item_1, formattedFriendsList);
@@ -222,5 +237,157 @@ public class FriendsActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    private void checkForFriendRequests() {
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS + "/" + userEmail, null,
+        //Postman Test
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS, null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray requestsArray = response.getJSONArray("requests");
+                            if (requestsArray.length() > 0) {
+                                // There are friend requests, make the button "glow"
+                                requestButton.setVisibility(View.VISIBLE);
+                                requestButton.getBackground().setColorFilter(new LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
+                                // You could also change the text color or set a badge here
+                            } else {
+                                // No friend requests, set button to default appearance
+                                requestButton.setVisibility(View.INVISIBLE);
+                                requestButton.getBackground().clearColorFilter();
+                                // Reset text color or hide badge if you added one earlier
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(FriendsActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FriendsActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void displayFriendRequestsPopup() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        View view = getLayoutInflater().inflate(R.layout.popup_friend_request, null);
+        bottomSheetDialog.setContentView(view);
+
+        final LinearLayout requestsLayout = view.findViewById(R.id.friend_requests_layout);
+
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS + "/" + userEmail, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS, null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray requestsArray = response.getJSONArray("requests");
+                            for (int i = 0; i < requestsArray.length(); i++) {
+                                JSONObject request = requestsArray.getJSONObject(i);
+                                String email = request.getString("email"); // Assuming the JSON attribute is 'email'
+                                View friendRequestView = getLayoutInflater().inflate(R.layout.friend_request_item, null);
+
+                                TextView emailTextView = friendRequestView.findViewById(R.id.friend_request_email);
+                                Button acceptButton = friendRequestView.findViewById(R.id.button_accept);
+                                Button denyButton = friendRequestView.findViewById(R.id.button_deny);
+
+                                emailTextView.setText(email);
+
+                                acceptButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        acceptFriendRequest(email);
+                                        bottomSheetDialog.dismiss();
+                                    }
+                                });
+
+                                denyButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        denyFriendRequest(email);
+                                        bottomSheetDialog.dismiss();
+                                    }
+                                });
+
+                                requestsLayout.addView(friendRequestView);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(FriendsActivity.this, "Error parsing friend requests", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FriendsActivity.this, "Error fetching friend requests: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+        bottomSheetDialog.show();
+    }
+
+    private void acceptFriendRequest(final String email) {
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("requesterEmail", email); // Assuming the email of the person who sent the request
+            requestBody.put("accepterEmail", userEmail); // Your own email
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_ACCEPT_REQUESTS, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(FriendsActivity.this, "Friend request accepted: " + email, Toast.LENGTH_SHORT).show();
+                        // Update the UI or refresh the data as needed
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FriendsActivity.this, "Error accepting friend request: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
+    private void denyFriendRequest(final String email) {
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("requesterEmail", email); // Assuming the email of the person who sent the request
+            requestBody.put("denierEmail", userEmail); // Your own email
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_DECLINE_REQUESTS, requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(FriendsActivity.this, "Friend request denied: " + email, Toast.LENGTH_SHORT).show();
+                        // Update the UI or refresh the data as needed
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(FriendsActivity.this, "Error denying friend request: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
 
 }

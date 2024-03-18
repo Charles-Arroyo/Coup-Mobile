@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 //    private static final String URL_JSON_OBJECT = "https://d1869ff7-8c0f-45b8-9f60-49943d078a92.mock.pstmn.io";
 //    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
     // success
-    private static final String URL_JSON_OBJECT = "https://e35eb5e0-2595-4318-b969-b0dd09d8ebcf.mock.pstmn.io";
+    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
     //fail
 //    private static final String URL_JSON_OBJECT = "https://a9d64c4f-e136-411d-9914-ca9fdc127577.mock.pstmn.io";
 
