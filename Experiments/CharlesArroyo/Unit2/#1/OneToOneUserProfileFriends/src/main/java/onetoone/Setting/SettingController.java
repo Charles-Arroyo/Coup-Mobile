@@ -42,7 +42,7 @@ public class SettingController {
             return failure;
         }
 
-        user.setEmailId(updatedSetting.getUpdateEmail());
+        user.setUserEmail(updatedSetting.getUpdateEmail());
         userRepository.save(user);
 
         return success;

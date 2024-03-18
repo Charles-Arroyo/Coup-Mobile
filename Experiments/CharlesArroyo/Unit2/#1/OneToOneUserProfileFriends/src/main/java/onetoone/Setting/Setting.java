@@ -14,7 +14,6 @@ public class Setting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // generating a key for this setting
     private int id;
-
     private String updateEmail;
     private String updatePassword;
 
@@ -53,7 +52,7 @@ public class Setting {
     public void setUpdateEmail(String updateEmail) {
         this.updateEmail = updateEmail;
         if (this.user != null) {
-            this.user.setEmailId(updateEmail);
+            this.user.setUserEmail(updateEmail);
         }
     }
 

@@ -78,11 +78,6 @@ public class UserController {
      * @param user
      * @return
      */
-    /**
-     * Checks the repo, and allows user to sign in
-     * @param user
-     * @return
-     */
     @PostMapping(path = "/signin")
     public String signIn(@RequestBody User user) { //sends a request body of password & username
         User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
@@ -127,7 +122,7 @@ public class UserController {
 
 
     /**
-     * Deletes a user, can be used in the user setting ss
+     * Deletes a user, can be used in the user setting
      * @param id
      * @return
      */
@@ -136,8 +131,6 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
-
-
 
 
 
