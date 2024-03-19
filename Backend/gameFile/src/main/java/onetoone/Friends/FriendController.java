@@ -24,25 +24,38 @@ public class FriendController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
+    /**
+     * Returns all Friends in the DB
+     * @return
+     */
     @GetMapping(path = "/friends")
     List<Friend> getAllFriends(){
         return friendRepository.findAll();
     }
 
     /**
-     * Returns all the friends of a specfic user.
+     * Returns all the friends of a specfic user, regardless of acceptance status
      * @param friendEmail1
      * @return
      */
 
-//    @GetMapping(path = "/getFriends/{friendEmail1}")
-//    public ResponseEntity<List<Friend>> getFriendsByEmail(@PathVariable String friendEmail1) {
-//        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
-//        if (friends.isEmpty()) {
-//            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
-//        }
-//        return ResponseEntity.ok(friends);
-//    }
+    @GetMapping(path = "/getFriends/{friendEmail1}")
+    public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
+        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
+        if (friends.isEmpty()) {
+            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
+        }
+        Map<String, List<Friend>> response = new HashMap<>();
+        response.put("friend", friends);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Deletes a friend relationship from the DB
+     * @param friendEmail1
+     * @param friendEmail2
+     * @return
+     */
 
     @DeleteMapping("/deleteFriend/{friendEmail1}/{friendEmail2}")
    String deleteFriendRelationship(@PathVariable String friendEmail1, @PathVariable String friendEmail2){
@@ -55,19 +68,6 @@ public class FriendController {
       }
         return success;
     }
-
-
-    /**
-     *
-     *
-     *
-     *
-     * Helpful code below
-     *
-     *
-     *
-     *
-     */
 
 
     /**
@@ -97,6 +97,10 @@ public class FriendController {
     }
 
 
+    /**
+     * Returns JSON object of friends who have not accepted the request.
+     */
+
     @GetMapping(path = "/getPendingFriends/{friendEmail1}")
     public ResponseEntity<Map<String, List<Friend>>> getPendingFriendsByEmail(@PathVariable String friendEmail1) {
         // Fetch friends from the repository based on the provided email
@@ -120,20 +124,6 @@ public class FriendController {
         return ResponseEntity.ok(response);
     }
 
-
-//    /**
-//     * returns json object of friends
-//     */
-//    @GetMapping(path = "/getFriends/{friendEmail1}")
-//    public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
-//        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
-//        if (friends.isEmpty()) {
-//            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
-//        }
-//        Map<String, List<Friend>> response = new HashMap<>();
-//        response.put("friend", friends);
-//        return ResponseEntity.ok(response);
-//    }
 
 
     /**

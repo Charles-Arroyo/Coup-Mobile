@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import onetoone.Friends.Friend;
-import onetoone.Profiles.Profile;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
