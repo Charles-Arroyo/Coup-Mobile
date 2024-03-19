@@ -1,6 +1,6 @@
-package onetoone.Setting;
+package database.Setting;
 
-import onetoone.Users.User;
+import database.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

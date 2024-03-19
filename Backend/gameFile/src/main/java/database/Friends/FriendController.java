@@ -1,4 +1,4 @@
-package onetoone.Friends;
+package database.Friends;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import onetoone.Friends.Friend;
-import onetoone.Friends.FriendRepository;
-import onetoone.Users.User;
-import onetoone.Users.UserRepository;
+import database.Friends.Friend;
+import database.Friends.FriendRepository;
+import database.Users.User;
+import database.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

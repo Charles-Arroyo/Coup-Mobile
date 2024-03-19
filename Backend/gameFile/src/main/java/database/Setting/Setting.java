@@ -1,4 +1,4 @@
-package onetoone.Setting;
+package database.Setting;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 // this will connect the foreign key to the user database
 
-import onetoone.Users.User;
+import database.Users.User;
 
 @Entity
 public class Setting {

@@ -1,4 +1,4 @@
-package onetoone.Friends;
+package database.Friends;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import onetoone.Users.User;
+import database.Users.User;
 
 /**
  * This class simulates a relationship between a two emails known as a friendship

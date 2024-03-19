@@ -1,15 +1,15 @@
-package onetoone.game;
+package database.game;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import onetoone.Friends.Friend;
+import database.Friends.Friend;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import onetoone.Setting.Setting;
+import database.Setting.Setting;
 
-import onetoone.Users.User;
+import database.Users.User;
 
 
 @Entity

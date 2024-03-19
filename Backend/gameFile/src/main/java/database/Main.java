@@ -1,10 +1,10 @@
-package onetoone;
+package database;
 
 
-import onetoone.Friends.Friend;
-import onetoone.Friends.FriendRepository;
-import onetoone.Users.User;
-import onetoone.Users.UserRepository;
+import database.Friends.Friend;
+import database.Friends.FriendRepository;
+import database.Users.User;
+import database.Users.UserRepository;
 import org.hibernate.Hibernate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

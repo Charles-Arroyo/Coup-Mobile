@@ -1,7 +1,7 @@
-package onetoone.Users;
+package database.Users;
 
-import onetoone.Friends.Friend;
-import onetoone.Friends.FriendRepository;
+import database.Friends.Friend;
+import database.Friends.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

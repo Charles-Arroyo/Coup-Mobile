@@ -1,5 +1,5 @@
-package onetoone.Friends;
-import onetoone.Users.User;
+package database.Friends;
+import database.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,13 +1,13 @@
-package onetoone.game;
+package database.game;
 
 
-import onetoone.Friends.Friend;
-import onetoone.Users.User;
+import database.Friends.Friend;
+import database.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import onetoone.Users.UserRepository;
+import database.Users.UserRepository;
 
 import java.util.HashMap;
 import java.util.List;

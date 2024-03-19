@@ -1,13 +1,13 @@
-package onetoone.Setting;
+package database.Setting;
 
-import onetoone.Users.User;
+import database.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
-import onetoone.Users.UserRepository;
+import database.Users.UserRepository;
 import org.springframework.web.server.ResponseStatusException;
 
 
