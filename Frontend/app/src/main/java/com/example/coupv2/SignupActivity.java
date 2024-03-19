@@ -24,8 +24,8 @@ public class SignupActivity extends AppCompatActivity {
     private Button loginButton;
     private Button signupButton;
 
-    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
-//    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signup";
+//    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
+    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signup";
     // success
 //    private static final String URL_SIGNUP = "https://c0552578-2f02-4669-999e-030ad7fa3950.mock.pstmn.io";
     //fail
