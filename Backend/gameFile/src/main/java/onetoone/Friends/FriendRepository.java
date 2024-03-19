@@ -16,7 +16,14 @@ public interface FriendRepository extends JpaRepository<Friend, Long>{
 
     List<Friend> findByFriendEmail1(String friendEmail1);
 
+    
+
     List<Friend> findByFriendEmail1AndFriendEmail2(String email1, String email2);
+
+
+
+
+
 
 
     @Transactional

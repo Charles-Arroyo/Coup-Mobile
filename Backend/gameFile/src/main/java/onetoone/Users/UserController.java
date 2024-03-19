@@ -2,26 +2,21 @@ package onetoone.Users;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
-import onetoone.Setting.Setting;
-import onetoone.Setting.SettingRepository;
-import onetoone.game.Game;
-import onetoone.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
+ * 
  * @author Charles Arroyo
- *
- */
+ * 
+ */ 
 
 @RestController
 public class UserController {
-
 
     @Autowired
     UserRepository userRepository; //Creating a repository(mySQL of users)
@@ -101,7 +96,6 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
         User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
@@ -112,13 +106,13 @@ public class UserController {
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
-        friend.setAccepted(true);
+        friend.setAcceptance(true);
         friendRepository.save(friend);
         return success;
     }
 
     /**
-     * Deletes a user, can be used in the user setting ss
+     * Deletes a user, can be used in the user setting
      * @param id
      * @return
      */
@@ -127,4 +121,28 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
+
+
+
+//    /**
+//     * This returns all friends associated with the email
+//     * @param
+//     * @return
+//     */
+//    @PostMapping(path = "/listFriends")
+//    ArrayList<String> getUserFriends(@RequestBody User userEmail) {
+//        ArrayList<String> list = new ArrayList<>();
+//        User user = userRepository.findByUserEmail(userEmail.getUserEmail());
+//        if (user == null) {
+//            // Handle the case where the user does not exist
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+//        }
+//
+//        List<Friend> friends = friendRepository.findByFriendEmail1(user.getUserEmail());
+//
+//        for (Friend friend : friends) {
+//            list.add((friend.getFriendEmail2()));
+//        }
+//        return list;
+//    }
 }

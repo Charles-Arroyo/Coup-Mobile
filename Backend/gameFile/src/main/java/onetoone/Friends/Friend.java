@@ -22,17 +22,14 @@ public class Friend {
     private int id; // Primary Key, not exposed to users.
 
     private String friendEmail1;
-
-
-
     private String friendEmail2;
 
-    private Boolean accepted;
-
+    private boolean acceptance;
 
     public Friend(String friendEmail1, String friendEmail2) {
         this.friendEmail1 = friendEmail1;
         this.friendEmail2 = friendEmail2;
+
     }
 
 
@@ -42,14 +39,6 @@ public class Friend {
 
     public String getFriendEmail2() {
         return friendEmail2;
-    }
-
-    public Boolean getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(Boolean accepted) {
-        this.accepted = accepted;
     }
 
 
@@ -63,6 +52,14 @@ public class Friend {
 
     public void setFriendEmail1(String friendEmail1) {
         this.friendEmail1 = friendEmail1;
+    }
+
+    public boolean getAcceptance() {
+        return acceptance;
+    }
+
+    public void setAcceptance(boolean acceptance) {
+        this.acceptance = acceptance;
     }
 
     @ManyToOne

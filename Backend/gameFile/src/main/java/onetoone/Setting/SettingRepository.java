@@ -15,6 +15,7 @@ public interface SettingRepository extends JpaRepository<Setting, Long>{
     // The use of Optional is a good practice to avoid null checks and handle the absence of a value in a more functional style.
     Optional<Setting> findByUserId(int userId); // Assumes that the User entity's primary key is of type Integer.
 
+
     @Transactional
     void deleteById(int id);
 }

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 
  * @author Charles Arroyo
- *
- */
+ * 
+ */ 
 
 @Entity
 public class User {
@@ -40,23 +40,24 @@ public class User {
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "setting_id")
+//    @JsonManagedReference
     private Setting setting;
 
-
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "game_id")
+//    @JsonManagedReference
     private Game game;
 
 
-    public User(String name, String userEmail, int id,String password, int UniqueID, boolean ifActive) {
+
+    public User(String name, String userEmail, int id,String password, int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
+        this.ifActive = true;
         this.id = id;
         this.password = password;
-        this.ifActive = true;
     }
 
     public User() {
@@ -77,11 +78,6 @@ public class User {
         this.password = password;
     }
 
-
-    public void setId(int id){
-        this.id = id;
-    }
-
     public String getName(){
         return name;
     }
@@ -96,6 +92,14 @@ public class User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public boolean getIsActive(){
+        return ifActive;
+    }
+
+    public void setIfActive(boolean ifActive){
+        this.ifActive = ifActive;
     }
 
     public Setting getSetting() {
@@ -114,6 +118,7 @@ public class User {
         this.game = game;
         game.setUser(this); // Ensure the bidirectional link is established
     }
+
 }
 
 
