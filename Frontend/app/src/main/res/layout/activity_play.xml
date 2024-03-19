@@ -1,75 +1,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header with Timer and Icons -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="347dp"
+        android:layout_height="458dp"
+        android:background="@drawable/greyblock"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:columnCount="3"
+    android:rowCount="3"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Timer Icon ImageView -->
+    <!-- Your ImageViews go here -->
+    <!-- Make sure to copy this ImageView block 9 times to fill the grid -->
         <ImageView
-            android:id="@+id/timerIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="null"
-            android:src="@drawable/timer_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/whiteshape1"
+            android:layout_width="130dp"
+            android:layout_height="105dp"
+            android:src="@drawable/whiteshape"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-        <!-- Make sure this string resource exists -->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- ... -->
+    <!-- Repeat the ImageView for each cell in the grid -->
 
-    <!-- Main Content Area -->
-    <LinearLayout
-        android:id="@+id/mainContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintBottom_toTopOf="@+id/playerActions"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+</GridLayout>
 
-        <!-- This would contain vertical arrangements -->
 
-        <!-- Row for the Income, Foreign Aid, Coup -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- Buttons here -->
-        </LinearLayout>
-
-        <!-- Center BLUFF Button -->
-        <!-- ... -->
-
-        <!-- Row for the Taxes, Assassin, etc. -->
-        <!-- ... -->
-    </LinearLayout>
-
-    <!-- Bottom Player Action Row -->
-    <LinearLayout
-        android:id="@+id/playerActions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <!-- Player action buttons or icons here -->
-    </LinearLayout>
-
-    <!-- Bottom control bar -->
-    <!-- ... -->
 </androidx.constraintlayout.widget.ConstraintLayout>
