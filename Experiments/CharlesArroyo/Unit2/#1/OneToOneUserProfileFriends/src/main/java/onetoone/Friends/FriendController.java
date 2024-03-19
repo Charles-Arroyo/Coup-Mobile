@@ -77,7 +77,7 @@ public class FriendController {
     /**
      * returns json object of friends
      */
-    @GetMapping(path = "/getFriends/{friendEmail1}")
+    @GetMapping(path = "/getFriend/{friendEmail1}")
     public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
         List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
         if (friends.isEmpty()) {

@@ -1,8 +1,11 @@
 package onetoone.Users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import onetoone.Friends.Friend;
 import onetoone.Profiles.Profile;
+import onetoone.Setting.Setting;
+import onetoone.game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,17 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private Profile profile;
+
+
+    @OneToOne
+    @JoinColumn(name = "setting_id")
+    @JsonManagedReference
+    private Setting setting;
+
+    @OneToOne
+    @JoinColumn(name = "game_id")
+    @JsonManagedReference
+    private Game game;
 
 
 
@@ -116,7 +130,22 @@ public class User {
     public void setProfile(Profile profile){
         this.profile = profile;
     }
+    public Setting getSetting() {
+        return setting;
+    }
 
+    public void setSetting(Setting setting) {
+        this.setting = setting;
+        setting.setUser(this); // Ensure the bidirectional link is established
+    }
+
+    public Game getGame(){
+        return game;
+    }
+    public void setGaming(Game game) {
+        this.game = game;
+        game.setUser(this); // Ensure the bidirectional link is established
+    }
 }
 
 

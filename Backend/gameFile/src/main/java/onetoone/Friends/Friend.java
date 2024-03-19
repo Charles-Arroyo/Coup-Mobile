@@ -22,7 +22,12 @@ public class Friend {
     private int id; // Primary Key, not exposed to users.
 
     private String friendEmail1;
+
+
+
     private String friendEmail2;
+
+    private Boolean accepted;
 
 
     public Friend(String friendEmail1, String friendEmail2) {
@@ -37,6 +42,14 @@ public class Friend {
 
     public String getFriendEmail2() {
         return friendEmail2;
+    }
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
     }
 
 

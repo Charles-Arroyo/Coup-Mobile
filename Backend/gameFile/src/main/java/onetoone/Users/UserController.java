@@ -2,11 +2,16 @@ package onetoone.Users;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
+import onetoone.Profiles.Profile;
 import onetoone.Profiles.ProfileRepository;
+import onetoone.Setting.Setting;
+import onetoone.Setting.SettingRepository;
+import onetoone.game.Game;
+import onetoone.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
 
 
 import java.util.ArrayList;
@@ -120,6 +125,7 @@ public class UserController {
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
+        friend.setAccepted(true);
         friendRepository.save(friend);
         return success;
     }

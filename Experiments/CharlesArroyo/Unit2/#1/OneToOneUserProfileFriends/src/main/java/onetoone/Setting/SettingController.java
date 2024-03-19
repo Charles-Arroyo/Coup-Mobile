@@ -41,7 +41,6 @@ public class SettingController {
         if (user == null) {
             return failure;
         }
-
         user.setUserEmail(updatedSetting.getUpdateEmail());
         userRepository.save(user);
 

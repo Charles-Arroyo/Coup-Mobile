@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
@@ -70,18 +71,69 @@ public class FriendController {
 
 
     /**
-     * returns json object of friends
+     * Returns JSON object of friends who have accepted the request.
      */
-    @GetMapping(path = "/getFriends/{friendEmail1}")
-    public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
+    @GetMapping(path = "/getAcceptedFriends/{friendEmail1}")
+    public ResponseEntity<Map<String, List<Friend>>> getAcceptedFriendsByEmail(@PathVariable String friendEmail1) {
+        // Fetch friends from the repository based on the provided email
         List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
-        if (friends.isEmpty()) {
-            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
+
+        // Filter friends who have accepted the request (accepted = true)
+        List<Friend> acceptedFriends = friends.stream()
+                .filter(friend -> friend.getAccepted()) // Assuming 'accepted' is a boolean field
+                .collect(Collectors.toList());
+
+        // If no accepted friends are found, return 404 Not Found response
+        if (acceptedFriends.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
+
+        // Construct response containing accepted friends
         Map<String, List<Friend>> response = new HashMap<>();
-        response.put("friend", friends);
+        response.put("friend", acceptedFriends);
+
+        // Return 200 OK response with the map of accepted friends
         return ResponseEntity.ok(response);
     }
+
+
+    @GetMapping(path = "/getPendingFriends/{friendEmail1}")
+    public ResponseEntity<Map<String, List<Friend>>> getPendingFriendsByEmail(@PathVariable String friendEmail1) {
+        // Fetch friends from the repository based on the provided email
+        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
+
+        // Filter friends who have accepted the request (accepted = true)
+        List<Friend> acceptedFriends = friends.stream()
+                .filter(friend -> !friend.getAccepted()) // Assuming 'accepted' is a boolean field
+                .collect(Collectors.toList());
+
+        // If no accepted friends are found, return 404 Not Found response
+        if (acceptedFriends.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Construct response containing accepted friends
+        Map<String, List<Friend>> response = new HashMap<>();
+        response.put("friend", acceptedFriends);
+
+        // Return 200 OK response with the map of accepted friends
+        return ResponseEntity.ok(response);
+    }
+
+
+//    /**
+//     * returns json object of friends
+//     */
+//    @GetMapping(path = "/getFriends/{friendEmail1}")
+//    public ResponseEntity<Map<String, List<Friend>>> getFriendsByEmail(@PathVariable String friendEmail1) {
+//        List<Friend> friends = friendRepository.findByFriendEmail1(friendEmail1);
+//        if (friends.isEmpty()) {
+//            return ResponseEntity.notFound().build(); // Returns a 404 if no friends are found
+//        }
+//        Map<String, List<Friend>> response = new HashMap<>();
+//        response.put("friend", friends);
+//        return ResponseEntity.ok(response);
+//    }
 
 
     /**

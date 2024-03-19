@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="" />
+    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Friends/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Friends/Friend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/Setting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/SettingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Setting/SettingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/src/main/java/onetoone/Users/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/target/classes/onetoone/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/target/classes/onetoone/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Backend/gameFile/target/classes/onetoone/Users/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Backend/gameFile/target/classes/onetoone/Users/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/Setting.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/Setting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/Friend.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/Friend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/FriendController.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,10 +68,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "bo__gameLogic",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/bohte/OneDrive - Iowa State University/Desktop/COMS309/coms309/Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends",
+    "last_opened_file_path": "/Users/CharlesDylan/Desktop/309/mk1_8/Experiments/Bo/unit2/OneToOneUserProfileFriends",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -126,6 +146,7 @@
       <workItem from="1710786098095" duration="24000" />
       <workItem from="1710793945819" duration="68000" />
       <workItem from="1710794075601" duration="1773000" />
+      <workItem from="1710809919714" duration="1211000" />
     </task>
     <servers />
   </component>
