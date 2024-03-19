@@ -1,5 +1,4 @@
 package onetoone.Friends;
-import onetoone.Profiles.Profile;
 import onetoone.Users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,9 +17,6 @@ public interface FriendRepository extends JpaRepository<Friend, Long>{
     List<Friend> findByFriendEmail1(String friendEmail1);
 
     List<Friend> findByFriendEmail1AndFriendEmail2(String email1, String email2);
-
-
-
 
 
     @Transactional

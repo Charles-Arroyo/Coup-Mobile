@@ -17,15 +17,12 @@ public class Setting {
     private String updateEmail;
     private String updatePassword;
 
-
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
     // Declares a field of type User. This field represents the user associated with a particular setting.
     // It enables direct access to the User entity associated with this Setting entity in the application code.
-
-
 
     public Setting(String updateEmail,String updatePassword){
         this.updateEmail = updateEmail;

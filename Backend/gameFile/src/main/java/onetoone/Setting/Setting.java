@@ -53,7 +53,7 @@ public class Setting {
     public void setUpdateEmail(String updateEmail) {
         this.updateEmail = updateEmail;
         if (this.user != null) {
-            this.user.setEmailId(updateEmail);
+            this.user.setUserEmail(updateEmail);
         }
     }
 
@@ -63,9 +63,6 @@ public class Setting {
             this.user.setPassword(updatePassword);
         }
     }
-
-
-
     public void setUser(User user){
         this.user = user;
     }

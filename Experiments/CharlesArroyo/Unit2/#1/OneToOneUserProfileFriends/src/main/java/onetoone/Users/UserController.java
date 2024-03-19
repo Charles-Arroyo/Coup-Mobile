@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * 
@@ -99,9 +96,6 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-
-
-
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
         User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
@@ -112,11 +106,10 @@ public class UserController {
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
+        friend.setAcceptance(true);
         friendRepository.save(friend);
         return success;
     }
-
-
 
     /**
      * Deletes a user, can be used in the user setting

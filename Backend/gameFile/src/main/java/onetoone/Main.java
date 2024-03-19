@@ -3,7 +3,6 @@ package onetoone;
 
 import onetoone.Friends.Friend;
 import onetoone.Friends.FriendRepository;
-import onetoone.Profiles.ProfileRepository;
 import onetoone.Users.User;
 import onetoone.Users.UserRepository;
 import org.hibernate.Hibernate;

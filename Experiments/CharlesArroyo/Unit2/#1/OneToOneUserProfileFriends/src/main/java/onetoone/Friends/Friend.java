@@ -54,6 +54,14 @@ public class Friend {
         this.friendEmail1 = friendEmail1;
     }
 
+    public boolean getAcceptance() {
+        return acceptance;
+    }
+
+    public void setAcceptance(boolean acceptance) {
+        this.acceptance = acceptance;
+    }
+
     @ManyToOne
     @JoinColumn(name = "friendId")
     @JsonIgnore

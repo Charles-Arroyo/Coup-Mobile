@@ -4,7 +4,39 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="" />
+=======
+    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Friends/FriendRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/Profile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Profiles/ProfileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/onetoone/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Profiles/Profile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Profiles/ProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Profiles/ProfileRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/onetoone/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/onetoone/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/Friend.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/src/main/java/onetoone/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/Friend.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/Friend.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Setting/Setting.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Setting/Setting.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/target/classes/onetoone/Users/UserController.class" afterDir="false" />
+    </list>
+>>>>>>> 67e5e2da55f813a43931f7848e15ddaaccbf4b82
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,10 +77,17 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.Main.executor&quot;: &quot;Run&quot;,
+<<<<<<< HEAD
     &quot;git-widget-placeholder&quot;: &quot;bo__gameLogic&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/bohte/OneDrive - Iowa State University/Desktop/COMS309/coms309/Backend/gameFile&quot;,
+=======
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile&quot;,
+>>>>>>> 67e5e2da55f813a43931f7848e15ddaaccbf4b82
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -83,6 +122,13 @@
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -123,16 +169,33 @@
       <workItem from="1709688948096" duration="1796000" />
       <workItem from="1710794014578" duration="60000" />
       <workItem from="1710806308259" duration="590000" />
+<<<<<<< HEAD
       <workItem from="1710823958851" duration="2000" />
+=======
+      <workItem from="1710809232526" duration="54000" />
+      <workItem from="1710809503371" duration="5714000" />
+      <workItem from="1710816190618" duration="383000" />
+>>>>>>> 67e5e2da55f813a43931f7848e15ddaaccbf4b82
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
-      <path value="$PROJECT_DIR$/../../../../.." />
+      <path value="$USER_HOME$" />
     </ignored-roots>
   </component>
   <component name="XDebuggerManager">
