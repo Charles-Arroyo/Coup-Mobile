@@ -34,7 +34,7 @@ public class SettingController {
             return failure;
         }
 
-        Setting setting = settingRepository.findById(userId)
+        Setting setting = settingRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
 
         User user = setting.getUser();
@@ -54,7 +54,7 @@ public class SettingController {
             return ResponseEntity.badRequest().body("{\"message\":\"Invalid password\"}");
         }
 
-        Setting setting = settingRepository.findById(userId)
+        Setting setting = settingRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
 
         User user = setting.getUser();

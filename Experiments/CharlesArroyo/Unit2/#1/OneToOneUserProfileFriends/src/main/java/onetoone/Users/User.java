@@ -42,12 +42,12 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "setting_id")
-//    @JsonManagedReference
+    @JsonManagedReference
     private Setting setting;
 
     @OneToOne
     @JoinColumn(name = "game_id")
-//    @JsonManagedReference
+    @JsonManagedReference
     private Game game;
 
 
