@@ -30,16 +30,18 @@ public class SettingController {
     @PutMapping(path = "/changeEmail/{userId}")
     @Transactional
     public String changeEmail(@PathVariable Long userId, @RequestBody Setting updatedSetting) {
+
         if (updatedSetting.getUpdateEmail() == null) {
-            return failure;
+
+            return "empty";
         }
 
-        Setting setting = settingRepository.findById(userId)
+        Setting setting = settingRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
 
         User user = setting.getUser();
         if (user == null) {
-            return failure;
+            return "null user";
         }
 
         user.setEmailId(updatedSetting.getUpdateEmail());
