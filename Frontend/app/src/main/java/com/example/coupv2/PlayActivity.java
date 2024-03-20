@@ -81,7 +81,7 @@ public class PlayActivity extends AppCompatActivity {
         AppController.getInstance().getRequestQueue().add(stringRequest);
     }
     private void updateGameResult(int primaryKey, boolean won) {
-           String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/" + primaryKey;
+        String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/" + primaryKey;
         JSONObject jsonRequest = new JSONObject();
         try {
 //            jsonRequest.put("primaryKey", primaryKey);
