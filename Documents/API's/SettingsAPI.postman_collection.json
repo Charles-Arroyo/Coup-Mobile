@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "a52ad284-0489-4666-8990-ff7de19e37fc",
+		"name": "Settings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32643953"
+	},
+	"item": [
+		{
+			"name": "changeEmail",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"updateEmail\": \"charles\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/changeEmail/278",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"changeEmail",
+						"278"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changePass",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"updatePassword\": \"chupapi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/changePass/278",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"changePass",
+						"278"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
