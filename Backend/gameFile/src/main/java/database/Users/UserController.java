@@ -2,6 +2,10 @@ package database.Users;
 
 import database.Friends.Friend;
 import database.Friends.FriendRepository;
+import database.Setting.Setting;
+import database.Setting.SettingRepository;
+import database.game.Game;
+import database.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,12 @@ public class UserController {
 
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
+
+    @Autowired
+    SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)
+
+    @Autowired
+    GameRepository gameRepository; // //Creating a repository(mySQL of Friends)
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -55,16 +65,35 @@ public class UserController {
      * @param user
      * @return
      */
+//    @PostMapping(path = "/signup")
+//    String signUp(@RequestBody User user) {
+//        if (user != null) { //user is not null
+//            userRepository.save(user); //Create User and Save
+//            return success;
+//        }else{ //Null
+//            return failure; //Return a Failure
+//        }
+//    }
+
+
+
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
         if (user != null) { //user is not null
-            userRepository.save(user); //Create User and Save
+            Setting newSetting = new Setting(); // Assume default properties are set in the constructor
+            Game newGame = new Game();
+            // Initialize newGame properties...
+            gameRepository.save(newGame);
+            settingRepository.save(newSetting);
+            user.setGaming(newGame); // Assuming setUser correctly sets up the relationship
+            user.setSetting(newSetting);
+            // Initialize other newUser properties...
+            userRepository.save(user);
             return success;
         }else{ //Null
             return failure; //Return a Failure
         }
     }
-
     /**
      * Checks the repo, and allows user to sign in
      * @param user
@@ -122,7 +151,15 @@ public class UserController {
         return success;
     }
 
-
+    @GetMapping("/getId/{email}")
+    public int getUserIdByEmail(@PathVariable String email) {
+        User user = userRepository.findByUserEmail(email);
+        if (user != null) {
+            return user.getId();
+        } else {
+            return -1;
+        }
+    }
 
 //    /**
 //     * This returns all friends associated with the email

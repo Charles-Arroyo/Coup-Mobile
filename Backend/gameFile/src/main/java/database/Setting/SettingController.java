@@ -31,15 +31,15 @@ public class SettingController {
     @Transactional
     public String changeEmail(@PathVariable Long userId, @RequestBody Setting updatedSetting) {
         if (updatedSetting.getUpdateEmail() == null) {
-            return failure;
+            return "GET updated email is null";
         }
 
-        Setting setting = settingRepository.findById(userId)
+        Setting setting = settingRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
 
         User user = setting.getUser();
         if (user == null) {
-            return failure;
+            return "User is null";
         }
         user.setUserEmail(updatedSetting.getUpdateEmail());
         userRepository.save(user);
@@ -54,7 +54,7 @@ public class SettingController {
             return ResponseEntity.badRequest().body("{\"message\":\"Invalid password\"}");
         }
 
-        Setting setting = settingRepository.findById(userId)
+        Setting setting = settingRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Setting not found"));
 
         User user = setting.getUser();
