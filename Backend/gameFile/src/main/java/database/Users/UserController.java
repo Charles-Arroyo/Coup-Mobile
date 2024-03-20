@@ -32,7 +32,7 @@ public class UserController {
     SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
-    GameRepository gameRepository; // //Creating a repository(mySQL of Friends)
+    GameRepository gameRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -60,23 +60,22 @@ public class UserController {
         return userRepository.findById(id);
     }
 
+    @GetMapping("/getId/{email}")
+    public int getUserByEmail(@PathVariable String email) {
+        User user = userRepository.findByUserEmail(email);
+        if (user != null) {
+            return user.getId();
+        } else {
+            return -1;
+        }
+    }
+
+
     /**
      * Creates a user, need to account for same emails
      * @param user
      * @return
      */
-//    @PostMapping(path = "/signup")
-//    String signUp(@RequestBody User user) {
-//        if (user != null) { //user is not null
-//            userRepository.save(user); //Create User and Save
-//            return success;
-//        }else{ //Null
-//            return failure; //Return a Failure
-//        }
-//    }
-
-
-
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
         if (user != null) { //user is not null
@@ -94,6 +93,7 @@ public class UserController {
             return failure; //Return a Failure
         }
     }
+
     /**
      * Checks the repo, and allows user to sign in
      * @param user
@@ -150,36 +150,4 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
-
-    @GetMapping("/getId/{email}")
-    public int getUserIdByEmail(@PathVariable String email) {
-        User user = userRepository.findByUserEmail(email);
-        if (user != null) {
-            return user.getId();
-        } else {
-            return -1;
-        }
-    }
-
-//    /**
-//     * This returns all friends associated with the email
-//     * @param
-//     * @return
-//     */
-//    @PostMapping(path = "/listFriends")
-//    ArrayList<String> getUserFriends(@RequestBody User userEmail) {
-//        ArrayList<String> list = new ArrayList<>();
-//        User user = userRepository.findByUserEmail(userEmail.getUserEmail());
-//        if (user == null) {
-//            // Handle the case where the user does not exist
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-//        }
-//
-//        List<Friend> friends = friendRepository.findByFriendEmail1(user.getUserEmail());
-//
-//        for (Friend friend : friends) {
-//            list.add((friend.getFriendEmail2()));
-//        }
-//        return list;
-//    }
 }

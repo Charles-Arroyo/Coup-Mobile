@@ -13,7 +13,7 @@ public interface SettingRepository extends JpaRepository<Setting, Long>{
     // This method returns an Optional of Setting, which means it can return a Setting object
     // if found, or an empty Optional if no setting is found for the provided userId.
     // The use of Optional is a good practice to avoid null checks and handle the absence of a value in a more functional style.
-    Optional<Setting> findByUserId(long userId); // Assumes that the User entity's primary key is of type Integer.
+    Optional<Setting> findByUserId(Long userId); // Assumes that the User entity's primary key is of type Integer.
 
 
     @Transactional

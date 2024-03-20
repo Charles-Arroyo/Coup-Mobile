@@ -45,10 +45,10 @@ public class GameController {
 
 //
     // Endpoint to increment the win counter for a user's game
-    @PostMapping(path = "/gameTotal/{id}")
+    @PutMapping(path = "/gameTotal/{id}")
     public String gameWon(@RequestBody Game gameResult,@PathVariable int id) {
 
-        User user = userRepository.findBySettingId(id);
+        User user = userRepository.findById(id);
         if (user == null){
             return failure;
         }
@@ -79,7 +79,7 @@ public class GameController {
             //ID
             //Game
             //Print Game
-            User user = userRepository.findBySettingId(id);
+            User user = userRepository.findById(id);
             Game userGame = user.getGame();
             return userGame;
 

@@ -31,7 +31,7 @@ public class SettingController {
     @Transactional
     public String changeEmail(@PathVariable Long userId, @RequestBody Setting updatedSetting) {
         if (updatedSetting.getUpdateEmail() == null) {
-            return "GET updated email is null";
+            return failure;
         }
 
         Setting setting = settingRepository.findByUserId(userId)
@@ -39,7 +39,7 @@ public class SettingController {
 
         User user = setting.getUser();
         if (user == null) {
-            return "User is null";
+            return failure;
         }
         user.setUserEmail(updatedSetting.getUpdateEmail());
         userRepository.save(user);

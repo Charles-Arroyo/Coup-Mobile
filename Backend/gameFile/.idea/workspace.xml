@@ -8,18 +8,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Setting/SettingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Setting/SettingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Setting/SettingRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/game/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Setting/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Setting/SettingController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Setting/SettingRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Setting/SettingRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/src/main/java/onetoone/Setting/SettingRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/Bo/unit2/OneToOneUserProfileFriends/target/classes/onetoone/Setting/SettingRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Experiments/CharlesArroyo/Unit2/#1/OneToOneUserProfileFriends/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +148,8 @@
       <workItem from="1710891543082" duration="15000" />
       <workItem from="1710893974888" duration="735000" />
       <workItem from="1710894768531" duration="1560000" />
+      <workItem from="1710897035927" duration="287000" />
+      <workItem from="1710897332445" duration="1137000" />
     </task>
     <servers />
   </component>
