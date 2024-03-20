@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity {
     private void performSignup(String emailId, String password) {
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("emailId", emailId);
+            jsonRequest.put("userEmail", emailId);
             jsonRequest.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
