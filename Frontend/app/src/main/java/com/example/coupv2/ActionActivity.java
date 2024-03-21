@@ -1,11 +1,12 @@
 package com.example.coupv2;
 
+
 import android.os.Bundle;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SettingActivity extends AppCompatActivity {
-
+public class ActionActivity extends AppCompatActivity {
 
 
     @Override
