@@ -135,7 +135,7 @@ public class UserController {
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
-        friend.setAcceptance(true);
+        friend.setAcceptance(true); // Put this in a seperate method
         friendRepository.save(friend);
         return success;
     }
