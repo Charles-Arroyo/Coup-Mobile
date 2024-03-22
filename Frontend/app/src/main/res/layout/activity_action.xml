@@ -18,7 +18,6 @@
 
         <!-- Your ImageViews go here -->
         <!-- Make sure to copy this ImageView block 9 times to fill the grid -->
-
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -32,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,7 +41,9 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 
-        <FrameLayout
+
+
+    <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
@@ -55,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -189,7 +190,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -211,7 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape" />
+                android:src="@drawable/whiteshape_selector" />
 
             <TextView
                 android:layout_width="wrap_content"

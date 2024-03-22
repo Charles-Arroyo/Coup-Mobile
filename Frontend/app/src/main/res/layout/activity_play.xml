@@ -1,6 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Top area with icons and timer -->
+    <LinearLayout
+        android:id="@+id/topBr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!-- Icons and timer go here -->
+    </LinearLayout>
+
+    <!-- Central grid area -->
+
+
+    <!-- Bottom area -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/centralGridArea"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomArea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!--        action icon-->
+        <ImageView
+            android:id="@+id/gameBoard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/imageview_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.4"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.36"
+            app:layout_constraintWidth_percent="0.6" />
+        <!--        green icons-->
+
+        <!--        red icons-->
+
+        <ImageView
+            android:id="@+id/greenIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/greeniconshape"
+            app:layout_constraintBottom_toBottomOf="@id/gameBoard"
+            app:layout_constraintEnd_toStartOf="@id/gameBoard"
+            app:layout_constraintTop_toTopOf="@id/gameBoard"
+            app:layout_constraintVertical_bias="0.256" />
+
+        <ImageView
+            android:id="@+id/greenIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/greeniconshape"
+            app:layout_constraintBottom_toBottomOf="@id/gameBoard"
+            app:layout_constraintEnd_toStartOf="@id/gameBoard"
+            app:layout_constraintTop_toTopOf="@id/gameBoard"
+            app:layout_constraintVertical_bias="0.748" />
+
+        <ImageView
+            android:id="@+id/redIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="72dp"
+            android:src="@drawable/rediconshape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/redIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="72dp"
+            android:src="@drawable/rediconshape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/blueIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/blueiconshape"
+            app:layout_constraintBottom_toBottomOf="@id/gameBoard"
+            app:layout_constraintStart_toEndOf="@id/gameBoard"
+            app:layout_constraintTop_toTopOf="@id/gameBoard"
+            app:layout_constraintVertical_bias="0.256" />
+
+        <ImageView
+            android:id="@+id/blueIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/blueiconshape"
+            app:layout_constraintBottom_toBottomOf="@id/gameBoard"
+            app:layout_constraintStart_toEndOf="@id/gameBoard"
+            app:layout_constraintTop_toTopOf="@id/gameBoard"
+            app:layout_constraintVertical_bias="0.748" />
+
+        <ImageView
+            android:id="@+id/yellowicon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="396dp"
+            android:src="@drawable/yellowiconshape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/yellowicon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="396dp"
+            android:src="@drawable/yellowiconshape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomArea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <!-- Bottom elements go here -->
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
