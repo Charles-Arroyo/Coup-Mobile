@@ -4,6 +4,7 @@ import database.Friends.Friend;
 import database.Friends.FriendRepository;
 import database.Setting.Setting;
 import database.Setting.SettingRepository;
+import database.Websocket.MessageRepository;
 import database.game.Game;
 import database.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository; //Creating a repository(mySQL of users)
+
+
+    @Autowired
+    MessageRepository messageRepository; //Creating a repository(mySQL of users)
 
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
