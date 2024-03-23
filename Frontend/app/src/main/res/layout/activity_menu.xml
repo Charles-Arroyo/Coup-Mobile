@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="16dp">
 
     <Button
         android:id="@+id/play_btn"
@@ -49,6 +50,18 @@
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Settings"
+        tools:ignore="HardcodedText" />
+
+    <!-- Back Button - Relocated to be consistent with other buttons -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:onClick="onBackPressed"
+        android:text="Back"
+        android:textSize="16sp"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>

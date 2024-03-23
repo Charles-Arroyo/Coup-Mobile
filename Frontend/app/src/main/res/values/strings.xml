@@ -5,4 +5,9 @@
     <string name="instructions">Instructions</string>
     <string name="friends_stats">Friends/Stats</string>
     <string name="game_icon_description">Game Icon</string>
+
+        <string name="win_button_text">WIN</string>
+        <string name="loss_button_text">LOSS</string>
+
+
 </resources>
