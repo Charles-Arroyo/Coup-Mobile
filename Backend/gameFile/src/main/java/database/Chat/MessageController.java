@@ -18,6 +18,8 @@ public class MessageController {
     List<Message> getAllMessages(){
         return messageRepository.findAll();
     }
+
+
 }
 
 

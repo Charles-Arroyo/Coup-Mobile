@@ -97,6 +97,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -150,7 +157,9 @@
       <workItem from="1710983010996" duration="855000" />
       <workItem from="1711133906007" duration="130000" />
       <workItem from="1711149032055" duration="1083000" />
-      <workItem from="1711150122507" duration="11858000" />
+      <workItem from="1711150122507" duration="17711000" />
+      <workItem from="1711229350963" duration="508000" />
+      <workItem from="1711230008848" duration="980000" />
     </task>
     <servers />
   </component>
