@@ -1,4 +1,4 @@
-package database.Websocket;
+package database.Chat;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

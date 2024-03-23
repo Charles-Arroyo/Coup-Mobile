@@ -1,4 +1,4 @@
-package database.Websocket;
+package database.Chat;
 
 import java.util.Date;
 

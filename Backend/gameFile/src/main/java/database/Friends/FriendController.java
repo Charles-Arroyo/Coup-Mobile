@@ -27,7 +27,6 @@ public class FriendController {
     @GetMapping(path = "/friends")
     List<Friend> getAllFriends(){
         return friendRepository.findAll();
-
     }
 
     @GetMapping(path = "/getAcceptedFriends/{friendEmail1}")
