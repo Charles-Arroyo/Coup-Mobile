@@ -63,6 +63,9 @@
         <activity
             android:name=".ActionActivity"
             android:exported="false" />
+        <activity
+            android:name=".LobbyActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
