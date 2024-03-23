@@ -29,7 +29,7 @@ public class User {
     private String name;
 
     private String userEmail;
-//    private boolean ifActive;
+    private boolean ifActive;
 
     private String password;
 
@@ -55,7 +55,7 @@ public class User {
     public User(String name, String userEmail, int id,String password, int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
-//        this.ifActive = true;
+        this.ifActive = true;
         this.id = id;
         this.password = password;
     }
@@ -94,13 +94,13 @@ public class User {
         this.userEmail = userEmail;
     }
 
-//    public boolean getIsActive(){
-//        return ifActive;
-//    }
+    public boolean getIsActive(){
+        return ifActive;
+    }
 
-//    public void setIfActive(boolean ifActive){
-//        this.ifActive = ifActive;
-//    }
+    public void setIfActive(boolean ifActive){
+        this.ifActive = ifActive;
+    }
 
     public Setting getSetting() {
         return setting;

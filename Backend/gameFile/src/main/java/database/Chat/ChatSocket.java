@@ -52,8 +52,6 @@ public class ChatSocket {
       throws IOException {
 
 		UserRepository userRepository = WebsocketConfig.getUserRepository();
-
-
 		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
 			logger.info("Entered into Open");
 
