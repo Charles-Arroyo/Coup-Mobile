@@ -25,6 +25,7 @@ public class LobbySocket {
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
 
     private static Map<Session, Integer> sessionLobbyMap = new Hashtable<>();
+    private static Map<Session, String> sessionUsernamemap = new Hashtable<>();
     private static Map<String, Session> lobbySessionMap = new Hashtable<>();
     @Autowired
     public void setLobbyRepository(LobbyRepository repo) {
@@ -51,6 +52,8 @@ public class LobbySocket {
               boolean notFull =  existingLobby.addUser(username); // Add the user to the lobby.
                 if(notFull) {
                     lobbyRepository.save(existingLobby); // Update the existing lobby.
+                    // Send a message to all clients in the lobby to indicate that this user has joined.
+                    broadcast(username + " has joined the lobby, The ID is" +lobbyId);
                 }else{
                     System.out.println("FUll");
                 }
@@ -58,15 +61,28 @@ public class LobbySocket {
                 // If the lobby doesn't exist or is full
                 session.getBasicRemote().sendText("Lobby is full or does not exist");
                 session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT, "Lobby is full or does not exist"));
+
                 return;
             }
         }
 
         // Store the user's session and associate it with the lobbyId.
         sessionLobbyMap.put(session, lobbyId);
+    }
 
-        // Send a message to all clients in the lobby to indicate that this user has joined.
-        broadcast(lobbyId + username + " has joined the lobby.");
+
+    @OnClose
+    public void onClose(Session session) throws IOException {
+        logger.info("Entered into Close");
+
+        // remove the user connection information
+        String username = sessionUsernamemap.get(session);
+        sessionLobbyMap.remove(session);
+        lobbySessionMap.remove(username);
+
+        // broadcase that the user disconnected
+        String message = username + " left the lobby";
+        broadcast(message);
     }
 
     private void broadcast(String message) {

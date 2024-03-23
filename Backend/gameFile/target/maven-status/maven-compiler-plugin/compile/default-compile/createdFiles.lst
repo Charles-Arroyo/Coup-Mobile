@@ -3,7 +3,6 @@ gamelogic/gameRound/gameRoundRepository.class
 database/game/GameController.class
 gamelogic/rules/rulesRepository.class
 database/Main.class
-database/Websocket/ChatSocketConfig.class
 database/Friends/FriendRepository.class
 database/Users/User.class
 database/Users/UserRepository.class
@@ -13,14 +12,11 @@ gamelogic/gameRound/gameRoundController.class
 database/game/Game.class
 database/Setting/SettingRepository.class
 gamelogic/rules/rulesController.class
-database/Websocket/MessageRepository.class
 database/Friends/Friend.class
 gamelogic/rules/rules.class
-database/Websocket/Message.class
 database/Friends/FriendController.class
 gamelogic/gameRound/gameRound.class
 gamelogic/cards/cards.class
-database/Websocket/ChatSocket.class
 database/game/GameRepository.class
 gamelogic/cards/cardsController.class
 gamelogic/cards/cardsRepository.class
