@@ -5,6 +5,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import database.Friends.FriendRepository;
+import database.Users.UserRepository;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
@@ -24,7 +26,7 @@ public class ChatSocket {
 
   // cannot autowire static directly (instead we do it by the below
   // method
-	private static MessageRepository msgRepo; 
+	private static MessageRepository msgRepo;
 
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
@@ -45,45 +47,88 @@ public class ChatSocket {
 	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("username") String username) 
+	public void onOpen(Session session, @PathParam("username") String username)
       throws IOException {
 
-		logger.info("Entered into Open");
+		UserRepository userRepository = ChatSocketConfig.getUserRepository();
 
-    // store connecting user information
-		sessionUsernameMap.put(session, username);
-		usernameSessionMap.put(username, session);
 
-		//Send chat history to the newly connected user
-		sendMessageToPArticularUser(username, getChatHistory());
-		
-    // broadcast that new user joined
-		String message = "User:" + username + " has Joined the Chat";
-		broadcast(message);
+		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
+			logger.info("Entered into Open");
+
+			// store connecting user information
+			sessionUsernameMap.put(session, username);
+			usernameSessionMap.put(username, session);
+
+			//Send chat history to the newly connected user
+			sendMessageToPArticularUser(username, getChatHistory());
+
+			// broadcast that new user joined
+			String message = "User:" + username + " has Joined the Chat";
+			broadcast(message);
+
+			Message joinMessage = new Message(username, "has Joined the Chat");
+			msgRepo.save(joinMessage);
+
+		}else {
+			// If user is not found in the database, close the connection with a reason
+			String message = "User:" + username + " Is not in DB";
+			broadcast(message);
+		}
 	}
+
+//	@OnMessage
+//	public void messageAnyone(Session session, String message) throws IOException {
+//
+//		// Handle new messages
+//		logger.info("Entered into Message: Got Message:" + message);
+//		String username = sessionUsernameMap.get(session);
+//
+//		// Direct message to a user using the format "@username <message>"
+//		if (message.startsWith("@")) {
+//			String destUsername = message.split(" ")[0].substring(1);
+//
+//			// send the message to the sender and receiver
+//			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+//			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+//
+//		}
+//		else { // broadcast
+//			broadcast(username + ": " + message);
+//		}
+//
+//		// Saving chat history to repository
+//		msgRepo.save(new Message(username, message));
+//	}
 
 
 	@OnMessage
-	public void onMessage(Session session, String message) throws IOException {
-
+	public void messageFriends(Session session, String message) throws IOException {
+		FriendRepository friendRepository = ChatSocketConfig.getFriendRepository();
+		
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
 		String username = sessionUsernameMap.get(session);
 
     // Direct message to a user using the format "@username <message>"
 		if (message.startsWith("@")) {
-			String destUsername = message.split(" ")[0].substring(1); 
+			String destUsername = message.split(" ")[0].substring(1);
 
-      // send the message to the sender and receiver
-			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
-
-		} 
-    else { // broadcast
+			// Check if username and destUsername are friends
+			if (friendRepository.friendshipExistsByUserEmails(username, destUsername) || friendRepository.friendshipExistsByUserEmails(destUsername, username)) {
+				// send the message to the sender and receiver if they are friends
+				sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+				sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+			} else {
+				// If they are not friends, send a message only to the sender that the action is not allowed
+				sendMessageToPArticularUser(username, "You can only DM your friends.");
+			}
+		}
+		else { // broadcast
 			broadcast(username + ": " + message);
 		}
 
-		// Saving chat history to repository
+		// Saving chat history to repository might be conditional based on your requirements
 		msgRepo.save(new Message(username, message));
 	}
 

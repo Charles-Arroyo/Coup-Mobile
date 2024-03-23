@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Websocket/ChatSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Websocket/ChatSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Websocket/ChatSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Websocket/ChatSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Websocket/ChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Websocket/ChatSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Websocket/ChatSocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Websocket/ChatSocketConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +155,7 @@
       <workItem from="1710983010996" duration="855000" />
       <workItem from="1711133906007" duration="130000" />
       <workItem from="1711149032055" duration="1083000" />
+      <workItem from="1711150122507" duration="6654000" />
     </task>
     <servers />
   </component>
