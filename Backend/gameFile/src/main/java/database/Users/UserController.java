@@ -4,14 +4,12 @@ import database.Friends.Friend;
 import database.Friends.FriendRepository;
 import database.Setting.Setting;
 import database.Setting.SettingRepository;
-import database.Websocket.MessageRepository;
+import database.Chat.MessageRepository;
 import database.game.Game;
 import database.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**

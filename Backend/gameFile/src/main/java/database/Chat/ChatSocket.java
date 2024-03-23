@@ -1,4 +1,4 @@
-package database.Websocket;
+package database.Chat;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import database.Friends.FriendRepository;
 import database.Users.UserRepository;
+import database.Websocketconfig.WebsocketConfig;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
 import jakarta.websocket.OnMessage;
@@ -50,7 +51,7 @@ public class ChatSocket {
 	public void onOpen(Session session, @PathParam("username") String username)
       throws IOException {
 
-		UserRepository userRepository = ChatSocketConfig.getUserRepository();
+		UserRepository userRepository = WebsocketConfig.getUserRepository();
 
 
 		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
@@ -104,7 +105,7 @@ public class ChatSocket {
 
 	@OnMessage
 	public void messageFriends(Session session, String message) throws IOException {
-		FriendRepository friendRepository = ChatSocketConfig.getFriendRepository();
+		FriendRepository friendRepository = WebsocketConfig.getFriendRepository();
 		
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
