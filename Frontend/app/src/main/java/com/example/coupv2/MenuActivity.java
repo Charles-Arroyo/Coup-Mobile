@@ -1,6 +1,5 @@
 package com.example.coupv2;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +35,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the play activity
-                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
+                Intent intent = new Intent(MenuActivity.this, EndActivity.class);
                 startActivity(intent);
             }
         });
