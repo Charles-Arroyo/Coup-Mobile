@@ -20,8 +20,8 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
     //    private String BASE_URL = "ws://localhost:8080/chat/";
-    private Button connectBtn, sendBtn;
-    private TextView msgTv;
+    private Button connectBtn, joinBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +30,32 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
         /* initialize UI elements */
         connectBtn = (Button) findViewById(R.id.button1);
-        sendBtn = (Button) findViewById(R.id.button2);
-        msgTv = (TextView) findViewById(R.id.tx1);
+        joinBtn = (Button) findViewById(R.id.button2);
 
-        /* connect button listener */
-        connectBtn.setOnClickListener(view -> {
-            //add current email when connect
-            String serverUrl = BASE_URL + Const.getCurrentEmail();
-
-            // Establish WebSocket connection and set listener
-            WebSocketManager.getInstance().connectWebSocket(serverUrl);
-            WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            //
+            @Override
+            public void onClick(View v) {
+                String serverUrl = BASE_URL + Const.getCurrentEmail();
+                // Establish WebSocket connection and set listener
+                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+                Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                startActivity(intent);
+            }
         });
-
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            //
+            @Override
+            public void onClick(View v) {
+                String serverUrl = BASE_URL + Const.getCurrentEmail();
+                // Establish WebSocket connection and set listener
+                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+                Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -54,19 +67,19 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
          * is used to post a runnable to the UI thread's message queue, allowing UI updates
          * to occur safely from a background or non-UI thread.
          */
-        runOnUiThread(() -> {
-            String s = msgTv.getText().toString();
-            msgTv.setText(s + "\n"+message);
-        });
+//        runOnUiThread(() -> {
+//            String s = msgTv.getText().toString();
+//            msgTv.setText(s + "\n"+message);
+//        });
     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
-        String closedBy = remote ? "server" : "local";
-        runOnUiThread(() -> {
-            String s = msgTv.getText().toString();
-            msgTv.setText(s + "---\nconnection closed by " + closedBy + "\nreason: " + reason);
-        });
+//        String closedBy = remote ? "server" : "local";
+//        runOnUiThread(() -> {
+//            String s = msgTv.getText().toString();
+//            msgTv.setText(s + "---\nconnection closed by " + closedBy + "\nreason: " + reason);
+//        });
     }
 
     @Override

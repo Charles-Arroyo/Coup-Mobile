@@ -15,12 +15,12 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.w3c.dom.Text;
 
 import utils.Const;
-public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSocketListener{
+public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftercreatelobby);
     }
-
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
 
