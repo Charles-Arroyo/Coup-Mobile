@@ -28,11 +28,11 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
         setContentView(R.layout.activity_lobby);
 
         /* initialize UI elements */
-        connectBtn = (Button) findViewById(R.id.bt1);
-        sendBtn = (Button) findViewById(R.id.bt2);
-        usernameEtx = (EditText) findViewById(R.id.et1);
-        msgEtx = (EditText) findViewById(R.id.et2);
-        msgTv = (TextView) findViewById(R.id.tx1);
+//        connectBtn = (Button) findViewById(R.id.bt1);
+//        sendBtn = (Button) findViewById(R.id.bt2);
+//        usernameEtx = (EditText) findViewById(R.id.et1);
+//        msgEtx = (EditText) findViewById(R.id.et2);
+//        msgTv = (TextView) findViewById(R.id.tx1);
 
         /* connect button listener */
         connectBtn.setOnClickListener(view -> {

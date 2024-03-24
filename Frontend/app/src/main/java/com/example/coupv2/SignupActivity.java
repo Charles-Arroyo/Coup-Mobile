@@ -18,16 +18,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SignupActivity extends AppCompatActivity {
-    private EditText nameEditText;
-    private EditText emailIdEditText;
-    private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
 
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private Button signupButton;
+
+
 
 //    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
     private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signup";
@@ -40,11 +37,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        nameEditText = findViewById(R.id.signup_name_edt);
-        emailIdEditText = findViewById(R.id.signup_email_edt);
-        passwordEditText = findViewById(R.id.signup_password_edt);
-        loginButton = findViewById(R.id.signup_login_btn);
-        signupButton = findViewById(R.id.signup_signup_btn);
+
 
         emailIdEditText = findViewById(R.id.signup_email_edt);
         passwordEditText = findViewById(R.id.signup_password_edt);
