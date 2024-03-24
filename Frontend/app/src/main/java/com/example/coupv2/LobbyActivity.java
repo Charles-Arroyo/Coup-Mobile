@@ -19,6 +19,7 @@ import utils.Const;
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
     //    private String BASE_URL = "ws://localhost:8080/chat/";
     private Button connectBtn, joinBtn;
 
@@ -31,6 +32,7 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
         /* initialize UI elements */
         connectBtn = (Button) findViewById(R.id.button1);
         joinBtn = (Button) findViewById(R.id.button2);
+
 
         connectBtn.setOnClickListener(new View.OnClickListener() {
             //
