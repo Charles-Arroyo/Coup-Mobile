@@ -9,12 +9,12 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.java_websocket.handshake.ServerHandshake;
+import com.example.coupv2.utils.Const;
 
+import org.java_websocket.handshake.ServerHandshake;
 
 import java.util.ArrayList;
 
-import utils.Const;
 
 public class MessageActivity extends AppCompatActivity implements WebSocketListener {
 
@@ -41,7 +41,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         msg = findViewById(R.id.msg);
         lvMessages = findViewById(R.id.messages);
 
-        messagesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_gallery_item, messagesList);
+        messagesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messagesList);
         lvMessages.setAdapter(messagesAdapter);
 
         String serverUrl = BASE_URL + user;

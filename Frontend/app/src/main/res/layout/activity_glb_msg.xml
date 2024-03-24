@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:drawable/btn_default"
-                android:backgroundTint="#FBFBFB"
+                android:backgroundTint="#DA2E2E"
                 android:divider="@null"
                 android:dividerHeight="0dp" />
 
