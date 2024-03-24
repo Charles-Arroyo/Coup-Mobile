@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="DB309@coms-309-023.class.las.iastate.edu">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.51">
-    <root id="1"/>
+    <root id="1">
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <ServerVersion>10.11.6</ServerVersion>
+    </root>
     <collation id="2" parent="1" name="big5_chinese_ci">
       <Charset>big5</Charset>
       <DefaultForCharset>1</DefaultForCharset>
@@ -1206,7 +1209,7 @@
     </schema>
     <schema id="512" parent="1" name="DB309">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-03-04.00:00:39</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-24.22:33:48</LastIntrospectionLocalTimestamp>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <user id="513" parent="1" name="mariadb.sys">
@@ -1221,495 +1224,302 @@
     <user id="516" parent="1" name="root"/>
     <user id="517" parent="1" name="bhoo"/>
     <user id="518" parent="1" name="cfarroyo"/>
-    <table id="519" parent="512" name="account">
+    <table id="519" parent="512" name="friend">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="520" parent="512" name="card">
+    <table id="520" parent="512" name="game">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="521" parent="512" name="friend">
+    <table id="521" parent="512" name="lobbies">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="522" parent="512" name="laptop">
+    <table id="522" parent="512" name="lobbies_seq">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="523" parent="512" name="player">
+    <table id="523" parent="512" name="messages">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="524" parent="512" name="profile">
+    <table id="524" parent="512" name="setting">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="525" parent="512" name="setting">
+    <table id="525" parent="512" name="user">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
     </table>
-    <table id="526" parent="512" name="user">
-      <Engine>InnoDB</Engine>
-      <CollationName>latin1_swedish_ci</CollationName>
-    </table>
-    <table id="527" parent="512" name="user_friends">
-      <Engine>InnoDB</Engine>
-      <CollationName>latin1_swedish_ci</CollationName>
-    </table>
-    <column id="528" parent="519" name="id">
+    <column id="526" parent="519" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="529" parent="519" name="email">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="530" parent="519" name="user_name">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="531" parent="519" name="user_id">
-      <DasType>int(11)|0s</DasType>
-      <Position>4</Position>
-    </column>
-    <column id="532" parent="519" name="if_active">
+    <column id="527" parent="519" name="acceptance">
       <DasType>bit(1)|0s</DasType>
       <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="528" parent="519" name="friend_email1">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="529" parent="519" name="friend_email2">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="530" parent="519" name="friend_id">
+      <DasType>int(11)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="533" parent="519" name="password">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>6</Position>
-    </column>
-    <foreign-key id="534" parent="519" name="FK7m8ru44m93ukyb61dfxw0apf6">
-      <ColNames>user_id</ColNames>
+    <foreign-key id="531" parent="519" name="FKf9qk6e95h3da7o1u83ihtwrqa">
+      <ColNames>friend_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="535" parent="519" name="PRIMARY">
+    <index id="532" parent="519" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="536" parent="519" name="UK_h6dr47em6vg85yuwt4e2roca4">
-      <ColNames>user_id</ColNames>
+    <index id="533" parent="519" name="FKf9qk6e95h3da7o1u83ihtwrqa">
+      <ColNames>friend_id</ColNames>
       <Type>btree</Type>
-      <Unique>1</Unique>
     </index>
-    <key id="537" parent="519" name="PRIMARY">
+    <key id="534" parent="519" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="538" parent="519" name="UK_h6dr47em6vg85yuwt4e2roca4">
-      <UnderlyingIndexName>UK_h6dr47em6vg85yuwt4e2roca4</UnderlyingIndexName>
-    </key>
-    <column id="539" parent="520" name="id">
-      <AutoIncrement>33</AutoIncrement>
+    <column id="535" parent="520" name="id">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="540" parent="520" name="card_ability">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="541" parent="520" name="card_holder_name">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="542" parent="520" name="action_cost">
+    <column id="536" parent="520" name="game_lost">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="537" parent="520" name="game_played">
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="538" parent="520" name="game_result">
+      <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="543" parent="520" name="num_of_cards">
+    <column id="539" parent="520" name="game_won">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="544" parent="520" name="user_id">
+    <column id="540" parent="520" name="user_id">
       <DasType>int(11)|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="545" parent="520" name="FKl4gbym62l738id056y12rt6q6">
+    <foreign-key id="541" parent="520" name="FKefqw7nsur06wyld1gavn3ic6b">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="546" parent="520" name="PRIMARY">
+    <index id="542" parent="520" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="547" parent="520" name="UK_bghvg4xo76su71a9k40s0rplq">
+    <index id="543" parent="520" name="UK_5hmu6i1p4su9s72hngoamkfvu">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="548" parent="520" name="PRIMARY">
+    <key id="544" parent="520" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="549" parent="520" name="UK_bghvg4xo76su71a9k40s0rplq">
-      <UnderlyingIndexName>UK_bghvg4xo76su71a9k40s0rplq</UnderlyingIndexName>
+    <key id="545" parent="520" name="UK_5hmu6i1p4su9s72hngoamkfvu">
+      <UnderlyingIndexName>UK_5hmu6i1p4su9s72hngoamkfvu</UnderlyingIndexName>
     </key>
-    <column id="550" parent="521" name="id">
-      <AutoIncrement>4</AutoIncrement>
+    <column id="546" parent="521" name="id">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="551" parent="521" name="name">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="547" parent="521" name="is_private">
+      <DasType>bit(1)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="552" parent="521" name="user_id">
-      <DasType>int(11)|0s</DasType>
+    <column id="548" parent="521" name="user1">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="553" parent="521" name="friend_email">
+    <column id="549" parent="521" name="user2">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="554" parent="521" name="FK3uu8s7yyof1qmenthngm24hry">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>user</RefTableName>
-    </foreign-key>
-    <index id="555" parent="521" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="556" parent="521" name="FK3uu8s7yyof1qmenthngm24hry">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="557" parent="521" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="558" parent="522" name="id">
-      <AutoIncrement>83</AutoIncrement>
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="559" parent="522" name="cost">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="560" parent="522" name="cpu_clock">
-      <DasType>double|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="561" parent="522" name="cpu_cores">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="562" parent="522" name="manufacturer">
+    <column id="550" parent="521" name="user3">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="563" parent="522" name="ram">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="551" parent="521" name="user4">
+      <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="564" parent="522" name="user_id">
-      <DasType>int(11)|0s</DasType>
-      <Position>7</Position>
-    </column>
-    <foreign-key id="565" parent="522" name="FKooqo9avddwki53oo4fmad0u0q">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>user</RefTableName>
-    </foreign-key>
-    <index id="566" parent="522" name="PRIMARY">
+    <index id="552" parent="521" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="567" parent="522" name="UK_tlki0ww9j5y04x8vunr7022c2">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="568" parent="522" name="PRIMARY">
+    <key id="553" parent="521" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="569" parent="522" name="UK_tlki0ww9j5y04x8vunr7022c2">
-      <UnderlyingIndexName>UK_tlki0ww9j5y04x8vunr7022c2</UnderlyingIndexName>
-    </key>
-    <column id="570" parent="523" name="profile_id">
+    <column id="554" parent="522" name="next_val">
+      <DasType>bigint(20)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="555" parent="523" name="id">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int(11)|0s</DasType>
+      <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="571" parent="523" name="experience_points">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="556" parent="523" name="content">
+      <DasType>tinytext|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="572" parent="523" name="level">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="557" parent="523" name="sent">
+      <DasType>datetime(6)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="573" parent="523" name="subscription">
+    <column id="558" parent="523" name="user_name">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="574" parent="523" name="subscription_expire">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>5</Position>
-    </column>
-    <column id="575" parent="523" name="account_id">
-      <DasType>int(11)|0s</DasType>
-      <Position>6</Position>
-    </column>
-    <foreign-key id="576" parent="523" name="FKgilqibrdi85k41rj2g9lrfr4i">
-      <ColNames>account_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>account</RefTableName>
-    </foreign-key>
-    <index id="577" parent="523" name="PRIMARY">
-      <ColNames>profile_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="578" parent="523" name="UK_5x1pyul23smrtwf23o3ufmts4">
-      <ColNames>account_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="579" parent="523" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <key id="580" parent="523" name="UK_5x1pyul23smrtwf23o3ufmts4">
-      <UnderlyingIndexName>UK_5x1pyul23smrtwf23o3ufmts4</UnderlyingIndexName>
-    </key>
-    <column id="581" parent="524" name="id">
-      <AutoIncrement>18</AutoIncrement>
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="582" parent="524" name="xp">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="583" parent="524" name="gamer_tag">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>3</Position>
-    </column>
-    <column id="584" parent="524" name="level">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="585" parent="524" name="user_id">
-      <DasType>int(11)|0s</DasType>
-      <Position>5</Position>
-    </column>
-    <foreign-key id="586" parent="524" name="FKawh070wpue34wqvytjqr4hj5e">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>user</RefTableName>
-    </foreign-key>
-    <index id="587" parent="524" name="PRIMARY">
+    <index id="559" parent="523" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="588" parent="524" name="UK_c1dkiawnlj6uoe6fnlwd6j83j">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="589" parent="524" name="PRIMARY">
+    <key id="560" parent="523" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="590" parent="524" name="UK_c1dkiawnlj6uoe6fnlwd6j83j">
-      <UnderlyingIndexName>UK_c1dkiawnlj6uoe6fnlwd6j83j</UnderlyingIndexName>
-    </key>
-    <column id="591" parent="525" name="id">
-      <AutoIncrement>23</AutoIncrement>
+    <column id="561" parent="524" name="id">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="592" parent="525" name="sound_effect">
-      <DasType>bit(1)|0s</DasType>
+    <column id="562" parent="524" name="update_email">
+      <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="593" parent="525" name="user_id">
-      <DasType>int(11)|0s</DasType>
+    <column id="563" parent="524" name="update_password">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="594" parent="525" name="update_email">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="564" parent="524" name="user_id">
+      <DasType>int(11)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="595" parent="525" name="FK6m6uu5jsvuw8dm7d2vl8rolnr">
+    <foreign-key id="565" parent="524" name="FK6m6uu5jsvuw8dm7d2vl8rolnr">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
-    <index id="596" parent="525" name="PRIMARY">
+    <index id="566" parent="524" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="597" parent="525" name="UK_spmdyplgiefgjc5p34bx39qaq">
+    <index id="567" parent="524" name="UK_spmdyplgiefgjc5p34bx39qaq">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="598" parent="525" name="PRIMARY">
+    <key id="568" parent="524" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="599" parent="525" name="UK_spmdyplgiefgjc5p34bx39qaq">
+    <key id="569" parent="524" name="UK_spmdyplgiefgjc5p34bx39qaq">
       <UnderlyingIndexName>UK_spmdyplgiefgjc5p34bx39qaq</UnderlyingIndexName>
     </key>
-    <column id="600" parent="526" name="id">
-      <AutoIncrement>172</AutoIncrement>
+    <column id="570" parent="525" name="id">
+      <AutoIncrement>3</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="601" parent="526" name="email_id">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>2</Position>
-    </column>
-    <column id="602" parent="526" name="if_active">
+    <column id="571" parent="525" name="if_active">
       <DasType>bit(1)|0s</DasType>
       <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="572" parent="525" name="name">
+      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="603" parent="526" name="name">
+    <column id="573" parent="525" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="604" parent="526" name="laptop_id">
-      <DasType>int(11)|0s</DasType>
+    <column id="574" parent="525" name="user_email">
+      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="605" parent="526" name="profile_id">
+    <column id="575" parent="525" name="game_id">
       <DasType>int(11)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="606" parent="526" name="password">
-      <DasType>varchar(255)|0s</DasType>
+    <column id="576" parent="525" name="setting_id">
+      <DasType>int(11)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="607" parent="526" name="potential_friend">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>8</Position>
-    </column>
-    <column id="608" parent="526" name="setting_id">
-      <DasType>int(11)|0s</DasType>
-      <Position>9</Position>
-    </column>
-    <foreign-key id="609" parent="526" name="FK7qlk67kjwycl8b248fxe83gos">
-      <ColNames>laptop_id</ColNames>
+    <foreign-key id="577" parent="525" name="FK84gb3qdmgnsqx7onjbsqfopbx">
+      <ColNames>game_id</ColNames>
       <RefColNames>id</RefColNames>
-      <RefTableName>laptop</RefTableName>
+      <RefTableName>game</RefTableName>
     </foreign-key>
-    <foreign-key id="610" parent="526" name="FKof44u64o1d7scaukghm9veo23">
-      <ColNames>profile_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>profile</RefTableName>
-    </foreign-key>
-    <foreign-key id="611" parent="526" name="FKne8bc555cj3peix6rghxl1lkv">
+    <foreign-key id="578" parent="525" name="FKne8bc555cj3peix6rghxl1lkv">
       <ColNames>setting_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>setting</RefTableName>
     </foreign-key>
-    <index id="612" parent="526" name="PRIMARY">
+    <index id="579" parent="525" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="613" parent="526" name="UK_5tu0isy9wkwqeuwixl49dqb3s">
-      <ColNames>laptop_id</ColNames>
+    <index id="580" parent="525" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+      <ColNames>game_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="614" parent="526" name="UK_1mcjtpxmwom9h9bf2q0k412e0">
-      <ColNames>profile_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="615" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <index id="581" parent="525" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <ColNames>setting_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="616" parent="526" name="PRIMARY">
+    <key id="582" parent="525" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="617" parent="526" name="UK_5tu0isy9wkwqeuwixl49dqb3s">
-      <UnderlyingIndexName>UK_5tu0isy9wkwqeuwixl49dqb3s</UnderlyingIndexName>
+    <key id="583" parent="525" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+      <UnderlyingIndexName>UK_q4lcf6lgp0i5knei8x2ua9par</UnderlyingIndexName>
     </key>
-    <key id="618" parent="526" name="UK_1mcjtpxmwom9h9bf2q0k412e0">
-      <UnderlyingIndexName>UK_1mcjtpxmwom9h9bf2q0k412e0</UnderlyingIndexName>
-    </key>
-    <key id="619" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <key id="584" parent="525" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <UnderlyingIndexName>UK_2tsc95h8mknd1ufnsyymmd6ny</UnderlyingIndexName>
-    </key>
-    <column id="620" parent="527" name="user_id">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="621" parent="527" name="friends_id">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <foreign-key id="622" parent="527" name="FK9i7cldnk7cx2g47qex8ovm2ah">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>user</RefTableName>
-    </foreign-key>
-    <foreign-key id="623" parent="527" name="FK60irppwolmd7exvd2gnw9t8nv">
-      <ColNames>friends_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>friend</RefTableName>
-    </foreign-key>
-    <index id="624" parent="527" name="UK_bbrnh12js1l8culgfpipyat29">
-      <ColNames>friends_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="625" parent="527" name="FK9i7cldnk7cx2g47qex8ovm2ah">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="626" parent="527" name="UK_bbrnh12js1l8culgfpipyat29">
-      <UnderlyingIndexName>UK_bbrnh12js1l8culgfpipyat29</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
