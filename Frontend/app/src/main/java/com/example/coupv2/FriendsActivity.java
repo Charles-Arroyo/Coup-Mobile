@@ -62,7 +62,7 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         friendEmailEditText = findViewById(R.id.friend_email_edittext);
-        friendsListView = findViewById(R.id.friends_list);
+        friendsListView = findViewById(R.id.messages);
         exitButton = findViewById(R.id.exit_btn);
         addFriendButton = findViewById(R.id.add_friend_btn);
         deleteFriendButton = findViewById(R.id.delete_friend_btn);

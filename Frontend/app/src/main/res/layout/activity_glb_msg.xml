@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D1FAD3"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".FriendsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/msg"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:hint="message"
+                android:textColor="#FFFFFF"
+                android:textColorHighlight="#FFFFFF"
+                android:textColorHint="#FFFDFD"
+                android:textColorLink="#FFFFFF"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/send_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Send" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:drawable/btn_default"
+                android:backgroundTint="#FBFBFB"
+                android:divider="@null"
+                android:dividerHeight="0dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

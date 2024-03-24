@@ -22,6 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     private Button statsButton;
     private Button rulesButton;
     private Button backButton;
+    private ImageButton msgButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class MenuActivity extends AppCompatActivity {
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
         backButton = findViewById(R.id.back_button);
+        msgButton = findViewById(R.id.msg_btn);
         // Set up click listeners for each button
 
 
@@ -91,6 +93,14 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 showRules();
+            }
+        });
+        msgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the play activity
+                Intent intent = new Intent(MenuActivity.this, MessageActivity.class);
+                startActivity(intent);
             }
         });
 
