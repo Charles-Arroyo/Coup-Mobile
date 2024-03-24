@@ -3,31 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9C27B0"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="LOGIN"
+        android:textColor="#9C27B0"
+        android:textSize="40dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username: "
+            android:text="Email: "
             android:textColor="#000000"
-            android:textSize="20dp"></TextView>
+            android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/login_username_edt"
+            android:id="@+id/login_email_edt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
-            android:hint="Enter Username Here"></EditText>
+            android:hint="Enter Email Here"
+            android:inputType="textEmailAddress" />
 
     </LinearLayout>
 
@@ -35,15 +51,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="password: "
+            android:text="Password: "
             android:textColor="#000000"
-            android:textSize="20dp"></TextView>
+            android:textSize="20dp" />
 
         <EditText
             android:id="@+id/login_password_edt"
@@ -51,7 +68,7 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:hint="Enter Password Here"
-            android:inputType="textPassword"></EditText>
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
@@ -59,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <Button
@@ -67,22 +84,23 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:backgroundTint="#9C27B0"
             android:gravity="center"
             android:text="Login"
             android:textColor="#ffffff"
-            android:textSize="20sp"></Button>
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/login_signup_btn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:backgroundTint="#673AB7"
             android:gravity="center"
             android:text="Signup"
             android:textColor="#ffffff"
-            android:textSize="20sp"></Button>
+            android:textSize="20sp" />
 
     </LinearLayout>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

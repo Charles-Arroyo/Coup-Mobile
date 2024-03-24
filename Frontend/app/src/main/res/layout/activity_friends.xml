@@ -1,92 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="#D1FAD3"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".FriendsActivity">
 
-    <!-- activity_friends.xml -->
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <!-- Friend List Title -->
+        <Button
+            android:id="@+id/exit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Exit"
+            android:textColor="#000000" />
+
         <TextView
             android:id="@+id/friends_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friend List"
+            android:layout_centerInParent="true"
+            android:background="@android:drawable/editbox_background"
+            android:text="  Friends  "
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"/>
+            android:textStyle="bold" />
 
-        <!-- Friend Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/friend1_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Friend 1"
-                android:onClick="onFriendButtonClick" />
-
-            <Button
-                android:id="@+id/friend2_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Friend 2"
-                android:onClick="onFriendButtonClick" />
-
-            <!-- Add more buttons as needed -->
-
-        </LinearLayout>
-
-        <!-- EditText for entering friend's number -->
-        <EditText
-            android:id="@+id/friend_number_edittext"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/request_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Friend's Number"/>
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:text="Invite" />
 
-        <!-- Button to Add a Friend -->
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/friends_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:background="@android:drawable/btn_default"
+        android:backgroundTint="#FBFBFB"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
+    <EditText
+        android:id="@+id/friend_email_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="30dp"
+        android:hint="Enter Friend's Email"
+        android:inputType="textEmailAddress" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/refresh_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:onClick="onRefreshClick"
+            android:text="Refresh" />
+
         <Button
             android:id="@+id/add_friend_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Friend"
-            android:onClick="onAddFriendClick"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginRight="10dp"
+            android:backgroundTint="#4CAF50"
+            android:text="Add Friend" />
 
-        <!-- Buttons for Deleting Friends -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/delete_friend_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="bottom">
-
-            <!-- Button to Delete a Friend -->
-            <Button
-                android:id="@+id/delete_friend_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Delete Friend"
-                android:onClick="onDeleteFriendClick"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
+            android:backgroundTint="#F44336"
+            android:text="Delete Friend" />
     </LinearLayout>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

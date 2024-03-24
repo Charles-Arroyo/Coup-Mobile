@@ -1,0 +1,208 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Top area with icons and timer -->
+    <LinearLayout
+        android:id="@+id/topBr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Icons and timer go here -->
+    </LinearLayout>
+
+    <!-- Central grid area -->
+
+
+    <!-- Bottom area -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/centralGridArea"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomArea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!--        action icon-->
+        <!--        green icons-->
+
+        <!--        red icons-->
+
+
+        <ImageView
+            android:id="@+id/gameBoard"
+            android:layout_width="209dp"
+            android:layout_height="200dp"
+            android:src="@drawable/imageview_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".3"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.426"
+            app:layout_constraintWidth_percent="0.6" />
+
+        <ImageView
+            android:id="@+id/greenIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/greeniconshape"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <ImageView
+            android:id="@+id/oval1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2" />
+
+
+        <ImageView
+            android:id="@+id/oval2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+        <ImageView
+            android:id="@+id/yellowicon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/yellowiconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.85" />
+
+        <ImageView
+            android:id="@+id/yellowicon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/yellowiconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.15" />
+
+        <ImageView
+            android:id="@+id/blueIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.15"/>
+        <ImageView
+        android:id="@+id/blueIcon2"
+        android:layout_width="45dp"
+        android:layout_height="88dp"
+        android:src="@drawable/blueiconshape"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.85"/>
+
+
+        <ImageView
+            android:id="@+id/greenIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/greeniconshape"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+        <ImageView
+            android:id="@+id/redIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/rediconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias=".9"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+        <ImageView
+            android:id="@+id/redIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/rediconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias=".1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.21" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".04" />
+
+
+        <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomArea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <!-- Bottom elements go here -->
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

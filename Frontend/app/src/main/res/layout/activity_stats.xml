@@ -19,83 +19,49 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Username -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Username: JohnDoe"
-        android:textSize="18sp" />
 
-    <!-- Name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Name: John Doe"
-        android:textSize="18sp" />
-
-    <!-- Email -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Email: john.doe@example.com"
-        android:textSize="18sp" />
-
-    <!-- Password -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="Password: ********"
-        android:textSize="18sp" />
 
     <!-- Wins -->
     <TextView
+        android:id="@+id/stats_wins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="Wins: 25"
+        android:text="Wins:"
         android:textSize="18sp" />
 
     <!-- Losses -->
     <TextView
+        android:id="@+id/stats_losses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
         android:gravity="center"
-        android:text="Losses: 10"
+        android:text="Losses:"
         android:textSize="18sp" />
 
     <!-- Games Played -->
     <TextView
+        android:id="@+id/stats_games_played"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Games Played: 35"
+        android:text="Games Played:"
         android:textSize="18sp" />
 
 
     <!-- Back Button -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:onClick="onBackButtonClick"
-        android:text="Back" />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        -->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:gravity="center"-->
+<!--        android:onClick="onBackButtonClick"-->
+<!--        android:text="Back" />-->
 </androidx.appcompat.widget.LinearLayoutCompat>
