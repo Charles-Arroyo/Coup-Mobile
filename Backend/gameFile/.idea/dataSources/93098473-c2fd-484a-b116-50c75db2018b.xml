@@ -1428,7 +1428,11 @@
     </collation>
     <schema id="508" parent="1" name="DB309">
       <Current>1</Current>
+<<<<<<< HEAD
       <LastIntrospectionLocalTimestamp>2024-03-24.23:48:30</LastIntrospectionLocalTimestamp>
+=======
+      <LastIntrospectionLocalTimestamp>2024-03-24.23:32:05</LastIntrospectionLocalTimestamp>
+>>>>>>> bo_websocket
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <schema id="509" parent="1" name="information_schema">
@@ -1618,7 +1622,11 @@
       <Position>1</Position>
     </column>
     <column id="556" parent="524" name="id">
+<<<<<<< HEAD
       <AutoIncrement>13</AutoIncrement>
+=======
+      <AutoIncrement>3</AutoIncrement>
+>>>>>>> bo_websocket
       <DasType>bigint(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
