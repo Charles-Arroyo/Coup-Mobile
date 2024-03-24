@@ -61,7 +61,10 @@
             android:name=".LobbyActivity"
             android:exported="false" />
         <activity
-            android:name=".Af"
+            android:name=".AfterCreateLobbyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfterJoinLobbyActivity"
             android:exported="false" />
     </application>
 

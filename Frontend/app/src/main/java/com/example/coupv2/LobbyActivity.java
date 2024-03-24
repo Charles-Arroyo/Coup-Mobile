@@ -14,11 +14,10 @@ import android.widget.Toast;
 import org.java_websocket.handshake.ServerHandshake;
 import org.w3c.dom.Text;
 
-import utils.Const;
+import com.example.coupv2.utils.Const;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
     //    private String BASE_URL = "ws://localhost:8080/chat/";
     private Button connectBtn, joinBtn;
@@ -50,11 +49,7 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
             //
             @Override
             public void onClick(View v) {
-                String serverUrl = BASE_URL + Const.getCurrentEmail();
-                // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
-                Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                Intent intent = new Intent(LobbyActivity.this, AfterJoinLobbyActivity.class);
                 startActivity(intent);
             }
         });
