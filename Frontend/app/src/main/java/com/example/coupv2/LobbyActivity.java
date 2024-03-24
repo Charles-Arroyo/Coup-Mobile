@@ -14,12 +14,13 @@ import android.widget.Toast;
 import org.java_websocket.handshake.ServerHandshake;
 import org.w3c.dom.Text;
 
+import utils.Const;
+
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
     //    private String BASE_URL = "ws://localhost:8080/chat/";
     private Button connectBtn, sendBtn;
-    private EditText usernameEtx, msgEtx;
     private TextView msgTv;
 
     @Override
@@ -28,31 +29,20 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
         setContentView(R.layout.activity_lobby);
 
         /* initialize UI elements */
-//        connectBtn = (Button) findViewById(R.id.bt1);
-//        sendBtn = (Button) findViewById(R.id.bt2);
-//        usernameEtx = (EditText) findViewById(R.id.et1);
-//        msgEtx = (EditText) findViewById(R.id.et2);
-//        msgTv = (TextView) findViewById(R.id.tx1);
+        connectBtn = (Button) findViewById(R.id.button1);
+        sendBtn = (Button) findViewById(R.id.button2);
+        msgTv = (TextView) findViewById(R.id.tx1);
 
         /* connect button listener */
         connectBtn.setOnClickListener(view -> {
-            String serverUrl = BASE_URL + usernameEtx.getText().toString();
+            //add current email when connect
+            String serverUrl = BASE_URL + Const.getCurrentEmail();
 
             // Establish WebSocket connection and set listener
             WebSocketManager.getInstance().connectWebSocket(serverUrl);
             WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
         });
 
-        /* send button listener */
-        sendBtn.setOnClickListener(v -> {
-            try {
-
-                // send message
-                WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
-            } catch (Exception e) {
-                Log.d("ExceptionSendMessage:", e.getMessage().toString());
-            }
-        });
     }
 
 

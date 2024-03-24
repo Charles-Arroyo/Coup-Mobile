@@ -1,4 +1,4 @@
-//package com.example.sumon.androidvolley.utils;
+package utils;//package com.example.sumon.androidvolley.utils;
 
 public class Const {
 	public static final String DOMAIN = "http://192.168.50.11:8080";
