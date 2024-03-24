@@ -5,6 +5,11 @@
     <string name="instructions">Instructions</string>
     <string name="friends_stats">Friends/Stats</string>
     <string name="game_icon_description">Game Icon</string>
+    <string name="ambassador" />
+    <string name="contra" />
+    <string name="duke" />
+    <string name="captain" />
+    <string name="assassin" />
 
         <string name="win_button_text">WIN</string>
         <string name="loss_button_text">LOSS</string>

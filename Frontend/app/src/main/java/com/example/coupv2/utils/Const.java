@@ -9,8 +9,7 @@ public class Const {
 	public static final String URL_JSON_ARRAY = "https://api.androidhive.info/volley/person_array.json";
 	public static final String URL_STRING_REQ =
 			"https://api.androidhive.info/volley/string_response.html";
-	public static final String URL_IMAGE = "https://api.androidhive.info/volley/volley-image.jpg";
-	private static String currentEmail;
+	private static String currentEmail = "";
 
 	public static String getCurrentEmail() {
 		return currentEmail;
@@ -19,4 +18,5 @@ public class Const {
 	public static void setCurrentEmail(String email) {
 		currentEmail = email;
 	}
+
 }

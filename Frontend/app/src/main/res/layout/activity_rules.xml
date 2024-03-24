@@ -1,92 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:drawable/button_onoff_indicator_off"
+    android:backgroundTint="#A8E3FD"
+    android:gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".StatsActivity">
+    tools:context=".MenuActivity">
 
-    <!-- Title -->
-    <TextView
+
+    <!-- activity_rules.xml -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Player Stats"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        android:backgroundTint="#03A9F4"
+        android:backgroundTintMode="src_over"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <!-- Username -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username: JohnDoe"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
+        <!-- Rule Title -->
+        <TextView
+            android:id="@+id/coup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:drawable/editbox_background_normal"
+            android:gravity="center"
+            android:text="  Rules  "
+            android:textSize="20sp"
 
-    <!-- Name -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name: John Doe"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
+            android:textStyle="bold" />
 
-    <!-- Email -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email: john.doe@example.com"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
 
-    <!-- Password -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password: ********"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:orientation="vertical">
 
-    <!-- Wins -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wins: 25"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
 
-    <!-- Losses -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Losses: 10"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
+            <!-- Rule Description -->
 
-    <!-- Games Played -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Games Played: 35"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"/>
+            <!-- Rule Details -->
 
-    <!-- Back Button -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_gravity="center_horizontal"
-        android:onClick="onBackButtonClick"/>
+            <TextView
+                android:id="@+id/rules_coup_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="12dp"
+                android:text="Coup is a card game of bluffing and deduction. Players use their influence to eliminate opponents."
+                android:textAlignment="center"
+                android:textColor="#4A4343"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/rules_coup_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+
+                android:text="Players start with two influence cards. Each turn, a player can perform one action: Income, Foreign Aid, Coup, etc."
+                android:textAlignment="center"
+                android:textColor="#4A4343"
+                android:textSize="14sp" />
+
+            <!-- Additional Rules -->
+
+            <TextView
+                android:id="@+id/rules_coup_additional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+
+                android:layout_marginBottom="12dp"
+                android:text="Players can challenge actions. If challenged and wrong, lose influence. Last player standing wins."
+                android:textAlignment="center"
+                android:textColor="#4A4343"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rules_coup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@android:drawable/editbox_background"
+            android:gravity="center"
+            android:text="  Cards  "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <!-- HorizontalScrollView to make the images scrollable from left to right -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Assassin Card -->
+                <ImageButton
+                    android:id="@+id/assassin"
+                    android:layout_width="165dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/assassin"
+                    android:contentDescription="@string/assassin" />
+
+                <!-- Captain Card -->
+                <ImageButton
+                    android:id="@+id/captain"
+                    android:layout_width="165dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/captain"
+                    android:contentDescription="@string/captain" />
+
+                <!-- Duke Card -->
+                <ImageButton
+                    android:id="@+id/duke"
+                    android:layout_width="165dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/duke"
+                    android:contentDescription="@string/duke" />
+
+                <!-- Ambassador Card -->
+                <ImageButton
+                    android:id="@+id/ambassador"
+                    android:layout_width="165dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/mitra"
+                    android:contentDescription="@string/ambassador" />
+
+                <!-- Contra Card -->
+                <ImageButton
+                    android:id="@+id/contra"
+                    android:layout_width="165dp"
+                    android:layout_height="220dp"
+                    android:layout_margin="16dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/mitra"
+                    android:contentDescription="@string/contra" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/close_rules_coup_overlay_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#2196F3"
+            android:onClick="onCloseButtonClick"
+            android:text="Close Rules Overlay"
+            android:textColorHighlight="#200C0C"
+            app:iconTint="#4CAF50" />
+
+    </LinearLayout>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

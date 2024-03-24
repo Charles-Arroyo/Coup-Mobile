@@ -3,52 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A8E3FD"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingTop="16dp">
 
     <Button
         android:id="@+id/play_btn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:gravity="center"
+        android:paddingLeft="24dp"
         android:text="Play Game"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/rules_btn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:gravity="center"
+        android:paddingLeft="24dp"
         android:text="Rules"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/stats_btn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:gravity="center"
+        android:paddingLeft="24dp"
         android:text="Stats"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/friends_btn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:gravity="center"
+        android:paddingLeft="24dp"
         android:text="Friends"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/settings_btn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:gravity="center"
+        android:paddingLeft="24dp"
         android:text="Settings"
         tools:ignore="HardcodedText" />
 
