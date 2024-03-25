@@ -41,7 +41,7 @@ public class UserController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
-    private String invalidSignIn = "Cannot SignIn ID"; // This will return a string that alert the user that they dont have the right user.
+    private String invalidSignIn = "Wrong SignId"; // This will return a string that alert the user that they dont have the right user.
 
 
     /**
@@ -108,6 +108,7 @@ public class UserController {
     public String signIn(@RequestBody User user) { //sends a request body of password & username
         User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+            foundUser.isActive();
             return success;
         }else{
             return invalidSignIn;

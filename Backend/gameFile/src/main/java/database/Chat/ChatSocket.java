@@ -131,6 +131,36 @@ public class ChatSocket {
 		msgRepo.save(new Message(username, message));
 	}
 
+	@OnOpen
+	public void activeFriends(Session session, String message) throws IOException {
+		FriendRepository friendRepository = WebsocketConfig.getFriendRepository();
+
+		// Handle new messages
+		logger.info("Entered into Message: Got Message:" + message);
+		String username = sessionUsernameMap.get(session);
+
+		// Direct message to a user using the format "@username <message>"
+		if (message.startsWith("@")) {
+			String destUsername = message.split(" ")[0].substring(1);
+
+			// Check if username and destUsername are friends
+			if (friendRepository.friendshipExistsByUserEmails(username, destUsername) || friendRepository.friendshipExistsByUserEmails(destUsername, username)) {
+				// send the message to the sender and receiver if they are friends
+				sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+				sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+			} else {
+				// If they are not friends, send a message only to the sender that the action is not allowed
+				sendMessageToPArticularUser(username, "You can only DM your friends.");
+			}
+		}
+		else { // broadcast
+			broadcast(username + ": " + message);
+		}
+
+		// Saving chat history to repository might be conditional based on your requirements
+		msgRepo.save(new Message(username, message));
+	}
+
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
@@ -138,6 +168,7 @@ public class ChatSocket {
 
     // remove the user connection information
 		String username = sessionUsernameMap.get(session);
+		
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
 

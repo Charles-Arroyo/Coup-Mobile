@@ -32,6 +32,10 @@ public class User {
 
     private String password;
 
+    private boolean isOnline;
+
+
+
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
@@ -51,10 +55,10 @@ public class User {
 
 
 
-    public User(String name, String userEmail, int id,String password, int UniqueID) {
+    public User(String name, String userEmail, int id,String password,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
-        this.ifActive = true;
+        this.ifActive = false;
         this.id = id;
         this.password = password;
     }
@@ -101,6 +105,14 @@ public class User {
         this.ifActive = ifActive;
     }
 
+    public void isActive(){
+        this.isOnline = true;
+    }
+
+    public void isNotActive(){
+        this.isOnline = false;
+    }
+
     public Setting getSetting() {
         return setting;
     }
@@ -117,6 +129,8 @@ public class User {
         this.game = game;
         game.setUser(this); // Ensure the bidirectional link is established
     }
+
+
 
 }
 
