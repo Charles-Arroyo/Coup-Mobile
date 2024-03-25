@@ -16,7 +16,27 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="25dp"
+                android:background="@android:drawable/dialog_holo_light_frame"
+                android:backgroundTint="#FFFFFF"
+                android:divider="@null"
+                android:dividerHeight="0dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:drawable/dialog_holo_dark_frame"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -39,24 +59,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Send" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ListView
-                android:id="@+id/messages"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:drawable/btn_default"
-                android:backgroundTint="#DA2E2E"
-                android:divider="@null"
-                android:dividerHeight="0dp" />
 
         </LinearLayout>
 
