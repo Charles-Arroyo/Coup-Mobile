@@ -61,9 +61,6 @@ public class LobbySocket {
                 }
                 broadcast(users.toString());
 
-
-
-
 //            lobbyId = newLobby.getId().toString(); // Get the newly assigned lobby ID.
                 }else{
                 System.out.println("FUll");
