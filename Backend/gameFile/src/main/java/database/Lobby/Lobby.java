@@ -40,6 +40,10 @@ public class Lobby {
         return user1;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void setUser1(String user1) {
         this.user1 = user1;
     }
