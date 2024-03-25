@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DB309@coms-309-023.class.las.iastate.edu" uuid="93098473-c2fd-484a-b116-50c75db2018b">
-      <driver-ref>mysql.8</driver-ref>
+    <data-source source="LOCAL" name="DataBase" uuid="8f9af21e-56c0-4dc3-a628-2b1275bc8724">
+      <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/src/main/resources/application.properties</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://coms-309-023.class.las.iastate.edu:3306/DB309?useSSL=false</jdbc-url>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://coms-309-023.class.las.iastate.edu:3306/DB309?useSSL=false</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
