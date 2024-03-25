@@ -7,6 +7,7 @@
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="websocket+code" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -71,7 +77,7 @@
     "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/database/Websocket" />
@@ -96,8 +102,16 @@
     <recent_temporary>
       <list>
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
+        <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -155,9 +169,6 @@
       <workItem from="1711150122507" duration="17711000" />
       <workItem from="1711229350963" duration="508000" />
       <workItem from="1711230008848" duration="980000" />
-      <workItem from="1711235819196" duration="706000" />
-      <workItem from="1711315228386" duration="512000" />
-      <workItem from="1711318036668" duration="4853000" />
     </task>
     <servers />
   </component>

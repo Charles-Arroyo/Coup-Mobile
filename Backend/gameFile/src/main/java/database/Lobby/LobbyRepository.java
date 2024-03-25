@@ -6,4 +6,5 @@ import java.util.UUID;
 
 public interface LobbyRepository extends JpaRepository<Lobby, Long> {
     Lobby findById(int id);
+
 }
