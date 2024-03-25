@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D1FAD3"
-    android:orientation="vertical"
+    android:background="#03A9F4"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".FriendsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@android:drawable/ic_menu_revert" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +34,6 @@
                 android:id="@+id/messages"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="25dp"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:backgroundTint="#FFFFFF"
                 android:divider="@null"
@@ -37,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/dialog_holo_dark_frame"
+            android:backgroundTint="#3F51B5"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -58,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:backgroundTint="#2196F3"
                 android:text="Send" />
 
         </LinearLayout>

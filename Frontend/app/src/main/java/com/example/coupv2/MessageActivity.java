@@ -1,10 +1,13 @@
 package com.example.coupv2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +21,11 @@ import java.util.ArrayList;
 
 public class MessageActivity extends AppCompatActivity implements WebSocketListener {
 
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
-//    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
 
     private Button sendBtn;
+    private ImageButton backButton;
     private EditText msg;
     private String user;
     private ListView lvMessages;
@@ -40,6 +44,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         sendBtn = findViewById(R.id.send_btn);
         msg = findViewById(R.id.msg);
         lvMessages = findViewById(R.id.messages);
+        backButton = findViewById(R.id.back_btn);
 
         messagesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messagesList);
         lvMessages.setAdapter(messagesAdapter);
@@ -62,6 +67,19 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                /* when signup button is pressed, use intent to switch to Signup Activity */
+                Intent intent = new Intent(MessageActivity.this, MenuActivity.class);
+                startActivity(intent);
+                WebSocketManager.getInstance().disconnectWebSocket(); // Implement this method in your WebSocketManager
+
+
+
+            }
+        });
 
     }
 
@@ -82,8 +100,8 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         runOnUiThread(() -> {
-            messagesList.add("Connection closed by " + (remote ? "server" : "local") + ". Reason: " + reason);
-            messagesAdapter.notifyDataSetChanged();
+//            messagesList.add("Connection closed by " + (remote ? "server" : "local") + ". Reason: " + reason);
+//            messagesAdapter.notifyDataSetChanged();
         });
     }
 
