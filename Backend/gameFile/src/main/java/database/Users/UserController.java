@@ -41,6 +41,8 @@ public class UserController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
+    private String invalidSignIn = "Cannot SignIn ID"; // This will return a string that alert the user that they dont have the right user.
+
 
     /**
      * Gets all users in the user repo
@@ -108,7 +110,7 @@ public class UserController {
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return success;
         }else{
-            return failure;
+            return invalidSignIn;
         }
     }
 
