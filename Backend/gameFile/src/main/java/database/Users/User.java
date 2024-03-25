@@ -55,12 +55,13 @@ public class User {
 
 
 
-    public User(String name, String userEmail, int id,String password,int UniqueID) {
+    public User(String name, String userEmail, int id,String password, boolean isOnline,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
         this.ifActive = false;
         this.id = id;
         this.password = password;
+        this.isOnline = isOnline;
     }
 
     public User() {

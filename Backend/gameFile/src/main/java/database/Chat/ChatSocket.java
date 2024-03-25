@@ -168,7 +168,7 @@ public class ChatSocket {
 
     // remove the user connection information
 		String username = sessionUsernameMap.get(session);
-		
+
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
 
