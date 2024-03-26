@@ -6,25 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Stats/Stat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Stats/StatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/game/GameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Stats/StatRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/game/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/game/GameController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/game/GameRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cards.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cardsController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cardsRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRoundController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRoundRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rules.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rulesController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rulesRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
