@@ -2,12 +2,7 @@ package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import database.Friends.Friend;
-import database.Setting.Setting;
-import database.game.Game;
-
-import java.util.ArrayList;
-import java.util.List;
+import database.Stats.Stat;
 
 /**
  * 
@@ -32,6 +27,11 @@ public class User {
 
     private String password;
 
+    private boolean isOnline;
+
+
+
+
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
@@ -39,24 +39,22 @@ public class User {
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
 
-    @OneToOne
-    @JoinColumn(name = "setting_id")
-    @JsonManagedReference
-    private Setting setting;
+
 
     @OneToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "stat_id")
     @JsonManagedReference
-    private Game game;
+    private Stat stat;
 
 
 
-    public User(String name, String userEmail, int id,String password, int UniqueID) {
+    public User(String name, String userEmail, int id,String password,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
         this.ifActive = true;
         this.id = id;
         this.password = password;
+        this.isOnline = false;
     }
 
     public User() {
@@ -101,22 +99,44 @@ public class User {
         this.ifActive = ifActive;
     }
 
-    public Setting getSetting() {
-        return setting;
+    public void setIsOnline(boolean isOnline){
+        this.isOnline = isOnline;
     }
 
-    public void setSetting(Setting setting) {
-        this.setting = setting;
-        setting.setUser(this); // Ensure the bidirectional link is established
+    public boolean getIsOnline(){
+        return isOnline;
     }
 
-    public Game getGame(){
-        return game;
+
+
+    public void setUpdateEmail(String updateEmail) {
+        this.userEmail = updateEmail;
+        if (this.userEmail != null) {
+            this.setUserEmail(updateEmail);
+        }
     }
-    public void setGaming(Game game) {
-        this.game = game;
-        game.setUser(this); // Ensure the bidirectional link is established
+
+    public void setUpdatePassword(String updatePassword) {
+        this.password = updatePassword;
+        if (this.password != null) {
+            this.setPassword(updatePassword);
+        }
     }
+
+//    public void setSetting(Setting setting) {
+//        this.setting = setting;
+//        setting.setUser(this); // Ensure the bidirectional link is established
+//    }
+
+    public Stat getStat(){
+        return stat;
+    }
+    public void setStat(Stat stat) {
+        this.stat = stat;
+        stat.setUser(this); // Ensure the bidirectional link is established
+    }
+
+
 
 }
 
