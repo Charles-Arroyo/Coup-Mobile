@@ -8,10 +8,8 @@ public class Player {
     int coins;
     Boolean turn;
 
-    public Player(String userEmail, String cardOne, String cardTwo, int coins, boolean turn) {
+    public Player(String userEmail, int coins, boolean turn) {
         this.userEmail = userEmail;
-        this.cardOne = cardOne;
-        this.cardTwo = cardTwo;
         this.coins = 2;
         this.turn = turn;
     }
@@ -24,6 +22,10 @@ public class Player {
      */
     public void coup(Player player){
         // TODO: Implement this functionality
+    }
+
+    public void drawCard(){
+
     }
 
     /**

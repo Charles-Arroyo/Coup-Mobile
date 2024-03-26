@@ -57,13 +57,24 @@ package database;
 //}
 
 import database.Game.Deck;
+import database.Game.Game;
+import database.Game.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+
         Deck deck = new Deck();
         deck.initializeDeck();
         deck.shuffle();
         System.out.println(deck.toString());
+
+        List<Player> players = new ArrayList<>();
+        Game game = new Game(players,deck);
+
     }
 }
 
