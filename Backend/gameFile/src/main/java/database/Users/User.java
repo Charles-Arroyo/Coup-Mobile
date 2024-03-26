@@ -55,13 +55,13 @@ public class User {
 
 
 
-    public User(String name, String userEmail, int id,String password, boolean isOnline,int UniqueID) {
+    public User(String name, String userEmail, int id,String password,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
-        this.ifActive = false;
+        this.ifActive = true;
         this.id = id;
         this.password = password;
-        this.isOnline = isOnline;
+        this.isOnline = false;
     }
 
     public User() {
@@ -106,12 +106,12 @@ public class User {
         this.ifActive = ifActive;
     }
 
-    public void isActive(){
-        this.isOnline = true;
+    public void setIsOnline(boolean isOnline){
+        this.isOnline = isOnline;
     }
 
-    public void isNotActive(){
-        this.isOnline = false;
+    public boolean getIsOnline(){
+        return isOnline;
     }
 
     public Setting getSetting() {

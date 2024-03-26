@@ -108,7 +108,7 @@ public class UserController {
     public String signIn(@RequestBody User user) { //sends a request body of password & username
         User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
-            foundUser.isActive();
+            foundUser.setIsOnline(true);
             return success;
         }else{
             return invalidSignIn;
