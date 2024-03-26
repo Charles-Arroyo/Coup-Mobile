@@ -1440,7 +1440,7 @@
     </schema>
     <schema id="512" parent="1" name="DB309">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-03-25.22:43:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-03-26.05:22:59</LastIntrospectionLocalTimestamp>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <user id="513" parent="1" name="mariadb.sys">
@@ -1453,9 +1453,9 @@
       <Host>localhost</Host>
     </user>
     <user id="516" parent="1" name="root"/>
-    <user id="517" parent="1" name="bpdang07"/>
-    <user id="518" parent="1" name="bhoo"/>
-    <user id="519" parent="1" name="cfarroyo"/>
+    <user id="517" parent="1" name="bhoo"/>
+    <user id="518" parent="1" name="cfarroyo"/>
+    <user id="519" parent="1" name="bpdang07"/>
     <table id="520" parent="512" name="friend">
       <Engine>InnoDB</Engine>
       <CollationName>latin1_swedish_ci</CollationName>
@@ -1527,7 +1527,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="536" parent="521" name="id">
-      <AutoIncrement>14</AutoIncrement>
+      <AutoIncrement>44</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1646,7 +1646,7 @@
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="562" parent="525" name="id">
-      <AutoIncrement>14</AutoIncrement>
+      <AutoIncrement>44</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1687,7 +1687,7 @@
       <UnderlyingIndexName>UK_spmdyplgiefgjc5p34bx39qaq</UnderlyingIndexName>
     </key>
     <column id="571" parent="526" name="id">
-      <AutoIncrement>14</AutoIncrement>
+      <AutoIncrement>15</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1717,40 +1717,45 @@
       <DasType>int(11)|0s</DasType>
       <Position>7</Position>
     </column>
-    <foreign-key id="578" parent="526" name="FK84gb3qdmgnsqx7onjbsqfopbx">
+    <column id="578" parent="526" name="is_online">
+      <DasType>bit(1)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>8</Position>
+    </column>
+    <foreign-key id="579" parent="526" name="FK84gb3qdmgnsqx7onjbsqfopbx">
       <ColNames>game_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>game</RefTableName>
     </foreign-key>
-    <foreign-key id="579" parent="526" name="FKne8bc555cj3peix6rghxl1lkv">
+    <foreign-key id="580" parent="526" name="FKne8bc555cj3peix6rghxl1lkv">
       <ColNames>setting_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>setting</RefTableName>
     </foreign-key>
-    <index id="580" parent="526" name="PRIMARY">
+    <index id="581" parent="526" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="581" parent="526" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+    <index id="582" parent="526" name="UK_q4lcf6lgp0i5knei8x2ua9par">
       <ColNames>game_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="582" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <index id="583" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <ColNames>setting_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="583" parent="526" name="PRIMARY">
+    <key id="584" parent="526" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="584" parent="526" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+    <key id="585" parent="526" name="UK_q4lcf6lgp0i5knei8x2ua9par">
       <UnderlyingIndexName>UK_q4lcf6lgp0i5knei8x2ua9par</UnderlyingIndexName>
     </key>
-    <key id="585" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <key id="586" parent="526" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <UnderlyingIndexName>UK_2tsc95h8mknd1ufnsyymmd6ny</UnderlyingIndexName>
     </key>
   </database-model>
