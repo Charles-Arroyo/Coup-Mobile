@@ -41,8 +41,10 @@ public class MenuActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the play activity
-                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+                // Start the looby activity
+//                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+                //for going straight to PlayActivity
+                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
                 startActivity(intent);
             }
         });

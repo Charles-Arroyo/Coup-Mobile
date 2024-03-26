@@ -66,6 +66,9 @@
         <activity
             android:name=".AfterJoinLobbyActivity"
             android:exported="false" />
+        <activity
+            android:name=".PlayActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
