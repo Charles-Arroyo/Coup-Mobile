@@ -1,18 +1,13 @@
-package database.game;
+package database.Stats;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import database.Friends.Friend;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import database.Users.User;
 
 
 @Entity
-public class Game {
+public class Stat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +26,12 @@ public class Game {
     private String gameResult;
 
 
-    public Game(String gameResult){
+    public Stat(String gameResult){
         this.gameResult = gameResult;
 
     }
 
-    public Game(){
+    public Stat(){
     }
 
 

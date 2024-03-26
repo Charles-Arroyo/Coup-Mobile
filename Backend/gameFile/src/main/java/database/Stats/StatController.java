@@ -1,28 +1,20 @@
-package database.game;
+package database.Stats;
 
 
-import database.Friends.Friend;
 import database.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import database.Users.UserRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 
 @RestController
-public class GameController {
+public class StatController {
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    GameRepository gameRepository;
+    StatRepository statRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -46,42 +38,43 @@ public class GameController {
 //
     // Endpoint to increment the win counter for a user's game
     @PutMapping(path = "/gameTotal/{id}")
-    public String gameWon(@RequestBody Game gameResult,@PathVariable int id) {
+    public String gameWon(@RequestBody Stat gameResult, @PathVariable int id) {
 
         User user = userRepository.findById(id);
         if (user == null){
             return failure;
         }
-        Game game = user.getGame(); // Assuming User has a direct association with Game
+
+        Stat stat = user.getStat(); // Assuming User has a direct association with Game
 
         // Increment the number of games played
-        game.addGamePlayed();
+        stat.addGamePlayed();
         if(gameResult.getGameResult().equals("Win")){
-            game.incrementGameWon(); // Method to increment the win counter
-            gameRepository.save(game);
+            stat.incrementGameWon(); // Method to increment the win counter
+            statRepository.save(stat);
             return success;
 
         }
 
         if(gameResult.getGameResult().equals("Loss")){
-            game.incrementGameLost(); // Method to increment the loss counter
-            gameRepository.save(game);
+            stat.incrementGameLost(); // Method to increment the loss counter
+            statRepository.save(stat);
             return success;
 
         }
-        gameRepository.save(game); // Save the updated game statistics
+        statRepository.save(stat); // Save the updated stat statistics
         return failure;
     }
 
 
         @GetMapping(path = "/getStats/{id}")
-        public Game list(@PathVariable int id) {
+        public Stat list(@PathVariable int id) {
             //ID
             //Game
             //Print Game
             User user = userRepository.findById(id);
-            Game userGame = user.getGame();
-            return userGame;
+            Stat userStat = user.getStat();
+            return userStat;
 
         }
 

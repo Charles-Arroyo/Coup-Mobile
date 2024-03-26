@@ -2,11 +2,7 @@ package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import database.Friends.Friend;
-import database.game.Game;
-
-import java.util.ArrayList;
-import java.util.List;
+import database.Stats.Stat;
 
 /**
  * 
@@ -46,9 +42,9 @@ public class User {
 
 
     @OneToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "stat_id")
     @JsonManagedReference
-    private Game game;
+    private Stat stat;
 
 
 
@@ -132,12 +128,12 @@ public class User {
 //        setting.setUser(this); // Ensure the bidirectional link is established
 //    }
 
-    public Game getGame(){
-        return game;
+    public Stat getStat(){
+        return stat;
     }
-    public void setGaming(Game game) {
-        this.game = game;
-        game.setUser(this); // Ensure the bidirectional link is established
+    public void setStat(Stat stat) {
+        this.stat = stat;
+        stat.setUser(this); // Ensure the bidirectional link is established
     }
 
 
