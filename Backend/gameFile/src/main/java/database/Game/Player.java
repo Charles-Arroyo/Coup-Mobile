@@ -42,10 +42,6 @@ public class Player {
         // TODO: Implement this functionality
     }
 
-    public void drawCard(){
-
-    }
-
     /**
      *
      * @param player

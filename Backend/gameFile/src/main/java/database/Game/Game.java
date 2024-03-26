@@ -48,6 +48,19 @@ public class Game {
 
        //Now we need the draw card feature.
 
+        for(Player player : players){
+           player.setCardOne(deck.drawCard());
+           player.setCardTwo(deck.drawCard());
+        }
+
+        for(Player player : players){
+            System.out.println(player.toString());
+        }
+
+
+
+
+
 
 
     }
