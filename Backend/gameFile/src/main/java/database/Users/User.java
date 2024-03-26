@@ -3,7 +3,6 @@ package database.Users;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import database.Friends.Friend;
-import database.Setting.Setting;
 import database.game.Game;
 
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class User {
 
 
 
+
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
@@ -43,10 +43,7 @@ public class User {
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
 
-    @OneToOne
-    @JoinColumn(name = "setting_id")
-    @JsonManagedReference
-    private Setting setting;
+
 
     @OneToOne
     @JoinColumn(name = "game_id")
@@ -114,14 +111,26 @@ public class User {
         return isOnline;
     }
 
-    public Setting getSetting() {
-        return setting;
+
+
+    public void setUpdateEmail(String updateEmail) {
+        this.userEmail = updateEmail;
+        if (this.userEmail != null) {
+            this.setUserEmail(updateEmail);
+        }
     }
 
-    public void setSetting(Setting setting) {
-        this.setting = setting;
-        setting.setUser(this); // Ensure the bidirectional link is established
+    public void setUpdatePassword(String updatePassword) {
+        this.password = updatePassword;
+        if (this.password != null) {
+            this.setPassword(updatePassword);
+        }
     }
+
+//    public void setSetting(Setting setting) {
+//        this.setting = setting;
+//        setting.setUser(this); // Ensure the bidirectional link is established
+//    }
 
     public Game getGame(){
         return game;
