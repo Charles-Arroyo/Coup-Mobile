@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Coup"
+                android:text="Taxes"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Taxes"
+                android:text="Coup"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Assassin"
+                android:text="Assassinate"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Exchanges"
+                android:text="Steal"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Text Here"
+                android:text="Block"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -218,11 +218,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Text Here"
+                android:text="Exchange"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 
     </GridLayout>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
