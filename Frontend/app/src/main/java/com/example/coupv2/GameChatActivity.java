@@ -15,7 +15,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.w3c.dom.Text;
 
 import com.example.coupv2.utils.Const;
-public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSocketListener{
+public class GameChatActivity extends AppCompatActivity implements WebSocketListener{
     private boolean isLobbyFull = false;
     private TextView msgTv;
     @Override
@@ -27,7 +27,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aftercreatelobby);
+        setContentView(R.layout.activity_gamechat);
         msgTv = (TextView) findViewById(R.id.tx1);
     }
 
@@ -54,10 +54,10 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     public void onWebSocketError(Exception ex) {
 
     }
-//    go to PlayActivity if lobby is full
+    //    go to PlayActivity if lobby is full
     private void goToNewActivity() {
         if(isLobbyFull){
-            Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
+            Intent intent = new Intent(GameChatActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
         }
     }

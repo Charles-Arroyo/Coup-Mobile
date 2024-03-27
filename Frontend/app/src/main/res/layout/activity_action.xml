@@ -236,5 +236,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.116" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="664dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

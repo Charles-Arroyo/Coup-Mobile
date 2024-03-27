@@ -9,17 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ActionActivity extends AppCompatActivity {
-    //        icons in grid
-//    ImageView whiteIcon1 = findViewById(R.id.whiteshape1);
-//    ImageView whiteIcon2 =  findViewById(R.id.whiteshape2);
-//    ImageView whiteIcon3 = findViewById(R.id.whiteshape3);
-//    ImageView whiteIcon4 = findViewById(R.id.whiteshape4);
-//    ImageView whiteIcon5 = findViewById(R.id.whiteshape5);
-//    ImageView whiteIcon6 = findViewById(R.id.whiteshape6);
-//    ImageView whiteIcon7 = findViewById(R.id.whiteshape7);
-//    ImageView whiteIcon8 = findViewById(R.id.whiteshape8);
-//    ImageView whiteIcon9 = findViewById(R.id.whiteshape9);
-//    Button backBtn = findViewById(R.id.back_button);
+    //        need coins here atleast
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
