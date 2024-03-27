@@ -5,24 +5,41 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.coupv2.utils.Const;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-public class MenuActivity extends AppCompatActivity {
+import org.java_websocket.handshake.ServerHandshake;
 
-    // UI elements
-    private Button playButton;
-    private Button friendsButton;
-    private Button settingsButton;
-    private Button statsButton;
-    private Button rulesButton;
-    private Button backButton;
-    private ImageButton msgButton;
+import java.util.ArrayList;
+
+public class MenuActivity extends AppCompatActivity implements WebSocketListener {
+
+
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+//    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
+    private String BASE_URL = "ws://10.29.183.254:8080/chat/";
+
+    private ImageButton backButton, msgButton;
+    private EditText msg;
+    private LinearLayout layoutMessages;
+    private ScrollView scrollViewMessages;
+    private BottomSheetDialog bottomSheetDialog;
+
+    private ArrayList<String> messagesList = new ArrayList<>();
+    private String user = Const.getCurrentEmail();
+    private Button sendBtn, playButton, friendsButton, settingsButton, statsButton, rulesButton, backBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,79 +51,148 @@ public class MenuActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
-        backButton = findViewById(R.id.back_button);
+        backBtn = findViewById(R.id.backBtn);
         msgButton = findViewById(R.id.msg_btn);
-        // Set up click listeners for each button
-
 
         // Play Button
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the play activity
-                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
-                startActivity(intent);
-            }
+        playButton.setOnClickListener(v -> {
+            // Start the play activity
+            Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+            startActivity(intent);
         });
-
         // Friends Button
-        friendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the friends activity
-                Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
-                startActivity(intent);
-            }
+        friendsButton.setOnClickListener(v -> {
+            // Start the friends activity
+            Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
+            startActivity(intent);
         });
-
         // Settings Button
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the settings activity
-                Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
-                startActivity(intent);
-            }
+        settingsButton.setOnClickListener(v -> {
+            // Start the settings activity
+            Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
+            startActivity(intent);
         });
-
         // Stats Button
-        statsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the statistics activity
-                Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
-                startActivity(intent);
-            }
+        statsButton.setOnClickListener(v -> {
+            // Start the statistics activity
+            Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
+            startActivity(intent);
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the rules activity
-                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        backBtn.setOnClickListener(v -> {
+            // Start the rules activity
+            Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+            startActivity(intent);
         });
-
         // Rules Button
-        rulesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                showRules();
-            }
+        rulesButton.setOnClickListener(v -> showRules());
+        // Message Button
+        msgButton.setOnClickListener(v -> {
+            String serverUrl = BASE_URL + user;
+            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+            WebSocketManager.getInstance().setWebSocketListener(MenuActivity.this);
+            showGlbChat();
         });
-        msgButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the play activity
-                Intent intent = new Intent(MenuActivity.this, MessageActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
     }
 
+    private void showGlbChat() {
+        bottomSheetDialog = new BottomSheetDialog(this);
+        View view = getLayoutInflater().inflate(R.layout.activity_glb_msg, null);
+        bottomSheetDialog.setContentView(view);
+
+        msg = view.findViewById(R.id.msg);
+        scrollViewMessages = view.findViewById(R.id.scrollViewMessages);
+        layoutMessages = view.findViewById(R.id.layoutMessages);
+        sendBtn = view.findViewById(R.id.send_btn);
+        backButton = view.findViewById(R.id.back_btn);
+
+        sendBtn.setOnClickListener(v -> {
+            String messageToSend = msg.getText().toString().trim();
+            if (!messageToSend.isEmpty()) {
+                WebSocketManager.getInstance().sendMessage(messageToSend);
+                msg.setText("");
+                addMessageToLayout(user, messageToSend);
+            }
+        });
+
+        backButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
+
+        bottomSheetDialog.setOnDismissListener(dialogInterface -> {
+            WebSocketManager.getInstance().disconnectWebSocket();
+        });
+
+        bottomSheetDialog.show();
+        connectToWebSocket();
+    }
+    private void connectToWebSocket() {
+        String serverUrl = BASE_URL + user;
+        WebSocketManager.getInstance().connectWebSocket(serverUrl);
+        WebSocketManager.getInstance().setWebSocketListener(this);
+    }
+
+    @Override
+    public void onWebSocketMessage(String message) {
+        runOnUiThread(() -> addMessageToLayout(user, message));
+    }
+
+    private void addMessageToLayout(String username, String message) {
+        View messageView = getLayoutInflater().inflate(R.layout.message_item, layoutMessages, false);
+
+        TextView textView = messageView.findViewById(R.id.tvMessage);
+        Button usernameButton = messageView.findViewById(R.id.btnUsername);
+
+        textView.setText(message);
+        usernameButton.setText(username);
+
+        usernameButton.setOnClickListener(v -> showUserPopup(username));
+
+        layoutMessages.addView(messageView);
+        scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
+    }
+
+    @Override
+    public void onWebSocketOpen(ServerHandshake handshakedata) {
+    }
+
+    @Override
+    public void onWebSocketClose(int code, String reason, boolean remote) {
+        runOnUiThread(() -> {
+            messagesList.add("Connection closed by " + (remote ? "server" : "local") + ". Reason: " + reason);
+        });
+    }
+
+    @Override
+    public void onWebSocketError(Exception ex) {
+        runOnUiThread(() -> {
+            messagesList.add("WebSocket error: " + ex.getMessage());
+        });
+    }
+
+    private void addMessageToLayout(String username, String message, LinearLayout layout) {
+        View messageView = getLayoutInflater().inflate(R.layout.message_item, layout, false);
+
+        TextView textView = messageView.findViewById(R.id.tvMessage);
+        textView.setText(message);
+
+        Button btnUsername = messageView.findViewById(R.id.btnUsername);
+        btnUsername.setText(username);
+        btnUsername.setOnClickListener(v -> showUserPopup(username));
+
+        layout.addView(messageView);
+    }
+
+    private void showUserPopup(String username) {
+        // Create and display a popup with user information, or perform any other action
+        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
+
+        // Here you could launch a dialog or a bottom sheet dialog to show user details
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(username);
+        builder.setMessage("More info about " + username);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
     private void showRules() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -124,21 +210,11 @@ public class MenuActivity extends AppCompatActivity {
 
         // Set up the click listener for the captain ImageButton
         ImageButton captainButton = view.findViewById(R.id.captain);
-        captainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImagePopup(R.drawable.captain);
-            }
-        });
+        captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain));
 
         // Set up the click listener for the duke ImageButton
         ImageButton dukeButton = view.findViewById(R.id.duke);
-        dukeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImagePopup(R.drawable.duke);
-            }
-        });
+        dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke));
 
 //        // Set up the click listener for the ambassador ImageButton
 //        ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
@@ -170,7 +246,6 @@ public class MenuActivity extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
-
     private void showImagePopup(int imageResource) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogLayout = getLayoutInflater().inflate(R.layout.popup_image, null);
@@ -181,13 +256,7 @@ public class MenuActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
 
         // When the dialog's main layout is clicked, dismiss the dialog
-        dialogLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // This will allow the dialog to close when the ImageView (or its parent layout) is clicked
-                dialog.dismiss();
-            }
-        });
+        dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
         // Make sure the dialog's window background is transparent
         if (dialog.getWindow() != null) {
@@ -196,6 +265,4 @@ public class MenuActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
-
 }

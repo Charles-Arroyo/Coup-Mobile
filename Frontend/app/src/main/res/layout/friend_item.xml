@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@android:drawable/editbox_background_normal"
+    android:backgroundTint="#4CAF50"
+    android:orientation="horizontal"
+    android:padding="20dp">
+
+    <Button
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_weight="1"
+        android:backgroundTint="#4CAF50"
+        android:text="Username" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/msgButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:src="@android:drawable/ic_dialog_email" />
+
+</LinearLayout>
