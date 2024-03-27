@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/gameBoard"
-            android:layout_width="209dp"
-            android:layout_height="200dp"
+            android:layout_width="194dp"
+            android:layout_height="178dp"
             android:src="@drawable/imageview_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.426"
+            app:layout_constraintVertical_bias="0.37"
             app:layout_constraintWidth_percent="0.6" />
 
         <ImageView
@@ -63,21 +63,52 @@
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <ImageView
-            android:id="@+id/oval1"
-            android:layout_width="45dp"
+            android:id="@+id/person1"
+            android:layout_width="53dp"
             android:layout_height="88dp"
             android:src="@drawable/person"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/guideline2" />
 
+        <ImageView
+            android:id="@+id/person2"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintBottom_toTopOf="@+id/blueIcon1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6" />
+
+        <ImageView
+            android:id="@+id/oval1"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/greyoval"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline" />
 
         <ImageView
             android:id="@+id/oval2"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/person"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintStart_toStartOf="@+id/guideline" />
+            android:layout_width="53dp"
+            android:layout_height="85dp"
+            android:src="@drawable/greyoval"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/blueIcon2" />
+
+        <ImageView
+            android:id="@+id/oval3"
+            android:layout_width="53dp"
+            android:layout_height="85dp"
+            android:src="@drawable/greyoval"
+            app:layout_constraintBottom_toTopOf="@+id/yellowicon2"
+            app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
+        <ImageView
+            android:id="@+id/oval4"
+            android:layout_width="53dp"
+            android:layout_height="85dp"
+            android:src="@drawable/greyoval"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
 
         <ImageView
             android:id="@+id/yellowicon1"
@@ -87,7 +118,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintVertical_bias="0.85" />
+            app:layout_constraintVertical_bias="0.805" />
 
         <ImageView
             android:id="@+id/yellowicon2"
@@ -97,7 +128,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintVertical_bias="0.15" />
+            app:layout_constraintVertical_bias="0.172" />
 
         <ImageView
             android:id="@+id/blueIcon1"
@@ -107,17 +138,17 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
-            app:layout_constraintVertical_bias="0.15"/>
-        <ImageView
-        android:id="@+id/blueIcon2"
-        android:layout_width="45dp"
-        android:layout_height="88dp"
-        android:src="@drawable/blueiconshape"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintVertical_bias="0.85"/>
+            app:layout_constraintVertical_bias="0.172" />
 
+        <ImageView
+            android:id="@+id/blueIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.805" />
 
         <ImageView
             android:id="@+id/greenIcon2"
@@ -133,9 +164,7 @@
             android:layout_height="88dp"
             android:src="@drawable/rediconshape"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintHorizontal_bias=".9"
-            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline" />
 
         <ImageView
             android:id="@+id/redIcon2"
@@ -143,8 +172,6 @@
             android:layout_height="88dp"
             android:src="@drawable/rediconshape"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintHorizontal_bias=".1"
             app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -152,42 +179,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.67" />
+            app:layout_constraintGuide_percent="0.64" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.33" />
+            app:layout_constraintGuide_percent="0.36" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.21" />
+            app:layout_constraintGuide_percent="0.23" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".67" />
+            app:layout_constraintGuide_percent="0.57" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.96" />
+            app:layout_constraintGuide_percent="0.99" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".04" />
+            app:layout_constraintGuide_percent="0.01" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="349dp"
+            android:layout_height="183dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/chatbox" />
 
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
