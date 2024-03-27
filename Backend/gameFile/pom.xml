@@ -12,7 +12,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.1.4</version>
+    <version>3.1.5</version>
   </parent>
 
   <name>one-to-one</name>
@@ -52,7 +52,7 @@
     </dependency>
 
 
-    
+
     <!-- The H2 database dependency -->
     <dependency>
         <groupId>com.h2database</groupId>
@@ -71,25 +71,27 @@
       <artifactId>mysql-connector-j</artifactId>
     </dependency>
 
-
-    //Using the Springfox implementation of the Swagger specification
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
       <version>3.0.0</version>
     </dependency>
 
-    //Spring Boot Dependency
+
+
+    <!-- Springfox Swagger UI -->
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-boot-starter</artifactId>
       <version>3.0.0</version>
     </dependency>
 
+
+
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-parent</artifactId>
-      <version>3.1.5</version>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>3.0.0</version>
     </dependency>
 
 
@@ -99,6 +101,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -106,6 +109,15 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>21</source>
+          <target>21</target>
+          <compilerArgs>--enable-preview</compilerArgs>
+        </configuration>
       </plugin>
     </plugins>
   </build>
