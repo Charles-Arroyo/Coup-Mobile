@@ -26,12 +26,19 @@ public class Lobby {
     private boolean isPrivate;
 
 
-    public Lobby(String user1, String user2, String user3, String user4, boolean isPrivate) {
+    @Column
+    private boolean isFull;
+
+
+
+
+    public Lobby(String user1, String user2, String user3, String user4, boolean isPrivate, boolean isFull) {
         this.user1 = user1;
         this.user2 = user2;
         this.user3 = user3;
         this.user4 = user4;
         this.isPrivate = isPrivate;
+        isFull = false;
     }
 
     public Lobby(){}
@@ -69,6 +76,7 @@ public class Lobby {
     }
 
     public void setUser4(String user4) {
+        isFull = true;
         this.user4 = user4;
     }
 
@@ -98,7 +106,11 @@ public class Lobby {
         isPrivate = aPrivate;
     }
 
+    public boolean isFull() {
+        return isFull;
+    }
 
-
-
+    public void setFull(boolean full) {
+        isFull = full;
+    }
 }

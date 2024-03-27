@@ -34,17 +34,18 @@ public class LobbySocket {
 
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
-        logger.info("User: {} connected to the WebSocket", username);
-        broadcast("test");
-        sessionLobbyMap.put(session, lobbyId);
-        sessionUsernamemap.put(session, username);
-        broadcast(username + " has joined the lobby");
 
         if (lobbyId == 0) {  // If no lobbyId was provided, this user wants to create a new lobby.
+
             Lobby newLobby = new Lobby();
-           boolean notFull = newLobby.addUser(username); // Add the user to the lobby.
+           boolean notFull = newLobby.addUser(username); // Add the user to the lobby, returns false if full
             if(notFull){
+                logger.info("User: {} connected to the WebSocket", username);
+                sessionLobbyMap.put(session, lobbyId);
+                sessionUsernamemap.put(session, username);
+                broadcast(username + " has joined the lobby");
             lobbyRepository.save(newLobby); // Save the new lobby.broadcast
+                broadcast("Is the lobby full?: " + newLobby.isFull());
                 broadcast("The lobby ID is: " + newLobby.getId());
                 StringBuilder users = new StringBuilder("Users in all lobbies: ");
                 if(newLobby.getUser1() != null){
@@ -60,10 +61,8 @@ public class LobbySocket {
                     users.append(newLobby.getUser4());
                 }
                 broadcast(users.toString());
-
-//            lobbyId = newLobby.getId().toString(); // Get the newly assigned lobby ID.
                 }else{
-                System.out.println("FUll");
+                broadcast("Lobby Full");
             }
         } else {
             // If a lobbyId was provided, the user wants to join an existing lobby.
@@ -71,7 +70,17 @@ public class LobbySocket {
             if (existingLobby != null) {
               boolean notFull =  existingLobby.addUser(username); // Add the user to the lobby.
                 if(notFull) {
+                    logger.info("User: {} connected to the WebSocket", username);
+                    sessionLobbyMap.put(session, lobbyId);
+                    sessionUsernamemap.put(session, username);
+                    broadcast(username + " has joined the lobby");
                     lobbyRepository.save(existingLobby); // Update the existing lobby.
+
+                    if(existingLobby.isFull()){
+                        broadcast("lobby is full");
+                    }else{
+                        broadcast("Not full");
+                    }
                     // Send a message to all clients in the lobby to indicate that this user has joined.
                     broadcast(username + " has joined the lobby, The ID is " +lobbyId);
                     StringBuilder users = new StringBuilder("Users in lobbies: ");
@@ -89,11 +98,11 @@ public class LobbySocket {
                     }
                     broadcast(users.toString());
                 }else{
-                    System.out.println("FUll");
+                    broadcast("Lobby Full");
                 }
             } else {
                 // If the lobby doesn't exist or is full
-                session.getBasicRemote().sendText("Lobby is full or does not exist");
+                session.getBasicRemote().sendText("Lobby does not exist");
                 session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT, "Lobby is full or does not exist"));
                 return;
             }

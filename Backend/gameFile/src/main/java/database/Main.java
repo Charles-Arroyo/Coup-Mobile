@@ -35,20 +35,8 @@ class Main {
         return args ->
         {
 
-//            User user1 = userRepository.findByEmailId("ThisIsATest"); // Finds User based on Email
-//            User user2 = userRepository.findByEmailId("e"); // Finds User Based on Email
-////
-////                //Create two friend objects.
-//                Friend user1Friend = new Friend(user2.getEmailId());
-////                Friend user2Friend = new Friend(user1.getEmailId());
-////
-////                // Add friends to users
-//                user1.addFriends(user1Friend);
-////                user2.addFriends(user2Friend);
-////
-////                // Save changes to the database
-////                userRepository.save(user1);
-////                userRepository.save(user2);
+
+
 
 
         };
