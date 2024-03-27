@@ -34,19 +34,19 @@ public class Game {
 
         currentPlayer = players.get(0); //Assigns current player to first player in array.
         currentPlayer.setTurn(true);
-        System.out.println("The Current Player is: ");
-        System.out.print(currentPlayer.toString());
+//        System.out.println("The Current Player is: ");
+//        System.out.print(currentPlayer.toString());
 
 
 
         deck = new Deck(); // Create a Deck Object
         deck.initializeDeck(); //Initialize a deck of 15 Cards. [Duke,Duke,Duke,Captain,Captain...]
         deck.shuffle(); //Shuffle/randomize Array List of Cards
-        System.out.println();
-        System.out.println();
-        System.out.println("The Current Deck is: ");
+//        System.out.println();
+//        System.out.println();
+//        System.out.println("The Current Deck is: ");
 
-        System.out.println(deck.toString()); // Print Deck for Testing
+//        System.out.println(deck.toString()); // Print Deck for Testing
 
        //Now we need the draw card feature, this can prob be a method.
         for(Player player : players){
@@ -54,11 +54,11 @@ public class Game {
            player.setCardTwo(deck.drawCard());
         }
 
-        getPlayers();
+//        getPlayers();
 
-        System.out.println("The Current Deck is: ");
-
-        System.out.println(deck.toString()); // Print Deck for Testing
+//        System.out.println("The Current Deck is: ");
+//
+//        System.out.println(deck.toString()); // Print Deck for Testing
 
 
 

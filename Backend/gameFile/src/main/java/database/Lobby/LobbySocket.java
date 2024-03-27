@@ -56,8 +56,8 @@ public class LobbySocket {
                 if(newLobby.getUser3() != null){
                     users.append(newLobby.getUser3());
                 }
-                if(newLobby.getUser3() != null){
-                    users.append(newLobby.getUser3());
+                if(newLobby.getUser4() != null){
+                    users.append(newLobby.getUser4());
                 }
                 broadcast(users.toString());
 
@@ -84,8 +84,8 @@ public class LobbySocket {
                     if(existingLobby.getUser3() != null){
                         users.append(" " + existingLobby.getUser3());
                     }
-                    if(existingLobby.getUser3() != null){
-                        users.append(" " + existingLobby.getUser3());
+                    if(existingLobby.getUser4() != null){
+                        users.append(" " + existingLobby.getUser4());
                     }
                     broadcast(users.toString());
                 }else{
