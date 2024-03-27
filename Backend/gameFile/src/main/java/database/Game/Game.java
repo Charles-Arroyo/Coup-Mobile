@@ -13,22 +13,54 @@ public class Game {
 
 
 
-    public Game(List<Player> players, Deck deck) {
+    public Game(List<Player> players) {
         this.players = players;
-        this.deck = deck;
     }
 
-    public void initGame(){
+    public void initGame(String name1,String name2, String name3, String name4){
+        // Adds players
+        players.add(new Player(name1,2,false));
+        players.add(new Player(name2,2,false));
+        players.add(new Player(name3,2,false));
+        players.add(new Player(name4,2,false));
+        int var = 0;
+        //Shuffle
+        Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
 
-        players.add(new Player("A",2,false));
-        players.add(new Player("B",2,false));
-        players.add(new Player("C",2,false));
-        players.add(new Player("D",2,false));
-        Collections.shuffle(players);
-        currentPlayer = players.get(0);
-        Deck deck = new Deck();
-        deck.initializeDeck();
-        deck.shuffle();
+        for (int i = 0; i < players.size(); i++) { //Assigns index to player
+            Player player = players.get(i);
+            player.setTurnNumber(i);
+        }
+
+        currentPlayer = players.get(0); //Assigns current player to first player in array.
+        currentPlayer.setTurn(true);
+        System.out.println("The Current Player is: ");
+        System.out.print(currentPlayer.toString());
+
+
+
+        deck = new Deck(); // Create a Deck Object
+        deck.initializeDeck(); //Initialize a deck of 15 Cards. [Duke,Duke,Duke,Captain,Captain...]
+        deck.shuffle(); //Shuffle/randomize Array List of Cards
+        System.out.println();
+        System.out.println();
+        System.out.println("The Current Deck is: ");
+
+        System.out.println(deck.toString()); // Print Deck for Testing
+
+       //Now we need the draw card feature, this can prob be a method.
+        for(Player player : players){
+           player.setCardOne(deck.drawCard());
+           player.setCardTwo(deck.drawCard());
+        }
+
+        getPlayers();
+
+        System.out.println("The Current Deck is: ");
+
+        System.out.println(deck.toString()); // Print Deck for Testing
+
+
 
 
 
@@ -42,8 +74,20 @@ public class Game {
         this.lastCharacterMove = lastCharacterMove;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public void getPlayers() {
+        for(Player player : players){
+            System.out.println(player.toString());
+        }
+    }
+
+    public void nextTurn(){
+        currentPlayer.setTurn(false); // Set their turn to false
+
+        int NewcurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber + 1) % players.size(); // Find next user
+
+        currentPlayer = players.get(NewcurrentPlayerIndex); // Assign player to this player
+        players.get(NewcurrentPlayerIndex).setTurn(true); // Set turn to true
+        System.out.println("The next player is: " + currentPlayer.toString()); // Print Player
     }
 
     public Player getPlayer(String playerName) {
@@ -59,15 +103,26 @@ public class Game {
         this.players = players;
     }
 
-    public Deck getDeck() {
-        return deck;
+    public String getDeck() {
+        return deck.toString();
     }
 
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Game State:\n");
+        sb.append("Current Player: ").append(currentPlayer.toString()).append("\n");
+        sb.append("Last Character Move: ").append(lastCharacterMove).append("\n");
+        sb.append("Players:\n");
+        for (Player player : players) {
+            sb.append(player.toString()).append("\n");
+        }
+        sb.append("Deck:\n").append(deck.toString());
+        return sb.toString();
+    }
 }
+

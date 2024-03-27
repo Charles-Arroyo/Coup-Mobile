@@ -8,10 +8,28 @@ public class Player {
     int coins;
     Boolean turn;
 
+    int turnNumber;
+
     public Player(String userEmail, int coins, boolean turn) {
         this.userEmail = userEmail;
         this.coins = 2;
         this.turn = turn;
+    }
+
+    public void setTurnNumber(int number){
+        this.turnNumber = number;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "userEmail='" + userEmail + '\'' +
+                ", cardOne='" + cardOne + '\'' +
+                ", cardTwo='" + cardTwo + '\'' +
+                ", coins=" + coins +
+                ", turn=" + turn +
+                ", turnNumber=" + turnNumber +
+                '}';
     }
 
     /*__________________________Player Actions/Outcomes_______________________*/
@@ -22,10 +40,6 @@ public class Player {
      */
     public void coup(Player player){
         // TODO: Implement this functionality
-    }
-
-    public void drawCard(){
-
     }
 
     /**
