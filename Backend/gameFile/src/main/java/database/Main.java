@@ -14,14 +14,15 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-<<<<<<< HEAD
-=======
 
 
 import database.Game.Deck;
 import database.Game.Game;
 import database.Game.Player;
->>>>>>> main
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -34,9 +35,8 @@ import database.Game.Player;
 class Main {
 
     public static void main(String[] args) {
-<<<<<<< HEAD
         SpringApplication.run(Main.class, args);
-=======
+
 
         List<Player> players = new ArrayList<>(); // Create an Array list of Players
         Game game = new Game(players); //Pass in Deck and Array List
@@ -46,7 +46,7 @@ class Main {
         System.out.println();
         System.out.println(game.toString());
 
->>>>>>> main
+
     }
 
     /**

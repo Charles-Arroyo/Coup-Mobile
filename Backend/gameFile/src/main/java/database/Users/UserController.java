@@ -107,17 +107,21 @@ public class UserController {
      * @return
      */
     @PostMapping(path = "/signin")
-    public String signIn(@RequestBody User user) { //sends a request body of password & username
-        Optional<User> foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
+    public ResponseEntity<String> signIn(@RequestBody User user) {
+        // Attempt to find the user by their email
+        Optional<User> foundUser = userRepository.findByUserEmail(user.getUserEmail());
         if (foundUser.isPresent() && foundUser.get().getPassword().equals(user.getPassword())) {
+            // Update user status to online
             User actualUser = foundUser.get();
             actualUser.setIsOnline(true);
             userRepository.save(actualUser); // Save the updated user back to the database
-            return success;
+            return ResponseEntity.ok("Sign-in successful.");
         } else {
-            return invalidSignIn;
+            // Return an unauthorized status if sign-in fails
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Sign-in failed: Incorrect email or password.");
         }
     }
+
 
 
     @PostMapping(path = "/createFriend")
