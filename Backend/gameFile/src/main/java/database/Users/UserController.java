@@ -3,8 +3,8 @@ package database.Users;
 import database.Friends.Friend;
 import database.Friends.FriendRepository;
 import database.Chat.MessageRepository;
-import database.game.Game;
-import database.game.GameRepository;
+import database.Stats.Stat;
+import database.Stats.StatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +38,7 @@ public class UserController {
 //    SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
-    GameRepository gameRepository;
+    StatRepository statRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -87,11 +87,11 @@ public class UserController {
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
         if (user != null) { //user is not null
-            Game newGame = new Game();
-            // Initialize newGame properties...
-            gameRepository.save(newGame);
+            Stat newStat = new Stat();
+            // Initialize newStat properties...
+            statRepository.save(newStat);
 //            settingRepository.save(newSetting);
-            user.setGaming(newGame); // Assuming setUser correctly sets up the relationship
+            user.setStat(newStat); // Assuming setUser correctly sets up the relationship
 //            user.setSetting(newSetting);
             // Initialize other newUser properties...
             userRepository.save(user);
