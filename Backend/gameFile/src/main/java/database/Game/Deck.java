@@ -7,6 +7,8 @@ import java.util.List;
 public class Deck {
     private List<Card> cards;
 
+
+
     public Deck() {
         this.cards = new ArrayList<>();
     }
@@ -33,7 +35,12 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    private String drawCard(String cardName){
+    public String drawCard(){
+        Card card = cards.remove(0);
+        return card.getName();
+    }
+
+    private String swapCard(String cardName){
         cards.add(new Card(cardName));
         Card card = cards.remove(0);
         return card.getName();
