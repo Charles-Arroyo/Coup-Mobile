@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="0dp">
 
     <!-- Top area with icons and timer -->
     <LinearLayout
@@ -15,6 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <!-- Icons and timer go here -->
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:srcCompat="@drawable/timericon"-->
+<!--            tools:layout_editor_absoluteX="14dp"-->
+<!--            tools:layout_editor_absoluteY="4dp" />-->
     </LinearLayout>
 
     <!-- Central grid area -->
@@ -26,7 +33,7 @@
         android:id="@+id/centralGridArea"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="16dp"
+        android:padding="1dp"
         app:layout_constraintBottom_toTopOf="@id/bottomArea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,7 +45,6 @@
         <!--        green icons-->
 
         <!--        red icons-->
-
 
         <ImageView
             android:id="@+id/gameBoard"
@@ -61,6 +67,7 @@
             android:src="@drawable/greeniconshape"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
+<!--persons-->
 
         <ImageView
             android:id="@+id/person1"
@@ -68,7 +75,9 @@
             android:layout_height="88dp"
             android:src="@drawable/person"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
         <ImageView
             android:id="@+id/person2"
@@ -79,11 +88,24 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline6" />
 
         <ImageView
+            android:id="@+id/person3"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintEnd_toStartOf="@+id/greenIcon1"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+
+        <ImageView
             android:id="@+id/oval1"
             android:layout_width="53dp"
             android:layout_height="88dp"
             android:src="@drawable/greyoval"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="@+id/guideline" />
 
         <ImageView
@@ -101,14 +123,16 @@
             android:src="@drawable/greyoval"
             app:layout_constraintBottom_toTopOf="@+id/yellowicon2"
             app:layout_constraintStart_toStartOf="@+id/guideline7" />
-
         <ImageView
             android:id="@+id/oval4"
             android:layout_width="53dp"
-            android:layout_height="85dp"
+            android:layout_height="88dp"
             android:src="@drawable/greyoval"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/greenIcon2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
 
         <ImageView
             android:id="@+id/yellowicon1"
@@ -207,24 +231,91 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.99" />
+            app:layout_constraintGuide_percent="0.98" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.01" />
+            app:layout_constraintGuide_percent="0.02" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="349dp"
-            android:layout_height="183dp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="384dp"
+            android:layout_height="207dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:layout_constraintVertical_bias="0.94"
             app:srcCompat="@drawable/chatbox" />
+
+        <ImageView
+            android:id="@+id/timericon"
+            android:layout_width="272dp"
+            android:layout_height="53dp"
+            android:src="@drawable/timericon"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/person4"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
+
+        <ImageView
+            android:id="@+id/person5"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
+
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="370dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:srcCompat="@drawable/whitetextbox" />
+
+        <ImageButton
+            android:id="@+id/imageButtonwf"
+            android:layout_width="31dp"
+            android:layout_height="27dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.9"
+            app:srcCompat="@drawable/submit" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="34dp"
+            android:layout_height="29dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.95"
+            app:srcCompat="@drawable/openchat" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="52dp"
+            android:layout_height="42dp"
+            app:layout_constraintBottom_toTopOf="@+id/person2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.060000002"
+            app:srcCompat="@drawable/home" />
 
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
