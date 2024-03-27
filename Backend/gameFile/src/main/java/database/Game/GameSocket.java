@@ -29,6 +29,8 @@ import org.springframework.stereotype.Controller;
 @Controller //Signify this is a controller
 @ServerEndpoint(value = "/game/{lobbyId}") // getting lobby ID so when know what player to add to game
 public class GameSocket {
+
+
     private static GameRepository gameRepository;
 
 
