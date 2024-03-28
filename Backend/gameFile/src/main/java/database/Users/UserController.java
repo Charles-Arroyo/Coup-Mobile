@@ -70,9 +70,9 @@ public class UserController {
 
     @GetMapping("/getId/{email}")
     public int getUserByEmail(@PathVariable String email) {
-        Optional<User> user = userRepository.findByUserEmail(email);
+        User user = userRepository.findByUserEmail(email);
         if (user != null) {
-            return user.get().getId();
+            return user.getId();
         } else {
             return -1;
         }
@@ -81,12 +81,13 @@ public class UserController {
 
     /**
      * Creates a user, need to account for same emails
+     *
      * @param user
      * @return
      */
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
-        if (user != null) { //user is not null
+        if (user != null && userRepository.findByUserEmail(user.getUserEmail()) == null) { //user is not null
             Stat newStat = new Stat();
             // Initialize newStat properties...
             statRepository.save(newStat);
@@ -94,36 +95,35 @@ public class UserController {
             user.setStat(newStat); // Assuming setUser correctly sets up the relationship
 //            user.setSetting(newSetting);
             // Initialize other newUser properties...
+
+
             userRepository.save(user);
             return success;
-        }else{ //Null
+        } else { //Null
             return failure; //Return a Failure
         }
     }
 
     /**
      * Checks the repo, and allows user to sign in
+     *
      * @param user
      * @return
      */
     @PostMapping(path = "/signin")
     public String signIn(@RequestBody User user) { //sends a request body of password & username
-        Optional<User> foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
-        if (foundUser.isPresent() && foundUser.get().getPassword().equals(user.getPassword())) {
-            User actualUser = foundUser.get();
-            actualUser.setIsOnline(true);
-            userRepository.save(actualUser); // Save the updated user back to the database
+        User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
+        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return success;
-        } else {
-            return invalidSignIn;
+        }else{
+            return failure;
         }
     }
 
-
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
-        Optional<User> user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
-        Optional<User> user2 = userRepository.findByUserEmail(friend.getFriendEmail2()); // Creates second temp user object with second email
+        User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
+        User user2 = userRepository.findByUserEmail(friend.getFriendEmail2()); // Creates second temp user object with second email
 //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
 //            return failure;
 //        }
@@ -158,9 +158,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("{\"message\":\"Invalid email\"}");
         }
 
-        User user = userRepository.findByUserEmail(userEmail)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User email not found"));
-
+        User user = userRepository.findByUserEmail(userEmail);
         user.setUserEmail(updateRequest.getUserEmail()); // Assuming setUserEmail is the correct method to update the email
         userRepository.save(user);
 
@@ -174,8 +172,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("{\"message\":\"Invalid password\"}");
         }
 
-        User user = userRepository.findByUserEmail(userEmail)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User email not found"));
+        User user = userRepository.findByUserEmail(userEmail);
 
         // Ensure the user is authorized to change the password here
         // This might include verifying the old password, a security question, or an authentication token.
@@ -185,8 +182,6 @@ public class UserController {
 
         return ResponseEntity.ok("{\"message\":\"Password updated successfully\"}");
     }
-
-
 
 
     /**

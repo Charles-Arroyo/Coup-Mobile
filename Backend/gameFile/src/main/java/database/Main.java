@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
+
 /**
  *
  * @author Vivek Bengre
@@ -18,7 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 
 @SpringBootApplication
-@EnableJpaRepositories
+//@EnableJpaRepositories
 class Main {
 
     public static void main(String[] args) {
@@ -34,27 +35,32 @@ class Main {
     CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository) {
         return args ->
         {
-
-//            User user1 = userRepository.findByEmailId("ThisIsATest"); // Finds User based on Email
-//            User user2 = userRepository.findByEmailId("e"); // Finds User Based on Email
-////
-////                //Create two friend objects.
-//                Friend user1Friend = new Friend(user2.getEmailId());
-////                Friend user2Friend = new Friend(user1.getEmailId());
-////
-////                // Add friends to users
-//                user1.addFriends(user1Friend);
-////                user2.addFriends(user2Friend);
-////
-////                // Save changes to the database
-////                userRepository.save(user1);
-////                userRepository.save(user2);
+            User user = new User("Charles","Cfarroyo@gmail.com","123");
+            User user2 = new User("Bill","Bill@gmail.com","123");
+            User user3 = new User("Poncho","Poncho@gmail.com","123");
+//            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
+//            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
+            userRepository.save(user);
+            userRepository.save(user2);
+            userRepository.save(user3);
 
 
         };
     }
 
+
+//    @Bean
+//    public Docket api() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
+
+
 }
+
 
 
 

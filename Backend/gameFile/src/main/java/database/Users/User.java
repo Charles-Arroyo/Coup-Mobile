@@ -22,6 +22,7 @@ public class User {
 
     private String name;
 
+    @Column(unique = true)
     private String userEmail;
     private boolean ifActive;
 
@@ -48,7 +49,7 @@ public class User {
 
 
 
-    public User(String name, String userEmail, int id,String password,int UniqueID) {
+    public User(String name, String userEmail /* int id*/ ,String password /*int UniqueID*/) {
         this.name = name;
         this.userEmail = userEmail;
         this.ifActive = true;
