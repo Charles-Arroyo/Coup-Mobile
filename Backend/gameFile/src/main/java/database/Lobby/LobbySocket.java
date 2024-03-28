@@ -2,9 +2,10 @@ package database.Lobby;
 
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+
+import database.Users.UserRepository;
+import database.Websocketconfig.WebsocketConfig;
 import jakarta.websocket.*;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
@@ -14,9 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import jakarta.websocket.OnOpen;
-import jakarta.websocket.server.ServerEndpoint;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/lobby/{lobbyId}/{username}")  // this is Websocket url
@@ -25,8 +23,10 @@ public class LobbySocket {
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
 
     private static Map<Session, Integer> sessionLobbyMap = new Hashtable<>();
-    private static Map<Session, String> sessionUsernamemap = new Hashtable<>();
     private static Map<String, Session> lobbySessionMap = new Hashtable<>();
+    private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+    private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+
     @Autowired
     public void setLobbyRepository(LobbyRepository repo) {
         lobbyRepository = repo;
@@ -35,16 +35,18 @@ public class LobbySocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
 
-        if (lobbyId == 0) {  // If no lobbyId was provided, this user wants to create a new lobby.
+        UserRepository userRepository = WebsocketConfig.getUserRepository();
 
+
+        if (lobbyId == 0) {  // If no lobbyId was provided, this user wants to create a new lobby.
             Lobby newLobby = new Lobby();
-           boolean notFull = newLobby.addUser(username); // Add the user to the lobby, returns false if full
+           boolean notFull = newLobby.addUser(userRepository.findByUserEmail(username)); // Add the user to the lobby, returns false if full
             if(notFull){
                 logger.info("User: {} connected to the WebSocket", username);
-                sessionLobbyMap.put(session, lobbyId);
-                sessionUsernamemap.put(session, username);
+                sessionUsernameMap.put(session, username);
+                usernameSessionMap.put(username,session);
                 broadcast(username + " has joined the lobby");
-            lobbyRepository.save(newLobby); // Save the new lobby.broadcast
+                lobbyRepository.save(newLobby); // Save the new lobby
                 broadcast("Is the lobby full?: " + newLobby.isFull());
                 broadcast("The lobby ID is: " + newLobby.getId());
                 StringBuilder users = new StringBuilder("Users in all lobbies: ");
@@ -68,14 +70,13 @@ public class LobbySocket {
             // If a lobbyId was provided, the user wants to join an existing lobby.
             Lobby existingLobby = lobbyRepository.findById(lobbyId);
             if (existingLobby != null) {
-              boolean notFull =  existingLobby.addUser(username); // Add the user to the lobby.
+              boolean notFull = existingLobby.addUser(userRepository.findByUserEmail(username)); // Add the user to the lobby.
                 if(notFull) {
                     logger.info("User: {} connected to the WebSocket", username);
-                    sessionLobbyMap.put(session, lobbyId);
-                    sessionUsernamemap.put(session, username);
+                    sessionUsernameMap.put(session, username);
+                    usernameSessionMap.put(username,session);
                     broadcast(username + " has joined the lobby");
                     lobbyRepository.save(existingLobby); // Update the existing lobby.
-
                     if(existingLobby.isFull()){
                         broadcast("lobby is full");
                     }else{
@@ -118,7 +119,7 @@ public class LobbySocket {
         logger.info("Entered into Close");
 
         // remove the user connection information
-        String username = sessionUsernamemap.get(session);
+        String username = sessionUsernameMap.get(session);
         sessionLobbyMap.remove(session);
         lobbySessionMap.remove(username);
 
@@ -128,7 +129,7 @@ public class LobbySocket {
     }
 
     private void broadcast(String message) {
-        sessionLobbyMap.forEach((session, username) -> {
+        sessionUsernameMap.forEach((session, userName) -> {
             try {
                 session.getBasicRemote().sendText(message);
             }
@@ -137,6 +138,19 @@ public class LobbySocket {
                 e.printStackTrace();
             }
         });
+
+
+//        private void broadcast(String message) {
+//            sessionLobbyMap.forEach((session, lobbyId) -> {
+//                try {
+//                    // Adjust broadcasting to include user information
+//                    String username = sessionUsernameMap.get(session);
+//                    message = username + ": " + message;
+//                    session.getBasicRemote().sendText(message);
+//                } catch (IOException e) {
+//                    logger.error("Error broadcasting message: " + e.getMessage());
+//                }
+//            });
 
     }
 

@@ -1,5 +1,6 @@
 package database.Lobby;
 
+import database.Users.User;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -10,17 +11,17 @@ public class Lobby {
     @Id
     @GeneratedValue
     private int id;
-    @Column(nullable = true)
-    private String user1;
+    @ManyToOne
+    private User user1;
 
-    @Column(nullable = true)
-    private String user2;
+    @ManyToOne
+    private User user2;
 
-    @Column(nullable = true)
-    private String user3;
+    @ManyToOne
+    private User user3;
 
-    @Column(nullable = true)
-    private String user4;
+    @ManyToOne
+    private User user4;
 
     @Column
     private boolean isPrivate;
@@ -32,55 +33,68 @@ public class Lobby {
 
 
 
-    public Lobby(String user1, String user2, String user3, String user4, boolean isPrivate, boolean isFull) {
-        this.user1 = user1;
-        this.user2 = user2;
-        this.user3 = user3;
-        this.user4 = user4;
-        this.isPrivate = isPrivate;
-        isFull = false;
-    }
+//    public Lobby(/*String user1, String user2, String user3, String user4, boolean isPrivate, boolean isFull*/) {
+////        this.user1 = user1;
+////        this.user2 = user2;
+////        this.user3 = user3;
+////        this.user4 = user4;
+////        this.isPrivate = isPrivate;
+////        isFull = false;
+//    }
 
     public Lobby(){}
 
     public String getUser1() {
-        return user1;
+        return user1.getUserEmail();
     }
 
     public int getId(){
         return id;
     }
 
-    public void setUser1(String user1) {
+    public void setUser1(User user1) {
         this.user1 = user1;
     }
 
     public String getUser2() {
-        return user2;
+        if(user2 == null){
+            return "Empty";
+        }else{
+            return user2.getUserEmail();
+        }
+
     }
 
-    public void setUser2(String user2) {
+    public void setUser2(User user2) {
         this.user2 = user2;
     }
 
     public String getUser3() {
-        return user3;
+        if(user3 == null){
+            return "Empty";
+        }else{
+            return user3.getUserEmail();
+        }
     }
 
-    public void setUser3(String user3) {
+    public void setUser3(User user3) {
         this.user3 = user3;
     }
 
     public String getUser4() {
-        return user4;
+        if(user4 == null){
+            return "Empty";
+        }else{
+            return user4.getUserEmail();
+        }
     }
 
-    public void setUser4(String user4) {
+    public void setUser4(User user4) {
         isFull = true;
         this.user4 = user4;
     }
 
-    public Boolean addUser(String userName){
+    public Boolean addUser(User userName){
         if(user1 == null){
             setUser1(userName);
             return true;

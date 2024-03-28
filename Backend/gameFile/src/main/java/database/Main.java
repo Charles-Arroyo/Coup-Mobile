@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 
 @SpringBootApplication
-//@EnableJpaRepositories
+@EnableJpaRepositories
 class Main {
 
     public static void main(String[] args) {
@@ -35,14 +35,14 @@ class Main {
     CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository) {
         return args ->
         {
-            User user = new User("Charles","Cfarroyo@gmail.com","123");
-            User user2 = new User("Bill","Bill@gmail.com","123");
-            User user3 = new User("Poncho","Poncho@gmail.com","123");
-//            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
-//            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
-            userRepository.save(user);
-            userRepository.save(user2);
-            userRepository.save(user3);
+//            User user = new User("Charles","Cfarroyo@gmail.com","123");
+//            User user2 = new User("Bill","Bill@gmail.com","123");
+//            User user3 = new User("Poncho","Poncho@gmail.com","123");
+////            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
+////            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
+//            userRepository.save(user);
+//            userRepository.save(user2);
+//            userRepository.save(user3);
 
 
         };
