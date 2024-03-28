@@ -87,7 +87,7 @@ public class UserController {
      */
     @PostMapping(path = "/signup")
     String signUp(@RequestBody User user) {
-        if (user != null) { //user is not null
+        if (user != null && userRepository.findByUserEmail(user.getUserEmail()) == null) { //user is not null
             Stat newStat = new Stat();
             // Initialize newStat properties...
             statRepository.save(newStat);
