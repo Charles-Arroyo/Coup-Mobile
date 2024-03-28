@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
 //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-    private String BASE_URL = "ws://10.29.183.254:8080/chat/";
+    private String BASE_URL = "ws://10.29.182.205:8080/chat/";
 
     private ImageButton backButton, msgButton;
     private EditText msg;
@@ -87,9 +87,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         rulesButton.setOnClickListener(v -> showRules());
         // Message Button
         msgButton.setOnClickListener(v -> {
-            String serverUrl = BASE_URL + user;
-            WebSocketManager.getInstance().connectWebSocket(serverUrl);
-            WebSocketManager.getInstance().setWebSocketListener(MenuActivity.this);
             showGlbChat();
         });
 
@@ -111,9 +108,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
             if (!messageToSend.isEmpty()) {
                 WebSocketManager.getInstance().sendMessage(messageToSend);
                 msg.setText("");
-                addMessageToLayout(user, messageToSend);
             }
         });
+        connectToWebSocket();
 
         backButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
@@ -122,18 +119,31 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         });
 
         bottomSheetDialog.show();
-        connectToWebSocket();
+
     }
+
     private void connectToWebSocket() {
         String serverUrl = BASE_URL + user;
         WebSocketManager.getInstance().connectWebSocket(serverUrl);
         WebSocketManager.getInstance().setWebSocketListener(this);
     }
 
-    @Override
-    public void onWebSocketMessage(String message) {
-        runOnUiThread(() -> addMessageToLayout(user, message));
+    public void onWebSocketMessage(String fullMessage) {
+        runOnUiThread(() -> {
+            // Assuming the format is "username: message"
+            int colonIndex = fullMessage.indexOf(":");
+            if (colonIndex != -1) {
+                String username = fullMessage.substring(0, colonIndex).trim();
+                String message = fullMessage.substring(colonIndex + 1).trim();
+
+                addMessageToLayout(username, message);
+            } else {
+                // This else block can handle messages that do not fit the "username: message" format
+                addMessageToLayout("Server", fullMessage);
+            }
+        });
     }
+
 
     private void addMessageToLayout(String username, String message) {
         View messageView = getLayoutInflater().inflate(R.layout.message_item, layoutMessages, false);
@@ -166,19 +176,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         runOnUiThread(() -> {
             messagesList.add("WebSocket error: " + ex.getMessage());
         });
-    }
-
-    private void addMessageToLayout(String username, String message, LinearLayout layout) {
-        View messageView = getLayoutInflater().inflate(R.layout.message_item, layout, false);
-
-        TextView textView = messageView.findViewById(R.id.tvMessage);
-        textView.setText(message);
-
-        Button btnUsername = messageView.findViewById(R.id.btnUsername);
-        btnUsername.setText(username);
-        btnUsername.setOnClickListener(v -> showUserPopup(username));
-
-        layout.addView(messageView);
     }
 
     private void showUserPopup(String username) {
@@ -236,12 +233,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         // Close button inside the BottomSheetDialog
         Button closeButton = view.findViewById(R.id.close_rules_coup_overlay_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
+        closeButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
         bottomSheetDialog.show();
     }

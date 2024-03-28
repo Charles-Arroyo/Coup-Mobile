@@ -1,5 +1,8 @@
 package com.example.coupv2;
 
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.view.View;
@@ -152,25 +155,35 @@ public class FriendsActivity extends AppCompatActivity {
         performRefreshRequest();
     }
 
-
     private void performRefreshRequest() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS, null,
                 response -> {
                     try {
-                        JSONArray friendsArray = response.getJSONArray("friend");
+                        JSONArray friendsArray = response.getJSONArray("friend"); // Use "friend" to match your JSON key
                         friendsLayout.removeAllViews(); // Clear existing views
                         for (int i = 0; i < friendsArray.length(); i++) {
                             JSONObject friend = friendsArray.getJSONObject(i);
-                            String email = friend.getString("friendEmail2");
+                            String email = friend.getString("friendEmail2"); // Use "friendEmail2" to get the email
+                            boolean isActive = friend.getBoolean("active"); // Get active status
+
                             View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
 
-                            TextView emailTextView = friendView.findViewById(R.id.friend_request_email);
-                            emailTextView.setText(email);
+                            Button emailButton = friendView.findViewById(R.id.email);
+                            emailButton.setText(email);
+                            emailButton.setOnClickListener(v -> showUserStats(email));
+
+                            View activeButton = friendView.findViewById(R.id.active);
+                            activeButton.setBackgroundTintList(ColorStateList.valueOf(isActive ? Color.GREEN : Color.RED));
+
+                            // Set onClickListener for the activeButton to show a toast
+                            activeButton.setOnClickListener(v -> {
+                                String statusMessage = isActive ? "Online" : "Offline";
+                                Toast.makeText(FriendsActivity.this, email + " is " + statusMessage, Toast.LENGTH_SHORT).show();
+                            });
+
 
                             ImageButton messageButton = friendView.findViewById(R.id.msgButton);
-                            messageButton.setOnClickListener(v -> {
-                                // Intent to start chat activity, or whatever action you want
-                            });
+                            messageButton.setOnClickListener(v -> startMessageActivity(email));
 
                             friendsLayout.addView(friendView);
                         }
@@ -186,6 +199,16 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
 
+    private void showUserStats(String email) {
+        Toast.makeText(this, "Stats for: " + email, Toast.LENGTH_SHORT).show();
+        // Here you could launch an activity or a dialog showing stats for the user
+    }
+
+    private void startMessageActivity(String email) {
+        Intent intent = new Intent(this, MessageActivity.class);
+        intent.putExtra("email", email);
+        startActivity(intent);
+    }
 
     private void checkForFriendRequests() {
 //        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS + "/" + userEmail, null,
@@ -279,7 +302,6 @@ public class FriendsActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
-
 
     private void denyFriendRequest(final String email) {
         JSONObject requestBody = new JSONObject();
