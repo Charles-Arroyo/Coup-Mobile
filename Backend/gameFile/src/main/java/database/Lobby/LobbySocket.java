@@ -37,14 +37,16 @@ public class LobbySocket {
 
         if (lobbyId == 0) {  // If no lobbyId was provided, this user wants to create a new lobby.
 
-            Lobby newLobby = new Lobby();
-           boolean notFull = newLobby.addUser(username); // Add the user to the lobby, returns false if full
+            Lobby newLobby = new Lobby(); // Create New Lobby
+            boolean notFull = newLobby.addUser(username); // Try to add the user to the lobby, returns false if full
             if(notFull){
                 logger.info("User: {} connected to the WebSocket", username);
+
                 sessionLobbyMap.put(session, lobbyId);
                 sessionUsernamemap.put(session, username);
+
+
                 broadcast(username + " has joined the lobby");
-            lobbyRepository.save(newLobby); // Save the new lobby.broadcast
                 broadcast("Is the lobby full?: " + newLobby.isFull());
                 broadcast("The lobby ID is: " + newLobby.getId());
                 StringBuilder users = new StringBuilder("Users in all lobbies: ");
@@ -61,13 +63,14 @@ public class LobbySocket {
                     users.append(newLobby.getUser4());
                 }
                 broadcast(users.toString());
+                lobbyRepository.save(newLobby); // Save the new lobby, do i put at bottom?
                 }else{
                 broadcast("Lobby Full");
             }
         } else {
             // If a lobbyId was provided, the user wants to join an existing lobby.
-            Lobby existingLobby = lobbyRepository.findById(lobbyId);
-            if (existingLobby != null) {
+            Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find lobby by ID, provided by user
+            if (existingLobby != null) { //found lobby
               boolean notFull =  existingLobby.addUser(username); // Add the user to the lobby.
                 if(notFull) {
                     logger.info("User: {} connected to the WebSocket", username);
@@ -77,7 +80,7 @@ public class LobbySocket {
                     lobbyRepository.save(existingLobby); // Update the existing lobby.
 
                     if(existingLobby.isFull()){
-                        broadcast("lobby is full");
+                        broadcast("lobby is now full");
                     }else{
                         broadcast("Not full");
                     }

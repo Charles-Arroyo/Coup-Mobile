@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 
 @SpringBootApplication
-//@EnableJpaRepositories
+@EnableJpaRepositories
 class Main {
 
     public static void main(String[] args) {
@@ -31,22 +31,21 @@ class Main {
      * Creates a commandLine runner to enter dummy data into the database
      * As mentioned in User.java just associating the Laptop object with the User will save it into the database because of the CascadeType
      */
-    @Bean
-    CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository) {
-        return args ->
-        {
-            User user = new User("Charles","Cfarroyo@gmail.com","123");
-            User user2 = new User("Bill","Bill@gmail.com","123");
-            User user3 = new User("Poncho","Poncho@gmail.com","123");
-//            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
-//            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
-            userRepository.save(user);
-            userRepository.save(user2);
-            userRepository.save(user3);
-
-
-        };
-    }
+//    @Bean
+//    CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository) {
+//        return args ->
+//        {
+////            User user = new User("Charles","Cfarroyo@gmail.com","123");
+////            User user2 = new User("Bill","Bill@gmail.com","123");
+////            User user3 = new User("Poncho","Poncho@gmail.com","123");
+//////            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
+//////            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
+////            userRepository.save(user);
+////            userRepository.save(user2);
+////            userRepository.save(user3);
+//
+//        };
+//    }
 
 
 //    @Bean
