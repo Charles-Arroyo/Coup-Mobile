@@ -42,6 +42,12 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
         runOnUiThread(() -> {
             String s = msgTv.getText().toString();
             msgTv.setText(s + "\n" + message);
+
+            // Check if the received message is "lobby is full"
+            if ("lobby is full".equals(message.trim())) {
+                isLobbyFull = true;
+                goToNewActivity(); // Call method to transition to the new activity
+            }
         });
     }
 

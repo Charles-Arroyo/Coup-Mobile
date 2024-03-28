@@ -51,12 +51,12 @@
         app:srcCompat="@drawable/openchat" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backBtn"
         android:layout_width="44dp"
         android:layout_height="34dp"
         app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01999998"

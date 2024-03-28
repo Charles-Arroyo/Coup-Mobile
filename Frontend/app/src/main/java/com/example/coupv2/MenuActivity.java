@@ -42,9 +42,9 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the looby activity
-//                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
                 //for going straight to PlayActivity
-                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
+//                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
                 startActivity(intent);
             }
         });

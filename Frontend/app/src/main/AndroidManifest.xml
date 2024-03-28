@@ -70,7 +70,7 @@
             android:name=".PlayActivity"
             android:exported="false" />
         <activity
-            android:name=".Game"
+            android:name=".GameChatActivity"
             android:exported="false" />
     </application>
 
