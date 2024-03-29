@@ -181,21 +181,7 @@ public class UserController {
 
 
 
-    //not done
-    String acceptFriend(String reciever, String sender){ //creating table
 
-
-//        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
-//            return failure;
-//        }
-
-        if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
-            return "Friendship exists";
-        }
-        friend.setAcceptance(true); // Put this in a seperate method
-        friendRepository.save(friend);
-        return success;
-    }
 
 //    @PostMapping( = "/friendRequest/{userEmail}")
 //    public String friendRequest(@PathVariable String userEmail,@RequestBody String friendRequestEmail){
@@ -211,7 +197,28 @@ public class UserController {
 //
 //        return success;
 //    }
+    //not done
+    @PutMapping(path = "/acceptFriendOrNot/{userEmail}")
+    String acceptFriendOrNot(@PathVariable User userEmail,@RequestBody boolean yesOrNo){ //creating table
+    Friend friend = null;
+    if(yesOrNo == true){
+    friend.setFriendEmail1(userEmail.getUserEmail()); //user accepting
+    friend.setFriendEmail2(userEmail.friendRequestPersonName());//user being accepted;
 
+    //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
+    //            return failure;
+    //        }
+
+        if(friendRepository.friendshipExistsByUserEmails(userEmail.getUserEmail(),userEmail.friendRequestPersonName())){ //Makes sure FriendShip repo does not have it
+            return "Friendship exists";
+        }
+        friend.setAcceptance(true); // Put this in a seperate method
+        friendRepository.save(friend);
+        return success;
+    }else{
+        return failure;
+    }
+    }
 
     //done
     public String friendRequest( String userEmail,String friendRequestEmail){
@@ -239,17 +246,7 @@ public class UserController {
             return failure;
         }
     }
-
-
-//not done
-    @PutMapping(path = "/acceptOrNot/{userEmail}")
-    public String acceptOrNot(@PathVariable User userEmail, boolean decision){
-        if(userRepository.findByUserEmail(userEmail.getUserEmail()) != null){
-            if(decision == true){
-                acceptFriend(userEmail.getUserEmail(),userEmail.friendRequestPersonName());
-            }
-        }
-    }
+    
 
 
 }
