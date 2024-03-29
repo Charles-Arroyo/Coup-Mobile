@@ -33,7 +33,8 @@ public class User {
 
     private String password;
 
-    private boolean friendRequest;
+    private boolean friendRequest = false;
+
 
     private String friendWannaBe;
 
@@ -62,6 +63,7 @@ public class User {
         this.ifActive = true;
         this.id = id;
         this.password = password;
+
     }
 
     public User() {
@@ -124,10 +126,15 @@ public class User {
     }
 
 
-    public void getFriendRequest(User friend, boolean friendRequest){
-        if(friend != null && friendRequest == true)
+    public void getFriendRequest(boolean friendRequest){
+        if(friendRequest != false)
             this.friendRequest = friendRequest;
-            this.friendWannaBe = friend.getUserEmail();
+    }
+
+    public void setFriendRequestName(String friendRequestName){
+        if(friendRequestName != null){
+            this.friendWannaBe = friendRequestName;
+        }
     }
 
     public String friendRequestPersonName(){

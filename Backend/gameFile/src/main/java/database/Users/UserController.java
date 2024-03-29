@@ -63,9 +63,9 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @GetMapping("/getId/{email}")
-    public int getUserByEmail(@PathVariable String email) {
-        User user = userRepository.findByUserEmail(email);
+    @GetMapping("/getId/{userEmail}")
+    public int getUserByEmail(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
         if (user != null) {
             return user.getId();
         } else {
@@ -111,22 +111,22 @@ public class UserController {
             return failure;
         }
     }
-
-    /**
-     * This method finds an existing user, and updates to change username/password. This can be used for
-     * a user settings
-     * @param id
-     * @param request
-     * @return
-     */
-    @PutMapping("/users/{id}")
-    User updateUser(@PathVariable int id, @RequestBody User request){
-        User user = userRepository.findById(id);
-        if(user == null)
-            return null;
-        userRepository.save(request);
-        return userRepository.findById(id);
-    }
+//
+//    /**
+//     * This method finds an existing user, and updates to change username/password. This can be used for
+//     * a user settings
+//     * @param id
+//     * @param request
+//     * @return
+//     */
+//    @PutMapping("/users/{id}")
+//    User updateUser(@PathVariable int id, @RequestBody User request){
+//        User user = userRepository.findById(id);
+//        if(user == null)
+//            return null;
+//        userRepository.save(request);
+//        return userRepository.findById(id);
+//    }
 
 //    /**
 //     *
@@ -198,18 +198,19 @@ public class UserController {
 //        return success;
 //    }
     //not done
-    @PutMapping(path = "/acceptFriendOrNot/{userEmail}")
-    String acceptFriendOrNot(@PathVariable User userEmail,@RequestBody boolean yesOrNo){ //creating table
-    Friend friend = null;
+    @PutMapping(path = "/acceptFriendOrNot/{userEmail}/{yesOrNo}")
+    String acceptFriendOrNot(@PathVariable String userEmail,@PathVariable boolean yesOrNo){ //creating table
+    Friend friend = new Friend();
+    User userAdding = userRepository.findByUserEmail(userEmail);
     if(yesOrNo == true){
-    friend.setFriendEmail1(userEmail.getUserEmail()); //user accepting
-    friend.setFriendEmail2(userEmail.friendRequestPersonName());//user being accepted;
+    friend.setFriendEmail1(userAdding.getUserEmail()); //user accepting
+    friend.setFriendEmail2(userAdding.friendRequestPersonName());//user being accepted;
 
     //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
     //            return failure;
     //        }
 
-        if(friendRepository.friendshipExistsByUserEmails(userEmail.getUserEmail(),userEmail.friendRequestPersonName())){ //Makes sure FriendShip repo does not have it
+        if(friendRepository.friendshipExistsByUserEmails(userAdding.getUserEmail(),userAdding.friendRequestPersonName())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
         friend.setAcceptance(true); // Put this in a seperate method
@@ -221,18 +222,23 @@ public class UserController {
     }
 
     //done
-    public String friendRequest( String userEmail,String friendRequestEmail){
-        User friendRequestSender = userRepository.findByUserEmail(userEmail);
-        User friendToBe;
-        if(userRepository.findByUserEmail(friendRequestEmail) != null){
-            friendToBe = userRepository.findByUserEmail(friendRequestEmail);// check for the person's email;
-        }else {
+    @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
+    public String friendRequest(@PathVariable String userEmail,@PathVariable String friendWannaBe){
+
+        if(userRepository.findByUserEmail(friendWannaBe) == null && userRepository.findByUserEmail(userEmail) == null){
             return failure;
+        }else {
+
+
+            User friendToBe = userRepository.findByUserEmail(friendWannaBe);
+            User friendRequestSender = userRepository.findByUserEmail(userEmail);
+
+            friendToBe.getFriendRequest(true);
+            friendToBe.setFriendRequestName(friendRequestSender.getUserEmail());
+            userRepository.save(friendToBe);
+
+            return success;
         }
-
-        friendToBe.getFriendRequest(friendRequestSender, true);
-
-        return success;
     }
 
 
