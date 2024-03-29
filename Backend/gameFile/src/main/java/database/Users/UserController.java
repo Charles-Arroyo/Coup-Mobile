@@ -36,7 +36,7 @@ public class UserController {
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
-    LobbyRepository lobbyRepository; // //Creating a repository(mySQL of Friends)
+    LobbyRepository lobbyRepository; // //Creating a repository(mySQL of lobbies)
 
 //    @Autowired
 //    SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)

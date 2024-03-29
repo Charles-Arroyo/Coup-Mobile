@@ -1,11 +1,13 @@
 package database.Lobby;
 
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
+import database.Chat.MessageRepository;
+import database.Users.User;
+import database.Users.UserRepository;
+import database.Websocketconfig.WebsocketConfig;
+import jakarta.persistence.Lob;
 import jakarta.transaction.Transactional;
 import jakarta.websocket.*;
 import jakarta.websocket.server.PathParam;
@@ -24,135 +26,86 @@ import org.springframework.stereotype.Controller;
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/lobby/{lobbyId}/{username}")  // this is WebSocket URL
 public class LobbySocket {
-    private static LobbyRepository lobbyRepository;
+    @Autowired
+    private LobbyRepository lobbyRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
+    @Autowired
+    private UserRepository userRepository;
 
-    private static Map<Session, Integer> sessionLobbyMap = new Hashtable<>(); // Maps Session to Id's
+    @Autowired
+    public void setUserRepository(UserRepository repo) {
+        userRepository = repo;  // we are setting the static variable
 
-    private static Map<Integer,Session> lobbySessionmap = new Hashtable<>(); // Maps Session to Id's
-    private static Map<Session, String> sessionUsernamemap = new Hashtable<>(); // Maps Session to Users
-    private static Map<String, Session> userSessionmap = new Hashtable<>(); // Maps Session to Users
-
+    }
 
     @Autowired
     public void setLobbyRepository(LobbyRepository repo) {
-        lobbyRepository = repo;
+        lobbyRepository = repo;  // we are setting the static variable
+
     }
+    private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
+
+    private static Map<Session, Lobby> sessionLobbyMap = new Hashtable<>(); // Associate of Session with Lobby
+    private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate of Session with Users
+
+
+//    @Autowired
+//    public void setLobbyRepository(LobbyRepository repo) {
+//        lobbyRepository = repo;
+//    }
+//
+//    @Autowired
+//    public void setUserRepository(UserRepository repo) {
+//        userRepository = repo;
+//    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
-        if (lobbyId == 0) {  // If no lobbyId was provided, this user wants to create a new lobby.
-            Lobby newLobby = new Lobby(); // Create New Lobby
-            boolean notFull = newLobby.addUser(username); // Try to add the user to the lobby, returns false if full
-            if(notFull){
-                logger.info("User: {} connected to the WebSocket", username);
-                lobbyRepository.save(newLobby);
-                sessionLobbyMap.put(session, newLobby.getId());
-                sessionUsernamemap.put(session, username);
-                broadcast("The lobby ID is: " + newLobby.getId());
-                broadcast(username + " has joined the lobby");
-                broadcast("Is the lobby full?: " + newLobby.isFull());
+        User user = WebsocketConfig.getUserRepository().findByUserEmail(username); // find user
+        Lobby newLobby = new Lobby(); // Create new Lobby
+        newLobby.addUser(user); // add user
+        sessionLobbyMap.put(session,newLobby); // Save Session with lobby
+        sessionUserMap.put(session, user);
+        WebsocketConfig.getLobbyRepository().save(newLobby);
 
-                StringBuilder users = new StringBuilder("Users in all lobbies: ");
-                if(newLobby.getUser1() != null){
-                    users.append(newLobby.getUser1());
-                }
-                if(newLobby.getUser2() != null){
-                    users.append(newLobby.getUser2());
-                }
-                if(newLobby.getUser3() != null){
-                    users.append(newLobby.getUser3());
-                }
-                if(newLobby.getUser4() != null){
-                    users.append(newLobby.getUser4());
-                }
-                broadcast(users.toString());
-                }else{
-                broadcast("Lobby Full");
-            }
-        } else {
-            // If a lobbyId was provided, the user wants to join an existing lobby.
-            Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find lobby by ID, provided by user
-            if (existingLobby != null) { //found lobby
-              boolean notFull =  existingLobby.addUser(username); // Add the user to the lobby.
-                if(notFull) {
-                    logger.info("User: {} connected to the WebSocket", username);
-                    sessionLobbyMap.put(session, lobbyId); //Why would you do it again?
-                    sessionUsernamemap.put(session, username); // Put this new user into the session User
-                    broadcast(username + " has joined the lobby");
-                    lobbyRepository.save(existingLobby); // Update the existing lobby for the add^
-                    if(existingLobby.isFull()){
-                        broadcast("lobby is now full");
-                    }else{
-                        broadcast("Not full");
-                    }
-                    // Send a message to all clients in the lobby to indicate that this user has joined.
-                    broadcast(username + " has joined the lobby, The ID is " +lobbyId);
-                    StringBuilder users = new StringBuilder("Users in lobbies: ");
-                    if(existingLobby.getUser1() != null){
-                        users.append(" " + existingLobby.getUser1());
-                    }
-                    if(existingLobby.getUser2() != null){
-                        users.append(" " + existingLobby.getUser2());
-                    }
-                    if(existingLobby.getUser3() != null){
-                        users.append(" " + existingLobby.getUser3());
-                    }
-                    if(existingLobby.getUser4() != null){
-                        users.append(" " + existingLobby.getUser4());
-                    }
-                    broadcast(users.toString());
-                }else{
-                    broadcast("Lobby Full");
-                }
-            } else {
-                // If the lobby doesn't exist or is full
-                session.getBasicRemote().sendText("Lobby does not exist");
-                session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT, "Lobby is full or does not exist"));
-                return;
-            }
-        }
-        // Store the user's session and associate it with the lobbyId.
-      //  sessionLobbyMap.put(session, lobbyId);
+//        if(lobbyId == 0){
+//            Lobby newLobby = new Lobby(); // Create new Lobby
+//            newLobby.addUser(user); // add user
+//            sessionLobbyMap.put(session,newLobby); // Save Session with lobby
+//            sessionUserMap.put(session, user);
+//            lobbyRepository.save(newLobby);
+//
+//        }else{
+//            Lobby exisitingLobby = lobbyRepository.findById(lobbyId);
+//            exisitingLobby.addUser(user); // add user
+//            lobbyRepository.save(exisitingLobby);
+//        }
     }
 
-
     @OnClose
-    public void onClose(Session session) throws IOException {
-        logger.info("Entered into Close");
+    public void onClose(Session session) {
+//        // Step 1: Find which lobby the session belongs to.
+//        Lobby lobby = sessionLobbyMap.get(session);
+//        if (lobby != null) {
+//            // Step 2: Remove the user from the lobby.
+//            User user = findUserBySession(session); // Assuming you implement this method.
+//            if (user != null) {
+//                lobby.removeUser(user); // Implement this method in Lobby to remove a user.
+//                if (lobby.isEmpty()) { // Check if the lobby is now empty.
+//                    // Step 3: Delete the lobby if empty.
+//                    lobbyRepository.delete(lobby); // Adjust based on your actual repository method.
+//                } else {
+//                    lobbyRepository.save(lobby); // Save the updated lobby state.
+//                }
+//            }
+//            // Clean up the session mappings.
+//            sessionLobbyMap.remove(session);
+//        }
+//        // Additional cleanup or logging can be performed here.
+    }
 
-        // Remove the user connection information
-        String username = sessionUsernamemap.get(session); //get username by session
-        Integer lobbyId = sessionLobbyMap.get(session); //get lobbyId by session
-
-
-        // If username or lobbyId is null, return
-        if (username == null || lobbyId == null) {
-            return;
-        }
-        // Remove the user from the lobby
-        Lobby lobby = lobbyRepository.findById(lobbyId);
-        if (lobby != null) {
-            lobby.removeUser(username);
-            lobbyRepository.save(lobby);
-            // Broadcast the message to other users in the lobby
-            String message = username + " left the lobby " + lobbyId;
-            broadcast(message, lobbyId);
-            if(lobby.getUser1() == null){
-                lobbyRepository.delete(lobby);
-                lobbyRepository.save(lobby);
-                sessionLobbyMap.remove(session);
-            }
-        }else{
-//            lobbyRepository.deleteById(lobbyId);
-//            lobbyRepository.delete(lobby);
-//            lobbyRepository.save(lobby);
-        }
-
-        // Remove the session information
-//        sessionLobbyMap.remove(session);
-        sessionUsernamemap.remove(session);
+    private User findUserBySession(Session session) {
+        return sessionUserMap.get(session);
     }
 
     private void broadcast(String message) {
@@ -178,62 +131,5 @@ public class LobbySocket {
             }
         });
     }
-
-//    @OnClose
-//    public void onClose(Session session) throws IOException {
-//        logger.info("Entered into Close");
-//        // remove the user connection information
-//        String username = sessionUsernamemap.get(session);
-//        Integer lobbyId = sessionLobbyMap.get(session);
-////        lobbyRepository.deleteById(lobbyId);
-//        String message = username + " left the lobby" + lobbyId;
-//        broadcast(message);
-//        sessionLobbyMap.remove(session);
-//        sessionUsernamemap.remove(session);
-////
-////        if(lobbyId != null){
-////            Lobby lobby = lobbyRepository.findById(lobbyId);
-////            if(lobby != null){
-////                lobby.removeUser(username);
-////                lobbyRepository.save(lobby);
-////                if(lobbyRepository.findById(lobbyId).isEmpty()){
-////                    lobbyRepository.delete(lobbyRepository.findById(lobbyId));
-////                    lobbyRepository.save(lobby);
-////                }
-////            }
-////        }
-//    }
-
-//    @OnClose
-//    public void onClose(Session session) throws IOException {
-//        logger.info("Entered into Close");
-//
-//        // Remove the user connection information
-//        String username = sessionUsernamemap.get(session);
-//        Integer lobbyId = sessionLobbyMap.get(session);
-//
-//        // If username or lobbyId is null, return
-//        if (username == null || lobbyId == null) {
-//            return;
-//        }
-//
-//        // Remove the user from the lobby
-//        Lobby lobby = lobbyRepository.findById(lobbyId);
-//        if (lobby != null) {
-//            lobby.removeUser(username);
-//            lobbyRepository.save(lobby);
-//
-//            // Broadcast the message to other users in the lobby
-//            String message = username + " left the lobby " + lobbyId;
-//            broadcast(message, lobbyId);
-//        }
-//
-//        // Remove the session information
-//        sessionLobbyMap.remove(session);
-//        sessionUsernamemap.remove(session);
-//    }
-
-
-
 
 }

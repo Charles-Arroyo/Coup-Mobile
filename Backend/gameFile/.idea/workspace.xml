@@ -6,17 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Websocketconfig/WebsocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Websocketconfig/WebsocketConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +71,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "LobbyBranch2",
+    "git-widget-placeholder": "lobbyBranch4",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java",
@@ -83,7 +80,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
@@ -195,6 +192,7 @@
       <workItem from="1711577516489" duration="169000" />
       <workItem from="1711577696393" duration="67000" />
       <workItem from="1711578010148" duration="7766000" />
+      <workItem from="1711680047669" duration="7802000" />
     </task>
     <servers />
   </component>
@@ -223,6 +221,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.orm.jpa.JpaSystemException" package="org.springframework.orm.jpa" />
+          <option name="timeStamp" value="3" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
