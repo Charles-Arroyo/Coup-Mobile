@@ -10,9 +10,11 @@
 
     <ImageButton
         android:id="@+id/msg_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="top|left"
+        android:background="@null"
+        android:backgroundTint="#FFFFFF"
         android:src="@android:drawable/sym_action_chat"
         tools:srcCompat="@android:drawable/sym_action_chat" />
 
@@ -89,7 +91,7 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/back_button"
+            android:id="@+id/backBtn"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -33,6 +33,10 @@ public class User {
 
     private String password;
 
+    private boolean friendRequest;
+
+    private String friendWannaBe;
+
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
      * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
@@ -118,6 +122,22 @@ public class User {
         this.game = game;
         game.setUser(this); // Ensure the bidirectional link is established
     }
+
+
+    public void getFriendRequest(User friend, boolean friendRequest){
+        if(friend != null && friendRequest == true)
+            this.friendRequest = friendRequest;
+            this.friendWannaBe = friend.getUserEmail();
+    }
+
+    public String friendRequestPersonName(){
+        return friendWannaBe;
+    }
+
+    public boolean IsFriendRequest(){
+        return friendRequest;
+    }
+
 
 }
 

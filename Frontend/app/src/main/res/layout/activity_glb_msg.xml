@@ -3,51 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#03A9F4"
-    android:gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/button_onoff_indicator_off"
+    android:backgroundTint="#A8E3FD"
+    android:gravity="bottom|center"
     android:orientation="vertical"
-    tools:context=".FriendsActivity">
+    tools:context=".MessageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="40dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageButton
             android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/back_button_description"
+            android:padding="12dp"
             android:src="@android:drawable/ic_menu_revert" />
 
-        <LinearLayout
+
+        <ScrollView
+            android:id="@+id/scrollViewMessages"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:background="@null"
+            android:backgroundTint="#FFFFFF">
 
-            <ListView
-                android:id="@+id/messages"
+            <LinearLayout
+                android:id="@+id/layoutMessages"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:backgroundTint="#FFFFFF"
-                android:divider="@null"
-                android:dividerHeight="0dp" />
-
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Messages will be added here dynamically -->
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/dialog_holo_dark_frame"
-            android:backgroundTint="#3F51B5"
+            android:backgroundTint="#2196F3"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <EditText
                 android:id="@+id/msg"
@@ -57,9 +62,7 @@
                 android:layout_weight="1"
                 android:hint="message"
                 android:textColor="#FFFFFF"
-                android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFDFD"
-                android:textColorLink="#FFFFFF"
                 android:textSize="20sp" />
 
             <Button
@@ -67,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="#2196F3"
+                android:backgroundTint="#A8E3FD"
                 android:text="Send" />
 
         </LinearLayout>

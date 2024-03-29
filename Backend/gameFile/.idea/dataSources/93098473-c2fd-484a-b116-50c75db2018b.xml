@@ -141,7 +141,6 @@ global_priv|||mariadb.sys|localhost|SELECT|G</Grants>
     <index id="31" parent="8" name="UK_5hmu6i1p4su9s72hngoamkfvu">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
-      <Unique>1</Unique>
     </index>
     <key id="32" parent="8" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

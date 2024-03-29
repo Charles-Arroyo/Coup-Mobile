@@ -29,7 +29,6 @@ public class Friend {
     public Friend(String friendEmail1, String friendEmail2) {
         this.friendEmail1 = friendEmail1;
         this.friendEmail2 = friendEmail2;
-
     }
 
 
