@@ -180,12 +180,15 @@ public class UserController {
 //    }
 
 
+
+    //not done
     String acceptFriend(String reciever, String sender){ //creating table
 
 
 //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
 //            return failure;
 //        }
+
         if(friendRepository.friendshipExistsByUserEmails(friend.getFriendEmail1(),friend.getFriendEmail2())){ //Makes sure FriendShip repo does not have it
             return "Friendship exists";
         }
@@ -209,6 +212,8 @@ public class UserController {
 //        return success;
 //    }
 
+
+    //done
     public String friendRequest( String userEmail,String friendRequestEmail){
         User friendRequestSender = userRepository.findByUserEmail(userEmail);
         User friendToBe;
@@ -223,6 +228,8 @@ public class UserController {
         return success;
     }
 
+
+    //done
     @GetMapping(path = "/gotFriendRequest/{userEmail}")
     public String gotFriendRequest(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
@@ -233,6 +240,8 @@ public class UserController {
         }
     }
 
+
+//not done
     @PutMapping(path = "/acceptOrNot/{userEmail}")
     public String acceptOrNot(@PathVariable User userEmail, boolean decision){
         if(userRepository.findByUserEmail(userEmail.getUserEmail()) != null){
