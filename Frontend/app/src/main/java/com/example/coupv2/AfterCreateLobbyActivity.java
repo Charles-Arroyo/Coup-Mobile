@@ -40,10 +40,12 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     public void onWebSocketMessage(String message) {
         Log.d("WebSocket", "Message received: " + message);
         runOnUiThread(() -> {
+            //get whatever in in TextView at moment
             String s = msgTv.getText().toString();
+            //add message from backend to whatever is in TextView
             msgTv.setText(s + "\n" + message);
 
-            // Check if the received message is "lobby is full"
+            // Check if the received message from backend is "lobby is full"
             if ("lobby is full".equals(message.trim())) {
                 isLobbyFull = true;
                 goToNewActivity(); // Call method to transition to the new activity
@@ -62,6 +64,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     }
 //    go to PlayActivity if lobby is full
     private void goToNewActivity() {
+        //if lobby is full then go to PlayActivty
         if(isLobbyFull){
             Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
