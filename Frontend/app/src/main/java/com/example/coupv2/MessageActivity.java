@@ -33,7 +33,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_glb_msg);
+        setContentView(R.layout.activity_friends_msg);
 
         user = Const.getCurrentEmail();
         msg = findViewById(R.id.msg);
@@ -77,7 +77,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     }
 
     private void addMessageToLayout(String username, String message) {
-        View messageView = getLayoutInflater().inflate(R.layout.message_item, layoutMessages, false);
+        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
 
         TextView textView = messageView.findViewById(R.id.tvMessage);
         Button usernameButton = messageView.findViewById(R.id.btnUsername);
