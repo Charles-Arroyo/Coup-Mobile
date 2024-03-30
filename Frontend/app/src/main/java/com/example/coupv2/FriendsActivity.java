@@ -34,7 +34,6 @@ public class FriendsActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private String userEmail;
 
-
     // Mock URLs
     private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
     private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
@@ -91,6 +90,10 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void performAddFriendRequest(String friendEmail) {
+
+        String fullUrl = URL_ADD_FRIEND + userEmail + "/" + friendEmail;
+
+
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("friendEmail1", userEmail);
@@ -99,7 +102,7 @@ public class FriendsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_ADD_FRIEND, requestBody,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, requestBody,
                 response -> {
                     try {
                         boolean success = response.getBoolean("success");
@@ -130,7 +133,9 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void performDeleteFriendRequest(String friendEmail) {
+
         String deleteUrl = URL_DELETE_FRIEND + userEmail + "/" + friendEmail;
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, deleteUrl, null,
                 response -> {
                     try {
@@ -157,7 +162,10 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void performRefreshRequest() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_REFRESH_FRIENDS, null,
+
+        String fullUrl = URL_REFRESH_FRIENDS + userEmail;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
                 response -> {
                     try {
                         JSONArray friendsArray = response.getJSONArray("friend"); // Use "friend" to match your JSON key
@@ -212,9 +220,9 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void checkForFriendRequests() {
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS + "/" + userEmail, null,
-        //Postman Test
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS, null,
+        String fullUrl = URL_CHECK_FRIEND_REQUESTS + userEmail;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
 
                 response -> {
                     try {
@@ -246,7 +254,10 @@ public class FriendsActivity extends AppCompatActivity {
         bottomSheetDialog.setContentView(view);
 
         LinearLayout requestsLayout = view.findViewById(R.id.friend_requests_layout);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_CHECK_FRIEND_REQUESTS, null,
+
+        String fullUrl = URL_CHECK_FRIEND_REQUESTS + userEmail;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
                 response -> {
                     try {
                         JSONArray requestsArray = response.getJSONArray("requests");
@@ -285,18 +296,21 @@ public class FriendsActivity extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
-    private void acceptFriendRequest(final String email) {
+    private void acceptFriendRequest(final String friendEmail) {
         JSONObject requestBody = new JSONObject();
+
+        String fullUrl = URL_ACCEPT_REQUESTS + userEmail + "/" + friendEmail;
+
         try {
-            requestBody.put("requesterEmail", email); // Assuming the email of the person who sent the request
+            requestBody.put("requesterEmail", friendEmail); // Assuming the email of the person who sent the request
             requestBody.put("accepterEmail", userEmail); // Your own email
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_ACCEPT_REQUESTS, requestBody,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, requestBody,
                 response -> {
-                    Toast.makeText(FriendsActivity.this, "Friend request accepted: " + email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FriendsActivity.this, "Friend request accepted: " + friendEmail, Toast.LENGTH_SHORT).show();
                     // Update the UI or refresh the data as needed
                 },
                 error -> Toast.makeText(FriendsActivity.this, "Error accepting friend request: " + error.getMessage(), Toast.LENGTH_SHORT).show());
@@ -304,18 +318,21 @@ public class FriendsActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void denyFriendRequest(final String email) {
+    private void denyFriendRequest(final String friendEmail) {
         JSONObject requestBody = new JSONObject();
+
+        String fullUrl = URL_DECLINE_REQUESTS + userEmail + "/" + friendEmail;
+
         try {
-            requestBody.put("requesterEmail", email); // Assuming the email of the person who sent the request
+            requestBody.put("requesterEmail", friendEmail); // Assuming the email of the person who sent the request
             requestBody.put("denierEmail", userEmail); // Your own email
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_DECLINE_REQUESTS, requestBody,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, requestBody,
                 response -> {
-                    Toast.makeText(FriendsActivity.this, "Friend request denied: " + email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FriendsActivity.this, "Friend request denied: " + friendEmail, Toast.LENGTH_SHORT).show();
                     // Update the UI or refresh the data as needed
                 },
                 error -> Toast.makeText(FriendsActivity.this, "Error denying friend request: " + error.getMessage(), Toast.LENGTH_SHORT).show());
