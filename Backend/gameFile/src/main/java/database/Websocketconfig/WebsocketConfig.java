@@ -15,40 +15,40 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Configuration
 public class WebsocketConfig {
-    private static UserRepository userRepository;
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        WebsocketConfig.userRepository = userRepository;
-    }
-
-    public static UserRepository getUserRepository() {
-        return userRepository;
-    }
-
-
-    private static FriendRepository friendRepository;
-
-    @Autowired
-    public void setFriendRepository(FriendRepository friendRepository) {
-        WebsocketConfig.friendRepository = friendRepository;
-    }
-
-    public static FriendRepository getFriendRepository() {
-        return friendRepository;
-    }
-
-
-    private static LobbyRepository lobbyRepository;
-
-    @Autowired
-    public void setLobbyRepository(LobbyRepository lobbyRepository) {
-        WebsocketConfig.lobbyRepository = lobbyRepository;
-    }
-
-    public static LobbyRepository getLobbyRepository() {
-        return lobbyRepository;
-    }
+//    private static UserRepository userRepository;
+//
+//    @Autowired
+//    public void setUserRepository(UserRepository userRepository) {
+//        WebsocketConfig.userRepository = userRepository;
+//    }
+//
+//    public static UserRepository getUserRepository() {
+//        return userRepository;
+//    }
+//
+//
+//    private static FriendRepository friendRepository;
+//
+//    @Autowired
+//    public void setFriendRepository(FriendRepository friendRepository) {
+//        WebsocketConfig.friendRepository = friendRepository;
+//    }
+//
+//    public static FriendRepository getFriendRepository() {
+//        return friendRepository;
+//    }
+//
+//
+//    private static LobbyRepository lobbyRepository;
+//
+//    @Autowired
+//    public void setLobbyRepository(LobbyRepository lobbyRepository) {
+//        WebsocketConfig.lobbyRepository = lobbyRepository;
+//    }
+//
+//    public static LobbyRepository getLobbyRepository() {
+//        return lobbyRepository;
+//    }
 
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {

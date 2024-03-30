@@ -26,90 +26,85 @@ import org.springframework.stereotype.Controller;
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/lobby/{lobbyId}/{username}")  // this is WebSocket URL
 public class LobbySocket {
-    @Autowired
-    private LobbyRepository lobbyRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private static LobbyRepository lobbyRepository; //Lobby Repo
+
+
+    private static UserRepository userRepository; // User Repo
 
     @Autowired
     public void setUserRepository(UserRepository repo) {
         userRepository = repo;  // we are setting the static variable
 
     }
-
     @Autowired
     public void setLobbyRepository(LobbyRepository repo) {
         lobbyRepository = repo;  // we are setting the static variable
-
     }
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
 
-    private static Map<Session, Lobby> sessionLobbyMap = new Hashtable<>(); // Associate of Session with Lobby
-    private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate of Session with Users
+    private static Map<Session, Lobby> sessionLobbyMap = new Hashtable<>(); // Associate a Sessions with Lobbys to find lobbies and to terminate lobbies
+    private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
-
-//    @Autowired
-//    public void setLobbyRepository(LobbyRepository repo) {
-//        lobbyRepository = repo;
-//    }
-//
-//    @Autowired
-//    public void setUserRepository(UserRepository repo) {
-//        userRepository = repo;
-//    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
-        User user = WebsocketConfig.getUserRepository().findByUserEmail(username); // find user
-        Lobby newLobby = new Lobby(); // Create new Lobby
-        newLobby.addUser(user); // add user
-        sessionLobbyMap.put(session,newLobby); // Save Session with lobby
+        User user = userRepository.findByUserEmail(username); // find user
         sessionUserMap.put(session, user);
-        WebsocketConfig.getLobbyRepository().save(newLobby);
+        if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
+            Lobby newLobby = new Lobby(); // Create new Lobby
+            newLobby.addUser(user); // add user
+            sessionLobbyMap.put(session,newLobby); // Save Session with lobby
+            lobbyRepository.save(newLobby); // Save lobby for admin use
+            broadcastUsers("The ID is: " + newLobby.getId());
+            broadcastUsers(user.getUserEmail() + "Joined the lobby");
 
-//        if(lobbyId == 0){
-//            Lobby newLobby = new Lobby(); // Create new Lobby
-//            newLobby.addUser(user); // add user
-//            sessionLobbyMap.put(session,newLobby); // Save Session with lobby
-//            sessionUserMap.put(session, user);
-//            lobbyRepository.save(newLobby);
-//
-//        }else{
-//            Lobby exisitingLobby = lobbyRepository.findById(lobbyId);
-//            exisitingLobby.addUser(user); // add user
-//            lobbyRepository.save(exisitingLobby);
-//        }
+            for(User user1 : newLobby.getUserArraylist()) {
+                broadcastUsers("Users in lobby:" + user1.getUserEmail());
+            }
+
+        }else{ //USER WANTS TO JOIN LOBBY
+            Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find Lobby By ID
+            if(!existingLobby.isFull()) {
+                existingLobby.addUser(user); // Add User to this Lobby
+                lobbyRepository.save(existingLobby); // Save Lobby
+                broadcastUsers(user.getUserEmail() + "Joined the lobby");
+                for (User user1 : existingLobby.getUserArraylist()) {
+                    broadcastUsers(user1.getUserEmail());
+                }
+                if(existingLobby.isFull()){
+                    broadcastUsers("lobby is full");
+                }
+
+
+                sessionLobbyMap.put(session, existingLobby);
+
+            }else{
+                broadcastUsers("lobby is full");
+            }
+
+        }
     }
 
     @OnClose
-    public void onClose(Session session) {
-//        // Step 1: Find which lobby the session belongs to.
-//        Lobby lobby = sessionLobbyMap.get(session);
-//        if (lobby != null) {
-//            // Step 2: Remove the user from the lobby.
-//            User user = findUserBySession(session); // Assuming you implement this method.
-//            if (user != null) {
-//                lobby.removeUser(user); // Implement this method in Lobby to remove a user.
-//                if (lobby.isEmpty()) { // Check if the lobby is now empty.
-//                    // Step 3: Delete the lobby if empty.
-//                    lobbyRepository.delete(lobby); // Adjust based on your actual repository method.
-//                } else {
-//                    lobbyRepository.save(lobby); // Save the updated lobby state.
-//                }
-//            }
-//            // Clean up the session mappings.
-//            sessionLobbyMap.remove(session);
-//        }
-//        // Additional cleanup or logging can be performed here.
-    }
+    public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
+        /**
+         * ToDo: Make it so it closes the session for user, but not lobby
+         */
+        Lobby lobby = lobbyRepository.findById(lobbyId); //Find Lobby
+        User user = userRepository.findByUserEmail(username); //Find UserName
+        lobby.removeUser(user); // Remove user from lobby
+        lobbyRepository.save(lobby); // Save Lobby
+        sessionUserMap.remove(session);
+        broadcastUsers("THIS USER HAS LEFT:" + user.getUserEmail());
+        for(User user1 : lobby.getUserArraylist()) {
+            broadcastUsers(user1.getUserEmail());
+        }
 
-    private User findUserBySession(Session session) {
-        return sessionUserMap.get(session);
     }
 
     private void broadcast(String message) {
-        sessionLobbyMap.forEach((session, username) -> {
+        sessionLobbyMap.forEach((session, lobby) -> {
             try {
                 session.getBasicRemote().sendText(message);
             }
@@ -120,14 +115,15 @@ public class LobbySocket {
         });
     }
 
-    private void broadcast(String message, Integer lobbyId) {
-        sessionLobbyMap.forEach((session, sessionLobbyId) -> {
-            if (sessionLobbyId.equals(lobbyId)) {
-                try {
-                    session.getBasicRemote().sendText(message);
-                } catch (IOException e) {
-                    logger.error("Error broadcasting message to session: " + session.getId(), e);
-                }
+
+    private void broadcastUsers(String message) {
+        sessionUserMap.forEach((session, user) -> {
+            try {
+                session.getBasicRemote().sendText(message);
+            }
+            catch (IOException e) {
+                logger.info("Exception: " + e.getMessage().toString());
+                e.printStackTrace();
             }
         });
     }

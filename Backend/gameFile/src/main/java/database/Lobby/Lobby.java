@@ -1,7 +1,9 @@
 package database.Lobby;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import database.Users.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 import java.util.*;
 
@@ -11,14 +13,17 @@ public class Lobby {
     @Id
     @GeneratedValue
     private int id;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "lobby_id") // Adjust the column name as needed
-    private List<User> userList;  //Array List of users, specifically user emails
+    private List<User> userList;  //List of users, specifically user emails.
+
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    @JsonBackReference
+//    private User user;
 
     @Column
     private boolean isPrivate; //Private lobby (Implement Later)
-
-
 
 
     @Column
@@ -29,12 +34,33 @@ public class Lobby {
         isFull = false;
     }
 
+    @Transactional
     public void addUser(User user) {
-        if(userList.size() <=5){
+        if(userList.size() <= 5){
             userList.add(user);
         }else{
             setFull(true);
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lobby{");
+        sb.append("id=").append(id);
+        sb.append(", isPrivate=").append(isPrivate);
+        sb.append(", isFull=").append(isFull);
+        sb.append(", users=[");
+        if (userList != null && !userList.isEmpty()) {
+            for (User user : userList) {
+                sb.append(user.toString()); // Assuming User class has a sensible toString method.
+                sb.append(", "); // To separate users
+            }
+            sb.setLength(sb.length() - 2); // Remove the last comma and space
+        }
+        sb.append("]");
+        sb.append('}');
+        return sb.toString();
     }
 
     public void removeUser(User user){
@@ -51,14 +77,7 @@ public class Lobby {
         userList.sort(Comparator.comparing(User::getUserEmail));
     }
 
-    public User findUserByEmailBinarySearch(String email) {
-        int index = Collections.binarySearch(userList, new User(email,null,null), Comparator.comparing(User::getUserEmail));
-        if (index >= 0) {
-            return userList.get(index);
-        } else {
-            return null; // User not found
-        }
-    }
+
     public String findUserByEmail(String email) {
         for (User user : userList) {
             if (user.getUserEmail().equals(email)) {
@@ -68,7 +87,12 @@ public class Lobby {
         return null; // User not found
     }
 
-    public User findUserEmail(String email) {
+    public int getId(){
+        return id;
+    }
+
+
+    public User finUserbyEmail(String email) {
         for (User user : userList) {
             if (user.getUserEmail().equals(email)) {
                 return user; // User found
@@ -86,7 +110,13 @@ public class Lobby {
     }
 
     public boolean isFull() {
-        return isFull;
+        if(getUserArraylist().size() == 4){
+            isFull = true;
+            return isFull;
+        }else{
+            isFull = false;
+            return isFull;
+        }
     }
 
     public void setFull(boolean full) {
@@ -96,4 +126,19 @@ public class Lobby {
     public boolean isEmpty(){
         return userList.isEmpty();
     }
+
+
+    public User findUserByEmailBinarySearch(String email) {
+        int index = Collections.binarySearch(userList, new User(email,null,null), Comparator.comparing(User::getUserEmail));
+        if (index >= 0) {
+            return userList.get(index);
+        } else {
+            return null; // User not found
+        }
+    }
+
+
+
+
+
 }

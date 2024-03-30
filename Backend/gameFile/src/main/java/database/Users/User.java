@@ -107,8 +107,16 @@ public class User {
     public boolean getIsOnline(){
         return isOnline;
     }
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", ifActive=" + ifActive +
+                ", isOnline=" + isOnline +
+                '}';
+    }
 
     public void setUpdateEmail(String updateEmail) {
         this.userEmail = updateEmail;
