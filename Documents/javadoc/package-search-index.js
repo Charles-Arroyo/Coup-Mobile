@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.coupv2"},{"l":"com.example.coupv2.app"},{"l":"com.example.coupv2.utils"},{"l":"utils"}];updateSearchResults();
