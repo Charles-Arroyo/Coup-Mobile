@@ -198,13 +198,13 @@ public class UserController {
 //        return success;
 //    }
     //not done
-    @PutMapping(path = "/acceptFriendOrNot/{userEmail}/{yesOrNo}")
-    String acceptFriendOrNot(@PathVariable String userEmail,@PathVariable boolean yesOrNo){ //creating table
+    @PostMapping(path = "/acceptFriendOrNot/{yesOrNo}/{userEmail}/{askingPerson}")
+    String acceptFriendOrNot(@PathVariable boolean yesOrNo,@PathVariable String userEmail,@PathVariable String askingPerson){ //creating table
     Friend friend = new Friend();
     User userAdding = userRepository.findByUserEmail(userEmail);
     if(yesOrNo == true){
     friend.setFriendEmail1(userAdding.getUserEmail()); //user accepting
-    friend.setFriendEmail2(userAdding.friendRequestPersonName());//user being accepted;
+    friend.setFriendEmail2(askingPerson);//user being accepted;
 
     //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
     //            return failure;
@@ -225,17 +225,23 @@ public class UserController {
     @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
     public String friendRequest(@PathVariable String userEmail,@PathVariable String friendWannaBe){
 
-        if(userRepository.findByUserEmail(friendWannaBe) == null && userRepository.findByUserEmail(userEmail) == null){
+        if(userRepository.findByUserEmail(friendWannaBe) == null && userRepository.findByUserEmail(userEmail) == null){ //if both user doesn't exit, return failure
             return failure;
-        }else {
+        }else { // else return request
 
 
             User friendToBe = userRepository.findByUserEmail(friendWannaBe);
             User friendRequestSender = userRepository.findByUserEmail(userEmail);
 
-            friendToBe.getFriendRequest(true);
-            friendToBe.setFriendRequestName(friendRequestSender.getUserEmail());
-            userRepository.save(friendToBe);
+            if(friendRepository.friendshipExistsByUserEmails(userEmail,friendWannaBe) != true &&
+                    friendToBe.IsFriendRequest() != true && friendToBe.friendRequestPersonName() != userEmail)
+            { // if they are not friends then send request
+                friendToBe.getFriendRequest(true);
+                friendToBe.setFriendRequestName(friendRequestSender.getUserEmail());
+                userRepository.save(friendToBe);
+            }else{
+                return failure; // return failure if users are friends
+            }
 
             return success;
         }
