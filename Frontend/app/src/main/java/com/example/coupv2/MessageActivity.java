@@ -10,15 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.coupv2.utils.Const;
-
 import org.java_websocket.handshake.ServerHandshake;
-
 import java.util.ArrayList;
-
 
 public class MessageActivity extends AppCompatActivity implements WebSocketListener {
 
@@ -29,11 +24,16 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
     //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
     private ArrayList<String> messagesList = new ArrayList<>();
+    private String selectedFriendEmail; // Moved the initialization to onCreate
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_msg);
+
+        // Initialize selectedFriendEmail here
+        Intent intent = getIntent();
+        selectedFriendEmail = intent.getStringExtra("friend");
 
         user = Const.getCurrentEmail();
         msg = findViewById(R.id.msg);
@@ -49,23 +49,27 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         sendBtn.setOnClickListener(v -> {
             String messageToSend = msg.getText().toString().trim();
             if (!messageToSend.isEmpty()) {
-                WebSocketManager.getInstance().sendMessage(messageToSend);
+                sendMessage(messageToSend); // Use sendMessage method here
                 msg.setText("");
             }
         });
 
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MessageActivity.this, MenuActivity.class);
-            startActivity(intent);
+            Intent backIntent = new Intent(MessageActivity.this, FriendsActivity.class);
+            startActivity(backIntent);
             WebSocketManager.getInstance().disconnectWebSocket();
         });
     }
 
+    private void sendMessage(String message) {
+        String fullMessage = selectedFriendEmail != null ? "@" + selectedFriendEmail + " " + message : message;
+        WebSocketManager.getInstance().sendMessage(fullMessage);
+    }
 
     @Override
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-            // Assuming the format is "username: message"
+            // Directly display the message as all messages in this activity are part of the conversation
             int colonIndex = fullMessage.indexOf(":");
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
@@ -99,22 +103,22 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         // You can extend this to open a user profile page or show more details
     }
 
-
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
+        // Implement your logic here
     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         runOnUiThread(() -> {
             messagesList.add("Connection closed by " + (remote ? "server" : "local") + ". Reason: " + reason);
-         });
+        });
     }
 
     @Override
     public void onWebSocketError(Exception ex) {
         runOnUiThread(() -> {
             messagesList.add("WebSocket error: " + ex.getMessage());
-         });
+        });
     }
 }

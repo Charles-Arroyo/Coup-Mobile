@@ -1,8 +1,6 @@
 package com.example.coupv2;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.view.View;
@@ -173,7 +171,7 @@ public class FriendsActivity extends AppCompatActivity {
                         for (int i = 0; i < friendsArray.length(); i++) {
                             JSONObject friend = friendsArray.getJSONObject(i);
                             String email = friend.getString("friendEmail2"); // Use "friendEmail2" to get the email
-                            boolean isActive = friend.getBoolean("active"); // Get active status
+//                            boolean isActive = friend.getBoolean("active"); // Get active status
 
                             View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
 
@@ -181,14 +179,14 @@ public class FriendsActivity extends AppCompatActivity {
                             emailButton.setText(email);
                             emailButton.setOnClickListener(v -> showUserStats(email));
 
-                            View activeButton = friendView.findViewById(R.id.active);
-                            activeButton.setBackgroundTintList(ColorStateList.valueOf(isActive ? Color.GREEN : Color.RED));
-
-                            // Set onClickListener for the activeButton to show a toast
-                            activeButton.setOnClickListener(v -> {
-                                String statusMessage = isActive ? "Online" : "Offline";
-                                Toast.makeText(FriendsActivity.this, email + " is " + statusMessage, Toast.LENGTH_SHORT).show();
-                            });
+//                            View activeButton = friendView.findViewById(R.id.active);
+//                            activeButton.setBackgroundTintList(ColorStateList.valueOf(isActive ? Color.GREEN : Color.RED));
+//
+//                            // Set onClickListener for the activeButton to show a toast
+//                            activeButton.setOnClickListener(v -> {
+//                                String statusMessage = isActive ? "Online" : "Offline";
+//                                Toast.makeText(FriendsActivity.this, email + " is " + statusMessage, Toast.LENGTH_SHORT).show();
+//                            });
 
 
                             ImageButton messageButton = friendView.findViewById(R.id.msgButton);
@@ -215,7 +213,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     private void startMessageActivity(String email) {
         Intent intent = new Intent(this, MessageActivity.class);
-        intent.putExtra("email", email);
+        intent.putExtra("friend", email);
         startActivity(intent);
     }
 
