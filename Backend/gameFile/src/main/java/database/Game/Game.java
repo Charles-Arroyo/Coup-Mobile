@@ -61,9 +61,6 @@ public class Game {
 //        System.out.println(deck.toString()); // Print Deck for Testing
 
 
-
-
-
     }
 
     public String getLastCharacterMove() {
@@ -82,7 +79,6 @@ public class Game {
 
     public void nextTurn(){
         currentPlayer.setTurn(false); // Set their turn to false
-
         int NewcurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber + 1) % players.size(); // Find next user
 
         currentPlayer = players.get(NewcurrentPlayerIndex); // Assign player to this player
@@ -123,6 +119,10 @@ public class Game {
         }
         sb.append("Deck:\n").append(deck.toString());
         return sb.toString();
+    }
+
+    public String getPlayerStats(Player player) {
+       return player.toString();
     }
 }
 
