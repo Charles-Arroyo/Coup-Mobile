@@ -1320,6 +1320,11 @@
     <foreign-key id="541" parent="521" name="FKefqw7nsur06wyld1gavn3ic6b">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
+      <RefTableName>lobbies</RefTableName>
+    </foreign-key>
+    <foreign-key id="584" parent="527" name="FK9ugfubrsk6jxpm7v7hijr55lw">
+      <ColNames>user_array_list_id</ColNames>
+      <RefColNames>id</RefColNames>
       <RefTableName>user</RefTableName>
     </foreign-key>
     <index id="542" parent="521" name="PRIMARY">
@@ -1329,6 +1334,26 @@
     </index>
     <index id="543" parent="521" name="UK_5hmu6i1p4su9s72hngoamkfvu">
       <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="587" parent="527" name="UK_293uxrtumjeyub1t6goocee4s">
+      <UnderlyingIndexName>UK_293uxrtumjeyub1t6goocee4s</UnderlyingIndexName>
+    </key>
+    <column id="588" parent="528" name="id">
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="589" parent="528" name="is_full">
+      <DasType>bit(1)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="590" parent="528" name="is_private">
+      <DasType>bit(1)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="591" parent="528" name="PRIMARY">
+      <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>

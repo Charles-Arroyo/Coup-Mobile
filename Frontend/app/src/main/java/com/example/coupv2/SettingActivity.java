@@ -37,7 +37,7 @@ public class SettingActivity extends AppCompatActivity {
         userPassText = findViewById(R.id.settings_password_edt);
         updateUser = findViewById(R.id.settings_login_btn);
         updatePass = findViewById(R.id.settings_pass_btn);
-        backButton = findViewById(R.id.back_button);
+        backButton = findViewById(R.id.backBtn);
 
         updateUser.setOnClickListener(v -> {
             String username = userNameText.getText().toString();

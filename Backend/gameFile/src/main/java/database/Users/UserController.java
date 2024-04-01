@@ -68,9 +68,9 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @GetMapping("/getId/{email}")
-    public int getUserByEmail(@PathVariable String email) {
-        User user = userRepository.findByUserEmail(email);
+    @GetMapping("/getId/{userEmail}")
+    public int getUserByEmail(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
         if (user != null) {
             return user.getId();
         } else {
@@ -119,6 +119,22 @@ public class UserController {
             return failure;
         }
     }
+//
+//    /**
+//     * This method finds an existing user, and updates to change username/password. This can be used for
+//     * a user settings
+//     * @param id
+//     * @param request
+//     * @return
+//     */
+//    @PutMapping("/users/{id}")
+//    User updateUser(@PathVariable int id, @RequestBody User request){
+//        User user = userRepository.findById(id);
+//        if(user == null)
+//            return null;
+//        userRepository.save(request);
+//        return userRepository.findById(id);
+//    }
 
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
@@ -136,19 +152,14 @@ public class UserController {
     }
 
     /**
-     * This method finds an existing user, and updates to change username/password. This can be used for
-     * a user settings
+     * Deletes a user, can be used in the user setting
      * @param id
-     * @param request
      * @return
      */
-    @PutMapping("/users/{id}")
-    User updateUser(@PathVariable int id, @RequestBody User request){
-        User user = userRepository.findById(id);
-        if(user == null)
-            return null;
-        userRepository.save(request);
-        return userRepository.findById(id);
+    @DeleteMapping(path = "/users/{id}")
+    String deleteUser(@PathVariable int id){
+        userRepository.deleteById(id);
+        return success;
     }
 
     @PutMapping("/email/change/{userEmail}")
@@ -163,6 +174,7 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok("{\"message\":\"Email updated successfully\"}");
+    }
     }
 
     @PutMapping("/password/change/{userEmail}")
@@ -194,4 +206,19 @@ public class UserController {
         userRepository.deleteById(id);
         return success;
     }
+
+
+    //done
+    @GetMapping(path = "/gotFriendRequest/{userEmail}")
+    public String gotFriendRequest(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user != null && user.IsFriendRequest()) {
+            return user.friendRequestPersonName();
+        } else {
+            return failure;
+        }
+    }
+    
+
+
 }

@@ -61,7 +61,7 @@
             android:name=".LobbyActivity"
             android:exported="false" />
         <activity
-            android:name=".Af"
+            android:name=".MessageActivity"
             android:exported="false" />
     </application>
 

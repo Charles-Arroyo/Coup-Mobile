@@ -140,10 +140,10 @@ public class FriendController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * Special code below for sending an String array list of friends
-     *
-     */
+//    /**
+//     * Special code below for sending an String array list of friends
+//     *
+//     */
 //    @GetMapping(path = "/getFriends/{friendEmail1}")
 //    public ResponseEntity<List<String>> getFriendsByEmail(@PathVariable String friendEmail1) {
 //        List<String> listOfFriends = new ArrayList<>();
@@ -156,6 +156,9 @@ public class FriendController {
 //
 //        return ResponseEntity.ok(listOfFriends);
 //    }
+
+
+
 
 }
 
