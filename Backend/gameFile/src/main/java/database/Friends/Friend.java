@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import database.Users.User;
 
+
 /**
  * This class simulates a relationship between a two emails known as a friendship
  */

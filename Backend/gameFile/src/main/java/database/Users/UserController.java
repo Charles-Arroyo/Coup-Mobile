@@ -44,7 +44,7 @@ public class UserController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
-    private String invalidSignIn = "Wrong SignId"; // This will return a string that alert the user that they dont have the right user.
+//    private String invalidSignIn = "Wrong SignId"; // This will return a string that alert the user that they dont have the right user.
 
 
     /**

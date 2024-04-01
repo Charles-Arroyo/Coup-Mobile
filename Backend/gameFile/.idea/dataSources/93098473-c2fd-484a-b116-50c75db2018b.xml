@@ -1466,7 +1466,7 @@
     </collation>
     <schema id="508" parent="1" name="DB309">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-04-01.22:23:10</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-01.22:48:25</LastIntrospectionLocalTimestamp>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <schema id="509" parent="1" name="information_schema">
@@ -1915,7 +1915,7 @@
       <UnderlyingIndexName>UK_spmdyplgiefgjc5p34bx39qaq</UnderlyingIndexName>
     </key>
     <column id="613" parent="531" name="id">
-      <AutoIncrement>67</AutoIncrement>
+      <AutoIncrement>72</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -2018,83 +2018,79 @@
       <DasType>int(11)|0s</DasType>
       <Position>12</Position>
     </column>
-    <column id="636" parent="532" name="friend_requests">
-      <DasType>varbinary(255)|0s</DasType>
-      <Position>13</Position>
-    </column>
-    <foreign-key id="637" parent="532" name="FKad809rfkogisoiohgsyg7rkx">
+    <foreign-key id="636" parent="532" name="FKad809rfkogisoiohgsyg7rkx">
       <ColNames>stat_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>stat</RefTableName>
     </foreign-key>
-    <foreign-key id="638" parent="532" name="FK3warpldl249q2rek4siqtnfya">
+    <foreign-key id="637" parent="532" name="FK3warpldl249q2rek4siqtnfya">
       <ColNames>lobby_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>lobbies</RefTableName>
     </foreign-key>
-    <foreign-key id="639" parent="532" name="FKfas8ekg2i5kejlnfqywn9v2tt">
+    <foreign-key id="638" parent="532" name="FKfas8ekg2i5kejlnfqywn9v2tt">
       <ColNames>user_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>lobbies</RefTableName>
     </foreign-key>
-    <foreign-key id="640" parent="532" name="FK84gb3qdmgnsqx7onjbsqfopbx">
+    <foreign-key id="639" parent="532" name="FK84gb3qdmgnsqx7onjbsqfopbx">
       <ColNames>game_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>game</RefTableName>
     </foreign-key>
-    <foreign-key id="641" parent="532" name="FKne8bc555cj3peix6rghxl1lkv">
+    <foreign-key id="640" parent="532" name="FKne8bc555cj3peix6rghxl1lkv">
       <ColNames>setting_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>setting</RefTableName>
     </foreign-key>
-    <index id="642" parent="532" name="PRIMARY">
+    <index id="641" parent="532" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="643" parent="532" name="UK_j09k2v8lxofv2vecxu2hde9so">
+    <index id="642" parent="532" name="UK_j09k2v8lxofv2vecxu2hde9so">
       <ColNames>user_email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="644" parent="532" name="UK_pmrqv7k3swmmfnif7xvkk3fko">
+    <index id="643" parent="532" name="UK_pmrqv7k3swmmfnif7xvkk3fko">
       <ColNames>stat_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="645" parent="532" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+    <index id="644" parent="532" name="UK_q4lcf6lgp0i5knei8x2ua9par">
       <ColNames>game_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="646" parent="532" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <index id="645" parent="532" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <ColNames>setting_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="647" parent="532" name="FK3warpldl249q2rek4siqtnfya">
+    <index id="646" parent="532" name="FK3warpldl249q2rek4siqtnfya">
       <ColNames>lobby_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="648" parent="532" name="FKfas8ekg2i5kejlnfqywn9v2tt">
+    <index id="647" parent="532" name="FKfas8ekg2i5kejlnfqywn9v2tt">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="649" parent="532" name="PRIMARY">
+    <key id="648" parent="532" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="650" parent="532" name="UK_j09k2v8lxofv2vecxu2hde9so">
+    <key id="649" parent="532" name="UK_j09k2v8lxofv2vecxu2hde9so">
       <UnderlyingIndexName>UK_j09k2v8lxofv2vecxu2hde9so</UnderlyingIndexName>
     </key>
-    <key id="651" parent="532" name="UK_pmrqv7k3swmmfnif7xvkk3fko">
+    <key id="650" parent="532" name="UK_pmrqv7k3swmmfnif7xvkk3fko">
       <UnderlyingIndexName>UK_pmrqv7k3swmmfnif7xvkk3fko</UnderlyingIndexName>
     </key>
-    <key id="652" parent="532" name="UK_q4lcf6lgp0i5knei8x2ua9par">
+    <key id="651" parent="532" name="UK_q4lcf6lgp0i5knei8x2ua9par">
       <UnderlyingIndexName>UK_q4lcf6lgp0i5knei8x2ua9par</UnderlyingIndexName>
     </key>
-    <key id="653" parent="532" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
+    <key id="652" parent="532" name="UK_2tsc95h8mknd1ufnsyymmd6ny">
       <UnderlyingIndexName>UK_2tsc95h8mknd1ufnsyymmd6ny</UnderlyingIndexName>
     </key>
   </database-model>
