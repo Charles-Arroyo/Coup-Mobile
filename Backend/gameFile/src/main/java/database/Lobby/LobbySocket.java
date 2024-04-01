@@ -74,8 +74,8 @@ public class LobbySocket {
                 lobbyRepository.save(existingLobby); // Save Lobby
                 broadcastToSpecificLobby(existingLobby.getId(),user.getUserEmail() + " Joined the lobby");
                 sessionLobbyMap.put(session, existingLobby);
+                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
                 if(existingLobby.isFull()){ //START GAME
-
                     /**
                      * INIT GAME
                      */
@@ -95,6 +95,8 @@ public class LobbySocket {
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
 //                    }
 
+
+
                     for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
                         Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
                         if (player != null) {
@@ -102,12 +104,12 @@ public class LobbySocket {
                         }
                     }
 
+
                     /**
                      * INIT GAME
                      */
-
                 }
-                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
+
             }else{
                 broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
             }
@@ -126,7 +128,6 @@ public class LobbySocket {
                 broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
             }
         }
-
 
         for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
             Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
