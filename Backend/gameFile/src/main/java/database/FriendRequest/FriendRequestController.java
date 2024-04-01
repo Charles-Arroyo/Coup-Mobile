@@ -34,8 +34,6 @@ public class FriendRequestController {
     FriendRequestRepository friendRequestRepository;
 
 
-
-
     @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
     public Map<String, Object> friendRequest(@PathVariable String userEmail, @PathVariable String friendWannaBe) {
         Map<String, Object> response = new HashMap<>();
@@ -103,6 +101,8 @@ public class FriendRequestController {
         return response;
     }
 
+
+
     @PostMapping(path = "/acceptFriendOrNot/{yesOrNo}/{userEmail}/{askingPerson}")
     public Map<String, Object> acceptFriendOrNot(@PathVariable boolean yesOrNo, @PathVariable String userEmail, @PathVariable String askingPerson) {
         Map<String, Object> response = new HashMap<>();
@@ -111,10 +111,17 @@ public class FriendRequestController {
 
         FriendRequest friendRequest = friendRequestRepository.findByRequestingUserAndRequestedUser(askingUser, userAdding);
 
+        if (friendRequest == null) {
+            response.put("success", false);
+            response.put("message", "Friend request not found");
+            return response;
+        }
+
         if (yesOrNo) {
-            if (friendRepository.findByUser1AndUser2(userAdding, askingUser) != null || friendRepository.existsByUser1AndUser2(userAdding, askingUser)) {
+            if (friendRepository.existsByUser1AndUser2(userAdding, askingUser) || friendRepository.existsByUser1AndUser2(askingUser, userAdding)) {
                 response.put("success", false);
                 response.put("message", "Friendship already exists");
+                friendRequestRepository.delete(friendRequest);
                 return response;
             }
 
@@ -131,18 +138,14 @@ public class FriendRequestController {
             friendRepository.save(friend1);
             friendRepository.save(friend2);
 
-            if (friendRequest != null) {
-                friendRequestRepository.delete(friendRequest);
-            }
+            friendRequestRepository.delete(friendRequest);
 
             response.put("success", true);
             response.put("message", "Friend request accepted successfully");
         } else {
-            if (friendRequest != null) {
-                friendRequestRepository.delete(friendRequest);
-            }
+            friendRequestRepository.delete(friendRequest);
 
-            response.put("success", false);
+            response.put("success", true);
             response.put("message", "Friend request rejected");
         }
 

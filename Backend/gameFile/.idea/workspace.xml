@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Friends/FriendController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +183,8 @@
       <workItem from="1711854116697" duration="598000" />
       <workItem from="1711922783934" duration="1382000" />
       <workItem from="1711924176864" duration="11954000" />
-      <workItem from="1711984280110" duration="2796000" />
+      <workItem from="1711984280110" duration="3349000" />
+      <workItem from="1712002950384" duration="3326000" />
     </task>
     <servers />
   </component>

@@ -5,10 +5,12 @@ database\Main.class
 database\Chat\Message.class
 database\Friends\FriendController.class
 database\Lobby\LobbySocketConfig.class
+database\FriendRequest\FriendRequestController.class
 database\Setting\Setting.class
 database\Setting\SettingRepository.class
 database\Users\UserRepository.class
 database\Users\UserController.class
+database\FriendRequest\FriendRequest.class
 gamelogic\cards\cards.class
 database\Chat\ChatSocket.class
 database\Friends\Friend.class
@@ -23,8 +25,8 @@ gamelogic\rules\rules.class
 gamelogic\cards\cardsController.class
 database\Friends\FriendRepository.class
 gamelogic\rules\rulesRepository.class
+database\FriendRequest\FriendRequestRepository.class
 gamelogic\gameRound\gameRoundRepository.class
-database\Friends\FriendRequest.class
 gamelogic\gameRound\gameRoundController.class
 database\Lobby\LobbyRepository.class
 database\Chat\MessageRepository.class
