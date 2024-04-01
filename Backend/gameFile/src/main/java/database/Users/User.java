@@ -132,57 +132,6 @@ public class User {
     }
 
 
-    // Method to add a friend request
-//    public void addFriendRequest(String friendRequestName) {
-//        if (friendRequestName != null) {
-//            this.friendWannaBe = friendRequestName;
-//        }
-//    }
-//
-//    // Method to remove a friend request
-////    public void removeFriendRequest(String friendRequestName) {
-////        this.friendWannaBe.remove(friendRequestName);
-////    }
-//
-//    // Getters
-//    public String getFriendRequests() {
-//        return friendWannaBe; // Return a copy to avoid external modifications
-//    }
-//
-//    public String friendRequestPersonName(){
-//        return friendWannaBe;
-//    }
-
-//    public boolean IsFriendRequest(){
-//        return friendRequest;
-//    }
-
-
-
-
-//    public void addFriendRequest(String friendRequestName) {
-//        if (friendRequestName != null) {
-//            this.friendWannaBe.add(friendRequestName);
-//        }
-//    }
-//
-//    // Method to remove a friend request
-//    public void removeFriendRequest(String friendRequestName) {
-//        this.friendWannaBe.remove(friendRequestName);
-//    }
-//
-//    // Getter for the friend requests
-//    public Map<String, Object> getFriendRequests() {
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("friendRequests", new ArrayList<>(friendWannaBe));
-//        return response;
-//    }
-//
-//    // Method to get the list of friend request person names
-//    public List<String> friendRequestPersonNames() {
-//        return new ArrayList<>(friendWannaBe); // Return a copy of the list
-//    }
-
     public void sendFriendRequest(User targetUser) {
         FriendRequest friendRequest = new FriendRequest();
         friendRequest.setRequestingUser(this);
@@ -208,11 +157,7 @@ public class User {
                 .map(fr -> fr.getRequestingUser().getUserEmail())
                 .collect(Collectors.toList());
     }
-
-
-
-
-    }
+}
 
 
 
