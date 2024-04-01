@@ -34,9 +34,9 @@ public class User {
 
     private String password;
 
-    private boolean friendRequest = false;
-
-    private boolean isOnline;
+//    private boolean friendRequest = false;
+//
+//    private boolean isOnline;
 
 
 
@@ -67,7 +67,7 @@ public class User {
         this.ifActive = true;
         this.id = id;
         this.password = password;
-        this.isOnline = false;
+//        this.isOnline = false;
     }
 
     public User() {
