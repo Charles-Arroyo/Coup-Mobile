@@ -8,6 +8,16 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Setting/SettingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Setting/SettingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
@@ -184,7 +194,7 @@
       <workItem from="1711922783934" duration="1382000" />
       <workItem from="1711924176864" duration="11954000" />
       <workItem from="1711984280110" duration="3349000" />
-      <workItem from="1712002950384" duration="3326000" />
+      <workItem from="1712002950384" duration="3945000" />
     </task>
     <servers />
   </component>
