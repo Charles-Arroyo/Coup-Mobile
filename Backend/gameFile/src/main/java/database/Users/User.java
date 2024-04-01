@@ -1,9 +1,8 @@
 package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import database.Stats.Stat;
 import jakarta.persistence.*;
-import database.Setting.Setting;
-import database.game.Game;
 import database.FriendRequest.FriendRequest;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.stream.Collectors;
 /**
  * 
  * @author Charles Arroyo
+ * @author Bo Oo
  * 
  */ 
 
@@ -34,7 +34,7 @@ public class User {
 
     private String password;
 
-    private boolean isOnline;
+//    private boolean isOnline;
 
 
 
@@ -53,12 +53,6 @@ public class User {
     private List<FriendRequest> sentFriendRequests = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "setting_id")
-    @JsonManagedReference
-    private Setting setting;
-
-
-    @OneToOne
     @JoinColumn(name = "stat_id")
     @JsonManagedReference
     private Stat stat;
@@ -71,7 +65,7 @@ public class User {
         this.ifActive = true;
         this.id = id;
         this.password = password;
-        this.isOnline = false;
+//        this.isOnline = false;
     }
 
     public User() {
@@ -116,13 +110,13 @@ public class User {
         this.ifActive = ifActive;
     }
 
-    public void setIsOnline(boolean isOnline){
-        this.isOnline = isOnline;
-    }
-
-    public boolean getIsOnline(){
-        return isOnline;
-    }
+//    public void setIsOnline(boolean isOnline){
+//        this.isOnline = isOnline;
+//    }
+//
+//    public boolean getIsOnline(){
+//        return isOnline;
+//    }
 
 
 
@@ -145,15 +139,20 @@ public class User {
     public List<FriendRequest> getSentFriendRequests() {
         return sentFriendRequests;
     }
-    public void setStat(Stat stat) {
-        this.stat = stat;
-        stat.setUser(this); // Ensure the bidirectional link is established
-    }
+
 
     public List<String> getFriendRequestEmails() {
         return receivedFriendRequests.stream()
                 .map(fr -> fr.getRequestingUser().getUserEmail())
                 .collect(Collectors.toList());
+    }
+
+    public Stat getStat(){
+        return stat;
+    }
+    public void setStat(Stat stat) {
+        this.stat = stat;
+        stat.setUser(this); // Ensure the bidirectional link is established
     }
 }
 
