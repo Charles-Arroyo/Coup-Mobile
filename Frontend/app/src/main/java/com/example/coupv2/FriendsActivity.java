@@ -180,49 +180,24 @@ public class FriendsActivity extends AppCompatActivity {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
                 response -> {
-                     friendsLayout.removeAllViews();
+                    friendsLayout.removeAllViews();
 
                     try {
                         JSONArray friendsArray = response.optJSONArray("friend");
 
-                         if (friendsArray == null || friendsArray.length() == 0) {
+                        if (friendsArray == null || friendsArray.length() == 0) {
                             Toast.makeText(FriendsActivity.this, "No friends found.", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                         for (int i = 0; i < friendsArray.length(); i++) {
+                        for (int i = 0; i < friendsArray.length(); i++) {
                             JSONObject friend = friendsArray.getJSONObject(i);
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            String email = friend.getString("friendEmail2"); // Use "friendEmail2" to get the email
-//                            boolean isActive = friend.getBoolean("active"); // Get active status
-=======
                             String email = friend.optString("friendEmail2", "No email");
->>>>>>> active_friends
-=======
-                            String email = friend.optString("friendEmail2", "No email");
->>>>>>> aa8e7d3d0459e4ee174bf61f3c1e3b9b1b6f0e5d
 
                             View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
                             Button emailButton = friendView.findViewById(R.id.email);
                             emailButton.setText(email);
                             emailButton.setOnClickListener(v -> showUserStats(email));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            View activeButton = friendView.findViewById(R.id.active);
-//                            activeButton.setBackgroundTintList(ColorStateList.valueOf(isActive ? Color.GREEN : Color.RED));
-
-                            // Set onClickListener for the activeButton to show a toast
-                            activeButton.setOnClickListener(v -> {
-//                                String statusMessage = isActive ? "Online" : "Offline";
-//                                Toast.makeText(FriendsActivity.this, email + " is " + statusMessage, Toast.LENGTH_SHORT).show();
-                            });
-
-
-=======
->>>>>>> active_friends
-=======
->>>>>>> aa8e7d3d0459e4ee174bf61f3c1e3b9b1b6f0e5d
                             ImageButton messageButton = friendView.findViewById(R.id.msgButton);
                             messageButton.setOnClickListener(v -> startMessageActivity(email));
 
@@ -234,12 +209,13 @@ public class FriendsActivity extends AppCompatActivity {
                     }
                 },
                 error -> {
-                     friendsLayout.removeAllViews();
+                    friendsLayout.removeAllViews();
                     Toast.makeText(FriendsActivity.this, "Error fetching friend list: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
         requestQueue.add(jsonObjectRequest);
     }
+
 
     private void showUserStats(String email) {
         Toast.makeText(this, "Stats for: " + email, Toast.LENGTH_SHORT).show();
