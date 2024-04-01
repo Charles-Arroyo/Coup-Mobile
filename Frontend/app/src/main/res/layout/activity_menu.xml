@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,20 +10,53 @@
     android:paddingTop="16dp">
 
     <ImageButton
-        android:id="@+id/msg_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="top|left"
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_gravity="start"
+        android:layout_margin="10px"
         android:background="@null"
-        android:backgroundTint="#FFFFFF"
-        android:src="@android:drawable/sym_action_chat"
-        tools:srcCompat="@android:drawable/sym_action_chat" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/back_arrow" />
+
+    <ImageButton
+        android:id="@+id/msg_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="start"
+        android:layout_margin="10px"
+        android:background="@null"
+        android:backgroundTint="#000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/message"
+        tools:srcCompat="@drawable/message" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="start"
+        android:layout_margin="10px"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/leaderboard" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="43dp"
+        android:layout_gravity="start"
+        android:layout_margin="10px"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/settings" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center|center_horizontal|center_vertical"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
         <Button
@@ -75,31 +109,6 @@
             android:gravity="center"
             android:paddingLeft="24dp"
             android:text="Friends"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/settings_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#2196F3"
-            android:gravity="center"
-            android:paddingLeft="24dp"
-            android:text="Settings"
-            tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/backBtn"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:onClick="onBackPressed"
-            android:text="Back"
-            android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
