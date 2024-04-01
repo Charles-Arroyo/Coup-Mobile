@@ -21,6 +21,11 @@ public class Friend {
     @Id
     private int id; // Primary Key, not exposed to users.
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+//    @JsonIgnore
+    private User user;
+
     private String friendEmail1;
     private String friendEmail2;
 
@@ -60,12 +65,6 @@ public class Friend {
     public void setAcceptance(boolean acceptance) {
         this.acceptance = acceptance;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "friendId")
-    @JsonIgnore
-    private User user;
-
 
     public int getId() {
         return id;

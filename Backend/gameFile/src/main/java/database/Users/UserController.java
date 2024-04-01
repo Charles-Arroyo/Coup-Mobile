@@ -358,7 +358,7 @@ public class UserController {
         List<String> existingRequests = (List<String>) friendToBeRequests.get("friendRequests");
 
         if (!friendRepository.friendshipExistsByUserEmails(userEmail, friendWannaBe) && !existingRequests.contains(userEmail)) {
-            friendToBe.addFriendRequest(friendRequestSender.getUserEmail());
+            friendToBe.addFriendRequest(friendRequestSender);
             userRepository.save(friendToBe);
             response.put("success", true);
             response.put("message", "Friend request sent successfully");

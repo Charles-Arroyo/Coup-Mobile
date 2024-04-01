@@ -40,12 +40,13 @@ public class User {
 
 //    private String friendWannaBe;
 
-    @OneToMany
-    @CollectionTable(name = "friend_requests", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "friend_email")
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> friendWannaBe = new ArrayList<>();
-
+//    @OneToMany
+//    @CollectionTable(name = "friend_requests", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "friend_email")
+////    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<User> friendWannaBe = new ArrayList<>();
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<Friend> friendWannaBe = new ArrayList<>();
 //
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Friend> friends = new ArrayList<>();
@@ -208,7 +209,7 @@ public class User {
     }
 
     // Method to get the list of friend request person names
-    public List<String> friendRequestPersonNames() {
+    public List<User> friendRequestPersonNames() {
         return new ArrayList<>(friendWannaBe); // Return a copy of the list
     }
 
