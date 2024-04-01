@@ -208,17 +208,17 @@ public class FriendController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        List<Friend> friendships = friendRepository.findByUser1OrUser2(user,user);
+        List<Friend> friendships = friendRepository.findByUser1OrUser2(user, user);
 
         List<Map<String, String>> friendList = friendships.stream()
                 .map(friendship -> {
                     User friend = friendship.getUser1().equals(user) ? friendship.getUser2() : friendship.getUser1();
                     Map<String, String> friendData = new HashMap<>();
-//                    friendData.put("userId", friend.getId());
                     friendData.put("name", friend.getName());
                     friendData.put("email", friend.getUserEmail());
                     return friendData;
                 })
+                .distinct() // Add this line to remove duplicates
                 .collect(Collectors.toList());
 
         response.put("success", true);
