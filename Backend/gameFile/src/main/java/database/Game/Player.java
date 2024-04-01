@@ -1,5 +1,7 @@
 package database.Game;
 
+import java.util.Random;
+
 public class Player {
 
     String userEmail;
@@ -91,13 +93,14 @@ public class Player {
      */
     public void foreignAid(){
         // TODO: Implement this functionality
+        addCoins(2);
     }
 
     /**
      *
      */
     public void addCoins(int coins){
-        // TODO: Implement this functionality
+        this.coins += coins;
     }
 
     /**
@@ -112,7 +115,12 @@ public class Player {
      *
      */
     public void loseInfluence(){
-        // TODO: Implement this functionality
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            cardOne = null;
+        } else {
+            cardTwo = null;
+        }
     }
 
     public void gainInfluence(){

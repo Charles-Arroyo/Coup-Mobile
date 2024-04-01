@@ -40,7 +40,7 @@ public class LobbySocket {
 
     private static UserRepository userRepository; // User Repo
 
-    private Game game;
+    private static Game game;
 
     @Autowired
     public void setUserRepository(UserRepository repo) {
@@ -62,6 +62,10 @@ public class LobbySocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
         User user = userRepository.findByUserEmail(username); // find user
+
+        logger.info("adsfasdfasdfsfasd");
+        logger.info("adsfasdfasdfsfasd");
+        logger.info("adsfasdfasdfsfasd");
         sessionUserMap.put(session, user);
         userSessionMap.put(user,session);
         if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
@@ -111,15 +115,12 @@ public class LobbySocket {
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
 //                    }
 
-                    for (Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-                        if (player != null) {
-                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), printGameState); //broadcast to User the Their Player JSON Object
-                        }
-                    }
-
-
-
+//                    for (Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+//                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+//                        if (player != null) {
+//                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), printGameState); //broadcast to User the Their Player JSON Object
+//                        }
+//                    }
                     /**
                      * INIT GAME
                      */
@@ -138,21 +139,29 @@ public class LobbySocket {
 
 
     @OnMessage
-    public void onMessage(Session session, String message,  @PathParam("username") String username) throws IOException {
+    public void onMessage(Session session, String message) throws IOException {
        try {
            //Todo Make onMessage
 //        JSONObject jsonpObject = new JSONObject(message);
 
-           game.getCurrentPlayer().setCurrentMove("Income");
-           game.setLastCharacterMove("Income");
-           game.turn(game.getCurrentPlayer(), game.getCurrentPlayer().getCurrentMove());
 
+//           Player p = game.getPlayer(username); // Get the Player
 
-           for (Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-               if (printGameState != null) {
-                   broadcastToSpecificUserJSON(printGameState.getUserEmail(), printGameState); //broadcast to User the Their Player JSON Object
-               }
+           JSONObject jsonpObject = new JSONObject(message);
+           String email = jsonpObject.getString("playerEmail");
+           String valueOfJson = jsonpObject.getString("readyToListen");
+
+           Player p = game.getPlayer(email);
+
+           if(valueOfJson.equals("ready")){
+               broadcastToSpecificUserJSON(p.getUserEmail(),p);
            }
+
+//           game.getCurrentPlayer().setCurrentMove("Income");
+//           game.setLastCharacterMove("Income");
+//           game.turn(game.getCurrentPlayer(), game.getCurrentPlayer().getCurrentMove());
+
+
 
        }catch (Exception e){
            e.printStackTrace();
@@ -262,6 +271,16 @@ public class LobbySocket {
             }
         }
         return null;
+    }
+
+
+    private String getUsernameBySession(Session session) {
+        for (Map.Entry<Session, User> entry : sessionUserMap.entrySet()) { // Iterates through sessionUserMap
+            if (entry.getKey().equals(session)) { // Finds Match with session
+                return entry.getValue().getUserEmail(); // Returns Username
+            }
+        }
+        return null; // Returns null if no matching session is found
     }
 
 

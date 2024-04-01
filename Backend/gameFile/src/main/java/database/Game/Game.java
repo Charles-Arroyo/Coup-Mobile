@@ -111,19 +111,19 @@ public class Game {
         this.deck = deck;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Game State:\n");
-        sb.append("Current Player: ").append(currentPlayer.toString()).append("\n");
-        sb.append("Last Character Move: ").append(lastCharacterMove).append("\n");
-        sb.append("Players:\n");
-        for (Player player : players) {
-            sb.append(player.toString()).append("\n");
-        }
-        sb.append("Deck:\n").append(deck.toString());
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Game State:\n");
+//        sb.append("Current Player: ").append(currentPlayer.toString()).append("\n");
+//        sb.append("Last Character Move: ").append(lastCharacterMove).append("\n");
+//        sb.append("Players:\n");
+//        for (Player player : players) {
+//            sb.append(player.toString()).append("\n");
+//        }
+//        sb.append("Deck:\n").append(deck.toString());
+//        return sb.toString();
+//    }
 
     public String getPlayerStats(Player player) {
         return player.toString();
