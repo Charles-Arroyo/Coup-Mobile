@@ -97,12 +97,12 @@ public class LobbySocket {
 
 
 
-                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
-                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-                        if (player != null) {
-                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-                        }
-                    }
+//                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
+//                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+//                        if (player != null) {
+//                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+//                        }
+//                    }
 
 
                     /**
@@ -119,22 +119,48 @@ public class LobbySocket {
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         //Todo Make onMessage
+        //check if message is a string or json object but for now its gonna be json object
         JSONObject jsonpObject = new JSONObject(message);
+        String email = jsonpObject.getString("playerEmail");
+        boolean valueOfJson = jsonpObject.getBoolean("readyToListen");
+        //uddate player
+        for(Player currentGuy : game.getPlayerArrayList()) { //Itterate through Lobby
+            //compare both strings
+            if (Objects.equals(currentGuy.getUserEmail(), email)) {
+                currentGuy.readyToListen = valueOfJson;
+            }
+        }
+        //check if all players are ready to receive a message
+        for(Player currentGuy : game.getPlayerArrayList()) { //
+            if (!currentGuy.readyToListen) {
+                game.AllPlayersReadyListen = false;
+                break;
+            }
+        }
+        //if all players ready to listen then send their json object
+        if (game.AllPlayersReadyListen){
+            for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+                Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+                if (player != null) {
+                    broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+                }
+            }
+        }
 
         game.setLastCharacterMove(message);
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
-            }
-        }
+//        for(Player currPlayer : game.getPlayerArrayList()) { //Itterate through Lobby
+//            Player player = game.getPlayer(currPlayer.getUserEmail()); // Find Player
+//            if (player != null) {
+//                broadcastToSpecificUser(currPlayer.getUserEmail(), currPlayer.getUserEmail() + message); //broadcast to User the Their Player JSON Object
+//            }
+//        }
 
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-            }
-        }
+//        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+//            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+//            if (player != null) {
+//                broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+//            }
+//        }
 
     }
 
