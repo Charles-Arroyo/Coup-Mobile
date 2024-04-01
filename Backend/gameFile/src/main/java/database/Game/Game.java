@@ -1,5 +1,7 @@
 package database.Game;
 
+import database.Users.User;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,9 +63,6 @@ public class Game {
 //        System.out.println(deck.toString()); // Print Deck for Testing
 
 
-
-
-
     }
 
     public String getLastCharacterMove() {
@@ -79,10 +78,12 @@ public class Game {
             System.out.println(player.toString());
         }
     }
+    public List<Player> getPlayerArrayList() {
+        return players;
+    }
 
     public void nextTurn(){
         currentPlayer.setTurn(false); // Set their turn to false
-
         int NewcurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber + 1) % players.size(); // Find next user
 
         currentPlayer = players.get(NewcurrentPlayerIndex); // Assign player to this player
@@ -124,5 +125,19 @@ public class Game {
         sb.append("Deck:\n").append(deck.toString());
         return sb.toString();
     }
+
+    public String getPlayerStats(Player player) {
+       return player.toString();
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
+
+
+    public void turn(Player player){
+
+    }
+
 }
 

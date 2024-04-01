@@ -36,7 +36,7 @@ public class Lobby {
 
     @Transactional
     public void addUser(User user) {
-        if(userList.size() <= 5){
+        if(userList.size() < 4){
             userList.add(user);
         }else{
             setFull(true);
@@ -61,6 +61,22 @@ public class Lobby {
         sb.append("]");
         sb.append('}');
         return sb.toString();
+    }
+
+
+
+    public String getUsers() {
+        if (userList != null && !userList.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (User user : userList) {
+                sb.append(user.getUserEmail()); // Append user email directly
+                sb.append(", "); // To separate emails
+            }
+            sb.setLength(sb.length() - 2); // Remove the last comma and space
+            return sb.toString();
+        } else {
+            return "No users in lobby";
+        }
     }
 
     public void removeUser(User user){
