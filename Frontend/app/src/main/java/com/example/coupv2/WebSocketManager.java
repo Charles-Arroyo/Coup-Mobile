@@ -92,7 +92,10 @@ public class WebSocketManager {
             webSocketClient.close();
         }
     }
-
+    // Add this method to WebSocketManager
+    public WebSocketListener getWebSocketListener() {
+        return webSocketListener;
+    }
 
     /**
      * A private inner class that extends WebSocketClient and represents a WebSocket

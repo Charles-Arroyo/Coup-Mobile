@@ -26,6 +26,15 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
         // Assuming WebSocketManager is your class that manages the WebSocket connection.
         WebSocketManager.getInstance().setWebSocketListener(this);
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Remove the listener when the activity goes into the background
+        // to prevent it from receiving WebSocket events
+        if (WebSocketManager.getInstance().getWebSocketListener() == this) {
+            WebSocketManager.getInstance().removeWebSocketListener();
+        }
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +49,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
 
     @Override
     public void onWebSocketMessage(String message) {
-        Log.d("WebSocket", "Message received: " + message);
+        Log.d("WebSocket", "Create Lobby received: " + message);
         runOnUiThread(() -> {
 //            //check if message contains the id
 //            if (message.contains("The ID is: ")) {
@@ -79,6 +88,8 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     private void goToNewActivity() {
         //if lobby is full then go to PlayActivty
         if(isLobbyFull){
+            WebSocketManager.getInstance().removeWebSocketListener();
+            Log.d("WebSocket", "we removed");
             Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
         }

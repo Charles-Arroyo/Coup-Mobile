@@ -70,7 +70,7 @@
             android:exported="false" />
         <activity
             android:name=".PlayActivity"
-            android:exported="false" />
+            android:exported="true" />
 <!--        <activity-->
 <!--            android:name=".TestActivity"-->
 <!--            android:exported="false" />-->

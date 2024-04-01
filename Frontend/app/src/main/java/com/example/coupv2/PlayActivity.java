@@ -30,6 +30,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         super.onResume();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
+        Log.d("WebSocket", "Resume Worked");
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,32 +66,29 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     public void onWebSocketMessage(String message) {
-        Log.d("WebSocket", "Message received: " + message);
-        runOnUiThread(() -> {
-            try {
-                Log.d("step1", "world");
-                // Convert message string to JSONObject
-                JSONObject jsonObject = new JSONObject(message);
-                // Get the player JSONObject
-                Log.d("step2", "world");
-                JSONObject player = jsonObject.getJSONObject("player");
-                // Extract values from the player object
-                Log.d("step3", "world");
-                card1 = player.getString("cardOne");
-                Log.d("step4", "world");
-                card2 = player.getString("cardTwo");
-                Log.d("step5", "world");
-                coins = player.getInt("coins");
-                Log.d("step6", "world");
-                isTurn = player.getBoolean("turn"); // corrected from 'isTurn' to 'turn'
-                // Update the UI
-                Log.d("step7", "world");
-                updatePlayerUi();
-            } catch (JSONException e) {
-                Log.e("WebSocket", "Error parsing JSON message", e);
-            }
-        });
+        Log.d("WebSocket", "Play Activity received: " + message);
+        try {
+            // Try to parse the message into a JSONObject
+            JSONObject jsonObject = new JSONObject(message);
+
+            // Since we now know the JSONObject has been created successfully,
+            // you can proceed with other operations, such as extracting data.
+            JSONObject player = jsonObject.getJSONObject("player");
+            card1 = player.getString("cardOne");
+            card2 = player.getString("cardTwo");
+            coins = player.getInt("coins");
+            isTurn = player.getBoolean("turn");
+
+
+            // Now call updatePlayerUi() on the UI thread
+            runOnUiThread(this::updatePlayerUi);
+
+        } catch (JSONException e) {
+            // If an exception is thrown, log the error and the message that caused it
+            Log.e("WebSocket", "Error parsing JSON message: " + message, e);
+        }
     }
+
 
 
 
