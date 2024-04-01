@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import database.Setting.Setting;
 import database.game.Game;
-import database.Friends.FriendRequest;
+import database.FriendRequest.FriendRequest;
 
 import java.util.ArrayList;
 import java.util.List;
