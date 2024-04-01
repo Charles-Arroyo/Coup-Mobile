@@ -7,7 +7,9 @@ import database.Setting.Setting;
 import database.game.Game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -36,7 +38,17 @@ public class User {
     private boolean friendRequest = false;
 
 
-    private String friendWannaBe;
+//    private String friendWannaBe;
+
+    @OneToMany
+    @CollectionTable(name = "friend_requests", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "friend_email")
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> friendWannaBe = new ArrayList<>();
+
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Friend> friends = new ArrayList<>();
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
@@ -126,27 +138,82 @@ public class User {
     }
 
 
-    public void getFriendRequest(boolean friendRequest){
-        if(friendRequest != false)
-            this.friendRequest = friendRequest;
-    }
+    // Method to add a friend request
+//    public void addFriendRequest(String friendRequestName) {
+//        if (friendRequestName != null) {
+//            this.friendWannaBe = friendRequestName;
+//        }
+//    }
+//
+//    // Method to remove a friend request
+////    public void removeFriendRequest(String friendRequestName) {
+////        this.friendWannaBe.remove(friendRequestName);
+////    }
+//
+//    // Getters
+//    public String getFriendRequests() {
+//        return friendWannaBe; // Return a copy to avoid external modifications
+//    }
+//
+//    public String friendRequestPersonName(){
+//        return friendWannaBe;
+//    }
 
-    public void setFriendRequestName(String friendRequestName){
-        if(friendRequestName != null){
-            this.friendWannaBe = friendRequestName;
+//    public boolean IsFriendRequest(){
+//        return friendRequest;
+//    }
+
+
+
+
+//    public void addFriendRequest(String friendRequestName) {
+//        if (friendRequestName != null) {
+//            this.friendWannaBe.add(friendRequestName);
+//        }
+//    }
+//
+//    // Method to remove a friend request
+//    public void removeFriendRequest(String friendRequestName) {
+//        this.friendWannaBe.remove(friendRequestName);
+//    }
+//
+//    // Getter for the friend requests
+//    public Map<String, Object> getFriendRequests() {
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("friendRequests", new ArrayList<>(friendWannaBe));
+//        return response;
+//    }
+//
+//    // Method to get the list of friend request person names
+//    public List<String> friendRequestPersonNames() {
+//        return new ArrayList<>(friendWannaBe); // Return a copy of the list
+//    }
+
+    public void addFriendRequest(User friendRequestName) {
+        if (friendRequestName != null) {
+            this.friendWannaBe.add(friendRequestName);
         }
     }
 
-    public String friendRequestPersonName(){
-        return friendWannaBe;
+    // Method to remove a friend request
+    public void removeFriendRequest(String friendRequestName) {
+        this.friendWannaBe.remove(friendRequestName);
     }
 
-    public boolean IsFriendRequest(){
-        return friendRequest;
+    // Getter for the friend requests
+    public Map<String, Object> getFriendRequests() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("friendRequests", new ArrayList<>(friendWannaBe));
+        return response;
+    }
+
+    // Method to get the list of friend request person names
+    public List<String> friendRequestPersonNames() {
+        return new ArrayList<>(friendWannaBe); // Return a copy of the list
     }
 
 
-}
+    }
 
 
 

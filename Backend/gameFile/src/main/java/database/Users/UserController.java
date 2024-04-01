@@ -8,9 +8,10 @@ import database.Chat.MessageRepository;
 import database.game.Game;
 import database.game.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 
@@ -198,67 +199,236 @@ public class UserController {
 //        return success;
 //    }
     //not done
+//    @PostMapping(path = "/acceptFriendOrNot/{yesOrNo}/{userEmail}/{askingPerson}")
+//    String acceptFriendOrNot(@PathVariable boolean yesOrNo,@PathVariable String userEmail,@PathVariable String askingPerson){ //creating table
+//    Friend friend = new Friend();
+//    User userAdding = userRepository.findByUserEmail(userEmail);
+//    if(yesOrNo == true){
+//    friend.setFriendEmail1(userAdding.getUserEmail()); //user accepting
+//    friend.setFriendEmail2(askingPerson);//user being accepted;
+//
+//        if(friendRepository.friendshipExistsByUserEmails(userAdding.getUserEmail(),userAdding.friendRequestPersonName())){ //Makes sure FriendShip repo does not have it
+//            return "Friendship exists";
+//        }
+//        friend.setAcceptance(true); // Put this in a seperate method
+//        friendRepository.save(friend);
+//        return success;
+//    }else{
+//        return failure;
+//    }
+//    }
+//
+//    //done
+//    @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
+//    public String friendRequest(@PathVariable String userEmail,@PathVariable String friendWannaBe){
+//
+//        if(userRepository.findByUserEmail(friendWannaBe) == null && userRepository.findByUserEmail(userEmail) == null){ //if both user doesn't exit, return failure
+//            return failure;
+//        }else { // else return request
+//
+//
+//            User friendToBe = userRepository.findByUserEmail(friendWannaBe);
+//            User friendRequestSender = userRepository.findByUserEmail(userEmail);
+//
+//            if(!friendRepository.friendshipExistsByUserEmails(userEmail, friendWannaBe)
+//                   && friendToBe.friendRequestPersonNames() != userEmail)
+//            {
+//                friendToBe.addFriendRequest(friendRequestSender.getUserEmail());
+//                userRepository.save(friendToBe);
+//            }else{
+//                return failure; // return failure if users are friends
+//            }
+//
+//            return success;
+//        }
+//    }
+
+//
+//    /**
+//     * This return a list of people who have sent
+//     * friend request to the user
+//     * @param userEmail
+//     * @return
+//     */
+//    @GetMapping(path = "/gotFriendRequest/{userEmail}")
+//    public String gotFriendRequest(@PathVariable String userEmail) {
+//        User user = userRepository.findByUserEmail(userEmail);
+//        if (user != null) {
+//            return user.friendRequestPersonName();
+//        } else {
+//            return failure;
+//        }
+//    }
+//
+
+//    @GetMapping(path = "/gotFriendRequest/{userEmails}")
+//    List<String> gotFriendRequest(@PathVariable String userEmails) {
+//        List<String> userEmailList = Arrays.asList(userEmails.split(","));
+//        List<String> friendRequestPersonNames = new ArrayList<>();
+//
+//        for (String userEmail : userEmailList) {
+//            User user = userRepository.findByUserEmail(userEmail); // Assuming this method exists
+//            if (user != null) {
+//                String friendRequestPersonName = user.friendRequestPersonName();
+//                if (friendRequestPersonName != null) {
+//                    friendRequestPersonNames.add(friendRequestPersonName);
+//                }
+//            }
+//        }
+//
+//        if (friendRequestPersonNames.isEmpty()) {
+//            return Collections.singletonList("No friend requests found");
+//        }
+//
+//        return friendRequestPersonNames;
+//    }
+
+    /**
+     *
+     * @param yesOrNo
+     * @param userEmail
+     * @param askingPerson
+     * @return
+     */
     @PostMapping(path = "/acceptFriendOrNot/{yesOrNo}/{userEmail}/{askingPerson}")
-    String acceptFriendOrNot(@PathVariable boolean yesOrNo,@PathVariable String userEmail,@PathVariable String askingPerson){ //creating table
-    Friend friend = new Friend();
-    User userAdding = userRepository.findByUserEmail(userEmail);
-    if(yesOrNo == true){
-    friend.setFriendEmail1(userAdding.getUserEmail()); //user accepting
-    friend.setFriendEmail2(askingPerson);//user being accepted;
+    public Map<String, Object> acceptFriendOrNot(@PathVariable boolean yesOrNo, @PathVariable String userEmail, @PathVariable String askingPerson) {
+        Map<String, Object> response = new HashMap<>();
+        Friend friend = new Friend();
+        User userAdding = userRepository.findByUserEmail(userEmail);
 
-    //        if((user1.getUserEmail() == null || user2.getUserEmail() == null)){ //makes sure repo is not null
-    //            return failure;
-    //        }
+        if (yesOrNo) {
+            friend.setFriendEmail1(userAdding.getUserEmail()); // user accepting
+            friend.setFriendEmail2(askingPerson); // user being accepted
 
-        if(friendRepository.friendshipExistsByUserEmails(userAdding.getUserEmail(),userAdding.friendRequestPersonName())){ //Makes sure FriendShip repo does not have it
-            return "Friendship exists";
-        }
-        friend.setAcceptance(true); // Put this in a seperate method
-        friendRepository.save(friend);
-        return success;
-    }else{
-        return failure;
-    }
-    }
-
-    //done
-    @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
-    public String friendRequest(@PathVariable String userEmail,@PathVariable String friendWannaBe){
-
-        if(userRepository.findByUserEmail(friendWannaBe) == null && userRepository.findByUserEmail(userEmail) == null){ //if both user doesn't exit, return failure
-            return failure;
-        }else { // else return request
-
-
-            User friendToBe = userRepository.findByUserEmail(friendWannaBe);
-            User friendRequestSender = userRepository.findByUserEmail(userEmail);
-
-            if(friendRepository.friendshipExistsByUserEmails(userEmail,friendWannaBe) != true &&
-                    friendToBe.IsFriendRequest() != true && friendToBe.friendRequestPersonName() != userEmail)
-            { // if they are not friends then send request
-                friendToBe.getFriendRequest(true);
-                friendToBe.setFriendRequestName(friendRequestSender.getUserEmail());
-                userRepository.save(friendToBe);
-            }else{
-                return failure; // return failure if users are friends
+            if (friendRepository.friendshipExistsByUserEmails(userAdding.getUserEmail(), askingPerson)) { // Makes sure FriendShip repo does not have it
+                response.put("success", false);
+                response.put("message", "Friendship already exists");
+                return response;
             }
 
-            return success;
-        }
-    }
+            friend.setAcceptance(true);
+            friendRepository.save(friend);
 
+            // Remove the friend request from both users' lists
+            userAdding.removeFriendRequest(askingPerson);
+            User askingUser = userRepository.findByUserEmail(askingPerson);
+            askingUser.removeFriendRequest(userAdding.getUserEmail());
 
-    //done
-    @GetMapping(path = "/gotFriendRequest/{userEmail}")
-    public String gotFriendRequest(@PathVariable String userEmail) {
-        User user = userRepository.findByUserEmail(userEmail);
-        if (user != null && user.IsFriendRequest()) {
-            return user.friendRequestPersonName();
+            userRepository.save(userAdding);
+            userRepository.save(askingUser);
+
+            response.put("success", true);
+            response.put("message", "Friend request accepted successfully");
         } else {
-            return failure;
+            // Remove the friend request from both users' lists
+            userAdding.removeFriendRequest(askingPerson);
+            User askingUser = userRepository.findByUserEmail(askingPerson);
+            askingUser.removeFriendRequest(userAdding.getUserEmail());
+
+            userRepository.save(userAdding);
+            userRepository.save(askingUser);
+
+            response.put("success", false);
+            response.put("message", "Friend request rejected");
         }
+
+        return response;
     }
-    
+
+    /**
+     *
+     * @param userEmail
+     * @param friendWannaBe
+     * @return
+     */
+    @PostMapping(path = "/sendRequest/{userEmail}/{friendWannaBe}")
+    public Map<String, Object> friendRequest(@PathVariable String userEmail, @PathVariable String friendWannaBe) {
+        Map<String, Object> response = new HashMap<>();
+
+        if (userRepository.findByUserEmail(friendWannaBe) == null || userRepository.findByUserEmail(userEmail) == null) {
+            response.put("success", false);
+            response.put("message", "One or both users do not exist");
+            return response;
+        }
+
+        User friendToBe = userRepository.findByUserEmail(friendWannaBe);
+        User friendRequestSender = userRepository.findByUserEmail(userEmail);
+
+        Map<String, Object> friendToBeRequests = friendToBe.getFriendRequests();
+        List<String> existingRequests = (List<String>) friendToBeRequests.get("friendRequests");
+
+        if (!friendRepository.friendshipExistsByUserEmails(userEmail, friendWannaBe) && !existingRequests.contains(userEmail)) {
+            friendToBe.addFriendRequest(friendRequestSender.getUserEmail());
+            userRepository.save(friendToBe);
+            response.put("success", true);
+            response.put("message", "Friend request sent successfully");
+        } else {
+            response.put("success", false);
+            response.put("message", "Users are already friends or the request already exists");
+        }
+
+        return response;
+    }
+
+//    @GetMapping(path = "/gotFriendRequest/{userEmails}")
+//    public Map<String, Object> gotFriendRequest(@PathVariable String userEmails) {
+//        List<String> userEmailList = Arrays.asList(userEmails.split(","));
+//        Map<String, Object> response = new HashMap<>();
+//        List<String> friendRequestPersonNames = new ArrayList<>();
+//
+//        for (String userEmail : userEmailList) {
+//            User user = userRepository.findByUserEmail(userEmail); // Assuming this method exists
+//            if (user != null) {
+//                Map<String, Object> userFriendRequests = user.getFriendRequests();
+//                friendRequestPersonNames.addAll((List<String>) userFriendRequests.get("friendRequests"));
+//            }
+//        }
+//
+//        if (friendRequestPersonNames.isEmpty()) {
+//            response.put("message", "No friend requests found");
+//        } else {
+//            response.put("Requests", friendRequestPersonNames);
+//        }
+//
+//        return response;
+//    }
 
 
+    /**
+     *
+     * @param userEmails
+     * @return
+     */
+    @GetMapping(path = "/gotFriendRequest/{userEmails}")
+    public Map<String, Object> gotFriendRequest(@PathVariable String userEmails) {
+        List<String> userEmailList = Arrays.asList(userEmails.split(","));
+        Map<String, Object> response = new HashMap<>();
+        List<Map<String, String>> friendRequestList = new ArrayList<>();
+
+        for (String userEmail : userEmailList) {
+            User user = userRepository.findByUserEmail(userEmail); // Assuming this method exists
+            if (user != null) {
+                Map<String, Object> userFriendRequests = user.getFriendRequests();
+                List<String> userFriendRequestEmails = (List<String>) userFriendRequests.get("friendRequests");
+
+                for (String friendRequestEmail : userFriendRequestEmails) {
+                    User friendRequestUser = userRepository.findByUserEmail(friendRequestEmail);
+                    if (friendRequestUser != null) {
+                        Map<String, String> friendRequest = new HashMap<>();
+                        friendRequest.put("email", friendRequestEmail);
+                        friendRequest.put("name", friendRequestUser.getName());
+                        friendRequestList.add(friendRequest);
+                    }
+                }
+            }
+        }
+
+        if (friendRequestList.isEmpty()) {
+            response.put("message", "No friend requests found");
+        } else {
+            response.put("requests", friendRequestList);
+        }
+
+        return response;
+    }
 }
