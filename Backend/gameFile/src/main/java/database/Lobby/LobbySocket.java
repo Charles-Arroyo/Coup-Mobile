@@ -114,26 +114,29 @@ public class LobbySocket {
 
         }
     }
+
+
     @OnMessage
-    public void onMessage(Session session, String message) throws IOException {
-        //Todo Make onMessage
-        JSONObject jsonpObject = new JSONObject(message);
+    public void onMessage(Session session, String message,@PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
+       try {
+           //Todo Make onMessage
+//        JSONObject jsonpObject = new JSONObject(message);
 
-        game.setLastCharacterMove(message);
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
-            }
-        }
+           game.getCurrentPlayer().setCurrentMove("Income");
+           game.setLastCharacterMove("Income");
+           game.turn(game.getCurrentPlayer(), game.getCurrentPlayer().getCurrentMove());
 
 
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-            }
-        }
+           for (Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+               Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+               if (player != null) {
+                   broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
+               }
+           }
+
+       }catch (Exception e){
+
+       }
 
     }
 
@@ -230,11 +233,6 @@ public class LobbySocket {
         }
         return null;
     }
-
-
-
-
-
 
 
 
