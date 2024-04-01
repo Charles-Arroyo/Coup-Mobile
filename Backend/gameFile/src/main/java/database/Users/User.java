@@ -2,14 +2,13 @@ package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import database.Friends.Friend;
 import database.Setting.Setting;
 import database.game.Game;
+import database.Friends.FriendRequest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -45,8 +44,8 @@ public class User {
 //    @Column(name = "friend_email")
 ////    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<User> friendWannaBe = new ArrayList<>();
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-        private List<Friend> friendWannaBe = new ArrayList<>();
+//        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//        private List<User> friendWannaBe = new ArrayList<>();
 //
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Friend> friends = new ArrayList<>();
@@ -57,6 +56,12 @@ public class User {
      * in the database (more info : https://www.baeldung.com/jpa-cascade-types)
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
+
+    @OneToMany(mappedBy = "requestedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> receivedFriendRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "requestingUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> sentFriendRequests = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "setting_id")
@@ -190,28 +195,33 @@ public class User {
 //        return new ArrayList<>(friendWannaBe); // Return a copy of the list
 //    }
 
-    public void addFriendRequest(User friendRequestName) {
-        if (friendRequestName != null) {
-            this.friendWannaBe.add(friendRequestName);
-        }
+    public void sendFriendRequest(User targetUser) {
+        FriendRequest friendRequest = new FriendRequest();
+        friendRequest.setRequestingUser(this);
+        friendRequest.setRequestedUser(targetUser);
+        sentFriendRequests.add(friendRequest);
     }
 
-    // Method to remove a friend request
-    public void removeFriendRequest(String friendRequestName) {
-        this.friendWannaBe.remove(friendRequestName);
+    public void removeFriendRequest(FriendRequest friendRequest) {
+        sentFriendRequests.remove(friendRequest);
+        receivedFriendRequests.remove(friendRequest);
     }
 
-    // Getter for the friend requests
-    public Map<String, Object> getFriendRequests() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("friendRequests", new ArrayList<>(friendWannaBe));
-        return response;
+    public List<FriendRequest> getReceivedFriendRequests() {
+        return receivedFriendRequests;
     }
 
-    // Method to get the list of friend request person names
-    public List<User> friendRequestPersonNames() {
-        return new ArrayList<>(friendWannaBe); // Return a copy of the list
+    public List<FriendRequest> getSentFriendRequests() {
+        return sentFriendRequests;
     }
+
+    public List<String> getFriendRequestEmails() {
+        return receivedFriendRequests.stream()
+                .map(fr -> fr.getRequestingUser().getUserEmail())
+                .collect(Collectors.toList());
+    }
+
+
 
 
     }

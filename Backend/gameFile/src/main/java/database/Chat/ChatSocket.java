@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import database.Friends.FriendRepository;
+import database.Users.User;
 import database.Users.UserRepository;
 import database.Websocketconfig.WebsocketConfig;
 import jakarta.websocket.OnClose;
@@ -29,6 +30,7 @@ public class ChatSocket {
   // method
 	private static MessageRepository msgRepo;
 
+
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
    * Context.  This works because of the @Controller annotation on this
@@ -40,6 +42,9 @@ public class ChatSocket {
 	public void setMessageRepository(MessageRepository repo) {
 		msgRepo = repo;  // we are setting the static variable
 	}
+
+	@Autowired
+	UserRepository userRepository; //Creating a repository(mySQL of users)
 
 	// Store all socket session and their corresponding username.
 	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
@@ -108,13 +113,15 @@ public class ChatSocket {
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
 		String username = sessionUsernameMap.get(session);
+		User sendingUser = userRepository.findByUserEmail(username);
 
     // Direct message to a user using the format "@username <message>"
 		if (message.startsWith("@")) {
 			String destUsername = message.split(" ")[0].substring(1);
+			User userDest = userRepository.findByUserEmail(destUsername);
 
 			// Check if username and destUsername are friends
-			if (friendRepository.friendshipExistsByUserEmails(username, destUsername) || friendRepository.friendshipExistsByUserEmails(destUsername, username)) {
+			if (friendRepository.existsByUser1AndUser2(sendingUser, userDest) || friendRepository.existsByUser1AndUser2(userDest, sendingUser)) {
 				// send the message to the sender and receiver if they are friends
 				sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
 				sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);

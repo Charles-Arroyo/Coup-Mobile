@@ -24,6 +24,7 @@ gamelogic\cards\cardsController.class
 database\Friends\FriendRepository.class
 gamelogic\rules\rulesRepository.class
 gamelogic\gameRound\gameRoundRepository.class
+database\Friends\FriendRequest.class
 gamelogic\gameRound\gameRoundController.class
 database\Lobby\LobbyRepository.class
 database\Chat\MessageRepository.class
