@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import androidx.appcompat.app.AppCompatActivity;
 
+import utils.Const;
+
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
     //store current cards here as well
      String card1;
@@ -31,6 +33,16 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         Log.d("WebSocket", "Resume Worked");
+        JSONObject jsonObject = new JSONObject();
+        //let backend know that i am ready to receive
+        try {
+            jsonObject.put("playerEmail", Const.getCurrentEmail());
+            jsonObject.put("readyToListen", true);
+            String jsonStr = jsonObject.toString();
+            WebSocketManager.getInstance().sendMessage(jsonStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

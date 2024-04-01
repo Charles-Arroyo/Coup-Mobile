@@ -7,7 +7,8 @@ public class Player {
     String cardTwo;
     int coins;
     Boolean turn;
-
+    //made public for testing
+    public Boolean readyToListen = false;
     int turnNumber;
 
     public Player(String userEmail, int coins, boolean turn) {
