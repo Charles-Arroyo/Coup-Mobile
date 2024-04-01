@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.coupv2.utils.Const;
 import org.java_websocket.handshake.ServerHandshake;
@@ -19,6 +21,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
 
     private LinearLayout layoutMessages;
     private EditText msg;
+    private TextView title;
     private String user;
     private ScrollView scrollViewMessages;
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
@@ -37,15 +40,18 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
 
         user = Const.getCurrentEmail();
         msg = findViewById(R.id.msg);
+        title = findViewById(R.id.tittle);
         scrollViewMessages = findViewById(R.id.scrollViewMessages);
         layoutMessages = findViewById(R.id.layoutMessages);
         Button sendBtn = findViewById(R.id.send_btn);
         ImageButton backButton = findViewById(R.id.back_btn);
 
+
         String serverUrl = BASE_URL + user;
         WebSocketManager.getInstance().connectWebSocket(serverUrl);
         WebSocketManager.getInstance().setWebSocketListener(MessageActivity.this);
 
+        title.setText(selectedFriendEmail);
         sendBtn.setOnClickListener(v -> {
             String messageToSend = msg.getText().toString().trim();
             if (!messageToSend.isEmpty()) {
@@ -99,8 +105,16 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     }
 
     private void showUserPopup(String username) {
+        // Create and display a popup with user information, or perform any other action
         Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
-        // You can extend this to open a user profile page or show more details
+
+        // Here you could launch a dialog or a bottom sheet dialog to show user details
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(username);
+        builder.setMessage("More info about " + username);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
