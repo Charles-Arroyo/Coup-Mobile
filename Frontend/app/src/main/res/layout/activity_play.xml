@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBr"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <!--        action icon-->
         <!--        green icons-->
@@ -61,13 +61,28 @@
             app:layout_constraintWidth_percent="0.6" />
 
         <ImageView
+            android:id="@+id/gameBoard_wait"
+            android:layout_width="194dp"
+            android:layout_height="178dp"
+            android:src="@drawable/group_23"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".3"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.37"
+            app:layout_constraintWidth_percent="0.6" />
+
+        <ImageView
             android:id="@+id/greenIcon1"
             android:layout_width="45dp"
             android:layout_height="88dp"
             android:src="@drawable/greeniconshape"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
-<!--persons-->
+        <!--persons-->
 
         <ImageView
             android:id="@+id/person1"
@@ -123,6 +138,7 @@
             android:src="@drawable/greyoval"
             app:layout_constraintBottom_toTopOf="@+id/yellowicon2"
             app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
         <ImageView
             android:id="@+id/oval4"
             android:layout_width="53dp"
@@ -316,6 +332,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.060000002"
             app:srcCompat="@drawable/home" />
+
+        <Button
+            android:id="@+id/btn123"
+            android:layout_width="57dp"
+            android:layout_height="39dp"
+            android:text="Button"
+            app:layout_constraintBottom_toTopOf="@+id/oval3"
+            app:layout_constraintEnd_toStartOf="@+id/timericon"
+            app:layout_constraintHorizontal_bias="0.42"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->

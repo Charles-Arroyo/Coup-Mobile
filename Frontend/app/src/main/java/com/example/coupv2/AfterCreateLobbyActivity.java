@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +42,22 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     public void onWebSocketMessage(String message) {
         Log.d("WebSocket", "Message received: " + message);
         runOnUiThread(() -> {
-            //get whatever in in TextView at moment
+//            //check if message contains the id
+//            if (message.contains("The ID is: ")) {
+//                // Only update the TextView if the message is not a user join notification
+//                String currentText = msgTv.getText().toString();
+//                msgTv.setText(currentText + "\n" + message);
+//            }
+//            // Check if the message is not about a user joining
+//            if (!message.contains("Joined the lobby")) {
+//                // Only update the TextView if the message is not a user join notification
+//                String currentText = msgTv.getText().toString();
+//                msgTv.setText(currentText + "\n" + message);
+//            }
+//            get whatever in in TextView at moment
             String s = msgTv.getText().toString();
             //add message from backend to whatever is in TextView
             msgTv.setText(s + "\n" + message);
-
             // Check if the received message from backend is "lobby is full"
             if ("lobby is full".equals(message.trim())) {
                 isLobbyFull = true;
@@ -70,4 +83,5 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
             startActivity(intent);
         }
     }
+    // Method to add ImageView to a LinearLayout
 }

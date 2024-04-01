@@ -8,8 +8,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ActionActivity extends AppCompatActivity {
+import org.java_websocket.handshake.ServerHandshake;
+
+public class ActionActivity extends AppCompatActivity implements WebSocketListener {
     //        need coins here atleast
+    //keep websocket open from LobbyActivity
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //set listener to this class
+        WebSocketManager.getInstance().setWebSocketListener(this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +115,26 @@ public class ActionActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onWebSocketOpen(ServerHandshake handshakedata) {
+
+    }
+
+    @Override
+    public void onWebSocketMessage(String message) {
+
+    }
+
+    @Override
+    public void onWebSocketClose(int code, String reason, boolean remote) {
+
+    }
+
+    @Override
+    public void onWebSocketError(Exception ex) {
 
     }
 }
