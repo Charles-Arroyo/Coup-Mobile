@@ -80,7 +80,11 @@ public class Lobby {
     }
 
     public void removeUser(User user){
-        userList.remove(user);
+        if (userList.contains(user)) {
+            userList.remove(user);
+        } else {
+            System.out.println("User not found in the lobby.");
+        }
     }
 
     public List<User> getUserArraylist() {

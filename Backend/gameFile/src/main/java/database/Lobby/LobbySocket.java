@@ -2,6 +2,8 @@ package database.Lobby;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import database.Chat.MessageRepository;
@@ -54,32 +56,44 @@ public class LobbySocket {
     private static Map<Session, Lobby> sessionLobbyMap = new Hashtable<>(); // Associate a Sessions with Lobbys to find lobbies and to terminate lobbies
     private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
+    private static Map<User,Session> userSessionMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
+
 
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
         User user = userRepository.findByUserEmail(username); // find user
         sessionUserMap.put(session, user);
+        userSessionMap.put(user,session);
         if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
             Lobby newLobby = new Lobby(); // Create new Lobby
             newLobby.addUser(user); // add user
             sessionLobbyMap.put(session,newLobby); // Save Session with lobby
             lobbyRepository.save(newLobby); // Save lobby for admin use
             broadcastToSpecificLobby(newLobby.getId(), "The ID is: " + newLobby.getId());
-            broadcastToSpecificLobby(newLobby.getId(),user.getUserEmail() + " Joined the lobby");
+//            broadcastToSpecificLobby(newLobby.getId(),user.getUserEmail() + " Joined the lobby");
             broadcastToSpecificUser(user.getUserEmail(),"Users: " + newLobby.getUsers());
+            logger.info(newLobby.toString());
         }else{ //USER WANTS TO JOIN LOBBY
             Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find Lobby By ID
             if(!existingLobby.isFull()) {
                 existingLobby.addUser(user); // Add User to this Lobby
                 lobbyRepository.save(existingLobby); // Save Lobby
-                broadcastToSpecificLobby(existingLobby.getId(),user.getUserEmail() + " Joined the lobby");
+//                broadcastToSpecificLobby(existingLobby.getId(),user.getUserEmail() + " Joined the lobby");
+                for(User user1 : existingLobby.getUserArraylist()) {
+                    broadcastToSpecificUser(user1.getUserEmail(),user.getUserEmail() + "Joined the lobby");
+                }
+
                 sessionLobbyMap.put(session, existingLobby);
                 broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
                 if(existingLobby.isFull()){ //START GAME
                     /**
                      * INIT GAME
                      */
-                    broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
+//                    broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
+
+                    for(User user1 : existingLobby.getUserArraylist()) {
+                        broadcastToSpecificUser(user1.getUserEmail(),"lobby is full");
+                    }
 
                     List<Player> players = new ArrayList<>(4); // Create an Array list of Players
 
@@ -95,6 +109,12 @@ public class LobbySocket {
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
 //                    }
 
+                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
+                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+                        if (player != null) {
+                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+                        }
+                    }
 
 
 //                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
@@ -110,12 +130,18 @@ public class LobbySocket {
                      */
                 }
 
+                }
+                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
             }else{
-                broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
+//                broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
+                for(User user1 : existingLobby.getUserArraylist()) {
+                    broadcastToSpecificUser(user1.getUserEmail(),"lobby is full");
+                }
             }
-
         }
     }
+
+
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         //Todo Make onMessage
@@ -170,20 +196,30 @@ public class LobbySocket {
          * ToDo: Make it so it closes the session for user, but not lobby
          */
 
-        Lobby lobby = lobbyRepository.findById(lobbyId); //Find Lobby
+        Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby
+
         User user = userRepository.findByUserEmail(username); //Find UserName
-        lobby.removeUser(user); // Remove user from lobby
+        lobby.removeUser(user);
+        sessionUserMap.remove(session);
+        userSessionMap.remove(user);
+
+
+        logger.info(lobby.toString());
+        logger.info(lobby.toString());
+        logger.info(lobby.toString());
+
         lobbyRepository.save(lobby); // Save Lobby
         sessionUserMap.remove(session); // Remove Users Session
-        broadcastToSpecificLobby(lobbyId,"THIS USER HAS LEFT:" + user.getUserEmail());
+
         for(User user1 : lobby.getUserArraylist()) {
-            broadcastToSpecificLobby(lobby.getId(),user1.getUserEmail());
+            broadcastToSpecificUser(user1.getUserEmail(),"THIS USER HAS LEFT:" + user.getUserEmail());
         }
 
         ////NEW CODE NEW CODE
         if(lobby.isEmpty()){
             sessionLobbyMap.remove(session);
             lobbyRepository.delete(lobby);
+            lobbyRepository.save(lobby);
         }
         ////NEW CODE NEW CODE
     }
@@ -257,11 +293,6 @@ public class LobbySocket {
         }
         return null;
     }
-
-
-
-
-
 
 
 

@@ -9,6 +9,13 @@ public class Player {
     Boolean turn;
     //made public for testing
     public Boolean readyToListen = false;
+
+    boolean callBluff;
+
+    Player targetPlayer;
+
+    String currentMove;
+
     int turnNumber;
 
     public Player(String userEmail, int coins, boolean turn) {
@@ -33,6 +40,8 @@ public class Player {
                 '}';
     }
 
+
+
     /*__________________________Player Actions/Outcomes_______________________*/
 
     /**
@@ -41,6 +50,26 @@ public class Player {
      */
     public void coup(Player player){
         // TODO: Implement this functionality
+    }
+
+    public void action(String action, Player player){
+        if(action.equals("Assassinate")){
+            assassinate(player);
+        }
+        if(action.equals("Tax")){
+            tax();
+        }
+
+        if(action.equals("Steal")){
+            steal(player);
+        }
+
+        if(action.equals("Income")){
+            income();
+        }
+        if(action.equals("Coup")){
+            coup(player);
+        }
     }
 
     /**
@@ -56,7 +85,7 @@ public class Player {
      *
      */
     public void income(){
-        // TODO: Implement this functionality
+        coins++;
     }
 
     /**
@@ -90,6 +119,14 @@ public class Player {
 
     public void gainInfluence(){
         // TODO: Implement this functionality
+    }
+
+    public boolean revealCard(String card,Player player){
+        if(cardOne.equals(card) || cardTwo.equals(card)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -173,7 +210,6 @@ public class Player {
         // TODO: Implement this functionality
     }
 
-
     /*______________________________End of Contessa________________________________*/
 
 
@@ -223,6 +259,21 @@ public class Player {
         this.userEmail = userEmail;
     }
 
+    public boolean isCallBluff() {
+        return callBluff;
+    }
+
+    public void setCallBluff(boolean callBluff) {
+        this.callBluff = callBluff;
+    }
+
+    public String getCurrentMove() {
+        return currentMove;
+    }
+
+    public void setCurrentMove(String currentMove) {
+        this.currentMove = currentMove;
+    }
     /*
      * Getters and Setters
      */

@@ -27,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="LobbyBranch3" />
+        <entry key="$PROJECT_DIR$/../.." value="charlesGame" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -194,6 +194,7 @@
       <workItem from="1711865990434" duration="3000" />
       <workItem from="1711866000794" duration="545000" />
       <workItem from="1711866792359" duration="4486000" />
+      <workItem from="1711915937203" duration="6431000" />
     </task>
     <servers />
   </component>
@@ -228,8 +229,18 @@
           <line>17</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="database.Lobby.LobbySocket" memberName="game" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="this.friends" language="JAVA" />

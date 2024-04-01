@@ -1,8 +1,11 @@
 package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import database.Lobby.Lobby;
 import jakarta.persistence.*;
 import database.Stats.Stat;
+
+import java.util.Objects;
 
 /**
  * 
@@ -46,6 +49,11 @@ public class User {
     @JoinColumn(name = "stat_id")
     @JsonManagedReference
     private Stat stat;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobby_id")
+    private Lobby lobby;
+
 
 
 
@@ -145,7 +153,27 @@ public class User {
         stat.setUser(this); // Ensure the bidirectional link is established
     }
 
+    public Lobby getLobby() {
+        return lobby;
+    }
 
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        return Objects.equals(userEmail, user.userEmail); // Assuming userEmail is a unique identifier.
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userEmail);
+    }
 
 }
 
