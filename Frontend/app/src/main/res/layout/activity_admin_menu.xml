@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="16dp">
+
+    <ImageButton
+        android:id="@+id/backBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="left"
+        android:background="@null"
+        android:backgroundTint="#FFFFFF"
+        android:onClick="onBackPressed"
+        android:src="@android:drawable/ic_menu_revert"
+        tools:ignore="HardcodedText" />
+
+    <ImageButton
+        android:id="@+id/msg_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|left"
+        android:background="@null"
+        android:backgroundTint="#FFFFFF"
+        android:src="@android:drawable/sym_action_chat"
+        tools:srcCompat="@android:drawable/sym_action_chat" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/play_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#D1D0D0"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:text="Play Game"
+            android:textColor="#3A3838"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/rules_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#D1D0D0"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:text="Rules"
+            android:textColor="#3A3838"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/stats_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#D1D0D0"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:text="Stats"
+            android:textColor="#3A3838"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/friends_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#D1D0D0"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:text="Friends"
+            android:textColor="#3A3838"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/settings_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#D1D0D0"
+            android:gravity="center"
+            android:paddingLeft="24dp"
+            android:text="Settings"
+            android:textColor="#3A3838"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <!-- Back Button - Relocated to be consistent with other buttons -->
+
+</LinearLayout>

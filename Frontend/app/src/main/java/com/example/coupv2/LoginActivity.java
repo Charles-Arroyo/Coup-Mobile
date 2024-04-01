@@ -1,6 +1,9 @@
 
 package com.example.coupv2;
 
+import static utils.Const.AdminEmail;
+import static utils.Const.AdminPassword;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -44,7 +47,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         loginButton.setOnClickListener(v -> {
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (!username.isEmpty() && !password.isEmpty()) {
+            if (username.equals(AdminEmail) && password.equals(AdminPassword)){
+                // Successful login
+                Intent mainIntent = new Intent(LoginActivity.this, AdminActivity.class);
+                startActivity(mainIntent);
+                Const.setCurrentEmail(username);
+                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+            }else if (!username.isEmpty() && !password.isEmpty()) {
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
@@ -65,6 +75,8 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
 
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_JSON_OBJECT, jsonRequest,

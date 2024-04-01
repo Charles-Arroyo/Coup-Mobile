@@ -11,6 +11,12 @@ public class Const {
 			"https://api.androidhive.info/volley/string_response.html";
 	private static String currentEmail, friendEmail;
 
+	public static final String AdminEmail = "ADMIN";
+	public static final String AdminPassword = "ADMIN";
+
+
+
+
 	public static String getCurrentEmail() {
 		return currentEmail;
 	}
