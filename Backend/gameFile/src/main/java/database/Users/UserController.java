@@ -2,6 +2,12 @@ package database.Users;
 
 import database.Friends.Friend;
 import database.Friends.FriendRepository;
+<<<<<<< HEAD
+=======
+import database.FriendRequest.FriendRequest;
+import database.Setting.Setting;
+import database.Setting.SettingRepository;
+>>>>>>> bo_featuresBranch
 import database.Chat.MessageRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
@@ -12,8 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
+=======
+import java.util.*;
+>>>>>>> bo_featuresBranch
 
 /**
  * 
@@ -119,23 +129,8 @@ public class UserController {
             return failure;
         }
     }
-//
-//    /**
-//     * This method finds an existing user, and updates to change username/password. This can be used for
-//     * a user settings
-//     * @param id
-//     * @param request
-//     * @return
-//     */
-//    @PutMapping("/users/{id}")
-//    User updateUser(@PathVariable int id, @RequestBody User request){
-//        User user = userRepository.findById(id);
-//        if(user == null)
-//            return null;
-//        userRepository.save(request);
-//        return userRepository.findById(id);
-//    }
 
+<<<<<<< HEAD
     @PostMapping(path = "/createFriend")
     String createFriendRelationship(@RequestBody Friend friend){ //creating table
         User user1 = userRepository.findByUserEmail(friend.getFriendEmail1()); // Creates temp a user object with the first email passed in
@@ -150,6 +145,8 @@ public class UserController {
         friendRepository.save(friend);
         return success;
     }
+=======
+>>>>>>> bo_featuresBranch
 
     /**
      * Deletes a user, can be used in the user setting
@@ -162,6 +159,7 @@ public class UserController {
         return success;
     }
 
+<<<<<<< HEAD
     @PutMapping("/email/change/{userEmail}")
     @Transactional
     public ResponseEntity<String> changeUserEmail(@PathVariable String userEmail, @RequestBody User updateRequest) {
@@ -220,5 +218,7 @@ public class UserController {
     }
     
 
+=======
+>>>>>>> bo_featuresBranch
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Configuration
 public class WebsocketConfig {
-    private static UserRepository userRepository;
+    public static UserRepository userRepository;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -27,7 +27,7 @@ public class WebsocketConfig {
     }
 
 
-    private static FriendRepository friendRepository;
+    public static FriendRepository friendRepository;
 
     @Autowired
     public void setFriendRepository(FriendRepository friendRepository) {

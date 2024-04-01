@@ -8,23 +8,37 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-public interface FriendRepository extends JpaRepository<Friend, Long>{
+//public interface FriendRepository extends JpaRepository<Friend, Long>{
+//    Friend findById(int id);
+//
+//    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Friend f WHERE f.user1_id = :friendEmail1 AND f.user2_id = :friendEmail2")
+//    boolean friendshipExistsByUserEmails(@Param("friendEmail1") String friendEmail1, @Param("friendEmail2") String friendEmail2);
+//
+//    List<Friend> findByFriendEmail1(String friendEmail1);
+//
+//
+//
+//    List<Friend> findByFriendEmail1AndFriendEmail2(String email1, String email2);
+//
+//
+//
+//
+//
+//
+//
+//    @Transactional
+//    void deleteById(int id);
+//}
+
+public interface FriendRepository extends JpaRepository<Friend, Long> {
     Friend findById(int id);
 
-    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Friend f WHERE f.friendEmail1 = :friendEmail1 AND f.friendEmail2 = :friendEmail2")
-    boolean friendshipExistsByUserEmails(@Param("friendEmail1") String friendEmail1, @Param("friendEmail2") String friendEmail2);
+    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Friend f WHERE (f.user1 = :user1 AND f.user2 = :user2) OR (f.user1 = :user2 AND f.user2 = :user1)")
+    boolean existsByUser1AndUser2(@Param("user1") User user1, @Param("user2") User user2);
 
-    List<Friend> findByFriendEmail1(String friendEmail1);
+    List<Friend> findByUser1OrUser2(User user1,User user2);
 
-    
-
-    List<Friend> findByFriendEmail1AndFriendEmail2(String email1, String email2);
-
-
-
-
-
-
+    Friend findByUser1AndUser2(User user1, User user2);
 
     @Transactional
     void deleteById(int id);

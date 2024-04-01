@@ -2,7 +2,13 @@ package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import database.Stats.Stat;
+import database.Setting.Setting;
+import database.game.Game;
+import database.FriendRequest.FriendRequest;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -40,6 +46,16 @@ public class User {
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
 
+    @OneToMany(mappedBy = "requestedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> receivedFriendRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "requestingUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> sentFriendRequests = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "setting_id")
+    @JsonManagedReference
+    private Setting setting;
 
 
     @OneToOne
@@ -110,35 +126,35 @@ public class User {
 
 
 
-    public void setUpdateEmail(String updateEmail) {
-        this.userEmail = updateEmail;
-        if (this.userEmail != null) {
-            this.setUserEmail(updateEmail);
-        }
+    public void sendFriendRequest(User targetUser) {
+        FriendRequest friendRequest = new FriendRequest();
+        friendRequest.setRequestingUser(this);
+        friendRequest.setRequestedUser(targetUser);
+        sentFriendRequests.add(friendRequest);
     }
 
-    public void setUpdatePassword(String updatePassword) {
-        this.password = updatePassword;
-        if (this.password != null) {
-            this.setPassword(updatePassword);
-        }
+    public void removeFriendRequest(FriendRequest friendRequest) {
+        sentFriendRequests.remove(friendRequest);
+        receivedFriendRequests.remove(friendRequest);
     }
 
-//    public void setSetting(Setting setting) {
-//        this.setting = setting;
-//        setting.setUser(this); // Ensure the bidirectional link is established
-//    }
+    public List<FriendRequest> getReceivedFriendRequests() {
+        return receivedFriendRequests;
+    }
 
-    public Stat getStat(){
-        return stat;
+    public List<FriendRequest> getSentFriendRequests() {
+        return sentFriendRequests;
     }
     public void setStat(Stat stat) {
         this.stat = stat;
         stat.setUser(this); // Ensure the bidirectional link is established
     }
 
-
-
+    public List<String> getFriendRequestEmails() {
+        return receivedFriendRequests.stream()
+                .map(fr -> fr.getRequestingUser().getUserEmail())
+                .collect(Collectors.toList());
+    }
 }
 
 
