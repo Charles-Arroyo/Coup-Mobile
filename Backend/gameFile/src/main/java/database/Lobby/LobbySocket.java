@@ -3,6 +3,7 @@ package database.Lobby;
 import java.io.IOException;
 import java.util.*;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import database.Chat.MessageRepository;
 import database.Game.Game;
 import database.Game.Player;
@@ -25,6 +26,8 @@ import jakarta.websocket.OnOpen;
 import jakarta.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.json.JSONObject;
+
 
 @Controller      // this is needed for this to be an endpoint to springboot
 @ServerEndpoint(value = "/lobby/{lobbyId}/{username}")  // this is WebSocket URL
@@ -34,6 +37,8 @@ public class LobbySocket {
 
 
     private static UserRepository userRepository; // User Repo
+
+    private Game game;
 
     @Autowired
     public void setUserRepository(UserRepository repo) {
@@ -72,18 +77,19 @@ public class LobbySocket {
                 if(existingLobby.isFull()){ //START GAME
 
                     /**
-                     * START GAME
+                     * INIT GAME
                      */
                     broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
+
                     List<Player> players = new ArrayList<>(4); // Create an Array list of Players
 
-                    Game game = new Game(players); //Pass in Deck and Array List
+                    game = new Game(players); //Pass in Deck and Array List
                     game.initGame(existingLobby.getUserArraylist().get(0).getUserEmail(),
                             existingLobby.getUserArraylist().get(1).getUserEmail(),
                             existingLobby.getUserArraylist().get(2).getUserEmail(),
                             existingLobby.getUserArraylist().get(3).getUserEmail()); // Sends four players, see init game method
 
-
+                    //For loop for normal String
 //                    for(User printGameState : existingLobby.getUserArraylist()) {
 //                        Player player = game.getPlayer(printGameState.getUserEmail());
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
@@ -96,15 +102,39 @@ public class LobbySocket {
                         }
                     }
 
+                    /**
+                     * INIT GAME
+                     */
 
                 }
-
                 broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
             }else{
                 broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
             }
 
         }
+    }
+    @OnMessage
+    public void onMessage(Session session, String message) throws IOException {
+        //Todo Make onMessage
+        JSONObject jsonpObject = new JSONObject(message);
+
+        game.setLastCharacterMove(message);
+        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+            if (player != null) {
+                broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
+            }
+        }
+
+
+        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+            if (player != null) {
+                broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+            }
+        }
+
     }
 
     @OnClose
@@ -122,7 +152,16 @@ public class LobbySocket {
         for(User user1 : lobby.getUserArraylist()) {
             broadcastToSpecificLobby(lobby.getId(),user1.getUserEmail());
         }
+
+        ////NEW CODE NEW CODE
+        if(lobby.isEmpty()){
+            sessionLobbyMap.remove(session);
+            lobbyRepository.delete(lobby);
+        }
+        ////NEW CODE NEW CODE
     }
+
+
 
 
     private void broadcastToAllUsers(String message) { // This method broadcasts to all user
@@ -191,6 +230,12 @@ public class LobbySocket {
         }
         return null;
     }
+
+
+
+
+
+
 
 
     private void broadcastToSpecificUser(String userEmail, String message) {

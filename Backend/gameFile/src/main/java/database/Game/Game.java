@@ -1,5 +1,7 @@
 package database.Game;
 
+import database.Users.User;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +78,9 @@ public class Game {
             System.out.println(player.toString());
         }
     }
+    public List<Player> getPlayerArrayList() {
+        return players;
+    }
 
     public void nextTurn(){
         currentPlayer.setTurn(false); // Set their turn to false
@@ -124,5 +129,15 @@ public class Game {
     public String getPlayerStats(Player player) {
        return player.toString();
     }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
+
+
+    public void turn(Player player){
+
+    }
+
 }
 
