@@ -1,6 +1,7 @@
 package database;
 import database.Friends.Friend;
 import database.Friends.FriendRepository;
+import database.Lobby.LobbyRepository;
 import database.Users.User;
 import database.Users.UserRepository;
 import org.hibernate.Hibernate;
@@ -23,6 +24,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 class Main {
 
     public static void main(String[] args) {
+
         SpringApplication.run(Main.class, args);
     }
 
@@ -32,18 +34,10 @@ class Main {
      * As mentioned in User.java just associating the Laptop object with the User will save it into the database because of the CascadeType
      */
 //    @Bean
-//    CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository) {
+//    CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository, LobbyRepository lobbyRepository) {
 //        return args ->
 //        {
-////            User user = new User("Charles","Cfarroyo@gmail.com","123");
-////            User user2 = new User("Bill","Bill@gmail.com","123");
-////            User user3 = new User("Poncho","Poncho@gmail.com","123");
-//////            Friend FriendRelationship1 = new Friend(user.getUserEmail(),user2.getUserEmail());
-//////            Friend FriendRelationship2 = new Friend(user2.getUserEmail(),user3.getUserEmail());
-////            userRepository.save(user);
-////            userRepository.save(user2);
-////            userRepository.save(user3);
-//
+//            lobbyRepository.deleteById(3252);
 //        };
 //    }
 

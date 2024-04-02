@@ -47,21 +47,21 @@ public class GameSocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId) throws IOException {
 
-        LobbyRepository lobbyRepository = WebsocketConfig.getLobbyRepository();
-
-        sessionLobbyIdMap.put(session, lobbyId+"");
-        lobbyIdSessionMap.put(lobbyId +"", session);
-
-        Lobby lobby = lobbyRepository.findById(lobbyId);
-
-        List<Player> players = new ArrayList<>(); // Create an Array list of Players
-        Game game = new Game(players); //Pass in Deck and Array List
-        game.initGame(lobby.getUser1(),lobby.getUser2(),lobby.getUser3(),lobby.getUser4()); // Sends four players, see init game method
-        broadcast(game.toString());
-//      System.out.println("Player 1 turn is over");
-//      game.nextTurn();
-//      System.out.println();
-//       ystem.out.println(game.toString());
+//        LobbyRepository lobbyRepository = WebsocketConfig.getLobbyRepository();
+//
+//        sessionLobbyIdMap.put(session, lobbyId+"");
+//        lobbyIdSessionMap.put(lobbyId +"", session);
+//
+//        Lobby lobby = lobbyRepository.findById(lobbyId);
+//
+//        List<Player> players = new ArrayList<>(); // Create an Array list of Players
+//        Game game = new Game(players); //Pass in Deck and Array List
+//        game.initGame(lobby.getUser1(),lobby.getUser2(),lobby.getUser3(),lobby.getUser4()); // Sends four players, see init game method
+//        broadcast(game.toString());
+////      System.out.println("Player 1 turn is over");
+////      game.nextTurn();
+////      System.out.println();
+////       ystem.out.println(game.toString());
 
     }
 
