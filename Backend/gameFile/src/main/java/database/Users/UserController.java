@@ -5,6 +5,8 @@ import database.Friends.FriendRepository;
 
 import database.Chat.MessageRepository;
 import database.Lobby.LobbyRepository;
+import database.Signin.Signin;
+import database.Signin.SigninRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +31,26 @@ import java.util.*;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository; //Creating a repository(mySQL of users)
+    private UserRepository userRepository; //Creating a repository(mySQL of users)
 
 
     @Autowired
-    MessageRepository messageRepository; //Creating a repository(mySQL of users)
+    private MessageRepository messageRepository; //Creating a repository(mySQL of users)
 
     @Autowired
-    FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
+    private FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
-    LobbyRepository lobbyRepository; // //Creating a repository(mySQL of lobbies)
+    private LobbyRepository lobbyRepository; // //Creating a repository(mySQL of lobbies)
+
+    @Autowired
+    private SigninRepository signinRepository;
 
 //    @Autowired
 //    SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
-    StatRepository statRepository;
+    private StatRepository statRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -113,23 +118,6 @@ public class UserController {
             return failure; //Return a Failure
         }
     }
-
-    /**
-     * Checks the repo, and allows user to sign in
-     *
-     * @param user
-     * @return
-     */
-    @PostMapping(path = "/signin")
-    public String signIn(@RequestBody User user) { //sends a request body of password & username
-        User foundUser = userRepository.findByUserEmail(user.getUserEmail()); // Creates a user object with the users email passed in
-        if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
-            return success;
-        }else{
-            return failure;
-        }
-    }
-
 
 
     /**

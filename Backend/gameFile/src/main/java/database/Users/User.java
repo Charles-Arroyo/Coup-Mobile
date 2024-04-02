@@ -38,6 +38,8 @@ public class User {
 
     private String password;
 
+    private boolean active;
+
 //    private boolean friendRequest = false;
 //
 //    private boolean isOnline;
@@ -76,7 +78,6 @@ public class User {
         this.ifActive = true;
         this.id = id;
         this.password = password;
-//        this.isOnline = false;
     }
 
     public User() {
@@ -188,6 +189,14 @@ public class User {
 
     public void setLobby(Lobby lobby) {
         this.lobby = lobby;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }
