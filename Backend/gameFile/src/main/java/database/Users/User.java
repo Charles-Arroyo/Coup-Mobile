@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import database.Stats.Stat;
 import jakarta.persistence.*;
 import database.FriendRequest.FriendRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,6 +196,7 @@ public class User {
         return active;
     }
 
+    @Transactional
     public void setActive(boolean active) {
         this.active = active;
     }

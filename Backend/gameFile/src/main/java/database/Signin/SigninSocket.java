@@ -13,49 +13,59 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@ServerEndpoint(value = "/signin/{username}")
+@ServerEndpoint(value = "/signin/{userEmail}")
 public class SigninSocket {
+
+
 
     private static Map<String, Session> userSessions = new HashMap<>();
 
+
+//    @Autowired
+    private static UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public void setUserRepository(UserRepository repo) {
+        userRepository = repo;  // we are setting the static variable
+    }
 
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username) {
-        userSessions.put(username, session);
+    public void onOpen(Session session, @PathParam("userEmail") String userEmail) {
+        userSessions.put(userEmail, session);
+        User user = userRepository.findByUserEmail(userEmail);
         // Perform any necessary actions when a user connects
-        System.out.println("User connected: " + username);
+        System.out.println("User connected: " + userEmail);
     }
 
     @OnMessage
-    public void onMessage(Session session, String message, @PathParam("username") String username) {
+    public void onMessage(Session session, String message, @PathParam("userEmail") String userEmail) {
         // Handle incoming messages from the user
-        System.out.println("Received message from " + username + ": " + message);
+        System.out.println("Received message from " + userEmail + ": " + message);
         // Perform any necessary actions based on the received message
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("username") String username) {
-        userSessions.remove(username);
-        User closeUserSession = userRepository.findByUserEmail(username);
+    public void onClose(Session session, @PathParam("userEmail") String userEmail) {
+        User closeUserSession = userRepository.findByUserEmail(userEmail);
         if (closeUserSession != null) {
             closeUserSession.setActive(false);
             userRepository.save(closeUserSession);
         }
+        userSessions.remove(userEmail);
+
         // Perform any necessary actions when a user disconnects
-        System.out.println("User disconnected: " + username);
+        System.out.println("User disconnected: " + userEmail);
     }
 
     @OnError
-    public void onError(Session session, Throwable throwable, @PathParam("username") String username) {
+    public void onError(Session session, Throwable throwable, @PathParam("userEmail") String userEmail) {
         // Handle any errors that occur during the WebSocket session
-        System.out.println("Error occurred for user " + username + ": " + throwable.getMessage());
+        System.out.println("Error occurred for user " + userEmail + ": " + throwable.getMessage());
     }
 
-    public static void sendMessage(String username, String message) {
-        Session session = userSessions.get(username);
+    public static void sendMessage(String userEmail, String message) {
+        Session session = userSessions.get(userEmail);
         if (session != null && session.isOpen()) {
             try {
                 session.getBasicRemote().sendText(message);
