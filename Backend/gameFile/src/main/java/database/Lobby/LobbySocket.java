@@ -62,10 +62,6 @@ public class LobbySocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
         User user = userRepository.findByUserEmail(username); // find user
-
-        logger.info("adsfasdfasdfsfasd");
-        logger.info("adsfasdfasdfsfasd");
-        logger.info("adsfasdfasdfsfasd");
         sessionUserMap.put(session, user);
         userSessionMap.put(user,session);
         if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
@@ -73,6 +69,7 @@ public class LobbySocket {
             newLobby.addUser(user); // add user
             sessionLobbyMap.put(session,newLobby); // Save Session with lobby
             lobbyRepository.save(newLobby); // Save lobby for admin use
+            userRepository.save(user);
             broadcastToSpecificLobby(newLobby.getId(), "The ID is: " + newLobby.getId());
 //            broadcastToSpecificLobby(newLobby.getId(),user.getUserEmail() + " Joined the lobby");
             broadcastToSpecificUser(user.getUserEmail(),"Users: " + newLobby.getUsers());

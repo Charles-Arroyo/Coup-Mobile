@@ -13,9 +13,18 @@ public class Lobby {
     @Id
     @GeneratedValue
     private int id;
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "lobby_id") // Adjust the column name as needed
-    private List<User> userList;  //List of users, specifically user emails.
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "lobby_id") // Adjust the column name as needed
+//    private List<User> userList;  //List of users, specifically user emails.
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "lobby")
+//    @JoinColumn(name = "users")
+    private List<User> userList;
+
+
+//    @OneToMany
+//    @JoinColumn(name = "users")
+//    private List<User> userList;
 
 //    @OneToOne
 //    @JoinColumn(name = "user_id")

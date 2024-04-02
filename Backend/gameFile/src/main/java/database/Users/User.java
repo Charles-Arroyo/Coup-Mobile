@@ -50,7 +50,7 @@ public class User {
     @JsonManagedReference
     private Stat stat;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lobby_id")
     private Lobby lobby;
 
