@@ -95,8 +95,6 @@ public class LobbySocket {
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
 //                    }
 
-
-
                     for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
                         Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
                         if (player != null) {
@@ -135,6 +133,7 @@ public class LobbySocket {
                 broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
             }
         }
+
 
     }
 
@@ -231,11 +230,6 @@ public class LobbySocket {
         }
         return null;
     }
-
-
-
-
-
 
 
 
