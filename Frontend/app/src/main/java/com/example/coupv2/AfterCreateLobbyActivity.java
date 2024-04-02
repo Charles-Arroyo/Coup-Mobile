@@ -89,7 +89,6 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
         //if lobby is full then go to PlayActivty
         if(isLobbyFull){
             WebSocketManager.getInstance().removeWebSocketListener();
-            Log.d("WebSocket", "we removed");
             Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
         }
