@@ -56,7 +56,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
     private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
+    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getFriends/";
     private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
     private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
     private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
@@ -183,7 +183,7 @@ public class FriendsActivity extends AppCompatActivity {
                     friendsLayout.removeAllViews();
 
                     try {
-                        JSONArray friendsArray = response.optJSONArray("friend");
+                        JSONArray friendsArray = response.optJSONArray("friends");
 
                         if (friendsArray == null || friendsArray.length() == 0) {
                             Toast.makeText(FriendsActivity.this, "No friends found.", Toast.LENGTH_SHORT).show();
@@ -191,7 +191,7 @@ public class FriendsActivity extends AppCompatActivity {
                         }
                         for (int i = 0; i < friendsArray.length(); i++) {
                             JSONObject friend = friendsArray.getJSONObject(i);
-                            String email = friend.optString("friendEmail2", "No email");
+                            String email = friend.optString("email", "No email");
 
                             View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
                             Button emailButton = friendView.findViewById(R.id.email);
@@ -311,18 +311,18 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void acceptFriendRequest(final String friendEmail) {
-        String fullUrl = URL_ACCEPT_REQUESTS + friendEmail + "/" + userEmail;
+        String fullUrl = URL_ACCEPT_REQUESTS + userEmail + "/" + friendEmail ;
 
-        JSONObject jsonRequest = new JSONObject();
-        try {
-            jsonRequest.put("friendEmail1", userEmail);
-            jsonRequest.put("friendEmail2", friendEmail);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        JSONObject jsonRequest = new JSONObject();
+//        try {
+//            jsonRequest.put("friendEmail1", userEmail);
+//            jsonRequest.put("friendEmail2", friendEmail);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, jsonRequest,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, null,
                 response -> {
                     try {
                         boolean success = response.getBoolean("success");
@@ -354,17 +354,17 @@ public class FriendsActivity extends AppCompatActivity {
 
     private void denyFriendRequest(final String friendEmail) {
 
-        String fullUrl = URL_DECLINE_REQUESTS + friendEmail + "/" + userEmail;
+        String fullUrl = URL_DECLINE_REQUESTS + userEmail + "/" + friendEmail ;
 
-        JSONObject jsonRequest = new JSONObject();
-        try {
-            jsonRequest.put("friendEmail1", userEmail);
-            jsonRequest.put("friendEmail2", friendEmail);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        JSONObject jsonRequest = new JSONObject();
+//        try {
+//            jsonRequest.put("friendEmail1", userEmail);
+//            jsonRequest.put("friendEmail2", friendEmail);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, jsonRequest,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, fullUrl, null,
                 response -> {
                     try {
                         boolean success = response.getBoolean("success");

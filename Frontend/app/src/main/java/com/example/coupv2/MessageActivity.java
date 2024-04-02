@@ -89,7 +89,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     private void addMessageToLayout(String username, String message) {
         View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
 
-        TextView textView = messageView.findViewById(R.id.tvMessage);
+        TextView textView = messageView.findViewById(R.id.placement);
         Button usernameButton = messageView.findViewById(R.id.btnUsername);
 
         textView.setText(message);

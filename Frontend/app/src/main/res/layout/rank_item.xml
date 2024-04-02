@@ -4,25 +4,40 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:background="@android:drawable/dialog_holo_dark_frame"
-    android:backgroundTint="#4CAF50"
+    android:backgroundTint="#009688"
     android:orientation="horizontal"
     android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginEnd="16dp"/>
 
     <Button
         android:id="@+id/btnUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#009688"
         android:text="Username"
         android:textColor="#FFFFFF" />
 
-    <TextView
-        android:id="@+id/placement"
+    <Space
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:background="@null"
+        android:gravity="right|end"
         android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
