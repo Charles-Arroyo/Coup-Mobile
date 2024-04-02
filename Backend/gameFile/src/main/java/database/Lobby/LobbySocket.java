@@ -89,18 +89,19 @@ public class LobbySocket {
                             existingLobby.getUserArraylist().get(2).getUserEmail(),
                             existingLobby.getUserArraylist().get(3).getUserEmail()); // Sends four players, see init game method
 
+
                     //For loop for normal String
 //                    for(User printGameState : existingLobby.getUserArraylist()) {
 //                        Player player = game.getPlayer(printGameState.getUserEmail());
 //                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
 //                    }
 
-                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
-                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-                        if (player != null) {
-                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-                        }
-                    }
+//                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
+//                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+//                        if (player != null) {
+//                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+//                        }
+//                    }
 
 
                     /**
@@ -117,22 +118,17 @@ public class LobbySocket {
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         //Todo Make onMessage
-        JSONObject jsonpObject = new JSONObject(message);
+        JSONObject jsonpObject = new JSONObject(message); // Create JSON object
+        String email = jsonpObject.getString("playerEmail"); // Assign first part of JSON
+        String valueOfJson = jsonpObject.getString("readyToListen"); // Assign last part of JSON
 
-        game.setLastCharacterMove(message);
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUser(printGameState.getUserEmail(), printGameState.getUserEmail() + message); //broadcast to User the Their Player JSON Object
-            }
+        Player p = game.getPlayer(email); //Find player by their email
+
+        if(valueOfJson.equals("ready")){  //If the player message says ready, start their game.
+            broadcastToSpecificUserJSON(p.getUserEmail(),p);
         }
 
-        for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
-            Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-            if (player != null) {
-                broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-            }
-        }
+
 
 
     }
@@ -140,10 +136,10 @@ public class LobbySocket {
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
         /**
-         * ToDo: Make it so it closes the session for user, but not lobby
+         * ToDo: Make it so it closes the correct lobby, right now it is passing 0 for the user who created it.
          */
 
-        Lobby lobby = lobbyRepository.findById(lobbyId); //Find Lobby
+        Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
         User user = userRepository.findByUserEmail(username); //Find UserName
         lobby.removeUser(user); // Remove user from lobby
         lobbyRepository.save(lobby); // Save Lobby

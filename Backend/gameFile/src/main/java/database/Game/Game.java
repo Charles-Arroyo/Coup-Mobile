@@ -14,17 +14,16 @@ public class Game {
     Player currentPlayer;
 
 
-
     public Game(List<Player> players) {
         this.players = players;
     }
 
-    public void initGame(String name1,String name2, String name3, String name4){
+    public void initGame(String name1, String name2, String name3, String name4) {
         // Adds players
-        players.add(new Player(name1,2,false));
-        players.add(new Player(name2,2,false));
-        players.add(new Player(name3,2,false));
-        players.add(new Player(name4,2,false));
+        players.add(new Player(name1, 2, false));
+        players.add(new Player(name2, 2, false));
+        players.add(new Player(name3, 2, false));
+        players.add(new Player(name4, 2, false));
         int var = 0;
         //Shuffle
         Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
@@ -40,7 +39,6 @@ public class Game {
 //        System.out.print(currentPlayer.toString());
 
 
-
         deck = new Deck(); // Create a Deck Object
         deck.initializeDeck(); //Initialize a deck of 15 Cards. [Duke,Duke,Duke,Captain,Captain...]
         deck.shuffle(); //Shuffle/randomize Array List of Cards
@@ -50,10 +48,10 @@ public class Game {
 
 //        System.out.println(deck.toString()); // Print Deck for Testing
 
-       //Now we need the draw card feature, this can prob be a method.
-        for(Player player : players){
-           player.setCardOne(deck.drawCard());
-           player.setCardTwo(deck.drawCard());
+        //Now we need the draw card feature, this can prob be a method.
+        for (Player player : players) {
+            player.setCardOne(deck.drawCard());
+            player.setCardTwo(deck.drawCard());
         }
 
 //        getPlayers();
@@ -74,15 +72,16 @@ public class Game {
     }
 
     public void getPlayers() {
-        for(Player player : players){
+        for (Player player : players) {
             System.out.println(player.toString());
         }
     }
+
     public List<Player> getPlayerArrayList() {
         return players;
     }
 
-    public void nextTurn(){
+    public void nextTurn() {
         currentPlayer.setTurn(false); // Set their turn to false
         int NewcurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber + 1) % players.size(); // Find next user
 
@@ -127,15 +126,15 @@ public class Game {
     }
 
     public String getPlayerStats(Player player) {
-       return player.toString();
+        return player.toString();
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
 
-    public void turn(Player player){
+    public void turn(Player player) {
 
     }
 
