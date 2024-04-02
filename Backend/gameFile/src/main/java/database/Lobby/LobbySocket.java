@@ -38,7 +38,7 @@ public class LobbySocket {
 
     private static UserRepository userRepository; // User Repo
 
-    private Game game;
+    private static Game game;
 
     @Autowired
     public void setUserRepository(UserRepository repo) {
