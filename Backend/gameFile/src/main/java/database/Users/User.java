@@ -1,6 +1,8 @@
 package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import database.Lobby.Lobby;
+import jakarta.persistence.*;
 import database.Stats.Stat;
 import jakarta.persistence.*;
 import database.FriendRequest.FriendRequest;
@@ -8,6 +10,8 @@ import database.FriendRequest.FriendRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.util.Objects;
 
 /**
  * 
@@ -58,6 +62,11 @@ public class User {
     @JoinColumn(name = "stat_id")
     @JsonManagedReference
     private Stat stat;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobby_id")
+    private Lobby lobby;
+
 
 
 
@@ -112,14 +121,16 @@ public class User {
         this.ifActive = ifActive;
     }
 
-//    public void setIsOnline(boolean isOnline){
-//        this.isOnline = isOnline;
-//    }
-//
-//    public boolean getIsOnline(){
-//        return isOnline;
-//    }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", ifActive=" + ifActive +
+                '}';
+    }
 
 
     public void sendFriendRequest(User targetUser) {
@@ -156,6 +167,29 @@ public class User {
         this.stat = stat;
         stat.setUser(this); // Ensure the bidirectional link is established
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        return Objects.equals(userEmail, user.userEmail); // Assuming userEmail is a unique identifier.
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userEmail);
+    }
+
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
 }
 
 

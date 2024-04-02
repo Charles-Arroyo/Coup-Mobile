@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
-import static database.Websocketconfig.WebsocketConfig.friendRepository;
-import static database.Websocketconfig.WebsocketConfig.userRepository;
-
 @RestController
 public class FriendRequestController {
 

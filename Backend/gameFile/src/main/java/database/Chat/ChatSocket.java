@@ -30,6 +30,10 @@ public class ChatSocket {
   // method
 	private static MessageRepository msgRepo;
 
+	private static UserRepository userRepository;
+
+	private static FriendRepository friendRepository;
+
 
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
@@ -42,9 +46,15 @@ public class ChatSocket {
 	public void setMessageRepository(MessageRepository repo) {
 		msgRepo = repo;  // we are setting the static variable
 	}
+	@Autowired
+	public void setUserRepository(UserRepository repo) {
+		userRepository = repo;  // we are setting the static variable
+	}
 
 	@Autowired
-	UserRepository userRepository; //Creating a repository(mySQL of users)
+	public void setUserRepository(FriendRepository repo) {
+		friendRepository = repo;  // we are setting the static variable
+	}
 
 	// Store all socket session and their corresponding username.
 	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
@@ -56,7 +66,6 @@ public class ChatSocket {
 	public void onOpen(Session session, @PathParam("username") String username)
       throws IOException {
 
-		UserRepository userRepository = WebsocketConfig.getUserRepository();
 		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
 			logger.info("Entered into Open");
 
@@ -108,8 +117,6 @@ public class ChatSocket {
 
 	@OnMessage
 	public void messageFriends(Session session, String message) throws IOException {
-		FriendRepository friendRepository = WebsocketConfig.getFriendRepository();
-		
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
 		String username = sessionUsernameMap.get(session);

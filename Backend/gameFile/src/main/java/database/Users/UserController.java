@@ -4,6 +4,7 @@ import database.Friends.Friend;
 import database.Friends.FriendRepository;
 
 import database.Chat.MessageRepository;
+import database.Lobby.LobbyRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,12 @@ public class UserController {
 
     @Autowired
     FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
+
+    @Autowired
+    LobbyRepository lobbyRepository; // //Creating a repository(mySQL of lobbies)
+
+//    @Autowired
+//    SettingRepository settingRepository; // //Creating a repository(mySQL of Friends)
 
     @Autowired
     StatRepository statRepository;
@@ -78,6 +85,13 @@ public class UserController {
         }
     }
 
+    @Transactional
+    @DeleteMapping(path = "/deleteLobby/{lobbyId}")
+    public boolean deleteLobbby(@PathVariable int lobbyId){
+        lobbyRepository.deleteById(lobbyId);
+        return true;
+    }
+
 
     /**
      * Creates a user, need to account for same emails
@@ -93,8 +107,6 @@ public class UserController {
             statRepository.save(newStat);
             user.setStat(newStat); // Assuming setUser correctly sets up the relationship
             // Initialize other newUser properties...
-
-
             userRepository.save(user);
             return success;
         } else { //Null

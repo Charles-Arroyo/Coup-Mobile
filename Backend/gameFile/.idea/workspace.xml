@@ -5,8 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/93098473-c2fd-484a-b116-50c75db2018b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Chat/ChatSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Chat/ChatSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/FriendRequest/FriendRequestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Websocketconfig/WebsocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Websocketconfig/WebsocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Websocketconfig/WebsocketConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Websocketconfig/WebsocketConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,15 +46,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="bo_featuresBranch" />
+        <entry key="$PROJECT_DIR$/../.." value="gameTesting" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -37,8 +67,8 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-    &quot;associatedIndex&quot;: 1
-    }</component>
+        &quot;associatedIndex&quot;: 1
+        }</component>
   <component name="ProjectId" id="2cv012loMQsaPWYAjlYLAiinBLy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -50,12 +80,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JAR Application.onetoone-1.0.0.jar.executor": "Run",
-    "Maven.onetoone [clean,install].executor": "Run",
     "Maven.onetoone [clean].executor": "Run",
     "Maven.onetoone [compile].executor": "Run",
     "Maven.onetoone [install].executor": "Run",
     "Maven.onetoone [package].executor": "Run",
-    "Maven.onetoone.executor": "Run",
+    "Maven.onetoone [test].executor": "Run",
+    "Maven.onetoone [validate].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -64,10 +94,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "bo__signupFeature",
+    "git-widget-placeholder": "Merging main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/billx/mk1_8/Backend/gameFile",
+    "last_opened_file_path": "/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,14 +106,15 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/database/Websocket" />
+      <recent name="$PROJECT_DIR$/src/test/java" />
       <recent name="$PROJECT_DIR$/src/main/java/database" />
+      <recent name="$PROJECT_DIR$/src/main/java/database/Websocket" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/database/Laptops" />
@@ -117,7 +148,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
       </set>
     </attachedChunks>
   </component>
@@ -177,15 +208,20 @@
       <workItem from="1711150122507" duration="17711000" />
       <workItem from="1711229350963" duration="508000" />
       <workItem from="1711230008848" duration="980000" />
-      <workItem from="1711325596971" duration="612000" />
-      <workItem from="1711733112130" duration="6608000" />
-      <workItem from="1711837280449" duration="1898000" />
-      <workItem from="1711839286659" duration="203000" />
-      <workItem from="1711854116697" duration="598000" />
-      <workItem from="1711922783934" duration="1382000" />
-      <workItem from="1711924176864" duration="11954000" />
-      <workItem from="1711984280110" duration="3349000" />
-      <workItem from="1712002950384" duration="3945000" />
+      <workItem from="1711327397948" duration="313000" />
+      <workItem from="1711430285981" duration="349000" />
+      <workItem from="1711430706344" duration="2963000" />
+      <workItem from="1711459880255" duration="151000" />
+      <workItem from="1711577516489" duration="169000" />
+      <workItem from="1711577696393" duration="67000" />
+      <workItem from="1711578010148" duration="7766000" />
+      <workItem from="1711693408979" duration="7639000" />
+      <workItem from="1711739315316" duration="9122000" />
+      <workItem from="1711774442287" duration="14971000" />
+      <workItem from="1711865990434" duration="3000" />
+      <workItem from="1711866000794" duration="545000" />
+      <workItem from="1711866792359" duration="4486000" />
+      <workItem from="1711915937203" duration="6431000" />
     </task>
     <servers />
   </component>
@@ -215,12 +251,18 @@
           <properties class="java.lang.IllegalStateException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.sql.SQLException" package="java.sql" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
+          <line>17</line>
           <option name="timeStamp" value="2" />
-        </breakpoint>
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="database.Lobby.LobbySocket" memberName="game" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="this.friends" language="JAVA" />
