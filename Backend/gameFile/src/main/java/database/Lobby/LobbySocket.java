@@ -74,7 +74,7 @@ public class LobbySocket {
                 lobbyRepository.save(existingLobby); // Save Lobby
                 broadcastToSpecificLobby(existingLobby.getId(),user.getUserEmail() + " Joined the lobby");
                 sessionLobbyMap.put(session, existingLobby);
-                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
+//                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
                 if(existingLobby.isFull()){ //START GAME
                     /**
                      * INIT GAME
@@ -117,26 +117,36 @@ public class LobbySocket {
     }
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
-        //Todo Make onMessage
+
+
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
-        String email = jsonpObject.getString("playerEmail"); // Assign first part of JSON
-        String valueOfJson = jsonpObject.getString("readyToListen"); // Assign last part of JSON
+        String email = jsonpObject.getString("playerEmail"); // Get Player Email
+        String opponentEmail = jsonpObject.getString("player"); // Get opponentEmail
+        String State = jsonpObject.getString("state"); // STATE: Doing Nothing, Doing turn
+        String move = jsonpObject.getString("action"); // MOVE: ACTION (@), Call Bluffing (B)
 
         Player p = game.getPlayer(email); //Find player by their email
 
-        if(valueOfJson.equals("ready")){  //If the player message says ready, start their game.
-            broadcastToSpecificUserJSON(p.getUserEmail(),p);
+        if(State.equals("ready")){  //If the player message says ready to listen, give them their game
+            broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
+        }else if(move.equals("waiting")){
+            p.action(move,null); // If player is waiting, apply waiting move
+        }else if(move.startsWith("@")){ // If player wants to do an action, some action move (ex income)
+            int atIndex = move.indexOf("@");
+            String command = move.substring(atIndex + 1);
+            p.action(command,game.getPlayer(opponentEmail));
+        }else if(move.startsWith("B")){ // If Player wants to call bluff, call bluff.
+            int atIndex = move.indexOf("B");
+            String command = move.substring(atIndex + 1);
+            p.action(command,game.getPlayer(opponentEmail));
         }
-
-
-
 
     }
 
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
         /**
-         * ToDo: Make it so it closes the correct lobby, right now it is passing 0 for the user who created it.
+         * ToDo: Make it so a user can join back to a lobby after they disconnect/create new after disconnect
          */
 
         Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
@@ -144,10 +154,13 @@ public class LobbySocket {
         lobby.removeUser(user); // Remove user from lobby
         lobbyRepository.save(lobby); // Save Lobby
         sessionUserMap.remove(session); // Remove Users Session
+
+
         broadcastToSpecificLobby(lobbyId,"THIS USER HAS LEFT:" + user.getUserEmail());
         for(User user1 : lobby.getUserArraylist()) {
             broadcastToSpecificLobby(lobby.getId(),user1.getUserEmail());
         }
+
 
         ////NEW CODE NEW CODE
         if(lobby.isEmpty()){
@@ -218,6 +231,26 @@ public class LobbySocket {
             logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
         }
     }
+
+
+
+    private void broadcastToSpecificUserGAMEJSON(String userEmail, Game data) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> wrapper = new HashMap<>();
+        wrapper.put("Game", data);
+
+        try {
+            String message = mapper.writeValueAsString(wrapper);
+            Session userSession = getSessionByEmail(userEmail);
+            if (userSession != null) {
+                userSession.getBasicRemote().sendText(message);
+            }
+        } catch (IOException e) {
+            logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
+        }
+    }
+
+
     private Session getSessionByEmail(String userEmail) {
         for (Map.Entry<Session, User> entry : sessionUserMap.entrySet()) { //Looks through userSessionMap
             if (entry.getValue().getUserEmail().equals(userEmail)) { //Finds Match with userEmail
