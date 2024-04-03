@@ -27,6 +27,7 @@ public class TestActivity extends AppCompatActivity {
     private Button Player3;
     private Button Player4;
 
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
     private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
 
     @Override
@@ -43,24 +44,28 @@ public class TestActivity extends AppCompatActivity {
         Player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Const.setCurrentEmail("pizza");
                 performLogin("pizza");
             }
         });
         Player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Const.setCurrentEmail("billy");
                 performLogin("billy");
             }
         });
         Player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Const.setCurrentEmail("cat");
                 performLogin("cat");
             }
         });
         Player4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Const.setCurrentEmail("man");
                 performLogin("man");
             }
         });

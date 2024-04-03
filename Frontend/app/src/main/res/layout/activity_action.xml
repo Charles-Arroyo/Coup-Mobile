@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Coup"
+                android:text="Steal"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Bluff"
+                android:text="Exchange"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -152,9 +152,53 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Assassinate"
+                android:text="Assassin"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
+<!--        <FrameLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_rowWeight="1"-->
+<!--            android:layout_columnWeight="1">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/whiteshape7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/whiteshape_selector" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Steal"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium" />-->
+<!--        </FrameLayout>-->
+<!--        <FrameLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_rowWeight="1"-->
+<!--            android:layout_columnWeight="1">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/whiteshape8"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/whiteshape_selector" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Block"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium" />-->
+<!--        </FrameLayout>-->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -174,51 +218,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Steal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1">
-
-            <ImageView
-                android:id="@+id/whiteshape8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape_selector" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Block"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1">
-
-            <ImageView
-                android:id="@+id/whiteshape9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape_selector" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Exchange"
+                android:text="Coup"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 

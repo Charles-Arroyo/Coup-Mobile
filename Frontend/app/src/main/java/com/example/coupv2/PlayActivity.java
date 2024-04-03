@@ -11,20 +11,30 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import androidx.appcompat.app.AppCompatActivity;
 
-import utils.Const;
+import com.example.coupv2.utils.Const;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
-    //store current cards here as well
-     String card1;
-     String card2;
-     int coins;
+    //track who the current player is
+    String whoTurnIsIt;
+    //cards of currentPlayer
+    String card1;
+    String card2;
+    //lives and coins of current players
+    int currentLives;
+    int currentCoins;
+     int currentTurnNumber;
+    //coins
+     int coins2;
+     int coins3;
+     int coins4;
 //    these three variables are for displaying ui
 //    boolean isWaiting;
-     boolean isTurn;
+     boolean playerState;
      boolean isContesting;
     private ImageView gameBoard;
     private ImageButton openChat;
@@ -35,16 +45,15 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         JSONObject jsonObject = new JSONObject();
-        //let backend know that i am ready to receive
         try {
             jsonObject.put("playerEmail", Const.getCurrentEmail());
-            jsonObject.put("readyToListen", true);
-            String jsonStr = jsonObject.toString();
-            WebSocketManager.getInstance().sendMessage(jsonStr);
-            Log.d("WebSocket", "it worked");
+            jsonObject.put("move", "ready");
+            jsonObject.put("targetPlayer", "null");
         } catch (JSONException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        String jsonStr = jsonObject.toString();
+        WebSocketManager.getInstance().sendMessage(jsonStr);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +82,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 playerIcon.startAnimation(pulse);
             }
         });
-
     }
 
     @Override
@@ -83,24 +91,61 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     public void onWebSocketMessage(String message) {
+
         Log.d("WebSocket", "Play Activity received: " + message);
         try {
-            // Try to parse the message into a JSONObject
+            //parse the message into a JSONObject
             JSONObject jsonObject = new JSONObject(message);
-            // Since we now know the JSONObject has been created successfully,
-            // you can proceed with other operations, such as extracting data.
-            JSONObject player = jsonObject.getJSONObject("player");
-            card1 = player.getString("cardOne");
-            card2 = player.getString("cardTwo");
-            coins = player.getInt("coins");
-            isTurn = player.getBoolean("turn");
+            //parse game object
+            JSONObject game = jsonObject.getJSONObject("Game");
+            // Access the current player object
+            JSONObject currentPlayer = game.getJSONObject("currentPlayer");
+
+//            currentCoins = currentPlayer.getInt("coins");      not using this
+//            currentLives = currentPlayer.getInt("lives");      not using this
+//            currentTurnNumber = currentPlayer.getInt("turnNumber");  not using this
+
+            //get current player state, and cards(this is visible to current screen)
+            playerState = currentPlayer.getBoolean("turn");
+            card1 = currentPlayer.getString("cardOne");
+            card2 = currentPlayer.getString("cardTwo");
+
+            // Read the player array
+            JSONArray playerArray = game.getJSONArray("playerArrayList");
+            //track current coins and lives for index in array
+            int thisGuyCoins;
+            int thisGuyLives;
+            //update lives, coins, and current turn for ui(this is same across all screens)
+            for (int i = 0; i < playerArray.length(); i++) {
+//                if (i != currentTurnNumber - 1){ not using this
+                    //grab whole player information
+                    JSONObject player = playerArray.getJSONObject(i);
+                    //update coins for current player
+                    thisGuyCoins = player.getInt("coins");
+                    updatePlayerCoinsUi(thisGuyCoins, i + 1);
+                    //update player lives
+                    thisGuyLives = player.getInt("lives");
+                    //player 1 is green, 2 is yellow, 3 is red, 4 is blue
+                    if (i == 0){
+                        updatePlayer1LivesUi(thisGuyLives);
+                    }
+                    else if (i == 1){
+                        updatePlayer2LivesUi(thisGuyLives);
+                    }
+                    else if (i == 2){
+                        updatePlayer3LivesUi(thisGuyLives);
+                    }
+                    else if (i == 3){
+                        updatePlayer4LivesUi(thisGuyLives);
+                    }
+                    //if this player turn is true then animate his character
+                    if (player.getBoolean("turn")){
+                        updatePlayerTurnUi(i + 1);
+                    }
+//                }
+            }
             // Now call updatePlayerUi() on the UI thread
             runOnUiThread(this::updatePlayerStateUi);
-            Log.d("WebSocket", "you got json object");
-            Log.d("WebSocket", card1);
-            Log.d("WebSocket", card2);
-            Log.d("WebSocket", String.valueOf(coins));
-            Log.d("WebSocket", String.valueOf(isTurn));
         } catch (JSONException e) {
             // If an exception is thrown, log the error and the message that caused it
             Log.e("WebSocket", "Error parsing JSON message: " + message, e);
@@ -119,13 +164,14 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         //get image view for waiting
         ImageView waitingOverlay = findViewById(R.id.gameBoard_wait);
         //if not player turn then display waiting
-        if (!isTurn){
+        if (!playerState){
             waitingOverlay.setVisibility(View.VISIBLE);
             //disable gameBoard listener if not turn
+            //check if this works
             gameBoard.setOnClickListener(null);
         }
         //if player turn
-        else if (isTurn){
+        else if (playerState){
             //do not show waiting screen
             gameBoard.setOnClickListener(gameBoardClickListener);
             waitingOverlay.setVisibility(View.GONE);
@@ -135,18 +181,25 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 //
 //        }
     }
-    public void updatePlayerCoinsUi(int coins1, int coins2, int coins3, int coins4){
+    //take in turn number and total coins
+    public void updatePlayerCoinsUi(int totalCoins, int numOfTurn){
         // Find the TextViews by ID
         TextView oval1Text = findViewById(R.id.oval1Text);
         TextView oval2Text = findViewById(R.id.oval2Text);
         TextView oval3Text = findViewById(R.id.oval3Text);
         TextView oval4Text = findViewById(R.id.oval4Text);
-
-        // Update the text to show the number of coins
-        oval1Text.setText(String.valueOf(coins1));
-        oval2Text.setText(String.valueOf(coins2));
-        oval3Text.setText(String.valueOf(coins3));
-        oval4Text.setText(String.valueOf(coins4));
+        if (numOfTurn == 1){
+            oval1Text.setText(String.valueOf(totalCoins));
+        }
+        else if (numOfTurn == 2){
+            oval2Text.setText(String.valueOf(totalCoins));
+        }
+        else if (numOfTurn == 3){
+            oval3Text.setText(String.valueOf(totalCoins));
+        }
+        else if (numOfTurn == 4){
+            oval4Text.setText(String.valueOf(totalCoins));
+        }
 
     }
     //call method 4 times for each player
@@ -234,7 +287,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             cardIcon3.setVisibility(View.GONE);
         }
     }
-    public void updatePlayerTurnUi(String Player){
+    public void updatePlayerTurnUi(int turnNum){
         ImageView playerIcon1 = findViewById(R.id.person1);
         ImageView playerIcon2 = findViewById(R.id.person2);
         ImageView playerIcon3 = findViewById(R.id.person3);
@@ -242,16 +295,16 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         // Apply the pulse animation.
         Animation pulse = AnimationUtils.loadAnimation(PlayActivity.this, R.anim.pulse_animation);
         //if this screen is current player
-        if (Player.equals("Player 1")){
+        if (turnNum == 1){
             playerIcon1.startAnimation(pulse);
         }
-        else if(Player.equals("Player 2")){
+        else if(turnNum == 2){
             playerIcon2.startAnimation(pulse);
         }
-        else if(Player.equals("Player 3")){
+        else if(turnNum == 3){
             playerIcon3.startAnimation(pulse);
         }
-        else if(Player.equals("Player 4")){
+        else if(turnNum == 4){
             playerIcon4.startAnimation(pulse);
         }
     }
@@ -267,8 +320,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             // Handle game board click
             Intent intent = new Intent(PlayActivity.this, ActionActivity.class);
             startActivity(intent);
-            // Let backend know turn is over
-            WebSocketManager.getInstance().sendMessage("Income");
         }
     };
 }
