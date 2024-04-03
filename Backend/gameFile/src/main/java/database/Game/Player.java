@@ -203,7 +203,9 @@ public class Player {
      */
 
     public void steal(Player player){
-        // TODO: Implement this functionality
+        int stealAmount = Math.min(2, player.getCoins());
+        player.loseCoins(stealAmount);
+        this.addCoins(stealAmount);
     }
 
     /**
