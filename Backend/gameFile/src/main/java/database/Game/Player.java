@@ -18,7 +18,7 @@ public class Player {
         this.userEmail = userEmail;
         this.coins = 2;
         this.turn = turn;
-        this.lives = 1;
+        this.lives = 2;
     }
 
     public void setTurnNumber(int number){
@@ -118,9 +118,10 @@ public class Player {
         Random random = new Random();
         if (random.nextBoolean()) {
             player.cardOne = null;
-            this.lives--;
+            player.lives--;
         } else {
             player.cardTwo = null;
+            player.lives--;
         }
 
     }
