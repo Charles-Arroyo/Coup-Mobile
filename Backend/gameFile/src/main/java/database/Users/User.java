@@ -41,6 +41,8 @@ public class User {
 
     private boolean active;
 
+
+
 //    private boolean friendRequest = false;
 //
 //    private boolean isOnline;

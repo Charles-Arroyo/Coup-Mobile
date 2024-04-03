@@ -16,8 +16,10 @@ public class Signin {
     private User user;
 
     private LocalDateTime lastSignInTimestamp;
-    private int signInCount;
+
     private LocalDateTime lastSignOutTimestamp;
+
+    private int signInCount;
 
     public Signin() {
     }
@@ -49,13 +51,7 @@ public class Signin {
         this.lastSignInTimestamp = lastSignInTimestamp;
     }
 
-    public int getSignInCount() {
-        return signInCount;
-    }
 
-    public void setSignInCount(int signInCount) {
-        this.signInCount = signInCount;
-    }
 
     public LocalDateTime getLastSignOutTimestamp() {
         return lastSignOutTimestamp;
@@ -74,5 +70,13 @@ public class Signin {
 
     public void updateSignOutInfo() {
         this.lastSignOutTimestamp = LocalDateTime.now();
+    }
+
+    public int getSignInCount() {
+        return signInCount;
+    }
+
+    public void setSignInCount(int signInCount) {
+        this.signInCount = signInCount;
     }
 }

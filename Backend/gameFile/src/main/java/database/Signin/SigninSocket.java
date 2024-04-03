@@ -24,16 +24,36 @@ public class SigninSocket {
 //    @Autowired
     private static UserRepository userRepository;
 
+    private static SigninRepository signinRepository;
+
     @Autowired
     public void setUserRepository(UserRepository repo) {
         userRepository = repo;  // we are setting the static variable
     }
+
+    @Autowired
+    public void setSigninRepository(SigninRepository repo){
+        signinRepository = repo;
+    }
+
 
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userEmail") String userEmail) {
         userSessions.put(userEmail, session);
         User user = userRepository.findByUserEmail(userEmail);
+        if(user.getIsActive() == false) {
+            user.setActive(true);
+            userRepository.save(user);
+        }
+
+        Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(user);
+
+        Signin newSignin = new Signin(user);
+        newSignin.setSignInCount(existingSignin.getSignInCount());
+        newSignin.updateSignInInfo();
+        signinRepository.save(newSignin);
+
         // Perform any necessary actions when a user connects
         System.out.println("User connected: " + userEmail);
     }
