@@ -10,15 +10,20 @@ public class Player {
     int coins;
     Boolean turn;
 
+    String currentMove;
+
+    String playerState; // playerState: wait, turn, contest
+
     int lives;
 
     int turnNumber;
 
-    public Player(String userEmail, int coins, boolean turn,int lives) {
+    public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {
         this.userEmail = userEmail;
         this.coins = 2;
         this.turn = turn;
         this.lives = 2;
+        this.playerState = playerState;
     }
 
     public void setTurnNumber(int number){
@@ -49,18 +54,26 @@ public class Player {
             assassinate(player);
         }
         if(action.equals("Tax")){
+            setCurrentMove("Tax");
             tax();
         }
 
         if(action.equals("Steal")){
+            setCurrentMove("Steal");
             steal(player);
         }
 
         if(action.equals("Income")){
+            setCurrentMove("Income");
             income();
         }
         if(action.equals("Coup")){
+            setCurrentMove("Coup");
             coup(player);
+        }
+
+        if(action.equals("Waiting")){
+            setCurrentMove("Waiting");
         }
     }
 
@@ -137,11 +150,15 @@ public class Player {
             System.out.println("PLAYER ALREADY HAS MAX CARDS");
         }
     }
-    public boolean revealCard(String card,Player player){
-        if(player.cardOne.equals(card) || player.cardTwo.equals(card)){
-            return true;
+    public String revealCard(String card,Player player){
+        if(player.cardOne.equals(card)){
+            return cardOne;
+
+        }else if(player.cardTwo.equals(card)){
+            return cardTwo;
         }else{
-            return false;
+            player.loseInfluence(player);
+            return "Failure, player does not have card";
         }
     }
 
@@ -163,7 +180,6 @@ public class Player {
     public void tax(){
         // TODO: add bluffing check
         addCoins(3);
-        setTurn(false);
     }
 
     /**
@@ -295,6 +311,22 @@ public class Player {
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public String getCurrentMove() {
+        return currentMove;
+    }
+
+    public void setCurrentMove(String currentMove) {
+        this.currentMove = currentMove;
+    }
+
+    public String getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(String playerState) {
+        this.playerState = playerState;
     }
 
     /*

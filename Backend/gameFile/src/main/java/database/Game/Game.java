@@ -20,10 +20,10 @@ public class Game {
 
     public void initGame(String name1, String name2, String name3, String name4) {
         // Adds players
-        players.add(new Player(name1, 2, false,2));
-        players.add(new Player(name2, 2, false,2));
-        players.add(new Player(name3, 2, false,2));
-        players.add(new Player(name4, 2, false,2));
+        players.add(new Player(name1, 2, false,2,"wait"));
+        players.add(new Player(name2, 2, false,2,"wait"));
+        players.add(new Player(name3, 2, false,2,"wait"));
+        players.add(new Player(name4, 2, false,2,"wait"));
         int var = 0;
         //Shuffle
         Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
@@ -35,7 +35,7 @@ public class Game {
 
         currentPlayer = players.get(0); //Assigns current player to first player in array.
         currentPlayer.setTurn(true);
-
+        currentPlayer.setPlayerState("turn");
 
 
         deck = new Deck(); // Create a Deck Object
@@ -69,10 +69,13 @@ public class Game {
 
     public void nextTurn() {
         currentPlayer.setTurn(false); // Set their turn to false
+        currentPlayer.setPlayerState("wait");
         int CurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber) % players.size(); // Find next user
         currentPlayer = players.get(CurrentPlayerIndex); // Assign player to this player
+        currentPlayer.setPlayerState("turn");
         players.get(CurrentPlayerIndex).setTurn(true); // Set turn to true
         System.out.println("The next player is: " + currentPlayer.toString()); // Print Player
+
     }
 
     public Player getPlayer(String playerName) {
@@ -96,20 +99,6 @@ public class Game {
         this.deck = deck;
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Game State:\n");
-//        sb.append("Current Player: ").append(currentPlayer.toString()).append("\n");
-//        sb.append("Last Character Move: ").append(lastCharacterMove).append("\n");
-//        sb.append("Players:\n");
-//        for (Player player : players) {
-//            sb.append(player.toString()).append("\n");
-//        }
-//        sb.append("Deck:\n").append(deck.toString());
-//        return sb.toString();
-//    }
-
     public String getPlayerStats(Player player) {
         return player.toString();
     }
@@ -122,6 +111,20 @@ public class Game {
     public void turn(Player player) {
 
     }
+
+    //    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Game State:\n");
+//        sb.append("Current Player: ").append(currentPlayer.toString()).append("\n");
+//        sb.append("Last Character Move: ").append(lastCharacterMove).append("\n");
+//        sb.append("Players:\n");
+//        for (Player player : players) {
+//            sb.append(player.toString()).append("\n");
+//        }
+//        sb.append("Deck:\n").append(deck.toString());
+//        return sb.toString();
+//    }
 
 }
 
