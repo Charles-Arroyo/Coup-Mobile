@@ -6,15 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameAssassinateTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameAssassinateTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" afterDir="false" />
     </list>
@@ -60,6 +57,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JAR Application.onetoone-1.0.0.jar.executor": "Run",
+    "JUnit.GameCoupTest.testGameCoupTest.executor": "Run",
     "Maven.onetoone [clean].executor": "Run",
     "Maven.onetoone [compile].executor": "Run",
     "Maven.onetoone [install].executor": "Run",
@@ -73,7 +71,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Main.executor": "Debug",
+    "Spring Boot.Main.executor": "Run",
     "git-widget-placeholder": "gameTesting2",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -103,7 +101,17 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Main">
+  <component name="RunManager" selected="JUnit.GameCoupTest.testGameCoupTest">
+    <configuration name="GameCoupTest.testGameCoupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="onetoone" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GameCoupTest" />
+      <option name="METHOD_NAME" value="testGameCoupTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="onetoone-1.0.0.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/onetoone-1.0.0.jar" />
       <method v="2" />
@@ -117,10 +125,12 @@
     </configuration>
     <list>
       <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
+      <item itemvalue="JUnit.GameCoupTest.testGameCoupTest" />
       <item itemvalue="Spring Boot.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GameCoupTest.testGameCoupTest" />
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
@@ -238,11 +248,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
           <line>17</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/database/Main.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="43" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
