@@ -131,5 +131,25 @@ public class UserController {
         return success;
     }
 
+    /**
+     *
+     * @param userEmail
+     * @return
+     */
+    @GetMapping(path = "/getUserActive/{userEmail}")
+    public ResponseEntity<Map<String, Object>> getUserActivity(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+
+        if (user != null) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("userEmail", user.getUserEmail());
+            response.put("active", user.isActive());
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }
