@@ -151,11 +151,10 @@ public class LobbySocket {
         /**
          * todo: Need contest logic in game
          */
-
         //I can send game state to all even current
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
         String email = jsonpObject.getString("playerEmail"); // Get Player Email
-        String state = jsonpObject.getString("move"); // Actions
+        String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
         //Update move for current player
         // all other players get contest
@@ -164,11 +163,16 @@ public class LobbySocket {
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
         } else{
             p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
+            game.nextTurn();
+            for(Player player : game.getPlayerArrayList()) {
+                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+            }
         }
 
-        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn, but only once for current player
-            game.nextTurn();
-        }
+//        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn, but only once for current player
+//            game.nextTurn();
+//
+//        }
 
         //broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); //Broadcast once
 
