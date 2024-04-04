@@ -8,7 +8,6 @@ database\Chat\Message.class
 database\Friends\FriendController.class
 database\Game\Game.class
 database\FriendRequest\FriendRequestController.class
-database\Signin\SigninSocketConfigurator.class
 database\Users\UserRepository.class
 database\Ranking\Ranking.class
 database\Users\UserController.class
