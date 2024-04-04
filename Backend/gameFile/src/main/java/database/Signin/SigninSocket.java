@@ -265,7 +265,7 @@ public class SigninSocket {
         sb.append("{");
         sb.append("\"name\":\"").append(user.getName()).append("\",");
         sb.append("\"email\":\"").append(user.getUserEmail()).append("\",");
-        sb.append("\"active\":\"").append(user.getIsActive()).append("\"");
+        sb.append("\"active\":\"").append(user.isActive()).append("\"");
         sb.append("}");
         return sb.toString();
     }
