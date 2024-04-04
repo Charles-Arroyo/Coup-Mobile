@@ -43,7 +43,6 @@ public class LobbySocket {
     @Autowired
     public void setUserRepository(UserRepository repo) {
         userRepository = repo;  // we are setting the static variable
-
     }
     @Autowired
     public void setLobbyRepository(LobbyRepository repo) {
@@ -161,7 +160,7 @@ public class LobbySocket {
         Player p = game.getPlayer(email); //Find player by their email
         if(state.equals("ready")){  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
-        } else{
+        }else{
             p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
             game.nextTurn();
             for(Player player : game.getPlayerArrayList()) {

@@ -7,8 +7,63 @@
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/MessageController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/MessageRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendRequest/FriendRequestRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/Friend.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Card.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Deck.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbyRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Stats/Stat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Stats/StatController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Stats/StatRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Websocketconfig/WebsocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cards.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cardsController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/cards/cardsRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRound.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRoundController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/gameRound/gameRoundRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rules.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rulesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gamelogic/rules/rulesRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameCoupTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameCoupTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +301,7 @@
       <workItem from="1712168407817" duration="8952000" />
       <workItem from="1712196306396" duration="118000" />
       <workItem from="1712196727340" duration="2461000" />
-      <workItem from="1712250611336" duration="5588000" />
+      <workItem from="1712250611336" duration="8761000" />
     </task>
     <servers />
   </component>
