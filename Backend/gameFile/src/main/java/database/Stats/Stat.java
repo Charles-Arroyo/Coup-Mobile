@@ -25,6 +25,8 @@ public class Stat {
 
     private String gameResult;
 
+    private ints
+
 
     public Stat(String gameResult){
         this.gameResult = gameResult;

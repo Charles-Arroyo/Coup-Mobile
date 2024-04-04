@@ -2,6 +2,7 @@ package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import database.Lobby.Lobby;
+import database.Ranking.Ranking;
 import jakarta.persistence.*;
 import database.Stats.Stat;
 import jakarta.persistence.*;
@@ -41,12 +42,7 @@ public class User {
 
     private boolean active;
 
-
-
-//    private boolean friendRequest = false;
-//
-//    private boolean isOnline;
-
+    private int points;
 
 
 
@@ -73,6 +69,11 @@ public class User {
     private Lobby lobby;
 
 
+    @ManyToOne
+    @JoinColumn(name = "ranking_id")
+    private Ranking ranking;
+
+
 
 
     public User(String name, String userEmail,int id ,String password ,int UniqueID) {
@@ -81,6 +82,7 @@ public class User {
         this.ifActive = true;
         this.id = id;
         this.password = password;
+        points = 0;
     }
 
     public User() {
@@ -201,6 +203,22 @@ public class User {
     @Transactional
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Ranking getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
+
+    public void setPoints(int points){
+        this.points = points;
+    }
+
+    public int getPoints(){
+        return points;
     }
 
 }
