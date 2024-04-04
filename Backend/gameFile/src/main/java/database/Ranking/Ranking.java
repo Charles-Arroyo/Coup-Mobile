@@ -1,5 +1,6 @@
 package database.Ranking;
 
+import database.Stats.Stat;
 import database.Users.User;
 import jakarta.persistence.*;
 
@@ -29,18 +30,21 @@ public class Ranking {
     // Getters and setters for id and name
 
 
+
     public void addUser(User user) {
-        // Remove the user from their current ranking if they have one
-        if (user.getRanking() != null) {
-            user.getRanking().removeUser(user);
+        if (!users.contains(user)) {
+            users.add(user);
+            user.setRanking(this);
+            users.sort(Comparator.comparingInt(this::calculateUserPoints).reversed());
         }
+    }
 
-        // Add the user to this ranking
-        users.add(user);
-        user.setRanking(this);
-
-        // Sort the users based on their points
-        users.sort(Comparator.comparingInt(User::getPoints).reversed());
+    private int calculateUserPoints(User user) {
+        Stat userStat = user.getStat();
+        if (userStat != null) {
+            return (userStat.getGameWon() * 10) - (userStat.getGameLost() * 2);
+        }
+        return 0;
     }
 
     public void removeUser(User user) {

@@ -2,15 +2,21 @@ package database;
 import database.Friends.Friend;
 import database.Friends.FriendRepository;
 import database.Lobby.LobbyRepository;
+import database.Signin.SigninSocketConfigurator;
 import database.Users.User;
 import database.Users.UserRepository;
 import org.hibernate.Hibernate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import static org.springframework.boot.SpringApplication.run;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
+import database.Signin.SigninSocketConfigurator;
 
 
 /**
@@ -24,8 +30,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 class Main {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(Main.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);
+        SigninSocketConfigurator.setApplicationContext(applicationContext);
     }
 
     /**

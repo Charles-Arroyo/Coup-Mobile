@@ -213,13 +213,7 @@ public class User {
         this.ranking = ranking;
     }
 
-    public void setPoints(int points){
-        this.points = points;
-    }
 
-    public int getPoints(){
-        return points;
-    }
 
 }
 

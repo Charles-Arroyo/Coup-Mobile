@@ -22,6 +22,7 @@
         <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>bhoo</user-name>
       <schema-mapping>
         <introspection-scope>
