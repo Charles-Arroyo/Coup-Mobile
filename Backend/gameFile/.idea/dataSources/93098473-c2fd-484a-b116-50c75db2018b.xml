@@ -1465,12 +1465,12 @@
       <Charset>utf8mb4</Charset>
     </collation>
     <schema id="508" parent="1" name="BoTesting">
-      <LastIntrospectionLocalTimestamp>2024-04-04.00:17:36</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-04.15:27:55</LastIntrospectionLocalTimestamp>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <schema id="509" parent="1" name="DB309">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-03-29.18:08:17</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-02.21:47:40</LastIntrospectionLocalTimestamp>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
     <schema id="510" parent="1" name="charlesgame">
