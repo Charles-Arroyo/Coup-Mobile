@@ -1,5 +1,7 @@
 package database.Game;
 
+import java.util.Random;
+
 public class Player {
 
     String userEmail;
@@ -8,12 +10,20 @@ public class Player {
     int coins;
     Boolean turn;
 
+    String currentMove;
+
+    String playerState; // playerState: wait, turn, contest
+
+    int lives;
+
     int turnNumber;
 
-    public Player(String userEmail, int coins, boolean turn) {
+    public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {
         this.userEmail = userEmail;
         this.coins = 2;
         this.turn = turn;
+        this.lives = 2;
+        this.playerState = playerState;
     }
 
     public void setTurnNumber(int number){
@@ -38,9 +48,43 @@ public class Player {
      *
      * @param player
      */
-    public void coup(Player player){
-        // TODO: Implement this functionality
+
+    public void action(String action, Player player){
+        if(action.equals("Assassinate")){
+            assassinate(player);
+        }
+        if(action.equals("Tax")){
+            setCurrentMove("Tax");
+            tax();
+        }
+
+        if(action.equals("Steal")){
+            setCurrentMove("Steal");
+            steal(player);
+        }
+
+        if(action.equals("Income")){
+            setCurrentMove("Income");
+            income();
+        }
+        if(action.equals("Coup")){
+            setCurrentMove("Coup");
+            coup(player);
+        }
+
+        if(action.equals("Waiting")){
+            setPlayerState("Waiting");
+        }
     }
+
+    public void coup(Player player){
+        if(this.coins >= 7){
+            loseInfluence(player);
+            loseCoins(7);
+        }
+    }
+
+
 
     /**
      *
@@ -55,41 +99,70 @@ public class Player {
      *
      */
     public void income(){
-        // TODO: Implement this functionality
+        addCoins(1);
     }
 
     /**
      *
      */
     public void foreignAid(){
-        // TODO: Implement this functionality
+        addCoins(2);
     }
 
     /**
      *
      */
     public void addCoins(int coins){
-        // TODO: Implement this functionality
+        this.coins += coins;
     }
 
     /**
      *
      *
      */
-    public void loseCoins(int coins){
-        // TODO: Implement this functionality
+    public void loseCoins(int lostCoins){
+        this.coins -= lostCoins;
     }
 
     /**
      *
      */
-    public void loseInfluence(){
-        // TODO: Implement this functionality
+    public void loseInfluence(Player player){
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            player.cardOne = null;
+            player.lives--;
+        } else {
+            player.cardTwo = null;
+            player.lives--;
+        }
+
     }
 
-    public void gainInfluence(){
-        // TODO: Implement this functionality
+    public void gainInfluence(String card){
+        if(cardOne == null){
+            setCardOne(card);
+            this.lives++;
+        }else if(cardTwo == null){
+            setCardTwo(card);
+            this.lives++;
+        }else{
+            System.out.println("PLAYER ALREADY HAS MAX CARDS");
+        }
     }
+    public String revealCard(String card,Player player){
+        if(player.cardOne.equals(card)){
+            return cardOne;
+
+        }else if(player.cardTwo.equals(card)){
+            return cardTwo;
+        }else{
+            player.loseInfluence(player);
+            return "Failure, player does not have card";
+        }
+    }
+
+
 
 
     /*_______________________End Of Player Actions_______________________*/
@@ -107,7 +180,6 @@ public class Player {
     public void tax(){
         // TODO: add bluffing check
         addCoins(3);
-        setTurn(false);
     }
 
     /**
@@ -128,7 +200,12 @@ public class Player {
      * @param player
      */
     public void assassinate(Player player){
-        // TODO: Implement this functionality
+        if(this.coins >= 3){
+            loseInfluence(player);
+            loseCoins(3);
+        }else{
+            System.out.println("Not enough Coins");
+        }
     }
     /*______________________________End of Assassin_______________________*/
 
@@ -142,7 +219,9 @@ public class Player {
      */
 
     public void steal(Player player){
-        // TODO: Implement this functionality
+        int stealAmount = Math.min(2, player.getCoins());
+        player.loseCoins(stealAmount);
+        this.addCoins(stealAmount);
     }
 
     /**
@@ -222,9 +301,36 @@ public class Player {
         this.userEmail = userEmail;
     }
 
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public String getCurrentMove() {
+        return currentMove;
+    }
+
+    public void setCurrentMove(String currentMove) {
+        this.currentMove = currentMove;
+    }
+
+    public String getPlayerState() {
+        return playerState;
+    }
+
+    public void setPlayerState(String playerState) {
+        this.playerState = playerState;
+    }
+
     /*
      * Getters and Setters
      */
-
 
 }

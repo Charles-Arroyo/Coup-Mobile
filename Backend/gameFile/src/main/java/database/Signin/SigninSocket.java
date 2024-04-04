@@ -148,18 +148,32 @@ import java.util.stream.Collectors;
 
 
 @Component
-@ServerEndpoint(value = "/signin/{userEmail}", configurator = SigninSocketConfigurator.class)
+@ServerEndpoint(value = "/signin/{userEmail}")
 public class SigninSocket {
     private static Map<String, Session> userSessions = new HashMap<>();
 
-    @Autowired
-    private UserRepository userRepository;
+    private static UserRepository userRepository;
+
+
+    private static SigninRepository signinRepository;
+
+
+    private static FriendRepository friendRepository;
 
     @Autowired
-    private SigninRepository signinRepository;
+    public void setUserRepository(UserRepository repo) {
+        userRepository = repo;  // we are setting the static variable
+    }
 
     @Autowired
-    private FriendRepository friendRepository;
+    public void setSigninRepository(SigninRepository repo){
+        signinRepository = repo;
+    }
+
+    @Autowired
+    public void setFriendRepository(FriendRepository repo){
+        friendRepository = repo;
+    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userEmail") String userEmail) {
