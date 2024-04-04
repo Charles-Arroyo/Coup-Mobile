@@ -65,17 +65,11 @@ public class LobbySocket {
         if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
             Lobby newLobby = new Lobby(); // Create new Lobby
             newLobby.addUser(user); // add user
-//          sessionLobbyMap.put(session,newLobby); // Save Session with lobby
             lobbyRepository.save(newLobby); // Save lobby for admin use
             for(User userList : newLobby.getUserArraylist()) {
                 broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + newLobby.getUsers());
                 broadcastToSpecificUser(userList.getUserEmail(), "The ID is: " + newLobby.getId());
             }
-
-//            broadcastToSpecificLobby(newLobby.getId(), "The ID is: " + newLobby.getId());
-//            broadcastToSpecificLobby(newLobby.getId(),user.getUserEmail() + " Joined the lobby");
-//            broadcastToSpecificUser(user.getUserEmail(),"Users: " + newLobby.getUsers());
-          //  broadcastToSpecificLobby(newLobby.getId(),"Users: " +newLobby.getUsers());
         }else{ //USER WANTS TO JOIN LOBBY
             Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find Lobby By ID
             if(!existingLobby.isFull()) {
@@ -84,15 +78,10 @@ public class LobbySocket {
                 for(User userList : existingLobby.getUserArraylist()) {
                     broadcastToSpecificUser(userList.getUserEmail(), username + " Joined the lobby");
                 }
-                //broadcastToSpecificLobby(existingLobby.getId(),user.getUserEmail() + " Joined the lobby");
-//                sessionLobbyMap.put(session, existingLobby);
-//                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
                 if(existingLobby.isFull()){ //START GAME
                     /**
                      * INIT GAME
                      */
-                   // broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
-
                     for(User userList : existingLobby.getUserArraylist()) {
                         broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
                     }
@@ -105,28 +94,12 @@ public class LobbySocket {
                             existingLobby.getUserArraylist().get(2).getUserEmail(),
                             existingLobby.getUserArraylist().get(3).getUserEmail()); // Sends four players, see init game method
 
-
-                    //For loop for normal String
-//                    for(User printGameState : existingLobby.getUserArraylist()) {
-//                        Player player = game.getPlayer(printGameState.getUserEmail());
-//                        broadcastToSpecificUser(printGameState.getUserEmail(), game.getPlayerStats(player));
-//                    }
-
-//                    for(User printGameState : existingLobby.getUserArraylist()) { //Itterate through Lobby
-//                        Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
-//                        if (player != null) {
-//                            broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
-//                        }
-//                    }
-
-
                     /**
                      * INIT GAME
                      */
                 }
 
             }else{
-                //broadcastToSpecificLobby(existingLobby.getId(),"lobby is full");
                 for(User userList : existingLobby.getUserArraylist()) {
                     broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
                 }
@@ -174,6 +147,12 @@ public class LobbySocket {
          *         End turn
          *         Send front end new UI
          */
+
+        /**
+         * todo: Need contest logic in game
+         */
+
+        //I can send game state to all even current
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
         String email = jsonpObject.getString("playerEmail"); // Get Player Email
         String state = jsonpObject.getString("move"); // Actions
@@ -184,42 +163,29 @@ public class LobbySocket {
         if(state.equals("ready")){  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
         } else{
-            p.action(state,game.getPlayer(targetPlayer)); // Does the player action.
+            p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
         }
 
-        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn
+        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn, but only once for current player
             game.nextTurn();
         }
 
-        if(!state.equals("ready") && game.getCurrentPlayer().getUserEmail().equals(p.getUserEmail())) {
-            broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); //Broadcast once
-
-        }
+        //broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); //Broadcast once
 
 
     }
 
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
-        /**
-         * ToDo: Make it so a user can join back to a lobby after they disconnect/create new after disconnect
-         */
-
         Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
         User user = userRepository.findByUserEmail(username); //Find UserName
         lobby.removeUser(user); // Remove user from lobby
         lobbyRepository.save(lobby); // Save Lobby
         sessionUserMap.remove(session); // Remove Users Session
         userSessionMap.remove(user);
-      //  broadcastToSpecificLobby(lobbyId,"THIS USER HAS LEFT:" + user.getUserEmail());
-//        for(User user1 : lobby.getUserArraylist()) {
-//            broadcastToSpecificLobby(lobby.getId(),user1.getUserEmail());
-//        }
-
         for(User userList : lobby.getUserArraylist()) {
             broadcastToSpecificUser(userList.getUserEmail(), username + " Has left");
         }
-
         ////NEW CODE NEW CODE
         if(lobby.isEmpty()){
 //          sessionLobbyMap.remove(session);
@@ -243,63 +209,7 @@ public class LobbySocket {
         });
     }
 
-    private void broadcastToSpecificLobby(int lobbyId, String message) {
-        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
-        sessionLobbyMap.forEach((session, lobby) -> {
-            // Check if the lobby matches the lobbyId we want to broadcast to
-            if (lobby.getId() == lobbyId) {
-                try {
-                    // Use the session to send the message
-                    session.getBasicRemote().sendText(message);
-                } catch (IOException e) {
-                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
-                }
-            }
-        });
-    }
 
-
-    private void broadcastToSpecificLobbyGAMEJSON(int lobbyId, Game data) {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> wrapper = new HashMap<>();
-        wrapper.put("Game", data);
-
-        String message;
-        try {
-            // Serialize the Game object to JSON
-            message = mapper.writeValueAsString(wrapper);
-        } catch (IOException e) {
-            logger.error("Error serializing Game data: " + e.getMessage(), e);
-            return; // Stop execution if serialization fails
-        }
-
-        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
-        sessionLobbyMap.forEach((session, lobby) -> {
-            // Check if the lobby matches the lobbyId we want to broadcast to
-            if (lobby.getId() == lobbyId) {
-                try {
-                    // Use the session to send the JSON message
-                    session.getBasicRemote().sendText(message);
-                } catch (IOException e) {
-                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
-                }
-            }
-        });
-    }
-
-//    private void broadcastToSpecificUserJSON(String userEmail, Object data) {
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        try {
-//            String message = mapper.writeValueAsString(data);
-//            Session userSession = getSessionByEmail(userEmail);
-//            if (userSession != null) {
-//                userSession.getBasicRemote().sendText(message);
-//            }
-//        } catch (IOException e) {
-//            logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
-//        }
-//    }
 
 
     private void broadcastToSpecificUserJSON(String userEmail, Player data) {
@@ -317,8 +227,6 @@ public class LobbySocket {
             logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
         }
     }
-
-
 
 
 
@@ -360,6 +268,50 @@ public class LobbySocket {
                     session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
                     logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
+                }
+            }
+        });
+    }
+
+
+    private void broadcastToSpecificLobby(int lobbyId, String message) {
+        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
+        sessionLobbyMap.forEach((session, lobby) -> {
+            // Check if the lobby matches the lobbyId we want to broadcast to
+            if (lobby.getId() == lobbyId) {
+                try {
+                    // Use the session to send the message
+                    session.getBasicRemote().sendText(message);
+                } catch (IOException e) {
+                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
+                }
+            }
+        });
+    }
+
+    private void broadcastToSpecificLobbyGAMEJSON(int lobbyId, Game data) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> wrapper = new HashMap<>();
+        wrapper.put("Game", data);
+
+        String message;
+        try {
+            // Serialize the Game object to JSON
+            message = mapper.writeValueAsString(wrapper);
+        } catch (IOException e) {
+            logger.error("Error serializing Game data: " + e.getMessage(), e);
+            return; // Stop execution if serialization fails
+        }
+
+        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
+        sessionLobbyMap.forEach((session, lobby) -> {
+            // Check if the lobby matches the lobbyId we want to broadcast to
+            if (lobby.getId() == lobbyId) {
+                try {
+                    // Use the session to send the JSON message
+                    session.getBasicRemote().sendText(message);
+                } catch (IOException e) {
+                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
                 }
             }
         });

@@ -73,7 +73,7 @@ public class Player {
         }
 
         if(action.equals("Waiting")){
-            setCurrentMove("Waiting");
+            setPlayerState("Waiting");
         }
     }
 
