@@ -168,6 +168,7 @@ public class LobbySocket {
 //        }
 
 
+
         //todo need to listen after I sent to FE contest
         //GAME LOGIC TESTING
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
@@ -175,21 +176,26 @@ public class LobbySocket {
         String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
         Player p = game.getPlayer(email); //Find player by their email
-        String currentMove = message;
+        String currentMove = state;
+
+
+        if(state.startsWith("@")){
+            for(Player player : game.getPlayerArrayList()){
+                broadcastToSpecificUser(p.getUserEmail(),p.getUserEmail() + ": " + state);
+            }
+        }
+
         if (state.equals("ready")) {  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); // Broadcast to each player indivual so front end can unqiuely set up UI
         } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action
             currentMove = state.substring(1); // save move for current player
-            p.setCurrentMove(state);
+            p.setCurrentMove(currentMove);
             //He will send me the action, it is my job to change all the other players to contest
-            p.setPlayerState("Wait"); //Send action player to wait
+            p.setPlayerState("wait"); //Send action player to wait
             for(Player player : game.getPlayerArrayList()){
                 if (!player.equals(game.getCurrentPlayer())) {
                     player.setPlayerState("contest"); //set other players to contest
                 }
-            }
-            for (Player player : game.getPlayerArrayList()) {
-                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game); //Broadcast to all users so front end can change Ui for each player
             }
 
         } else if(state.contains("Coup")){
@@ -197,12 +203,13 @@ public class LobbySocket {
         }else if (state.equals("Bluff")) {
             //If any player called bluff, go into bluffing
             //Set each player to waiting.
-            if(game.getCurrentPlayer().revealCard(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
+            game.associate(game.getCurrentPlayer().getCurrentMove());
+            if(game.getCurrentPlayer().revealCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
                 game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer());
                 game.nextTurn();
             }else{
                 p.loseInfluence(p); // The bluffer loses influcence
-                game.getCurrentPlayer().removeCard(currentMove,game.getCurrentPlayer()); // The Player their card
+                game.getCurrentPlayer().removeCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()); // The Player their card
                 String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
                 game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
                 game.nextTurn();

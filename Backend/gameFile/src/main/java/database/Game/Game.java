@@ -57,6 +57,18 @@ public class Game {
         this.lastCharacterMove = lastCharacterMove;
     }
 
+    public String associate(String move){
+        if(move.equals("Tax") ){
+            return "Duke";
+        }else if(move.equals("Steal")){
+            return "Captain";
+        }else if(move.equals("Assassinate")){
+            return "Assassin";
+        }else{
+            return "Nah";
+        }
+    }
+
     public void getPlayers() {
         for (Player player : players) {
             System.out.println(player.toString());

@@ -157,10 +157,13 @@ public class Player {
         }else if(player.cardTwo.equals(card)){
             return cardTwo;
         }else{
-            player.loseInfluence(player);
+
             return player.getUserEmail() + " Was a Liar";
         }
     }
+
+
+
 
     public void removeCard(String card, Player player){
         if(player.cardOne.equals(card)){
