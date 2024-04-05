@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="pressed_overlay">#1AFFFFFF</color>
-    <color name="active_green">#FFEB3B</color>
-    <color name="inactive_red">#FFFDFC</color>
+    <color name="active_green">#4CAF50</color>
+    <color name="inactive_red">#FF9898</color>
 
 </resources>

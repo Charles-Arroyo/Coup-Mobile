@@ -184,48 +184,51 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 //        performRefreshRequest();
         checkForFriendRequests();
     }
-//
-//        private void performRefreshRequest() {
-//        String fullUrl = URL_REFRESH_FRIENDS + userEmail;
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
-//                response -> {
-//                    friendsLayout.removeAllViews();
-//
-//                    try {
-//                        JSONArray friendsArray = response.optJSONArray("friends");
-//
-//                        if (friendsArray == null || friendsArray.length() == 0) {
-//                            Toast.makeText(FriendsActivity.this, "No friends found.", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        for (int i = 0; i < friendsArray.length(); i++) {
-//                            JSONObject friend = friendsArray.getJSONObject(i);
-//                            String email = friend.optString("email", "No email");
-//
-//                            View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
-//                            Button emailButton = friendView.findViewById(R.id.email);
-//                            emailButton.setText(email);
-//                            emailButton.setOnClickListener(v -> showUserStats(email));
-//
-//                            ImageButton messageButton = friendView.findViewById(R.id.msgButton);
-//                            messageButton.setOnClickListener(v -> startMessageActivity(email));
-//
-//                            friendsLayout.addView(friendView);
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(FriendsActivity.this, "Error parsing friend list", Toast.LENGTH_SHORT).show();
-//                    }
-//                },
-//                error -> {
-//                    friendsLayout.removeAllViews();
-//                    Toast.makeText(FriendsActivity.this, "Error fetching friend list: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                });
-//
-//        requestQueue.add(jsonObjectRequest);
-//    }
-//
+
+    /*
+     private void performRefreshRequest() {
+        String fullUrl = URL_REFRESH_FRIENDS + userEmail;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
+                response -> {
+                    friendsLayout.removeAllViews();
+
+                    try {
+                        JSONArray friendsArray = response.optJSONArray("friends");
+
+                        if (friendsArray == null || friendsArray.length() == 0) {
+                            Toast.makeText(FriendsActivity.this, "No friends found.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        for (int i = 0; i < friendsArray.length(); i++) {
+                            JSONObject friend = friendsArray.getJSONObject(i);
+                            String email = friend.optString("email", "No email");
+
+                            View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
+                            Button emailButton = friendView.findViewById(R.id.email);
+                            emailButton.setText(email);
+                            emailButton.setOnClickListener(v -> showUserStats(email));
+
+                            ImageButton messageButton = friendView.findViewById(R.id.msgButton);
+                            messageButton.setOnClickListener(v -> startMessageActivity(email));
+
+                            friendsLayout.addView(friendView);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(FriendsActivity.this, "Error parsing friend list", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    friendsLayout.removeAllViews();
+                    Toast.makeText(FriendsActivity.this, "Error fetching friend list: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+     */
+
 
         private void showUserStats(String email) {
         Toast.makeText(this, "Stats for: " + email, Toast.LENGTH_SHORT).show();
