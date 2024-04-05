@@ -130,8 +130,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-            // Assuming the format is "username: message"
-            int colonIndex = fullMessage.indexOf(":");
+            int colonIndex = fullMessage.indexOf(":"); 
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
                 String message = fullMessage.substring(colonIndex + 1).trim();
@@ -179,10 +178,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     }
 
     private void showUserPopup(String username) {
-        // Create and display a popup with user information, or perform any other action
         Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
 
-        // Here you could launch a dialog or a bottom sheet dialog to show user details
+        // Setup popup to load the main menu
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(username);
         builder.setMessage("More info about " + username);
@@ -247,11 +245,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         builder.setView(dialogLayout);
         AlertDialog dialog = builder.create();
 
-        // When the dialog's main layout is clicked, dismiss the dialog
-        dialogLayout.setOnClickListener(v -> dialog.dismiss());
+         dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
-        // Make sure the dialog's window background is transparent
-        if (dialog.getWindow() != null) {
+         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 

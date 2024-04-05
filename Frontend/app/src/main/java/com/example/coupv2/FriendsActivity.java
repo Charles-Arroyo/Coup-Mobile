@@ -445,6 +445,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
                     Button activeButton = friendView.findViewById(R.id.active);
 
                     emailButton.setText(email);
+                    emailButton.setOnClickListener(v -> showUserStats(email));
+
+                    ImageButton messageButton = friendView.findViewById(R.id.msgButton);
+                    messageButton.setOnClickListener(v -> startMessageActivity(email));
+
+                    emailButton.setText(email);
 
                     if (isActive.equals("true")) {
                         activeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.active_green)));
