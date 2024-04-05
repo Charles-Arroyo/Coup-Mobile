@@ -35,7 +35,6 @@ public class LobbySocket {
 
     private static LobbyRepository lobbyRepository; //Lobby Repo
 
-
     private static UserRepository userRepository; // User Repo
 
     private static Game game;
