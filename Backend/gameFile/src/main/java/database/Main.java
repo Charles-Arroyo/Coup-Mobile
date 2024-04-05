@@ -3,6 +3,7 @@ import database.Friends.Friend;
 import database.Friends.FriendRepository;
 import database.Lobby.LobbyRepository;
 //import database.Signin.SigninSocketConfigurator;
+import database.Ranking.RankingRepository;
 import database.Users.User;
 import database.Users.UserRepository;
 import org.hibernate.Hibernate;
@@ -42,6 +43,8 @@ class Main {
 //        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);
 //        SigninSocketConfigurator.setApplicationContext(applicationContext);
         SpringApplication.run(Main.class, args);
+
+        
     }
 
     /**
