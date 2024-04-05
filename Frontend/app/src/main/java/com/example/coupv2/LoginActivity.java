@@ -31,6 +31,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
 
 
+    /**
+     * On Create method for
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

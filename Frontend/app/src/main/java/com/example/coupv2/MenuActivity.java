@@ -31,24 +31,42 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/** @noinspection MismatchedQueryAndUpdateOfCollection*/
 public class MenuActivity extends AppCompatActivity implements WebSocketListener {
+
+    /*
+        LINKS
+        -----------------------------------
+        RANKINGS
+
+        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
+        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
+
+        ------------------------------------
+        GLOBAL CHAT FEATURE
+
+        private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
+        private String BASE_URL = "ws://10.0.2.2:8080/chat/";
+        private String BASE_URL = "ws://10.29.182.205:8080/chat/";
+
+     */
 
 
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
-
-    //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
-//    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-    private String BASE_URL = "ws://10.29.182.205:8080/chat/";
-
+    private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
     private BottomSheetDialog bottomSheetDialog;
 
-    private ArrayList<String> messagesList = new ArrayList<>();
-    private String user = Const.getCurrentEmail();
-    private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton, closeBtn;
+    /**
+     *  List of messages that that are dynamically added to the linear layout
+     */
+    private final ArrayList<String> messagesList = new ArrayList<>();
+    private final String user = Const.getCurrentEmail();
+    private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
 
 
     /**
@@ -103,26 +121,22 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         // Return Button
         logoffButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
-            builder.setTitle("Confirm Logoff"); // Set the title for the dialog
-            builder.setMessage("Are you sure you want to log off?"); // Set the message to show in the dialog
+            builder.setTitle("Confirm Logoff");
+            builder.setMessage("Are you sure you want to log off?");
 
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             });
-            builder.setNegativeButton("No", (dialog, which) -> {
-                dialog.dismiss();
-            });
+            builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         });
         // Rules Button
         rulesButton.setOnClickListener(v -> showRules());
         // Message Button
-        msgButton.setOnClickListener(v -> {
-            showGlbChat();
-        });
+        msgButton.setOnClickListener(v -> showGlbChat());
         // Ranking Button
         leaderboardButton.setOnClickListener(v -> showRankingPopup());
 
@@ -183,7 +197,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     /**
      *  Adds users to the ranking, similar to AddMessageLayout
-     *
+     * <p>
      *  Also if user ranked top 3, users background tint will change ba
      *
      * @param rankingLayout the area of layout which display the list of players
@@ -209,8 +223,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         } else if (rank == 3) {
             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.bronze)));
         } else {
-            // Default background tint for other ranks
-            btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
+             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
         }
 
 
@@ -263,9 +276,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         backButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
-        bottomSheetDialog.setOnDismissListener(dialogInterface -> {
-            WebSocketManager.getInstance().disconnectWebSocket();
-        });
+        bottomSheetDialog.setOnDismissListener(dialogInterface -> WebSocketManager.getInstance().disconnectWebSocket());
 
         bottomSheetDialog.show();
 
@@ -289,11 +300,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-<<<<<<< HEAD
             int colonIndex = fullMessage.indexOf(":");
-=======
-            int colonIndex = fullMessage.indexOf(":"); 
->>>>>>> main
+
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
                 String message = fullMessage.substring(colonIndex + 1).trim();
@@ -366,23 +374,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         });
     }
 
-<<<<<<< HEAD
     /**
-     * Displays a bottom dialog sheet to display the rules of the following actions
+     * Pops up a bottom dialog, to show up the rules, and cards of the game
      */
-=======
-    private void showUserPopup(String username) {
-        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
-
-        // Setup popup to load the main menu
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(username);
-        builder.setMessage("More info about " + username);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
->>>>>>> main
 
     private void showRules() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -401,23 +395,14 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         ImageButton dukeButton = view.findViewById(R.id.duke);
         dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke));
 
-//        // Set up for the ambassador
-//        ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
-//        ambassadorButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showImagePopup(R.drawable.ambassador); // Make sure this drawable resource exists
-//            }
-//        });
-//
-//        // Set up for the contra
-//        ImageButton contraButton = view.findViewById(R.id.contra);
-//        contraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showImagePopup(R.drawable.contra); // Make sure this drawable resource exists
-//            }
-//        });
+        // Set up for the contra
+        ImageButton contraButton = view.findViewById(R.id.contra);
+        contraButton.setOnClickListener(v -> showImagePopup(R.drawable.contra));
+
+
+        // Set up for the ambassador
+        ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
+        ambassadorButton.setOnClickListener(v -> showImagePopup(R.drawable.ambassador));
 
         // Close button inside the BottomSheetDialog
         Button closeButton = view.findViewById(R.id.close_rules_coup_overlay_button);

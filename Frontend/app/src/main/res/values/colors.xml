@@ -3,16 +3,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
-<<<<<<< HEAD
     <color name="pressed_overlay">#1AFFFFFF</color> <!-- 10% opaque white -->
     <color name="gold">#FFD700</color>
     <color name="silver">#C0C0C0</color>
     <color name="bronze">#CD7F32</color>
     <color name="defaultBackground">#E0E0E0</color> <!-- Your default color -->
-=======
-    <color name="pressed_overlay">#1AFFFFFF</color>
     <color name="active_green">#4CAF50</color>
     <color name="inactive_red">#FF9898</color>
->>>>>>> main
 
 </resources>

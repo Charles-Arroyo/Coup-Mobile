@@ -34,7 +34,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
     {
 
         private EditText friendEmailEditText;
-        private LinearLayout friendsLayout; // Use LinearLayout for dynamic view addition
+        private LinearLayout friendsLayout;
         private Button addFriendButton, exitButton, deleteFriendButton, refreshButton, requestButton;
         private RequestQueue requestQueue;
         private String userEmail;
@@ -42,31 +42,49 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
     /*
     Server URLS
 
-        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
-        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
-        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
-        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
-        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
-
+    -------------------------------
+    PORT 8080
+    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
+    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
+    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
+    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
+    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
     -------------------------------------------------------------------------------------------------------------------------------
+    Port 8443
+    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
+    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
+    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
+    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
+    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+    ---------------------------------------------------------------------------------------------------
     Mock URLS
+    private static final String URL_ADD_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_DELETE_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_REFRESH_FRIENDS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendlist";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendrequest/";
+    private static final String URL_ACCEPT_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    private static final String URL_DECLINE_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+    ---------------------------------------------------------------------------------------------------
+    Websockets
 
-        private static final String URL_ADD_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-        private static final String URL_DELETE_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-        private static final String URL_REFRESH_FRIENDS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendlist";
-        private static final String URL_CHECK_FRIEND_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/friendrequest/";
-        private static final String URL_ACCEPT_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-        private static final String URL_DECLINE_REQUESTS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
      */
 
-    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getFriends/";
-        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
+         private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
         private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getFriends/";
         private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
         private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
         private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+
+        /**
+         * Method that runs and mostly intialize the functions in the menu
+         *
+         * @param savedInstanceState If the activity is being re-initialized after
+         *     previously being shut down then this Bundle contains the data it most
+         *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+         *
+         */
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +122,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 //        performRefreshRequest();
     }
 
+        /**
+         * method to gather email to add friend
+         *
+         * @param view the layout to get the email from
+         */
+
         public void onAddFriendClick(View view) {
         String friendEmail = friendEmailEditText.getText().toString();
         if (!friendEmail.isEmpty()) {
@@ -112,6 +136,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
             Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
         }
     }
+
+        /**
+         * POST request to add a friend in a json format
+         *
+         * @param friendEmail the user you want to add
+         */
 
         private void performAddFriendRequest(String friendEmail) {
 
@@ -147,6 +177,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         requestQueue.add(jsonObjectRequest);
     }
 
+        /**
+         * Gets the users email to send to the delete method
+         *
+         * @param view layout to get the friends email
+         */
+
         public void onDeleteFriendClick(View view) {
         String friendEmail = friendEmailEditText.getText().toString();
         if (!friendEmail.isEmpty()) {
@@ -155,6 +191,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
             Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
         }
     }
+
+        /**
+         * Method to delete the users selected friend in DELETE request in JSON
+         *
+         * @param friendEmail user email to delete
+         */
 
         private void performDeleteFriendRequest(String friendEmail) {
 
@@ -180,6 +222,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         requestQueue.add(jsonObjectRequest);
     }
+
+        /**
+         * Simple method to connnect view to refresh
+         *
+         * @param view layout to click to connect refresh
+         */
 
         public void onRefreshClick(View view) {
 //        performRefreshRequest();
@@ -230,17 +278,30 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
      */
 
-
+        /**
+         * Method to get users stats and displays them in a HTTP GET Request
+         *
+         * @param email
+         */
         private void showUserStats(String email) {
         Toast.makeText(this, "Stats for: " + email, Toast.LENGTH_SHORT).show();
     }
 
+        /**
+         *A method that connects user to a specific friends chat in the friend list
+         *
+         * @param email
+         */
         private void startMessageActivity(String email) {
         Intent intent = new Intent(this, MessageActivity.class);
         intent.putExtra("friend", email);
         startActivity(intent);
     }
 
+        /**
+         * A GET request method to help you gather information those sending friend request in the
+         * database
+         */
         private void checkForFriendRequests() {
         String fullUrl = URL_CHECK_FRIEND_REQUESTS + userEmail;
 
@@ -270,6 +331,10 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         requestQueue.add(jsonObjectRequest);
     }
+
+        /**
+         * popup method to show the list of friends, parsing and dynamically adding them to scroll view
+         */
 
         private void displayFriendRequestsPopup() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -323,6 +388,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         bottomSheetDialog.show();
     }
 
+        /**
+         * Method to accept friend request from popup
+         *
+         * @param friendEmail
+         */
+
         private void acceptFriendRequest(final String friendEmail) {
         String fullUrl = URL_ACCEPT_REQUESTS + userEmail + "/" + friendEmail ;
 
@@ -355,6 +426,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         requestQueue.add(jsonObjectRequest);
     }
+
+        /**
+         * Method to deny friend request
+         *
+         * @param friendEmail
+         */
 
         private void denyFriendRequest(final String friendEmail) {
 
@@ -389,16 +466,32 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         requestQueue.add(jsonObjectRequest);
     }
 
+        /**
+         * Method to disconnect when server breaks in the Web Socket
+          */
+
         @Override
         protected void onDestroy() {
             super.onDestroy();
             WebSocketManager.getInstance().removeWebSocketListener();
         }
 
+        /**
+         * Websocket method to connect the user
+         *
+         * @param handshakedata Information about the server handshake.
+         */
+
         @Override
         public void onWebSocketOpen(ServerHandshake handshakedata) {
             Log.d("FriendsActivity", "WebSocket connected");
         }
+
+        /**
+         * Method to write to the websocket
+         *
+         * @param message The received WebSocket message.
+         */
 
         @Override
         public void onWebSocketMessage(String message) {
@@ -406,17 +499,36 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
             runOnUiThread(() -> updateFriendList(message));
         }
 
+        /**
+         * Websocket method to close connection from user to server or vice versa
+         *
+         * @param code   The status code indicating the reason for closure.
+         * @param reason A human-readable explanation for the closure.
+         * @param remote Indicates whether the closure was initiated by the remote endpoint.
+         */
+
         @Override
         public void onWebSocketClose(int code, String reason, boolean remote) {
             Log.d("FriendsActivity", "WebSocket closed");
 
         }
 
+        /**
+         * Websocket method that sends error when something happens
+         *
+         * @param ex The exception that describes the error.
+         */
+
         @Override
         public void onWebSocketError(Exception ex) {
             Log.d("FriendsActivity", "WebSocket error: " + ex.getMessage());
 
         }
+
+        /**
+         * Websocket method to reconnect the user when leaving activity
+         */
+
         @Override
         protected void onResume() {
             super.onResume();
@@ -424,11 +536,22 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
              WebSocketManager.getInstance().sendMessage("getFriends");
         }
 
+        /**
+         * Websocket method to pause websocket connection when leaving activity
+         */
+
         @Override
         protected void onPause() {
             super.onPause();
              WebSocketManager.getInstance().removeWebSocketListener();
         }
+
+        /**
+         * Update friend list to connnect with a websocket,
+         * Recieve a JSON object to parse through it in the code
+         *
+         * @param message
+         */
 
         private void updateFriendList(String message) {
             try {
