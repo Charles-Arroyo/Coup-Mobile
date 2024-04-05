@@ -15,11 +15,13 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
 
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements WebSocketListener {
 
+    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -27,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
     private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-    // success
+
 
 
     @Override
@@ -79,6 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                             mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
                             Const.setCurrentEmail(emailId);
+                            String serverUrl = ACTIVE_URL + emailId;
+                            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+
                         } else {
                             // Failed login
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -96,4 +101,23 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    @Override
+    public void onWebSocketOpen(ServerHandshake handshakedata) {
+
+    }
+
+    @Override
+    public void onWebSocketMessage(String message) {
+
+    }
+
+    @Override
+    public void onWebSocketClose(int code, String reason, boolean remote) {
+
+    }
+
+    @Override
+    public void onWebSocketError(Exception ex) {
+
+    }
 }
