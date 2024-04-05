@@ -149,33 +149,79 @@ public class LobbySocket {
         /**
          * todo: Need contest logic in game
          */
-        //I can send game state to all even current
+//        //I can send game state to all even current
+//        JSONObject jsonpObject = new JSONObject(message); // Create JSON object
+//        String email = jsonpObject.getString("playerEmail"); // Get Player Email
+//        String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
+//        String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
+//        //Update move for current player
+//        // all other players get contest
+//        Player p = game.getPlayer(email); //Find player by their email
+//        if(state.equals("ready")){  //If the player message says ready to listen, give them the game
+//            broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
+//        }else{
+//            p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
+//            game.nextTurn();
+//            for(Player player : game.getPlayerArrayList()) {
+//                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+//            }
+//        }
+
+
+        //todo need to listen after I sent to FE contest
+        //GAME LOGIC TESTING
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
         String email = jsonpObject.getString("playerEmail"); // Get Player Email
         String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
-        //Update move for current player
-        // all other players get contest
         Player p = game.getPlayer(email); //Find player by their email
-        if(state.equals("ready")){  //If the player message says ready to listen, give them the game
-            broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
-        }else{
-            p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
+        String currentMove = message;
+        if (state.equals("ready")) {  //If the player message says ready to listen, give them the game
+            broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); // Broadcast to each player indivual so front end can unqiuely set up UI
+        } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action
+            currentMove = state.substring(1); // save move for current player
+            p.setCurrentMove(state);
+            //He will send me the action, it is my job to change all the other players to contest
+            p.setPlayerState("Wait"); //Send action player to wait
+            for(Player player : game.getPlayerArrayList()){
+                if (!player.equals(game.getCurrentPlayer())) {
+                    player.setPlayerState("contest"); //set other players to contest
+                }
+            }
+            for (Player player : game.getPlayerArrayList()) {
+                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game); //Broadcast to all users so front end can change Ui for each player
+            }
+
+        } else if(state.contains("Coup")){
+            game.getCurrentPlayer().action("Coup",game.getPlayer(targetPlayer));
+        }else if (state.equals("Bluff")) {
+            //If any player called bluff, go into bluffing
+            //Set each player to waiting.
+            if(game.getCurrentPlayer().revealCard(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
+                game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer());
+                game.nextTurn();
+            }else{
+                p.loseInfluence(p); // The bluffer loses influcence
+                game.getCurrentPlayer().removeCard(currentMove,game.getCurrentPlayer()); // The Player their card
+                String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
+                game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
+                game.nextTurn();
+            }
+        }else if(state.equals("*Income")){
+            currentMove = state.substring(1); // save move for current player
+            p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
             game.nextTurn();
-            for(Player player : game.getPlayerArrayList()) {
+        }
+
+        if(!state.equals("ready")) {
+            for (Player player : game.getPlayerArrayList()) {
                 broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
             }
         }
-
-//        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn, but only once for current player
-//            game.nextTurn();
-//
-//        }
-
-        //broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); //Broadcast once
-
-
     }
+
+
+
 
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {

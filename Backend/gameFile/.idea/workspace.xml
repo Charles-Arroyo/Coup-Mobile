@@ -7,9 +7,27 @@
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameCoupTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameCoupTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="gameTesting" />
+        <entry key="$PROJECT_DIR$/../.." value="gameTesting3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -67,7 +85,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.Main.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gameTesting2&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java&quot;,
@@ -195,6 +213,7 @@
       <workItem from="1711866000794" duration="545000" />
       <workItem from="1711866792359" duration="4486000" />
       <workItem from="1711915937203" duration="6431000" />
+      <workItem from="1712295322140" duration="371000" />
     </task>
     <servers />
   </component>
@@ -228,16 +247,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
           <line>17</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java</url>
-          <line>120</line>
-          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
