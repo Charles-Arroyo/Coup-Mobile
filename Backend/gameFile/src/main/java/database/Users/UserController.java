@@ -119,7 +119,6 @@ public class UserController {
             user.setStat(newStat); // Assuming setUser correctly sets up the relationship
             // Initialize other newUser properties...
             userRepository.save(user);
-
             return success;
         } else { //Null
             return failure; //Return a Failure

@@ -117,13 +117,6 @@ public class User {
         this.userEmail = userEmail;
     }
 
-//    public boolean getIsActive(){
-//        return ifActive;
-//    }
-//
-//    public void setIfActive(boolean ifActive){
-//        this.ifActive = ifActive;
-//    }
 
 
     @Override
