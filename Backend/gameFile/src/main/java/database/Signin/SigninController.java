@@ -35,13 +35,19 @@ public class SigninController {
 
 
             SigninSocket.sendMessage(foundUser.getUserEmail(), "User signed in");
-
-            Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(foundUser);
+            if(signinRepository.findTopByUserOrderByLastSignInTimestampDesc(foundUser) != null) {
+                Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(foundUser);
 
                 Signin newSignin = new Signin(foundUser);
                 newSignin.setSignInCount(existingSignin.getSignInCount());
                 newSignin.updateSignInInfo();
                 signinRepository.save(newSignin);
+            }else{
+                Signin newSignIn = new Signin(foundUser);
+                newSignIn.updateSignInInfo();
+                signinRepository.save(newSignIn);
+
+            }
 
             return success;
         } else {
