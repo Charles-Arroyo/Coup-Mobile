@@ -1,5 +1,6 @@
 package database.Game;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import database.Users.User;
 
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ public class Game {
         currentPlayer.setTurn(true);
         currentPlayer.setPlayerState("turn");
 
-
         deck = new Deck(); // Create a Deck Object
         deck.initializeDeck(); //Initialize a deck of 15 Cards. [Duke,Duke,Duke,Captain,Captain...]
         deck.shuffle(); //Shuffle/randomize Array List of Cards
@@ -57,6 +57,18 @@ public class Game {
         this.lastCharacterMove = lastCharacterMove;
     }
 
+    public String associate(String move){
+        if(move.equals("Tax") ){
+            return "Duke";
+        }else if(move.equals("Steal")){
+            return "Captain";
+        }else if(move.equals("Assassinate")){
+            return "Assassin";
+        }else{
+            return "Nah";
+        }
+    }
+
     public void getPlayers() {
         for (Player player : players) {
             System.out.println(player.toString());
@@ -69,11 +81,17 @@ public class Game {
 
     public void nextTurn() {
         currentPlayer.setTurn(false); // Set their turn to false
-        currentPlayer.setPlayerState("wait");
         int CurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber) % players.size(); // Find next user
         currentPlayer = players.get(CurrentPlayerIndex); // Assign player to this player
         currentPlayer.setPlayerState("turn");
         players.get(CurrentPlayerIndex).setTurn(true); // Set turn to true
+
+        for(Player player : getPlayerArrayList()){
+            if(!player.getUserEmail().equals(currentPlayer.getUserEmail())){
+                player.setPlayerState("wait");
+            }
+        }
+
         System.out.println("The next player is: " + currentPlayer.toString()); // Print Player
 
     }
@@ -95,6 +113,11 @@ public class Game {
         return deck.toString();
     }
 
+    @JsonIgnore
+    public Deck getDeckDeck() {
+        return this.deck;
+    }
+
     public void setDeck(Deck deck) {
         this.deck = deck;
     }
@@ -111,6 +134,8 @@ public class Game {
     public void turn(Player player) {
 
     }
+
+
 
     //    @Override
 //    public String toString() {
