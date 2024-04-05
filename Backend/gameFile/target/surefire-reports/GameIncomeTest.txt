@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: GameIncomeTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 s - in GameIncomeTest
-=======
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s - in GameIncomeTest
->>>>>>> gameTesting2
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s - in GameIncomeTest
