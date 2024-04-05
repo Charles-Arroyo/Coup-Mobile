@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements WebSocketListener {
 
+    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
     private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-    // success
+
 
 
     @Override
@@ -80,6 +81,9 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                             mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
                             Const.setCurrentEmail(emailId);
+                            String serverUrl = ACTIVE_URL + emailId;
+                            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+
                         } else {
                             // Failed login
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
