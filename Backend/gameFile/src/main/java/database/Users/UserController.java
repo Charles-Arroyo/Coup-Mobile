@@ -5,10 +5,13 @@ import database.Friends.FriendRepository;
 
 import database.Chat.MessageRepository;
 import database.Lobby.LobbyRepository;
+import database.Ranking.Ranking;
+import database.Ranking.RankingRepository;
 import database.Signin.Signin;
 import database.Signin.SigninRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
+import database.Ranking.RankingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +54,9 @@ public class UserController {
 
     @Autowired
     private StatRepository statRepository;
+
+    @Autowired
+    private RankingRepository rankingRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -113,6 +119,7 @@ public class UserController {
             user.setStat(newStat); // Assuming setUser correctly sets up the relationship
             // Initialize other newUser properties...
             userRepository.save(user);
+
             return success;
         } else { //Null
             return failure; //Return a Failure

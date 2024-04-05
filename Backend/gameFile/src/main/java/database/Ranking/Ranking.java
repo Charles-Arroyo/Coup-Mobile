@@ -16,12 +16,19 @@ public class Ranking {
 
     private String name;
 
+    private int points;
+
+
     @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
     @OrderBy("points DESC")
+//    @Transient
     private List<User> users = new ArrayList<>();
 
-    public Ranking(String name) {
+
+
+    public Ranking(String name, int points) {
         this.name = name;
+        this.points = points;
     }
 
     public Ranking() {
@@ -29,29 +36,35 @@ public class Ranking {
 
     // Getters and setters for id and name
 
-
-
     public void addUser(User user) {
-        if (!users.contains(user)) {
-            users.add(user);
-            user.setRanking(this);
-            users.sort(Comparator.comparingInt(this::calculateUserPoints).reversed());
-        }
+        users.removeIf(u -> u.getId() == user.getId()); // Ensure no duplicates
+        users.add(user);
+        user.setRanking(this); // Assuming User has a setRanking method for the bidirectional relationship
     }
 
-    private int calculateUserPoints(User user) {
-        Stat userStat = user.getStat();
-        if (userStat != null) {
-            return (userStat.getGameWon() * 10) - (userStat.getGameLost() * 2);
-        }
-        return 0;
-    }
+
 
     public void removeUser(User user) {
         // Remove the user from this ranking
         users.remove(user);
         user.setRanking(null);
+        user.setPoints(0);
     }
+
+    public void setName(String name){this.name = name;}
+
+    public String getName(){
+        return name;
+    }
+
+    public void setPoints(int points) {
+        this.points = (points != 0) ? points : 0;
+    }
+
+    public int getPoints(){
+        return points;
+    }
+
     public List<User> getUsers() {
         return users;
     }
