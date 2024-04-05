@@ -75,11 +75,10 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     @Override
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-            // Directly display the message as all messages in this activity are part of the conversation
-            int colonIndex = fullMessage.indexOf(":");
-            if (colonIndex != -1) {
-                String username = fullMessage.substring(0, colonIndex).trim();
-                String message = fullMessage.substring(colonIndex + 1).trim();
+            int i = fullMessage.indexOf(":");
+            if (i != -1) {
+                String username = fullMessage.substring(0, i).trim();
+                String message = fullMessage.substring(i + 1).trim();
 
                 addMessageToLayout(username, message);
             }

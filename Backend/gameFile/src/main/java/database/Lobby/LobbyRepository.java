@@ -6,4 +6,8 @@ import java.util.UUID;
 
 public interface LobbyRepository extends JpaRepository<Lobby, Long> {
     Lobby findById(int id);
+
+    void deleteById(int id);
+
+    boolean existsById(int id);
 }

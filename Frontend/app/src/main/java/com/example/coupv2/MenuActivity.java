@@ -289,7 +289,11 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
+<<<<<<< HEAD
             int colonIndex = fullMessage.indexOf(":");
+=======
+            int colonIndex = fullMessage.indexOf(":"); 
+>>>>>>> main
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
                 String message = fullMessage.substring(colonIndex + 1).trim();
@@ -362,9 +366,23 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         });
     }
 
+<<<<<<< HEAD
     /**
      * Displays a bottom dialog sheet to display the rules of the following actions
      */
+=======
+    private void showUserPopup(String username) {
+        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
+
+        // Setup popup to load the main menu
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(username);
+        builder.setMessage("More info about " + username);
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+>>>>>>> main
 
     private void showRules() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -423,11 +441,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         builder.setView(dialogLayout);
         AlertDialog dialog = builder.create();
 
-        // When the dialog's main layout is clicked, dismiss the dialog
-        dialogLayout.setOnClickListener(v -> dialog.dismiss());
+         dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
-        // Make sure the dialog's window background is transparent
-        if (dialog.getWindow() != null) {
+         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 

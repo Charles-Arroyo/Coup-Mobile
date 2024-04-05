@@ -1,9 +1,6 @@
 
 package com.example.coupv2;
 
-import static utils.Const.AdminEmail;
-import static utils.Const.AdminPassword;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -24,6 +21,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements WebSocketListener {
 
+    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private Button loginButton;
@@ -31,7 +29,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
     private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
-    // success
+
 
 
     @Override
@@ -47,14 +45,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         loginButton.setOnClickListener(v -> {
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (username.equals(AdminEmail) && password.equals(AdminPassword)){
-                // Successful login
-                Intent mainIntent = new Intent(LoginActivity.this, AdminActivity.class);
-                startActivity(mainIntent);
-                Const.setCurrentEmail(username);
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
-            }else if (!username.isEmpty() && !password.isEmpty()) {
+            if (!username.isEmpty() && !password.isEmpty()) {
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
@@ -76,8 +67,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
             e.printStackTrace();
         }
 
-
-
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL_JSON_OBJECT, jsonRequest,
                 response -> {
@@ -92,6 +81,9 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                             mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
                             Const.setCurrentEmail(emailId);
+                            String serverUrl = ACTIVE_URL + emailId;
+                            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+
                         } else {
                             // Failed login
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
