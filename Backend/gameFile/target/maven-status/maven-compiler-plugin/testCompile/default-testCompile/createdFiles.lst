@@ -1,11 +1,6 @@
 GameTaxTest.class
-<<<<<<< HEAD
-GameCoupTest.class
-GameTurnTest.class
-=======
 GameTurnTest.class
 GameCoupTest.class
->>>>>>> gameTesting2
 GameStealTest.class
 GameAssassinateTest.class
 GameIncomeTest.class

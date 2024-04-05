@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: GameCoupTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s - in GameCoupTest
-=======
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in GameCoupTest
->>>>>>> gameTesting2
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s - in GameCoupTest

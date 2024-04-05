@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_2_24,_11_08 AM_[Changes]" date="1712074080948" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_24,_11_08 AM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/2/24, 11:08 AM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/database/Lobby/Lobby.class" />
+    <option name="AFTER_PATH" value="target/classes/database/Lobby/Lobby.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_24,_11_08 AM_[Changes]/Lobby.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/database/Users/User.class" />
+    <option name="AFTER_PATH" value="target/classes/database/Users/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_2_24,_11_08 AM_[Changes]/User.class" />
+  </binary>
+</changelist>

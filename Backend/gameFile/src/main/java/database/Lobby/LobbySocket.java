@@ -167,15 +167,39 @@ public class LobbySocket {
             }
         }
 
-//        if(p.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){ // next turn, but only once for current player
-//            game.nextTurn();
+//        Player p = game.getPlayer(email); //Find player by their email
+//        if(state.equals("ready")){  //If the player message says ready to listen, give them the game
+//            broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
+//        }else{
+//            p.setPlayerState(state); // Set Player State for Each player
+//            for(Player player : game.getPlayerArrayList()) { // Broadcast to each user the game state.
+//                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+//            }
 //
+//            for(Player player : game.getPlayerArrayList()){ //loop through the list to check for bluffs
+//                if(player.getPlayerState().equals("Bluff")){ //If any player in the list calls bluff, do bluffing action
+//                    game.getCurrentPlayer().revealCard(game.getCurrentPlayer().getCurrentMove(),)
+//                }else if(player.getPlayerState().equals("Block")){ //If any player in the list calls block, do bluffing action
+//
+//                }
+//            }
+////            p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
+////            game.nextTurn();
+//            for(Player player : game.getPlayerArrayList()) {
+//                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+//            }
 //        }
+//
 
-        //broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); //Broadcast once
+        }
 
 
-    }
+
+
+
+
+
+
 
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
