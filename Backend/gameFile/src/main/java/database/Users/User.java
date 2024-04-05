@@ -36,15 +36,13 @@ public class User {
 
     @Column(unique = true)
     private String userEmail;
-    private boolean ifActive;
+//    private boolean ifActive;
 
     private String password;
 
     private boolean active;
 
     private int points;
-
-
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
@@ -79,7 +77,7 @@ public class User {
     public User(String name, String userEmail,int id ,String password ,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
-        this.ifActive = true;
+//        this.ifActive = true;
         this.id = id;
         this.password = password;
         points = 0;
@@ -119,13 +117,6 @@ public class User {
         this.userEmail = userEmail;
     }
 
-    public boolean getIsActive(){
-        return ifActive;
-    }
-
-    public void setIfActive(boolean ifActive){
-        this.ifActive = ifActive;
-    }
 
 
     @Override
@@ -134,7 +125,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", ifActive=" + ifActive +
+//                ", ifActive=" + ifActive +
                 '}';
     }
 
@@ -171,6 +162,11 @@ public class User {
     }
     public void setStat(Stat stat) {
         this.stat = stat;
+        if((stat.getGameWon() * 10) - (stat.getGameLost() * 2) < 0){
+            points = 0;
+        }else {
+            points = (stat.getGameWon() * 10) - (stat.getGameLost() * 2);
+        }
         stat.setUser(this); // Ensure the bidirectional link is established
     }
 
@@ -211,6 +207,15 @@ public class User {
 
     public void setRanking(Ranking ranking) {
         this.ranking = ranking;
+    }
+
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
 
