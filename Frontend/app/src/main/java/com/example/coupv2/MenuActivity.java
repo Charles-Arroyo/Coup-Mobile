@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class MenuActivity extends AppCompatActivity implements WebSocketListener {
 
 
-    private static final String URL_RANKINGS = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/rankings";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
 
     //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
 //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
@@ -49,6 +49,17 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     private ArrayList<String> messagesList = new ArrayList<>();
     private String user = Const.getCurrentEmail();
     private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton, closeBtn;
+
+
+    /**
+     *
+     * Our main file in which our Main Menu will be displayed
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +127,11 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         leaderboardButton.setOnClickListener(v -> showRankingPopup());
 
     }
+
+    /**
+     * Popup function to show our ranking layout with all its features
+     */
+
     private void showRankingPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.popup_ranking, null);
@@ -134,6 +150,11 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         dialog.show();
     }
 
+    /**
+     * parsing the list of people inside the rankingLayout view
+     *
+     * @param rankingLayout view where the list of players are
+     */
 
     private void fetchRankings(final LinearLayout rankingLayout) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_RANKINGS, null,
@@ -160,6 +181,16 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     }
 
 
+    /**
+     *  Adds users to the ranking, similar to AddMessageLayout
+     *
+     *  Also if user ranked top 3, users background tint will change ba
+     *
+     * @param rankingLayout the area of layout which display the list of players
+     * @param username add username to know ranking
+     * @param score sees score to track
+     * @param rank placement in the leaderboard
+     */
 
     private void addUserToRanking(LinearLayout rankingLayout, String username, int score, int rank) {
         View rankingItemView = getLayoutInflater().inflate(R.layout.rank_item, rankingLayout, false);
@@ -188,14 +219,17 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         rankingLayout.addView(rankingItemView);
     }
 
-
+    /**
+     * When pressing the users button, display the user stats
+     *
+     * @param username requires the
+     */
 
     private void showUserPopup(String username) {
         // Create and display a popup with user information, or perform any other action
         Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
 
-        // Here you could launch a dialog or a bottom sheet dialog to show user details
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(username);
         builder.setMessage("More info about " + username);
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
@@ -203,6 +237,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         dialog.show();
     }
 
+    /**
+     * Sets a bottom dialog for a global messaging activity which connects from everyone in the game
+     */
 
     private void showGlbChat() {
         bottomSheetDialog = new BottomSheetDialog(this);
@@ -234,15 +271,24 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     }
 
+    /**
+     * Basic call method to help connect to the server
+     */
+
     private void connectToWebSocket() {
         String serverUrl = BASE_URL + user;
         WebSocketManager.getInstance().connectWebSocket(serverUrl);
         WebSocketManager.getInstance().setWebSocketListener(this);
     }
 
+    /**
+     * Used to write the message, with code to help parse the username from message
+     *
+     * @param fullMessage The received WebSocket message.
+     */
+
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-            // Assuming the format is "username: message"
             int colonIndex = fullMessage.indexOf(":");
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
@@ -250,11 +296,17 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
                 addMessageToLayout(username, message);
             } else {
-                // This else block can handle messages that do not fit the "username: message" format
-                addMessageToLayout("Server", fullMessage);
+                 addMessageToLayout("Server", fullMessage);
             }
         });
     }
+
+    /**
+     * Method to help dynamically add messages in the scrollview
+     *
+     * @param username adds username as a button
+     * @param message websocket receives messages
+     */
 
     private void addMessageToLayout(String username, String message) {
         View messageView = getLayoutInflater().inflate(R.layout.message_item, layoutMessages, false);
@@ -271,17 +323,38 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
+    /**
+     * connects websocket
+     *
+     * @param handshakedata Information about the server handshake.
+     */
+
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
     }
 
+
+    /**
+     * Sends a message if server was closed
+     *
+     * @param code   The status code indicating the reason for closure.
+     * @param reason A human-readable explanation for the closure.
+     * @param remote Indicates whether the closure was initiated by the remote endpoint.
+     */
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         runOnUiThread(() -> {
-            messagesList.add("Connection closed by " + (remote ? "server" : "local") + ". Reason: " + reason);
+            String source = remote ? "server" : "local";
+            String message = "Connection closed by " + source + ". Reason: " + reason;
+            messagesList.add(message);
         });
     }
 
+    /**
+     * Checks and sends user message of error
+     *
+     * @param ex The exception that describes the error.
+     */
     @Override
     public void onWebSocketError(Exception ex) {
         runOnUiThread(() -> {
@@ -289,31 +362,28 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         });
     }
 
-
+    /**
+     * Displays a bottom dialog sheet to display the rules of the following actions
+     */
 
     private void showRules() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view = getLayoutInflater().inflate(R.layout.activity_rules, null);
         bottomSheetDialog.setContentView(view);
 
-        // Set up the click listener for the assassin ImageButton
+        // Set up for the assassin
         ImageButton assassinButton = view.findViewById(R.id.assassin);
-        assassinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImagePopup(R.drawable.assassin);
-            }
-        });
+        assassinButton.setOnClickListener(v -> showImagePopup(R.drawable.assassin));
 
-        // Set up the click listener for the captain ImageButton
+        // Set up for the captain
         ImageButton captainButton = view.findViewById(R.id.captain);
         captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain));
 
-        // Set up the click listener for the duke ImageButton
+        // Set up for the duke
         ImageButton dukeButton = view.findViewById(R.id.duke);
         dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke));
 
-//        // Set up the click listener for the ambassador ImageButton
+//        // Set up for the ambassador
 //        ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
 //        ambassadorButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -322,7 +392,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 //            }
 //        });
 //
-//        // Set up the click listener for the contra ImageButton
+//        // Set up for the contra
 //        ImageButton contraButton = view.findViewById(R.id.contra);
 //        contraButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -337,6 +407,12 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         bottomSheetDialog.show();
     }
+
+    /**
+     * shows the image in a dismissible popup
+     *
+     * @param imageResource resource image in our directory.
+     */
 
     private void showImagePopup(int imageResource) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
