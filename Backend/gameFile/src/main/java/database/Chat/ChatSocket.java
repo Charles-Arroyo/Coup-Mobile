@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import database.Friends.FriendRepository;
+import database.Users.User;
 import database.Users.UserRepository;
 import database.Websocketconfig.WebsocketConfig;
 import jakarta.websocket.OnClose;
@@ -29,6 +30,11 @@ public class ChatSocket {
   // method
 	private static MessageRepository msgRepo;
 
+	private static UserRepository userRepository;
+
+	private static FriendRepository friendRepository;
+
+
 	/*
    * Grabs the MessageRepository singleton from the Spring Application
    * Context.  This works because of the @Controller annotation on this
@@ -39,6 +45,15 @@ public class ChatSocket {
 	@Autowired
 	public void setMessageRepository(MessageRepository repo) {
 		msgRepo = repo;  // we are setting the static variable
+	}
+	@Autowired
+	public void setUserRepository(UserRepository repo) {
+		userRepository = repo;  // we are setting the static variable
+	}
+
+	@Autowired
+	public void setUserRepository(FriendRepository repo) {
+		friendRepository = repo;  // we are setting the static variable
 	}
 
 	// Store all socket session and their corresponding username.
@@ -51,7 +66,6 @@ public class ChatSocket {
 	public void onOpen(Session session, @PathParam("username") String username)
       throws IOException {
 
-		UserRepository userRepository = WebsocketConfig.getUserRepository();
 		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
 			logger.info("Entered into Open");
 
@@ -60,7 +74,7 @@ public class ChatSocket {
 			usernameSessionMap.put(username, session);
 
 			//Send chat history to the newly connected user
-			sendMessageToPArticularUser(username, getChatHistory());
+//			sendMessageToPArticularUser(username, getChatHistory());
 
 			// broadcast that new user joined
 			String message = "User:" + username + " has Joined the Chat";
@@ -76,45 +90,21 @@ public class ChatSocket {
 		}
 	}
 
-//	@OnMessage
-//	public void messageAnyone(Session session, String message) throws IOException {
-//
-//		// Handle new messages
-//		logger.info("Entered into Message: Got Message:" + message);
-//		String username = sessionUsernameMap.get(session);
-//
-//		// Direct message to a user using the format "@username <message>"
-//		if (message.startsWith("@")) {
-//			String destUsername = message.split(" ")[0].substring(1);
-//
-//			// send the message to the sender and receiver
-//			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-//			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
-//
-//		}
-//		else { // broadcast
-//			broadcast(username + ": " + message);
-//		}
-//
-//		// Saving chat history to repository
-//		msgRepo.save(new Message(username, message));
-//	}
-
 
 	@OnMessage
 	public void messageFriends(Session session, String message) throws IOException {
-		FriendRepository friendRepository = WebsocketConfig.getFriendRepository();
-		
 		// Handle new messages
 		logger.info("Entered into Message: Got Message:" + message);
 		String username = sessionUsernameMap.get(session);
+		User sendingUser = userRepository.findByUserEmail(username);
 
     // Direct message to a user using the format "@username <message>"
 		if (message.startsWith("@")) {
 			String destUsername = message.split(" ")[0].substring(1);
+			User userDest = userRepository.findByUserEmail(destUsername);
 
 			// Check if username and destUsername are friends
-			if (friendRepository.friendshipExistsByUserEmails(username, destUsername) || friendRepository.friendshipExistsByUserEmails(destUsername, username)) {
+			if (friendRepository.existsByUser1AndUser2(sendingUser, userDest) || friendRepository.existsByUser1AndUser2(userDest, sendingUser)) {
 				// send the message to the sender and receiver if they are friends
 				sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
 				sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
@@ -138,6 +128,7 @@ public class ChatSocket {
 
     // remove the user connection information
 		String username = sessionUsernameMap.get(session);
+
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
 

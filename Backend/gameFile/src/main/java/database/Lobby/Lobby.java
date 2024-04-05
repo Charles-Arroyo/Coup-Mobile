@@ -1,8 +1,11 @@
 package database.Lobby;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import database.Users.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "lobbies")
@@ -10,80 +13,112 @@ public class Lobby {
     @Id
     @GeneratedValue
     private int id;
-    @Column(nullable = true)
-    private String user1;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "lobby_id") // Adjust the column name as needed
+    private List<User> userList;  //List of users, specifically user emails.
 
-    @Column(nullable = true)
-    private String user2;
-
-    @Column(nullable = true)
-    private String user3;
-
-    @Column(nullable = true)
-    private String user4;
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    @JsonBackReference
+//    private User user;
 
     @Column
-    private boolean isPrivate;
+    private boolean isPrivate; //Private lobby (Implement Later)
 
 
-    public Lobby(String user1, String user2, String user3, String user4, boolean isPrivate) {
-        this.user1 = user1;
-        this.user2 = user2;
-        this.user3 = user3;
-        this.user4 = user4;
-        this.isPrivate = isPrivate;
+    @Column
+    private boolean isFull;
+
+    public Lobby() {
+        userList = new ArrayList<>();
+        isFull = false;
     }
 
-    public Lobby(){}
-
-    public String getUser1() {
-        return user1;
-    }
-
-    public void setUser1(String user1) {
-        this.user1 = user1;
-    }
-
-    public String getUser2() {
-        return user2;
-    }
-
-    public void setUser2(String user2) {
-        this.user2 = user2;
-    }
-
-    public String getUser3() {
-        return user3;
-    }
-
-    public void setUser3(String user3) {
-        this.user3 = user3;
-    }
-
-    public String getUser4() {
-        return user4;
-    }
-
-    public void setUser4(String user4) {
-        this.user4 = user4;
-    }
-
-    public Boolean addUser(String userName){
-        if(user1 == null){
-            setUser1(userName);
-            return true;
-        } else if (user2 == null) {
-            setUser2(userName);
-            return true;
-        }else if (user3 == null) {
-            setUser3(userName);
-            return true;
-        }else if (user4 == null) {
-            setUser4(userName);
-            return true;
+    @Transactional
+    public void addUser(User user) {
+        if(userList.size() < 4){
+            userList.add(user);
         }else{
-            return false;
+            setFull(true);
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lobby{");
+        sb.append("id=").append(id);
+        sb.append(", isPrivate=").append(isPrivate);
+        sb.append(", isFull=").append(isFull);
+        sb.append(", users=[");
+        if (userList != null && !userList.isEmpty()) {
+            for (User user : userList) {
+                sb.append(user.toString()); // Assuming User class has a sensible toString method.
+                sb.append(", "); // To separate users
+            }
+            sb.setLength(sb.length() - 2); // Remove the last comma and space
+        }
+        sb.append("]");
+        sb.append('}');
+        return sb.toString();
+    }
+
+
+
+    public String getUsers() {
+        if (userList != null && !userList.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (User user : userList) {
+                sb.append(user.getUserEmail()); // Append user email directly
+                sb.append(", "); // To separate emails
+            }
+            sb.setLength(sb.length() - 2); // Remove the last comma and space
+            return sb.toString();
+        } else {
+            return "No users in lobby";
+        }
+    }
+
+    public void removeUser(User user){
+        if (userList.contains(user)) {
+            userList.remove(user);
+        } else {
+            System.out.println("User not found in the lobby.");
+        }
+    }
+
+    public List<User> getUserArraylist() {
+        return userList;
+    }
+
+
+    public void sortUsersByEmail() {
+        // Sort userArrayList by email
+        userList.sort(Comparator.comparing(User::getUserEmail));
+    }
+
+
+    public String findUserByEmail(String email) {
+        for (User user : userList) {
+            if (user.getUserEmail().equals(email)) {
+                return user.getUserEmail(); // User found
+            }
+        }
+        return null; // User not found
+    }
+
+    public int getId(){
+        return id;
+    }
+
+
+    public User finUserbyEmail(String email) {
+        for (User user : userList) {
+            if (user.getUserEmail().equals(email)) {
+                return user; // User found
+            }
+        }
+        return null; // User not found
     }
 
     public boolean isPrivate() {
@@ -94,6 +129,23 @@ public class Lobby {
         isPrivate = aPrivate;
     }
 
+    public boolean isFull() {
+        if(getUserArraylist().size() == 4){
+            isFull = true;
+            return isFull;
+        }else{
+            isFull = false;
+            return isFull;
+        }
+    }
+
+    public void setFull(boolean full) {
+        isFull = full;
+    }
+
+    public boolean isEmpty(){
+        return userList.isEmpty();
+    }
 
 
 

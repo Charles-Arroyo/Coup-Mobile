@@ -1,23 +1,29 @@
 package database.Users;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import database.Lobby.Lobby;
+import database.Ranking.Ranking;
 import jakarta.persistence.*;
-import database.Friends.Friend;
-import database.Setting.Setting;
-import database.game.Game;
+import database.Stats.Stat;
+import jakarta.persistence.*;
+import database.FriendRequest.FriendRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import java.util.Objects;
 
 /**
  * 
  * @author Charles Arroyo
+ * @author Bo Oo
  * 
  */ 
 
 @Entity
 public class User {
-
      /*
      * The annotation @ID marks the field below as the primary key for the table created by springboot
      * The @GeneratedValue generates a value if not already present, The strategy in this case is to start from 1 and increment for each table
@@ -28,15 +34,17 @@ public class User {
 
     private String name;
 
+    @Column(unique = true)
     private String userEmail;
     private boolean ifActive;
 
     private String password;
 
-    private boolean friendRequest = false;
+    private boolean active;
+
+    private int points;
 
 
-    private String friendWannaBe;
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
@@ -45,25 +53,36 @@ public class User {
      * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
      */
 
-    @OneToOne
-    @JoinColumn(name = "setting_id")
-    @JsonManagedReference
-    private Setting setting;
+    @OneToMany(mappedBy = "requestedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> receivedFriendRequests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "requestingUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FriendRequest> sentFriendRequests = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "stat_id")
     @JsonManagedReference
-    private Game game;
+    private Stat stat;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lobby_id")
+    private Lobby lobby;
+
+
+    @ManyToOne
+    @JoinColumn(name = "ranking_id")
+    private Ranking ranking;
 
 
 
-    public User(String name, String userEmail, int id,String password, int UniqueID) {
+
+    public User(String name, String userEmail,int id ,String password ,int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
         this.ifActive = true;
         this.id = id;
         this.password = password;
-
+        points = 0;
     }
 
     public User() {
@@ -108,42 +127,92 @@ public class User {
         this.ifActive = ifActive;
     }
 
-    public Setting getSetting() {
-        return setting;
-    }
 
-    public void setSetting(Setting setting) {
-        this.setting = setting;
-        setting.setUser(this); // Ensure the bidirectional link is established
-    }
-
-    public Game getGame(){
-        return game;
-    }
-    public void setGaming(Game game) {
-        this.game = game;
-        game.setUser(this); // Ensure the bidirectional link is established
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", ifActive=" + ifActive +
+                '}';
     }
 
 
-    public void getFriendRequest(boolean friendRequest){
-        if(friendRequest != false)
-            this.friendRequest = friendRequest;
+    public void sendFriendRequest(User targetUser) {
+        FriendRequest friendRequest = new FriendRequest();
+        friendRequest.setRequestingUser(this);
+        friendRequest.setRequestedUser(targetUser);
+        sentFriendRequests.add(friendRequest);
     }
 
-    public void setFriendRequestName(String friendRequestName){
-        if(friendRequestName != null){
-            this.friendWannaBe = friendRequestName;
-        }
+    public void removeFriendRequest(FriendRequest friendRequest) {
+        sentFriendRequests.remove(friendRequest);
+        receivedFriendRequests.remove(friendRequest);
     }
 
-    public String friendRequestPersonName(){
-        return friendWannaBe;
+    public List<FriendRequest> getReceivedFriendRequests() {
+        return receivedFriendRequests;
     }
 
-    public boolean IsFriendRequest(){
-        return friendRequest;
+    public List<FriendRequest> getSentFriendRequests() {
+        return sentFriendRequests;
     }
+
+
+    public List<String> getFriendRequestEmails() {
+        return receivedFriendRequests.stream()
+                .map(fr -> fr.getRequestingUser().getUserEmail())
+                .collect(Collectors.toList());
+    }
+
+    public Stat getStat(){
+        return stat;
+    }
+    public void setStat(Stat stat) {
+        this.stat = stat;
+        stat.setUser(this); // Ensure the bidirectional link is established
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User user = (User) obj;
+        return Objects.equals(userEmail, user.userEmail); // Assuming userEmail is a unique identifier.
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userEmail);
+    }
+
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    @Transactional
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Ranking getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
+
 
 
 }
