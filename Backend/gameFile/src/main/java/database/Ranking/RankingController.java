@@ -116,7 +116,16 @@ public class RankingController {
 
         // Clear current users and re-add to manage ranking consistently
         ranking.getUsers().clear();
-        allUsers.forEach(ranking::addUser);
+
+        // Filter out users with 0 points and either 0 wins or 0 losses
+        List<User> filteredUsers = allUsers.stream()
+                .filter(user -> {
+                    Stat userStat = user.getStat();
+                    return user.getPoints() != 0 || (userStat != null && userStat.getGameWon() != 0 && userStat.getGameLost() != 0);
+                })
+                .collect(Collectors.toList());
+
+        filteredUsers.forEach(ranking::addUser);
 
         // Save the updated ranking
         return rankingRepository.save(ranking);
@@ -125,7 +134,7 @@ public class RankingController {
     private int calculateUserPoints(User user) {
         Stat userStat = user.getStat();
         if (userStat != null) {
-            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2),0);
+            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2), 0);
         }
         return 0;
     }
