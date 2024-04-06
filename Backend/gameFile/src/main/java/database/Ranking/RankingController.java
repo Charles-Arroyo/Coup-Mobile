@@ -21,55 +21,6 @@ public class RankingController {
     @Autowired
     private RankingRepository rankingRepository;
 
-//    @GetMapping(path = "/getListUserRanking")
-//    public Map<String, Object> rankingList() {
-//        // Retrieve the ranking with the highest ID (assuming there's only one ranking)
-//        Ranking ranking;
-////        if (rankingRepository.count() == 0) {
-////            // If no ranking is found, create a new ranking
-////            ranking = new Ranking();
-////            ranking.setPoints(0);
-////            rankingRepository.save(ranking);
-////        } else {
-//            ranking = rankingRepository.findTopByOrderByIdDesc()
-//                    .orElseThrow(() -> new RuntimeException("No ranking found"));
-////        }
-//
-//        // Retrieve all users from the UserRepository
-//        List<User> allUsers = userRepository.findAll();
-//
-//        // Add all users to the ranking
-//        allUsers.forEach(ranking::addUser);
-//
-//        // Set points for each user in the ranking
-//        allUsers.forEach(user -> ranking.setPoints(user.getPoints()));
-//
-//        // Set name for each user in the ranking
-//        allUsers.forEach(user -> ranking.setName(user.getName()));
-//
-//        // Save the updated ranking
-//        rankingRepository.save(ranking);
-//
-//        // Retrieve the updated list of users in the ranking
-//        List<User> rankedUsers = ranking.getUsers();
-//
-//        // Create a list of maps to store user's rank, username, and score
-//        List<Map<String, Object>> rankings = new ArrayList<>();
-//        int rank = 1;
-//        for (User user : rankedUsers) {
-//            Map<String, Object> userRanking = new HashMap<>();
-//            userRanking.put("rank", rank++);
-//            userRanking.put("username", user.getName());
-//            userRanking.put("score", user.getPoints());
-//            rankings.add(userRanking);
-//        }
-//
-//        // Create a map to hold the rankings data
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("rankings", rankings);
-//
-//        return response;
-//    }
 
     @GetMapping(path = "/getListUserRanking")
     public ResponseEntity<Map<String, Object>> getRankingList() {
@@ -112,17 +63,20 @@ public class RankingController {
         List<User> allUsers = userRepository.findAll();
 
         // Update user points before adding them to the ranking
-        allUsers.forEach(user -> {
-            if (user.getStat() != null) {
-                user.setPoints(calculateUserPoints(user));
-            }
-        });
+        allUsers.forEach(user -> user.setPoints(calculateUserPoints(user)));
 
         // Clear current users and re-add to manage ranking consistently
-        if (ranking.getUsers() != null) {
-            ranking.getUsers().clear();
-            allUsers.stream().filter(Objects::nonNull).forEach(ranking::addUser);
-        }
+        ranking.getUsers().clear();
+
+        // Filter out users with 0 points and either 0 wins or 0 losses
+        List<User> filteredUsers = allUsers.stream()
+                .filter(user -> {
+                    Stat userStat = user.getStat();
+                    return user.getPoints() != 0 || (userStat != null && userStat.getGameWon() != 0 && userStat.getGameLost() != 0);
+                })
+                .collect(Collectors.toList());
+
+        filteredUsers.forEach(ranking::addUser);
 
         // Save the updated ranking
         return rankingRepository.save(ranking);
@@ -131,9 +85,7 @@ public class RankingController {
     private int calculateUserPoints(User user) {
         Stat userStat = user.getStat();
         if (userStat != null) {
-            int gameWon = userStat.getGameWon() != null ? userStat.getGameWon() : 0;
-            int gameLost = userStat.getGameLost() != null ? userStat.getGameLost() : 0;
-            return Math.max((gameWon * 10) - (gameLost * 2), 0);
+            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2), 0);
         }
         return 0;
     }
