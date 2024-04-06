@@ -48,13 +48,11 @@ public class LobbySocket {
         lobbyRepository = repo;  // we are setting the static variable
     }
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
-    private static Map<Session,User> sessionLobbyMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
+    private static Map<Session, Lobby> sessionLobbyMap = new Hashtable<>(); // Associate a Sessions with Lobbys to find lobbies and to terminate lobbies
     private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
     private static Map < User, Session > userSessionMap = new Hashtable < > ();
-
-
 
 
     @OnOpen
@@ -379,6 +377,9 @@ public class LobbySocket {
             }
         });
     }
+
+
+
 
 
 }
