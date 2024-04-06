@@ -78,10 +78,17 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
                 String username = fullMessage.substring(0, i).trim();
                 String message = fullMessage.substring(i + 1).trim();
 
+                // Log the username and message using Log.d (debug level)
+                Log.d("WebSocketMessage", "User: " + username + " Message: " + message);
+
                 addMessageToLayout(username, message);
+            } else {
+                // Log a warning if the message format is not as expected
+                Log.w("WebSocketMessage", "Message does not contain a colon (:) separator: " + fullMessage);
             }
         });
     }
+
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
 
