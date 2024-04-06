@@ -112,11 +112,17 @@ public class RankingController {
         List<User> allUsers = userRepository.findAll();
 
         // Update user points before adding them to the ranking
-        allUsers.forEach(user -> user.setPoints(calculateUserPoints(user)));
+        allUsers.forEach(user -> {
+            if (user.getStat() != null) {
+                user.setPoints(calculateUserPoints(user));
+            }
+        });
 
         // Clear current users and re-add to manage ranking consistently
-        ranking.getUsers().clear();
-        allUsers.forEach(ranking::addUser);
+        if (ranking.getUsers() != null) {
+            ranking.getUsers().clear();
+            allUsers.stream().filter(Objects::nonNull).forEach(ranking::addUser);
+        }
 
         // Save the updated ranking
         return rankingRepository.save(ranking);
@@ -125,10 +131,11 @@ public class RankingController {
     private int calculateUserPoints(User user) {
         Stat userStat = user.getStat();
         if (userStat != null) {
-            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2),0);
+            int gameWon = userStat.getGameWon() != null ? userStat.getGameWon() : 0;
+            int gameLost = userStat.getGameLost() != null ? userStat.getGameLost() : 0;
+            return Math.max((gameWon * 10) - (gameLost * 2), 0);
         }
         return 0;
     }
-
 
 }
