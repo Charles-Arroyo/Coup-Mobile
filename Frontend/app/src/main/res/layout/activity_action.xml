@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Coup"
+                android:text="Taxes"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Taxes"
+                android:text="Steal"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Bluff"
+                android:text="Exchange"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
         <FrameLayout
@@ -155,6 +155,50 @@
                 android:text="Assassin"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
+<!--        <FrameLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_rowWeight="1"-->
+<!--            android:layout_columnWeight="1">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/whiteshape7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/whiteshape_selector" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Steal"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium" />-->
+<!--        </FrameLayout>-->
+<!--        <FrameLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_rowWeight="1"-->
+<!--            android:layout_columnWeight="1">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/whiteshape8"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/whiteshape_selector" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Block"-->
+<!--                android:textAppearance="?android:attr/textAppearanceMedium" />-->
+<!--        </FrameLayout>-->
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -174,55 +218,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Exchanges"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1">
-
-            <ImageView
-                android:id="@+id/whiteshape8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape_selector" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Text Here"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1">
-
-            <ImageView
-                android:id="@+id/whiteshape9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/whiteshape_selector" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Text Here"
+                android:text="Coup"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </FrameLayout>
 
     </GridLayout>
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept Player Move"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0.75" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

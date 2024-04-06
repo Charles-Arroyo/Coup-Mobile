@@ -230,6 +230,7 @@
       <workItem from="1711866000794" duration="545000" />
       <workItem from="1711866792359" duration="4486000" />
       <workItem from="1711915937203" duration="6431000" />
+      <workItem from="1711915937203" duration="6431000" />
       <workItem from="1712295322140" duration="371000" />
       <workItem from="1712295710886" duration="44000" />
       <workItem from="1712295836699" duration="3403000" />
@@ -266,6 +267,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
           <line>17</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

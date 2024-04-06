@@ -2,6 +2,8 @@ package database.Lobby;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import database.Chat.MessageRepository;
@@ -84,6 +86,10 @@ public class LobbySocket {
                         broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
                     }
 
+                    for(User user1 : existingLobby.getUserArraylist()) {
+                        broadcastToSpecificUser(user1.getUserEmail(),"lobby is full");
+                    }
+
                     List<Player> players = new ArrayList<>(4); // Create an Array list of Players
 
                     game = new Game(players); //Pass in Deck and Array List
@@ -97,14 +103,17 @@ public class LobbySocket {
                      */
                 }
 
+                }
+                broadcastToSpecificUser(user.getUserEmail(),existingLobby.getUsers());
             }else{
                 for(User userList : existingLobby.getUserArraylist()) {
                     broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
                 }
             }
-
         }
     }
+
+
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         /** Switch statements could be good
@@ -219,6 +228,15 @@ public class LobbySocket {
             p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
             game.nextTurn();
         }
+        //if all players ready to listen then send their json object
+        if (game.AllPlayersReadyListen){
+            for(Player printGameState : game.getPlayerArrayList()) { //Itterate through Lobby
+                Player player = game.getPlayer(printGameState.getUserEmail()); // Find Player
+                if (player != null) {
+                    broadcastToSpecificUserJSON(printGameState.getUserEmail(), player); //broadcast to User the Their Player JSON Object
+                }
+            }
+        }
 
         if(!state.equals("ready")) {
             for (Player player : game.getPlayerArrayList()) {
@@ -234,7 +252,15 @@ public class LobbySocket {
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
         Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
         User user = userRepository.findByUserEmail(username); //Find UserName
-        lobby.removeUser(user); // Remove user from lobby
+        lobby.removeUser(user);
+        sessionUserMap.remove(session);
+        userSessionMap.remove(user);
+
+
+        logger.info(lobby.toString());
+        logger.info(lobby.toString());
+        logger.info(lobby.toString());
+
         lobbyRepository.save(lobby); // Save Lobby
         sessionUserMap.remove(session); // Remove Users Session
         userSessionMap.remove(user);
@@ -245,6 +271,7 @@ public class LobbySocket {
         if(lobby.isEmpty()){
 //          sessionLobbyMap.remove(session);
             lobbyRepository.delete(lobby);
+            lobbyRepository.save(lobby);
         }
         ////NEW CODE NEW CODE
     }

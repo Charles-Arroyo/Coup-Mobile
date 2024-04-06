@@ -9,6 +9,8 @@ public class Player {
     String cardTwo;
     int coins;
     Boolean turn;
+    //made public for testing
+    public Boolean readyToListen = false;
 
     String currentMove;
 
@@ -41,6 +43,8 @@ public class Player {
                 ", turnNumber=" + turnNumber +
                 '}';
     }
+
+
 
     /*__________________________Player Actions/Outcomes_______________________*/
 
@@ -261,7 +265,6 @@ public class Player {
     public void blockAssassinate(Player player){
         // TODO: Implement this functionality
     }
-
 
     /*______________________________End of Contessa________________________________*/
 

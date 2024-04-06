@@ -95,10 +95,15 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         msgButton = findViewById(R.id.msg_btn);
 
         // Play Button
-        playButton.setOnClickListener(v -> {
-            // Start the play activity
-            Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
-            startActivity(intent);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the looby activity
+                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+                //for going straight to PlayActivity
+//                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
+                startActivity(intent);
+            }
         });
         // Friends Button
         friendsButton.setOnClickListener(v -> {

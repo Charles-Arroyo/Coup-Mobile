@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
 
-import utils.Const;
+import com.example.coupv2.utils.Const;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
@@ -27,6 +27,7 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
         connectBtn = (Button) findViewById(R.id.button1);
         joinBtn = (Button) findViewById(R.id.button2);
 
+
         connectBtn.setOnClickListener(new View.OnClickListener() {
             //
             @Override
@@ -43,11 +44,7 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
             //
             @Override
             public void onClick(View v) {
-                String serverUrl = BASE_URL + Const.getCurrentEmail();
-                // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
-                Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                Intent intent = new Intent(LobbyActivity.this, AfterJoinLobbyActivity.class);
                 startActivity(intent);
             }
         });
