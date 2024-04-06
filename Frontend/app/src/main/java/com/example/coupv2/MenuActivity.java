@@ -40,8 +40,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         RANKINGS
 
         private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
-        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
-        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
 
         ------------------------------------
         GLOBAL CHAT FEATURE
@@ -51,9 +49,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         private String BASE_URL = "ws://10.29.182.205:8080/chat/";
 
      */
-
-
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
     private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
     private EditText msg;
