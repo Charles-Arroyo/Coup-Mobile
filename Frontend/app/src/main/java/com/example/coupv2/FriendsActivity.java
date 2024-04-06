@@ -110,7 +110,6 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         exitButton.setOnClickListener(v -> onBackPressed());
 
-        //Listeners
 
         addFriendButton.setOnClickListener(this::onAddFriendClick);
         deleteFriendButton.setOnClickListener(this::onDeleteFriendClick);

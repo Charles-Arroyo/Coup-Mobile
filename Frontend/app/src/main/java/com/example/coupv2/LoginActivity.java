@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
 
     /**
-     * On Create method for
+     * On Create method for Login Activity
      *
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
@@ -65,6 +65,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
             startActivity(intent);
         });
     }
+
+    /**
+     *  Gets login and sends a POST request to tell the server if they are in. Will tell them if they
+     *  failed or success.
+     *
+     * @param emailId use users email to login
+     * @param password use users password to login
+     */
 
     private void performLogin(String emailId, String password) {
         JSONObject jsonRequest = new JSONObject();
@@ -109,20 +117,46 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Websocket method to connect
+     *
+     * @param handshakedata Information about the server handshake.
+     */
+
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
 
     }
+
+    /**
+     * Websocket method to send messages to server
+     *
+     * @param message The received WebSocket message.
+     */
 
     @Override
     public void onWebSocketMessage(String message) {
 
     }
 
+    /**
+     * Websocket method to notify and close websocket
+     *
+     * @param code   The status code indicating the reason for closure.
+     * @param reason A human-readable explanation for the closure.
+     * @param remote Indicates whether the closure was initiated by the remote endpoint.
+     */
+
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
 
     }
+
+    /**
+     * Websocket method to tell if websocket has an error
+     *
+     * @param ex The exception that describes the error.
+     */
 
     @Override
     public void onWebSocketError(Exception ex) {
