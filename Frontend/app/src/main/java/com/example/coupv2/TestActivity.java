@@ -51,15 +51,15 @@ public class TestActivity extends AppCompatActivity {
         Player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("billy");
-                performLogin("billy");
+                Const.setCurrentEmail("roll");
+                performLogin("roll");
             }
         });
         Player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("cat");
-                performLogin("cat");
+                Const.setCurrentEmail("billy");
+                performLogin("billy");
             }
         });
         Player4.setOnClickListener(new View.OnClickListener() {

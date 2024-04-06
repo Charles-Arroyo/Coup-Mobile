@@ -9,7 +9,7 @@
         android:id="@+id/testBtn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="roll"
+        android:text="pizza"
         app:layout_constraintBottom_toTopOf="@+id/testBtn3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,17 +19,21 @@
         android:id="@+id/testBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cat"
+        android:layout_marginBottom="152dp"
+        android:text="roll"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/testBtn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
         android:text="billy"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 

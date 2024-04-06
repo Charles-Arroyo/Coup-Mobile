@@ -134,7 +134,7 @@ public class WebSocketManager {
          */
         @Override
         public void onMessage(String message) {
-            Log.d("WebSocket", "Received message: " + message);
+//            Log.d("WebSocket", "Received message: " + message);
             if (webSocketListener != null) {
                 webSocketListener.onWebSocketMessage(message);
             }
@@ -168,7 +168,12 @@ public class WebSocketManager {
          */
         @Override
         public void onError(Exception ex) {
-            Log.d("WebSocket", "Error");
+//            Log.d("WebSocket", "Error");
+            // Create a more detailed error message
+            String errorMessage = "WebSocket Error: " + ex.getMessage();
+            // Log the error message along with the exception stack trace
+            Log.e("WebSocket", errorMessage, ex);
+
             if (webSocketListener != null) {
                 webSocketListener.onWebSocketError(ex);
             }

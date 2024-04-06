@@ -68,7 +68,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
             //add message from backend to whatever is in TextView
             msgTv.setText(s + "\n" + message);
             // Check if the received message from backend is "lobby is full"
-            if ("lobby is full".equals(message.trim())) {
+            if ("Lobby is full".equals(message.trim())) {
                 isLobbyFull = true;
                 goToNewActivity(); // Call method to transition to the new activity
             }

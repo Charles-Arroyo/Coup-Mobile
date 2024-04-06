@@ -1,6 +1,7 @@
 package com.example.coupv2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
@@ -45,13 +46,14 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "income");
+                    jsonObject.put("move", "*Income");
                     jsonObject.put("targetPlayer", "null");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
                 String jsonStr = jsonObject.toString();
                 WebSocketManager.getInstance().sendMessage(jsonStr);
+                Log.d("WebSocket", "sent");
 //                go to new activity when clicked on
                 Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
                 startActivity(intent);
@@ -64,7 +66,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "foreign aid");
+                    jsonObject.put("move", " *Aid");
                     jsonObject.put("targetPlayer", "null");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -82,7 +84,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "taxes");
+                    jsonObject.put("move", "*Tax");
                     jsonObject.put("targetPlayer", "null");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -121,7 +123,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                             JSONObject jsonObject = new JSONObject();
                             try {
                                 jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "income");
+                                jsonObject.put("move", "*Steal");
                                 jsonObject.put("targetPlayer", whatPlayer);
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -147,7 +149,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "steal");
+                    jsonObject.put("move", "*Exchange");
                     jsonObject.put("targetPlayer", "null");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -186,7 +188,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                             JSONObject jsonObject = new JSONObject();
                             try {
                                 jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "income");
+                                jsonObject.put("move", "*Assassinate");
                                 jsonObject.put("targetPlayer", whatPlayer);
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -233,7 +235,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                             JSONObject jsonObject = new JSONObject();
                             try {
                                 jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "income");
+                                jsonObject.put("move", "#Coup");
                                 jsonObject.put("targetPlayer", whatPlayer);
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
