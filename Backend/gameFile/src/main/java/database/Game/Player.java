@@ -9,6 +9,8 @@ public class Player {
     String cardTwo;
     int coins;
     Boolean turn;
+    //made public for testing
+    public Boolean readyToListen = false;
 
     String currentMove;
 
@@ -41,6 +43,8 @@ public class Player {
                 ", turnNumber=" + turnNumber +
                 '}';
     }
+
+
 
     /*__________________________Player Actions/Outcomes_______________________*/
 
@@ -139,13 +143,13 @@ public class Player {
 
     }
 
-    public void gainInfluence(String card){
+    public void gainInfluence(String card, Player player){
         if(cardOne == null){
-            setCardOne(card);
-            this.lives++;
+            player.setCardOne(card);
+            player.lives++;
         }else if(cardTwo == null){
-            setCardTwo(card);
-            this.lives++;
+            player.setCardTwo(card);
+            player.lives++;
         }else{
             System.out.println("PLAYER ALREADY HAS MAX CARDS");
         }
@@ -157,8 +161,19 @@ public class Player {
         }else if(player.cardTwo.equals(card)){
             return cardTwo;
         }else{
-            player.loseInfluence(player);
-            return "Failure, player does not have card";
+
+            return player.getUserEmail() + " Was a Liar";
+        }
+    }
+
+
+
+
+    public void removeCard(String card, Player player){
+        if(player.cardOne.equals(card)){
+            cardOne = null;
+        }else{
+            cardTwo = null;
         }
     }
 
@@ -250,7 +265,6 @@ public class Player {
     public void blockAssassinate(Player player){
         // TODO: Implement this functionality
     }
-
 
     /*______________________________End of Contessa________________________________*/
 
