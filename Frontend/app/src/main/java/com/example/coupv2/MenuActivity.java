@@ -50,7 +50,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
      */
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
