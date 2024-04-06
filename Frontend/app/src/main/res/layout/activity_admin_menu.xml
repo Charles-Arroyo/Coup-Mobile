@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Side panel for ImageButtons -->
+
+    <!-- Central button panel -->
+    <Space
+        android:id="@+id/space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/central_panel"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="350dp" />
+
+    <LinearLayout
+        android:id="@+id/side_panel"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageButton
+            android:id="@+id/logoff_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="use this button to log off"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/back_arrow" />
+
+        <ImageButton
+            android:id="@+id/msg_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="use this button to chat to the server"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/message" />
+
+        <ImageButton
+            android:id="@+id/ranking_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="use this button to check the top people"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/leaderboard" />
+
+        <ImageButton
+            android:id="@+id/settings_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="use this button to check your settings"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/settings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/central_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.06999999">
+
+        <Button
+            android:id="@+id/play_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Play Game"
+            android:textColor="#000000"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/rules_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Rules"
+            android:textColor="#000000"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/stats_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Stats"
+            android:textColor="#000000"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/friends_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Friends"
+            android:textColor="#000000"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="195dp"
+        android:layout_height="132dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16000003"
+        app:srcCompat="@drawable/icon_assassin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

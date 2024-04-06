@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
+    //variable for determining if all players ready to listen
+    public boolean AllPlayersReadyListen = true;
     List<Player> players;
     Deck deck;
 
@@ -152,4 +154,3 @@ public class Game {
 //    }
 
 }
-

@@ -28,9 +28,21 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private Button signupButton;
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
-    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+//private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
+
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+    // success
+//    private static final String URL_JSON_OBJECT = "https://63fa0fc8-69e5-4ec7-a84f-aee7fc5648ac.mock.pstmn.io/signin";
 
 
+    /**
+     * On Create method for Login Activity
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +69,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
             startActivity(intent);
         });
     }
+
+    /**
+     *  Gets login and sends a POST request to tell the server if they are in. Will tell them if they
+     *  failed or success.
+     *
+     * @param emailId use users email to login
+     * @param password use users password to login
+     */
 
     private void performLogin(String emailId, String password) {
         JSONObject jsonRequest = new JSONObject();
@@ -101,20 +121,46 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**
+     * Websocket method to connect
+     *
+     * @param handshakedata Information about the server handshake.
+     */
+
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
 
     }
+
+    /**
+     * Websocket method to send messages to server
+     *
+     * @param message The received WebSocket message.
+     */
 
     @Override
     public void onWebSocketMessage(String message) {
 
     }
 
+    /**
+     * Websocket method to notify and close websocket
+     *
+     * @param code   The status code indicating the reason for closure.
+     * @param reason A human-readable explanation for the closure.
+     * @param remote Indicates whether the closure was initiated by the remote endpoint.
+     */
+
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
 
     }
+
+    /**
+     * Websocket method to tell if websocket has an error
+     *
+     * @param ex The exception that describes the error.
+     */
 
     @Override
     public void onWebSocketError(Exception ex) {
