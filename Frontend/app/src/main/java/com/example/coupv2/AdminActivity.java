@@ -31,8 +31,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/** @noinspection MismatchedQueryAndUpdateOfCollection*/
-public class MenuActivity extends AppCompatActivity implements WebSocketListener {
+public class AdminActivity extends AppCompatActivity implements WebSocketListener  {
+
 
     /*
         LINKS
@@ -97,35 +97,35 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         // Play Button
         playButton.setOnClickListener(v -> {
             // Start the play activity
-            Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+            Intent intent = new Intent(AdminActivity.this, LobbyActivity.class);
             startActivity(intent);
         });
         // Friends Button
         friendsButton.setOnClickListener(v -> {
             // Start the friends activity
-            Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
+            Intent intent = new Intent(AdminActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
         // Settings Button
         settingsButton.setOnClickListener(v -> {
             // Start the settings activity
-            Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
+            Intent intent = new Intent(AdminActivity.this, SettingActivity.class);
             startActivity(intent);
         });
         // Stats Button
         statsButton.setOnClickListener(v -> {
             // Start the statistics activity
-            Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
+            Intent intent = new Intent(AdminActivity.this, StatsActivity.class);
             startActivity(intent);
         });
         // Return Button
         logoffButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MenuActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
             builder.setTitle("Confirm Logoff");
             builder.setMessage("Are you sure you want to log off?");
 
             builder.setPositiveButton("Yes", (dialog, which) -> {
-                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                Intent intent = new Intent(AdminActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             });
@@ -223,7 +223,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         } else if (rank == 3) {
             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.bronze)));
         } else {
-             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
+            btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
         }
 
 
@@ -242,7 +242,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         // Create and display a popup with user information, or perform any other action
         Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
 
-         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(username);
         builder.setMessage("More info about " + username);
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
@@ -308,7 +308,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
                 addMessageToLayout(username, message);
             } else {
-                 addMessageToLayout("Server", fullMessage);
+                addMessageToLayout("Server", fullMessage);
             }
         });
     }
@@ -426,12 +426,13 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         builder.setView(dialogLayout);
         AlertDialog dialog = builder.create();
 
-         dialogLayout.setOnClickListener(v -> dialog.dismiss());
+        dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
-         if (dialog.getWindow() != null) {
+        if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 
         dialog.show();
     }
+
 }
