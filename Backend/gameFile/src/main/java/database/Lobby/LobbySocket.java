@@ -74,8 +74,14 @@ public class LobbySocket {
                 existingLobby.addUser(user); // Add User to this Lobby
                 lobbyRepository.save(existingLobby); // Save Lobby
                 for(User userList : existingLobby.getUserArraylist()) {
-                    broadcastToSpecificUser(userList.getUserEmail(), username + " Joined the lobby");
+                    broadcastToSpecificUser(userList.getUserEmail(), username + ": Joined the lobby");
                 }
+
+                for(User userList : existingLobby.getUserArraylist()) {
+                    broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + existingLobby.getUsers());
+                }
+
+
                 if(existingLobby.isFull()){ //START GAME
                     /**
                      * INIT GAME
