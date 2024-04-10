@@ -391,39 +391,56 @@
 
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:id="@+id/scrollViewMessages1"
+            android:layout_width="380dp"
+            android:layout_height="170dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="1dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-            <TextView
-                android:id="@+id/tx1"
+            <LinearLayout
+                android:id="@+id/layoutMessages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="The Conversation will appear here:\n"
-                android:textSize="20dp" />
+                android:orientation="vertical">
+                <!-- Messages will be added here dynamically -->
+            </LinearLayout>
         </ScrollView>
 
         <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="370dp"
-                android:layout_height="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintStart_toStartOf="@+id/guideline7"
-                app:srcCompat="@drawable/whitetextbox" />
+            android:id="@+id/imageView4"
+            android:layout_width="370dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:srcCompat="@drawable/whitetextbox" />
 
-            <ImageButton
-                android:id="@+id/imageButtonwf"
+        <EditText
+            android:id="@+id/chatText"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:hint="Enter Chat Here"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/submitText"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.55" />
+
+        <ImageButton
+                android:id="@+id/submitText"
                 android:layout_width="31dp"
                 android:layout_height="27dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/imageView"
-                app:layout_constraintVertical_bias="0.9"
+                app:layout_constraintVertical_bias="0.95"
                 app:srcCompat="@drawable/submit" />
 
             <ImageButton

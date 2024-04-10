@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
@@ -19,6 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.coupv2.utils.Const;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
+    //game chat
+    private LinearLayout layoutMessages;
+    private ScrollView scrollViewMessages;
+    private ImageButton submitText;
+    private EditText chatMessage;
     //track who the current player is
     String whoTurnIsIt;
     //cards of currentPlayer
@@ -69,6 +77,11 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play); // link tupdo Play activity XML
+        //gamechat
+        scrollViewMessages = findViewById(R.id.scrollViewMessages1);
+        layoutMessages = findViewById(R.id.layoutMessages);
+        chatMessage =  findViewById(R.id.chatText);
+        submitText =  findViewById(R.id.submitText);
         //variables
         gameBoard = findViewById(R.id.gameBoard);
         openChat = findViewById(R.id.imageButton2);
@@ -100,6 +113,22 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 updatePlayerStateUi();
             }
         });
+        submitText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String messageToSend = chatMessage.getText().toString();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                    jsonObject.put("move", "@" + messageToSend);
+                    jsonObject.put("targetPlayer", "null");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                String jsonStr = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonStr);
+            }
+        });
     }
 
     @Override
@@ -122,6 +151,11 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
+
+
+
+
                     try {
                         // Perform UI updates for each player
                         for (int i = 0; i < playerArray.length(); i++) {
@@ -436,5 +470,22 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             String jsonStr = jsonObject.toString();
             WebSocketManager.getInstance().sendMessage(jsonStr);
         }
+    };
+    private void addMessageToLayout(String username, String message) {
+        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
+
+        TextView textView = messageView.findViewById(R.id.placement);
+        Button usernameButton = messageView.findViewById(R.id.btnUsername);
+
+        textView.setText(message);
+        usernameButton.setText(username);
+
+//        usernameButton.setOnClickListener(v -> {
+//            // For example, show a toast or open a user profile
+//            showUserPopup(username);
+//        });
+
+        layoutMessages.addView(messageView);
+        scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     };
 }
