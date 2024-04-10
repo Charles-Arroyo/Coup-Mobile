@@ -1,10 +1,13 @@
 package com.example.coupv2;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -64,6 +67,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     private final String user = Const.getCurrentEmail();
     private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
 
+    private ImageView icon;
+    private int speed = 100;
+
 
     /**
      *
@@ -77,8 +83,13 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(R.style.DarkThemeTurquoise);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); // Set the layout for this activity
+
+        Toast.makeText(this, "WELCOME!!!", Toast.LENGTH_SHORT).show();
 
         // Initialize UI elements
         playButton = findViewById(R.id.play_btn);
@@ -90,34 +101,42 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         leaderboardButton = findViewById(R.id.ranking_btn);
         msgButton = findViewById(R.id.msg_btn);
 
-        // Play Button
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the looby activity
-                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
-                //for going straight to PlayActivity
+        icon = findViewById(R.id.icon);
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
+        Animation slideInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        Animation slideOutAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+
+        icon.startAnimation(fadeInAnimation);
+
+
+        icon.setOnClickListener(v -> {
+            icon.startAnimation(fadeInAnimation);
+            fadeInAnimation.setDuration(speed);
+            speed += 30;
+
+        });
+
+                    // Play Button
+        playButton.setOnClickListener(v -> {
+            // Start the looby activity
+            Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+            //for going straight to PlayActivity
 //                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
         // Friends Button
         friendsButton.setOnClickListener(v -> {
-            // Start the friends activity
-            Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
+             Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
         // Settings Button
         settingsButton.setOnClickListener(v -> {
-            // Start the settings activity
-            Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
+             Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
             startActivity(intent);
         });
         // Stats Button
         statsButton.setOnClickListener(v -> {
-            // Start the statistics activity
-            Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
-            startActivity(intent);
+            showUserStats(user);
         });
         // Return Button
         logoffButton.setOnClickListener(v -> {
@@ -228,7 +247,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         }
 
 
-        btnUsername.setOnClickListener(v -> showUserPopup(username));
+        btnUsername.setOnClickListener(v -> showUserStats(username));
 
         rankingLayout.addView(rankingItemView);
     }
@@ -239,18 +258,15 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      * @param username requires the
      */
 
-    private void showUserPopup(String username) {
-        // Create and display a popup with user information, or perform any other action
-        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
+    private void showUserStats(String username) {
+         Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(username);
-        builder.setMessage("More info about " + username);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        Intent intent = new Intent(this, StatsActivity.class);
+        intent.putExtra("USERNAME", username);
+
+        // Launch StatsActivity as a dialog
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
-
     /**
      * Sets a bottom dialog for a global messaging activity which connects from everyone in the game
      */
@@ -330,7 +346,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         textView.setText(message);
         usernameButton.setText(username);
 
-        usernameButton.setOnClickListener(v -> showUserPopup(username));
+        usernameButton.setOnClickListener(v -> showUserStats(username));
 
         layoutMessages.addView(messageView);
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
@@ -435,4 +451,38 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         dialog.show();
     }
+
+    /**
+     * Websocket method to reconnect the user when leaving activity
+     */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebSocketManager.getInstance().setWebSocketListener(this);
+        WebSocketManager.getInstance().sendMessage("getFriends");
+    }
+
+    /**
+     * Websocket method to pause websocket connection when leaving activity
+     */
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+    /**
+     * Method to disconnect when server breaks in the Web Socket
+     */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+
+
 }

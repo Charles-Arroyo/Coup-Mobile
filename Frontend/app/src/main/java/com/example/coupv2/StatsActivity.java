@@ -1,99 +1,87 @@
 package com.example.coupv2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
-import org.json.JSONObject;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private TextView playerEmail, playerWins, playerLosses, playerGamesPlayed;
+    private TextView  playerWins, playerLosses, playerGamesPlayed, playerScore,
+            playerRank, playerAverage;
     private String currentUserEmail;
-//    private Button backButton;
+    private Button back, email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(Const.getCurrentTheme());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        Intent intent = getIntent();
+        String currEmail = intent.getStringExtra("USERNAME");
+
+
+
         // Initialize TextViews
-//        playerEmail = findViewById(R.id.stats_email);
+        email = findViewById(R.id.stats_email);
         playerWins = findViewById(R.id.stats_wins);
         playerLosses = findViewById(R.id.stats_losses);
         playerGamesPlayed = findViewById(R.id.stats_games_played);
+        playerScore = findViewById(R.id.stats_score);
+        playerRank = findViewById(R.id.stats_rank);
+        playerAverage = findViewById(R.id.stats_average);
+        back = findViewById(R.id.back_stats);
 
-        // Get the current user's email or other identifier
-        currentUserEmail = Const.getCurrentEmail(); // Replace with actual method to get the current user's email
 
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
+
+        email.setText(currEmail);
+
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
+
+        email.setAnimation(pulse);
         // Now fetch the primary key using the current user's email
-        fetchPrimaryKey(currentUserEmail);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Start the rules activity
-//                Intent intent = new Intent(StatsActivity.this, MenuActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        getUserStats(currEmail);
     }
 
-    private void fetchPrimaryKey(String email) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(email);
+    private void getUserStats(String email) {
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + email;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
-                            // Now fetch the stats using the primary key
-                            fetchUserStats(primaryKey);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                            Log.e("StatsActivity", "Error parsing primary key");
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("StatsActivity", "Error fetching primary key: " + error.toString());
-                    }
-                }
-        );
-
-        // Add the request to the RequestQueue.
-        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        requestQueue.add(stringRequest);
-    }
-
-    private void fetchUserStats(int primaryKey) {
-        String urlWithPrimaryKey = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + primaryKey;
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlWithPrimaryKey, null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
                 response -> {
                     Log.d("StatsActivity", "Response received: " + response.toString()); // Debug log
                     try {
-                        int wins = response.optInt("gameWon", 0); // Use optInt for default value
-                        int losses = response.optInt("gameLost", 0);
-                        int gamesPlayed = response.optInt("gamePlayed", wins + losses); // Use optInt
+                        int wins = response.getInt("userWins");
+                        int losses = response.getInt("userLost");
+                        int average =  (wins / (wins + losses)) * 100;
+                        int score = response.getInt("userScore");
+                        int rank = response.optInt("userRank");
+                        int gamesPlayed = wins + losses;
 
                         playerWins.setText(String.format("Wins: %d", wins));
                         playerLosses.setText(String.format("Losses: %d", losses));
                         playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
+                        playerAverage.setText(String.format("Average Wins: %d", average));
+                        playerScore.setText(String.format("Score: %d", score));
+                        playerRank.setText(String.format("Rank: %d", rank));
                     } catch (Exception e) {
                         Log.e("StatsActivity", "Parsing error: " + e.getMessage(), e);
                     }
@@ -109,12 +97,5 @@ public class StatsActivity extends AppCompatActivity {
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
         requestQueue.add(jsonObjectRequest);
     }
-
-
-
-    // Handle the back button click by finishing the StatsActivity
-//    public void onBackButtonClick(View view) {
-//        finish();
-//    }
 }
 

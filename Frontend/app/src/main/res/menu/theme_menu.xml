@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/icon_purple_dark"
+        app:srcCompat="@drawable/icon_purple_dark"
+        android:title="Dark Purple" />
+    <item android:icon="@drawable/icon_purple_light"
+        app:srcCompat="@drawable/icon_purple_light"
+        android:title="Light Purple" />
+    <item android:icon="@drawable/icon_amber_dark"
+        app:srcCompat="@drawable/icon_amber_dark"
+        android:title="Dark Amber" />
+    <item android:icon="@drawable/icon_amber_light"
+        app:srcCompat="@drawable/icon_amber_light"
+        android:title="Light Amber" />
+    <item android:icon="@drawable/icon_turquiose_dark"
+        app:srcCompat="@drawable/icon_turquiose_dark"
+        android:title="Dark Turquiose" />
+    <item android:icon="@drawable/icon_turquiose_light"
+        app:srcCompat="@drawable/icon_turquiose_light"
+        android:title="Light Turquiose" />
+</menu>

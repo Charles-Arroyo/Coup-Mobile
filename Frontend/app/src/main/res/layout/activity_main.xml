@@ -1,44 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-<ImageView
-android:id="@+id/imageView2"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-    android:src="@drawable/tittle" />
 
-<LinearLayout
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/COUP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="30dp"
+        android:text = "Example"
+        android:padding="25dp"
+        android:src="@drawable/tittle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
 
-<Button
-android:id="@+id/main_login_btn"
-android:layout_width="wrap_content"
-    android:layout_height="120dp"
-    android:layout_margin="30dp"
-    android:backgroundTint="#C760D8"
-    android:text="Login"
-    android:textColor="#ffffff"
-    android:textSize="20sp"
-    app:iconPadding="30dp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83">
 
-<Button
-android:id="@+id/main_signup_btn"
-android:layout_width="wrap_content"
-    android:layout_height="120dp"
-    android:layout_margin="30dp"
-    android:text="Signup"
-    android:textColor="#ffffff"
-    android:textSize="20sp"
-    app:iconPadding="30dp" />
+        <Button
+            android:id="@+id/main_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="30dp"
+            android:text="Login"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/main_signup_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="Signup"
+            android:textSize="20sp" />
 
     </LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

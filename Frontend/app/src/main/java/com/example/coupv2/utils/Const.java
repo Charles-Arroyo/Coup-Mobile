@@ -1,5 +1,7 @@
 package com.example.coupv2.utils;
 
+import com.example.coupv2.R;
+
 public class Const {
 	public static final String DOMAIN = "http://192.168.50.11:8080";
 	public static final String URL_GET_USR_BY_ID = DOMAIN + "/users/";
@@ -11,6 +13,8 @@ public class Const {
 			"https://api.androidhive.info/volley/string_response.html";
 	private static String currentEmail = "";
 
+	private static int currentTheme = R.style.DarkThemePurple;
+
 	public static String getCurrentEmail() {
 		return currentEmail;
 	}
@@ -19,4 +23,11 @@ public class Const {
 		currentEmail = email;
 	}
 
+	public static int getCurrentTheme() {
+		return currentTheme;
+	}
+
+	public static void setCurrentTheme(int theme){
+		currentTheme = theme;
+	}
 }

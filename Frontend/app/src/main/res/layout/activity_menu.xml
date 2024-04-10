@@ -3,19 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#A8E3FD">
+    android:layout_height="match_parent" >
 
-    <!-- Side panel for ImageButtons -->
 
-    <!-- Central button panel -->
+
     <Space
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/central_panel"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="350dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="350dp" />
 
     <LinearLayout
         android:id="@+id/side_panel"
@@ -76,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/icon"
         app:layout_constraintVertical_bias="0.01999998">
 
         <Button
@@ -84,51 +82,59 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Play Game"
-            android:textColor="#000000"
-            tools:ignore="HardcodedText" />
+             android:text="Play Game"
+             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/rules_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Rules"
-            android:textColor="#000000"
-            tools:ignore="HardcodedText" />
+             android:text="Rules"
+             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/stats_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Stats"
-            android:textColor="#000000"
-            tools:ignore="HardcodedText" />
+             android:text="Stats"
+             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/friends_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="#FFFFFF"
-            android:text="Friends"
-            android:textColor="#000000"
-            tools:ignore="HardcodedText" />
+             android:text="Friends"
+             tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/icon"
         android:layout_width="288dp"
         android:layout_height="148dp"
+        android:stateListAnimator="@android:anim/slide_in_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.17000002"
         app:srcCompat="@drawable/icon_captain" />
+
+    <ImageButton
+        android:id="@+id/theme_menu"
+        android:layout_width="59dp"
+        android:layout_height="52dp"
+        android:background="@null"
+        android:contentDescription=""
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976"
+        app:srcCompat="@drawable/icon_purple_dark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

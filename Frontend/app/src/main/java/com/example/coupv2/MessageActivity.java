@@ -134,4 +134,37 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
             messagesList.add("WebSocket error: " + ex.getMessage());
         });
     }
+
+    /**
+     * Websocket method to reconnect the user when leaving activity
+     */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebSocketManager.getInstance().setWebSocketListener(this);
+        WebSocketManager.getInstance().sendMessage("getFriends");
+    }
+
+    /**
+     * Websocket method to pause websocket connection when leaving activity
+     */
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+    /**
+     * Method to disconnect when server breaks in the Web Socket
+     */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+
 }
