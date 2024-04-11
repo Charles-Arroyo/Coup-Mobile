@@ -65,15 +65,15 @@ public class UserController {
 //    private String invalidSignIn = "Wrong SignId"; // This will return a string that alert the user that they dont have the right user.
 
 
-    /**
-     * Gets all users in the user repo
-     *
-     * @return
-     */
-    @GetMapping(path = "/users")
-    List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+//    /**
+//     * Gets all users in the user repo
+//     *
+//     * @return
+//     */
+//    @GetMapping(path = "/users")
+//    List<User> getAllUsers() {
+//        return userRepository.findAll();
+//    }
 
     /**
      * Gets a user based on unique ID
