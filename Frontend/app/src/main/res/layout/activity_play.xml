@@ -568,6 +568,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.132" />
 
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView5"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            app:srcCompat="@drawable/icon_ambassador"-->
+<!--            tools:layout_editor_absoluteX="357dp"-->
+<!--            tools:layout_editor_absoluteY="295dp" />-->
+
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
 

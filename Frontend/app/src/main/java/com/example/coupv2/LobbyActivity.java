@@ -79,4 +79,5 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     public void onWebSocketError(Exception ex) {}
+
 }
