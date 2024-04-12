@@ -1,5 +1,7 @@
 package com.example.coupv2;
 
+
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +57,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
     private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
-    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
+    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton, themeButton;
     private EditText msg;
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
@@ -81,10 +84,11 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      *
      */
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTheme(R.style.DarkThemeTurquoise);
+        setTheme(Const.getCurrentTheme());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); // Set the layout for this activity
@@ -100,6 +104,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         logoffButton = findViewById(R.id.logoff_btn);
         leaderboardButton = findViewById(R.id.ranking_btn);
         msgButton = findViewById(R.id.msg_btn);
+        themeButton = findViewById(R.id.theme_menu);
 
         icon = findViewById(R.id.icon);
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
@@ -159,6 +164,46 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         msgButton.setOnClickListener(v -> showGlbChat());
         // Ranking Button
         leaderboardButton.setOnClickListener(v -> showRankingPopup());
+
+
+        themeButton.setOnClickListener(v -> {
+            // Creating the PopupMenu
+            PopupMenu popup = new PopupMenu(MenuActivity.this, themeButton);
+            popup.getMenuInflater().inflate(R.menu.theme_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+
+                if (id == R.id.action_dark_purple) {
+                    Const.setCurrentTheme(R.style.DarkThemePurple);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_purple) {
+                    Const.setCurrentTheme(R.style.LightThemePurple);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_dark_amber) {
+                    Const.setCurrentTheme(R.style.DarkThemeAmber);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_amber) {
+                    Const.setCurrentTheme(R.style.LightThemeAmber);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_dark_turquoise) {
+                    Const.setCurrentTheme(R.style.DarkThemeTurquoise);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_turquoise) {
+                    Const.setCurrentTheme(R.style.LightThemeTurquoise);
+                    setTheme(Const.getCurrentTheme());
+                }
+
+                // Apply the theme change by recreating the current activity
+                recreate();
+
+                return true;
+            });
+
+            // Showing the popup
+            popup.show();
+        });
+
 
     }
 

@@ -31,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(Const.getCurrentTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings); // link to Login activity XML
         userNameText = findViewById(R.id.settings_username_edt);
