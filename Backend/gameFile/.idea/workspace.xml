@@ -6,6 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Admin/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Admin/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Admin/AdminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Admin/AdminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Chat/ChatSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Chat/ChatSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Friends/FriendController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Friends/FriendController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/Lobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Spectator/Spectator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Spectator/Spectator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Spectator/SpectatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Spectator/SpectatorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Spectator/SpectatorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Spectator/SpectatorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Users/UserController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,9 +36,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2evXw0RnvWxD76DIAAWXWA2zycm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -81,6 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1712786260895</updated>
       <workItem from="1712786261263" duration="4193000" />
+      <workItem from="1712979323377" duration="13179000" />
     </task>
     <servers />
   </component>

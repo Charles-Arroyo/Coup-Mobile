@@ -17,6 +17,13 @@ public class Lobby {
     @JoinColumn(name = "lobby_id") // Adjust the column name as needed
     private List<User> userList;  //List of users, specifically user emails.
 
+
+    //this is for the users to be turned into
+    //spectators if the lobby is full
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "spectator_lobby_id")
+    private List<User> spectators = new ArrayList<>();
+
 //    @OneToOne
 //    @JoinColumn(name = "user_id")
 //    @JsonBackReference
@@ -29,17 +36,33 @@ public class Lobby {
     @Column
     private boolean isFull;
 
+
+    //This is used to determine if the user game
+    //have started or not to determine if the joining
+    //user is going to be a spectator
+    private boolean gameStarted = false;
+
     public Lobby() {
         userList = new ArrayList<>();
         isFull = false;
     }
 
+//    @Transactional
+//    public void addUser(User user) {
+//        if(userList.size() < 4){
+//            userList.add(user);
+//        }else{
+//            setFull(true);
+//        }
+//    }
+
     @Transactional
     public void addUser(User user) {
-        if(userList.size() < 4){
+        if (userList.size() < 4 && !userList.contains(user)) { //checks if there is any user to not add same user again
             userList.add(user);
-        }else{
+        } else {
             setFull(true);
+
         }
     }
 
@@ -112,14 +135,26 @@ public class Lobby {
     }
 
 
-    public User finUserbyEmail(String email) {
-        for (User user : userList) {
-            if (user.getUserEmail().equals(email)) {
-                return user; // User found
-            }
-        }
-        return null; // User not found
-    }
+//   public String getAllUserEmails() {
+//    StringBuilder emails = new StringBuilder();
+//    for (User user : userList) {
+//        emails.append(user.getUserEmail()).append(", ");
+//    }
+//    if (emails.length() > 0) {
+//        emails.setLength(emails.length() - 2); // Remove the last comma and space
+//    }
+//    return emails.toString();
+//}
+
+
+//    public User finUserbyEmail(String email) {
+//        for (User user : userList) {
+//            if (user.getUserEmail().equals(email)) {
+//                return user; // User found
+//            }
+//        }
+//        return null; // User not found
+//    }
 
     public boolean isPrivate() {
         return isPrivate;
@@ -147,6 +182,28 @@ public class Lobby {
         return userList.isEmpty();
     }
 
+    //Checker to see if the game started yet or not
+    public boolean hasGameStarted() {
+        return gameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
+
+    //This will allow the user to be turned into spectators
+
+    public void addSpectator(User user) {
+        spectators.add(user);
+    }
+
+    public boolean removeSpectator(User user) {
+        return spectators.remove(user);
+    }
+
+    public List<User> getSpectators() {
+        return spectators;
+    }
 
 
 }

@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+
 @RestController
 public class AdminController {
 
@@ -79,7 +81,7 @@ public class AdminController {
         if (user != null) {
             return user;
         } else {
-            return null;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
 
@@ -130,15 +132,14 @@ public class AdminController {
      * @return
      */
     @DeleteMapping(path = "/deleteUser/{userEmail}")
-    public ResponseEntity<String> deleteUser(@PathVariable String userEmail) {
-        if(userRepository.findByUserEmail(userEmail) != null){
-            User user = userRepository.findByUserEmail(userEmail);
-
-            userRepository.delete(user);
-            return ResponseEntity.ok("{\"success\":true}");
-        }else{
-            return ResponseEntity.ok("user not found.");
+    public ResponseEntity<?> deleteUser(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"User not found\"}");
         }
+        userRepository.delete(user);
+        return ResponseEntity.ok("{\"success\":true}");
     }
+
 
 }

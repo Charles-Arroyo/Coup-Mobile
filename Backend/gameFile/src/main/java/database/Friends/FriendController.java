@@ -66,7 +66,9 @@ public class FriendController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/getFriends/{userEmail}")
+
+
+    @GetMapping(path = "/getPersonalFriends/{userEmail}")
     public ResponseEntity<Map<String, Object>> getFriendsByUserId(@PathVariable String userEmail) {
         Map<String, Object> response = new HashMap<>();
 

@@ -86,15 +86,15 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @GetMapping("/getId/{userEmail}")
-    public int getUserByEmail(@PathVariable String userEmail) {
-        User user = userRepository.findByUserEmail(userEmail);
-        if (user != null) {
-            return user.getId();
-        } else {
-            return -1;
-        }
-    }
+//    @GetMapping("/getId/{userEmail}")
+//    public int getUserByEmail(@PathVariable String userEmail) {
+//        User user = userRepository.findByUserEmail(userEmail);
+//        if (user != null) {
+//            return user.getId();
+//        } else {
+//            return -1;
+//        }
+//    }
 
     @Transactional
     @DeleteMapping(path = "/deleteLobby/{lobbyId}")
