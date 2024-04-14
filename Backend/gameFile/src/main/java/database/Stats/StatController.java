@@ -1,10 +1,18 @@
 package database.Stats;
 
 
+import database.Ranking.Ranking;
+import database.Ranking.RankingController;
 import database.Users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import database.Users.UserRepository;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -19,6 +27,8 @@ public class StatController {
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
+
+    private RankingController rankingController;
 
 
 //    @GetMapping(path = "/gameTotal/{userId}")
@@ -67,16 +77,82 @@ public class StatController {
     }
 
 
-        @GetMapping(path = "/getStats/{id}")
-        public Stat list(@PathVariable int id) {
-            //ID
-            //Game
-            //Print Game
-            User user = userRepository.findById(id);
-            Stat userStat = user.getStat();
-            return userStat;
+//        @GetMapping(path = "/getStats/{id}")
+//        public Stat list(@PathVariable int id) {
+//            //ID
+//            //Game
+//            //Print Game
+//            User user = userRepository.findById(id);
+//            Stat userStat = user.getStat();
+//            return userStat;
+//
+//        }
 
+    @GetMapping(path = "/getStats/{id}")
+    public Map<String, Object> list(@PathVariable int id) {
+        User user = userRepository.findById(id);
+
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
+
+        Stat userStat = user.getStat();
+
+        if (userStat == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User statistics not found");
+        }
+
+        // Update the user's points based on their wins and losses
+        user.setPoints(calculateUserPoints(user));
+
+        // Update the ranking
+        Ranking ranking = rankingController.getOrCreateAndUpdateRanking();
+
+        // Find the user's rank in the ranking list
+        int rank = calculateRank(user, ranking);
+
+        // Calculate the user's score
+        int score = user.getPoints();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("wins", userStat.getGameWon());
+        response.put("loses", userStat.getGameLost());
+        response.put("rank", rank);
+        response.put("score", score);
+
+        return response;
+    }
+
+    /**
+     * this is to calculatethe user points
+     * @param user
+     * @return
+     */
+    private int calculateUserPoints(User user) {
+        Stat userStat = user.getStat();
+        if (userStat != null) {
+            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2), 0);
+        }
+        return 0;
+    }
+
+    /**
+     * this is to calculate the user rank
+     * @param user
+     * @param ranking
+     * @return
+     */
+    private int calculateRank(User user, Ranking ranking) {
+        List<User> users = ranking.getUsers();
+        int rank = 1;
+        for (User u : users) {
+            if (u.getId() == user.getId()) {
+                break;
+            }
+            rank++;
+        }
+        return rank;
+    }
 
 //
 //    @PostMapping(path = "/gameTotal/{id}")

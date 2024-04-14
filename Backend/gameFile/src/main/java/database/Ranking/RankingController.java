@@ -61,7 +61,7 @@ public class RankingController {
     }
 
     @Transactional
-    protected Ranking getOrCreateAndUpdateRanking() {
+    public Ranking getOrCreateAndUpdateRanking() {
         // Retrieve the latest ranking, or create a new one if none exists
         Ranking ranking = rankingRepository.findTopByOrderByIdDesc()
                 .orElseGet(() -> new Ranking()); // Assuming constructor with name
