@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Game {
     //variable for determining if all players ready to listen
+    @JsonIgnore
     public boolean AllPlayersReadyListen = true;
     List<Player> players;
     Deck deck;

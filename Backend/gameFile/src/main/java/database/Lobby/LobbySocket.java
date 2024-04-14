@@ -189,7 +189,7 @@ public class LobbySocket {
             lobby.setGameStarted(true);
 
             // Notify all users in the lobby that the game is starting
-            broadcastToAllInLobby(lobby, "Game is starting");
+            broadcastToAllInLobby(lobby, "Lobby is full");
         }
 //        else {
 //            // Notify all users in the lobby that the game cannot start yet
