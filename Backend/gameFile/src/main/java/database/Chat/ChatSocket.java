@@ -1,126 +1,189 @@
-package database.FriendChat;
-
-import database.Friends.Friend;
-import database.Friends.FriendRepository;
-import database.Users.User;
-import database.Users.UserRepository;
-import jakarta.websocket.*;
-import jakarta.websocket.server.PathParam;
-import jakarta.websocket.server.ServerEndpoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+package database.Chat;
 
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@ServerEndpoint(value = "/chatFriend/{userId}/{friendId}")
-public class FriendChatSocket {
-	private static UserRepository userRepository;
-	private static FriendRepository friendRepository;
-	private static FriendChatMessageRepository friendChatMessageRepository;
+import database.Friends.FriendRepository;
+import database.Users.User;
+import database.Users.UserRepository;
+import database.Websocketconfig.WebsocketConfig;
+import jakarta.websocket.OnClose;
+import jakarta.websocket.OnError;
+import jakarta.websocket.OnMessage;
+import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
+import jakarta.websocket.server.PathParam;
+import jakarta.websocket.server.ServerEndpoint;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller      // this is needed for this to be an endpoint to springboot
+@ServerEndpoint(value = "/chat/{username}")  // this is Websocket url
+public class ChatSocket {
+
+	// cannot autowire static directly (instead we do it by the below
+	// method
+	private static MessageRepository msgRepo;
+
+	private static UserRepository userRepository;
+
+	private static FriendRepository friendRepository;
+
+
+	/*
+	 * Grabs the MessageRepository singleton from the Spring Application
+	 * Context.  This works because of the @Controller annotation on this
+	 * class and because the variable is declared as static.
+	 * There are other ways to set this. However, this approach is
+	 * easiest.
+	 */
+	@Autowired
+	public void setMessageRepository(MessageRepository repo) {
+		msgRepo = repo;  // we are setting the static variable
+	}
 	@Autowired
 	public void setUserRepository(UserRepository repo) {
-		userRepository = repo;
+		userRepository = repo;  // we are setting the static variable
 	}
 
 	@Autowired
-	public void setFriendRepository(FriendRepository repo) {
-		friendRepository = repo;
+	public void setUserRepository(FriendRepository repo) {
+		friendRepository = repo;  // we are setting the static variable
 	}
 
-	@Autowired
-	public void setFriendChatMessageRepository(FriendChatMessageRepository repo) {
-		friendChatMessageRepository = repo;
-	}
+	// Store all socket session and their corresponding username.
+	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
+	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
-	private static Map<Session, Long> sessionUserMap = new Hashtable<>();
-	private static Map<Long, Session> userSessionMap = new Hashtable<>();
-
-	private final Logger logger = LoggerFactory.getLogger(FriendChatSocket.class);
+	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
 
 	@OnOpen
-	public void onOpen(Session session, @PathParam("userId") Long userId, @PathParam("friendId") Long friendId) {
-		logger.info("Entered into Open");
+	public void onOpen(Session session, @PathParam("username") String username)
+			throws IOException {
 
-		sessionUserMap.put(session, userId);
-		userSessionMap.put(userId, session);
+		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo
+			logger.info("Entered into Open");
 
-		// Send chat history to the newly connected user
-		sendChatHistory(userId, friendId);
-	}
+			// store connecting user information
+			sessionUsernameMap.put(session, username);
+			usernameSessionMap.put(username, session);
 
-	@OnMessage
-	public void onMessage(Session session, String message, @PathParam("userId") Long userId, @PathParam("friendId") Long friendId) throws IOException {
-		logger.info("Entered into Message: Got Message:" + message);
+			//Send chat history to the newly connected user
+//			sendMessageToPArticularUser(username, getChatHistory());
 
-		User sender = userRepository.findById(userId).orElse(null);
-		User receiver = userRepository.findById(friendId).orElse(null);
+			// broadcast that new user joined
+			String message = "User:" + username + " has Joined the Chat";
+			broadcast(message);
 
-		if (sender != null && receiver != null) {
-			Friend friendship = friendRepository.findByUser1AndUser2(sender, receiver);
-			if (friendship == null) {
-				friendship = friendRepository.findByUser1AndUser2(receiver, sender);
-			}
+			Message joinMessage = new Message(username, "has Joined the Chat");
+			msgRepo.save(joinMessage);
 
-			if (friendship != null && friendship.isAccepted()) {
-				// Save the message to the repository
-				FriendChatMessage chatMessage = new FriendChatMessage();
-				chatMessage.setSender(sender);
-				chatMessage.setReceiver(receiver);
-				chatMessage.setContent(message);
-				friendChatMessageRepository.save(chatMessage);
-
-				// Send the message to the sender and receiver
-				sendMessageToUser(userId, "[You]: " + message);
-				sendMessageToUser(friendId, "[" + sender.getUsername() + "]: " + message);
-			}
+		}else {
+			// If user is not found in the database, close the connection with a reason
+			String message = "User:" + username + " Is not in DB";
+			broadcast(message);
 		}
 	}
 
+
+	@OnMessage
+	public void messageFriends(Session session, String message) throws IOException {
+		// Handle new messages
+		logger.info("Entered into Message: Got Message:" + message);
+		String username = sessionUsernameMap.get(session);
+		User sendingUser = userRepository.findByUserEmail(username);
+
+		// Direct message to a user using the format "@username <message>"
+		if (message.startsWith("@")) {
+			String destUsername = message.split(" ")[0].substring(1);
+			User userDest = userRepository.findByUserEmail(destUsername);
+
+			// Check if username and destUsername are friends
+			if (friendRepository.existsByUser1AndUser2(sendingUser, userDest) || friendRepository.existsByUser1AndUser2(userDest, sendingUser)) {
+				// send the message to the sender and receiver if they are friends
+				sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+				sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+			} else {
+				// If they are not friends, send a message only to the sender that the action is not allowed
+				sendMessageToPArticularUser(username, "You can only DM your friends.");
+			}
+		}
+		else { // broadcast
+			broadcast(username + ": " + message);
+		}
+
+		// Saving chat history to repository might be conditional based on your requirements
+		msgRepo.save(new Message(username, message));
+	}
+
+
 	@OnClose
-	public void onClose(Session session) {
+	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
 
-		Long userId = sessionUserMap.get(session);
-		sessionUserMap.remove(session);
-		userSessionMap.remove(userId);
+		// remove the user connection information
+		String username = sessionUsernameMap.get(session);
+
+		sessionUsernameMap.remove(session);
+		usernameSessionMap.remove(username);
+
+		// broadcase that the user disconnected
+		String message = username + " disconnected";
+		broadcast(message);
 	}
+
 
 	@OnError
 	public void onError(Session session, Throwable throwable) {
+		// Do error handling here
 		logger.info("Entered into Error");
 		throwable.printStackTrace();
 	}
 
-	private void sendMessageToUser(Long userId, String message) {
+
+	private void sendMessageToPArticularUser(String username, String message) {
 		try {
-			Session session = userSessionMap.get(userId);
-			if (session != null && session.isOpen()) {
-				session.getBasicRemote().sendText(message);
-			}
-		} catch (IOException e) {
-			logger.info("Exception: " + e.getMessage());
+			usernameSessionMap.get(username).getBasicRemote().sendText(message);
+		}
+		catch (IOException e) {
+			logger.info("Exception: " + e.getMessage().toString());
 			e.printStackTrace();
 		}
 	}
 
-	private void sendChatHistory(Long userId, Long friendId) {
-		List<FriendChatMessage> messages = friendChatMessageRepository.findBySenderIdAndReceiverId(userId, friendId);
-		messages.addAll(friendChatMessageRepository.findBySenderIdAndReceiverId(friendId, userId));
 
-		StringBuilder sb = new StringBuilder();
-		for (FriendChatMessage message : messages) {
-			String sender = message.getSender().getUsername();
-			String content = message.getContent();
-			sb.append("[").append(sender).append("]: ").append(content).append("\n");
-		}
+	private void broadcast(String message) {
+		sessionUsernameMap.forEach((session, username) -> {
+			try {
+				session.getBasicRemote().sendText(message);
+			}
+			catch (IOException e) {
+				logger.info("Exception: " + e.getMessage().toString());
+				e.printStackTrace();
+			}
 
-		sendMessageToUser(userId, sb.toString());
+		});
+
 	}
-}
+
+
+	// Gets the Chat history from the repository
+	private String getChatHistory() {
+		List<Message> messages = msgRepo.findAll();
+
+		// convert the list to a string
+		StringBuilder sb = new StringBuilder();
+		if(messages != null && messages.size() != 0) {
+			for (Message message : messages) {
+				sb.append(message.getUserName() + ": " + message.getContent() + "\n");
+			}
+		}
+		return sb.toString();
+	}
+
+} // end of Class

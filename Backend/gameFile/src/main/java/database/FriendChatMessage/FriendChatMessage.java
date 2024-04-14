@@ -1,5 +1,6 @@
-package database.FriendChat;
+package database.FriendChatMessage;
 
+import database.FriendChat.FriendChat;
 import database.Users.User;
 import jakarta.persistence.*;
 
@@ -12,6 +13,10 @@ public class FriendChatMessage {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "friend_chat_id")
+    private FriendChat friendChat;
+
+    @ManyToOne
     @JoinColumn(name = "sender_id")
     private User sender;
 
@@ -19,9 +24,6 @@ public class FriendChatMessage {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    @ManyToOne
-    @JoinColumn(name = "friend_chat_id")
-    private FriendChat friendChat;
 
     @Column(name = "content")
     private String content;

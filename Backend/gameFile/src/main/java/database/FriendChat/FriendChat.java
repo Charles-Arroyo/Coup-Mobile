@@ -1,5 +1,6 @@
 package database.FriendChat;
 
+import database.FriendChatMessage.FriendChatMessage;
 import database.Users.User;
 import jakarta.persistence.*;
 
@@ -17,9 +18,11 @@ public class FriendChat {
     @JoinColumn(name = "user1_id")
     private User user1;
 
+
     @ManyToOne
     @JoinColumn(name = "user2_id")
     private User user2;
+
 
     @OneToMany(mappedBy = "friendChat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FriendChatMessage> messages = new ArrayList<>();
