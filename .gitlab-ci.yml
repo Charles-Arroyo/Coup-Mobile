@@ -6,16 +6,15 @@ android-build:
   image: afirefly/android-ci:java17
   stage: androidbuild
   tags:
-    - billy_tag
-  before_script:
+   - billy_tag                   # <-- change to your runner's tag
+  before_script:                    # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
   script:
-    - cd Frontend
+    - cd Frontend/                   # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
     - ./gradlew build
   only:
     refs:
-      - main
       - BILLY_CICD
     changes:
       - Frontend/**/*
@@ -24,16 +23,16 @@ android-test:
   image: afirefly/android-ci:java17
   stage: androidtest
   tags:
-    - billy_tag
-  before_script:
+    - billy_tag                  # <-- change to your runner's tag
+  before_script:                   # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
   script:
-    - cd Frontend
+    - cd Frontend/                  # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
     - ./gradlew test
   only:
     refs:
-      - main
       - BILLY_CICD
     changes:
       - Frontend/**/*
+
