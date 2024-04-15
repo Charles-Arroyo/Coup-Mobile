@@ -1,34 +1,38 @@
-
+stages:
+  - androidbuild
+  - androidtest 
+  
 android-build:
-  image: afirefly/android-ci:java17 # Docker image that has Android environments installed     gjandres/android-ci:latest
-  stage: androidbuild # one of the stages listed above
+  image: afirefly/android-ci:java17
+  stage: androidbuild
   tags:
-    - billy_tag # change to your runner's tag
-  before_script: # enable gradlew, change 'Frontend' to where you have 'gradlew'
+   - billy_tag                   # <-- change to your runner's tag
+  before_script:                    # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
   script:
-    - cd Frontend/ # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
-    - ./gradlew build # gradle build
+    - cd Frontend                   # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
+    - ./gradlew build
   only:
     refs:
-      - main # only to trigger the pipeline when changes are pushed to 'main'
+      - BILLY_CICD
     changes:
-      - Frontend/**/* # more specifically - only when changes are made inside the 'Frontend' folder
+      - Frontend/**/*
 
 android-test:
   image: afirefly/android-ci:java17
-  stage: androidtest # one of the stages listed above
+  stage: androidtest
   tags:
-    - billy_tag # change to your runner's tag
-  before_script: # enable gradlew, change 'Frontend' to where you have 'gradlew'
+    - billy_tag                  # <-- change to your runner's tag
+  before_script:                   # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
   script:
-    - cd Frontend/ # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
-    - ./gradlew test # gradle test
+    - cd Frontend                  # change 'Frontend' to where you have 'gradlew' (do not add / in the beginning)
+    - ./gradlew test
   only:
     refs:
-      - main # only to trigger the pipeline when changes are pushed to 'main'
+      - BILLY_CICD
     changes:
-      - Frontend/**/* # more specifically - only when changes are made inside the 'Frontend' folder
+      - Frontend/**/*
+
