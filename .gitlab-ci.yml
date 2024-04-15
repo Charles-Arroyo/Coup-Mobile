@@ -7,7 +7,7 @@ maven-build:
   tags:
     - bo_tag # <-- change to your runner's tag
   script:
-    - cd Backend/**/* # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - cd Backend/gameFile/ # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn package
   only:
     refs:
@@ -20,7 +20,7 @@ maven-test:
   tags:
     - bo_tag # <-- change to your runner's tag
   script:
-    - cd Backend/**/8 # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - cd Backend/gameFile/ # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn test
   only:
     refs:
