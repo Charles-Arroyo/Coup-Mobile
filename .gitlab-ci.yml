@@ -1,46 +1,44 @@
 stages:
   - mavenbuild
   - maventest
-  
-maven-build:            
-  stage: mavenbuild     # one of the stages listed above
-  tags:                 # to specify which runner to execute this job
-    - bo_tag    # change to your runner's tag
-  script:               # what to execute for this job
-    - cd Backend/**/*        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-    - mvn package       # maven package
-  artifacts:            # where to output the packaged jar file, change 'Backend' to to where you have the pom.xml
+
+maven-build:
+  stage: mavenbuild # one of the stages listed above
+  tags: # to specify which runner to execute this job
+    - bo_tag # change to your runner's tag
+  script: # what to execute for this job
+    - cd Backend/**/* # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - mvn package # maven package
+  artifacts: # where to output the packaged jar file, change 'Backend' to to where you have the pom.xml
     paths:
-    - Backend/target/*.jar
+      - Backend/target/*.jar
   only:
     refs:
-      - main            # only to trigger the pipeline when changes are pushed to 'main'
+      - main # only to trigger the pipeline when changes are pushed to 'main'
     changes:
-      - Backend/**/*    # more specifically - only when changes are made inside the 'Backend' folder
+      - Backend/**/* # more specifically - only when changes are made inside the 'Backend' folder
 
-maven-test:             
-  stage: maventest     # one of the stages listed above
+maven-test:
+  stage: maventest # one of the stages listed above
   tags:
-    - bo_tag      # <-- change to your runner's tag
+    - bo_tag # <-- change to your runner's tag
   script:
-     - cd Backend/**/*       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-     - mvn test         # maven test
+    - cd Backend/**/* # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - mvn test # maven test
   only:
     refs:
       - Bo_CICD
     changes:
       - Backend/**/*
-
-
-maven-test:             
-  stage: maventest
-  tags:
-    - bo_tag     # <-- change to your runner's tag
-  script:
-    - cd Backend/**/*       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-    - mvn test
-  only:
-    refs:
-      - Bo_CICD
-    changes:
-      - Backend/**/*
+# maven-test:
+#   stage: maventest
+#   tags:
+#     - bo_tag     # <-- change to your runner's tag
+#   script:
+#     - cd Backend/**/*       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+#     - mvn test
+#   only:
+#     refs:
+#       - Bo_CICD
+#     changes:
+#       - Backend/**/*
