@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     // success
     private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
 
+    private static final String URL_ADMIN_LOGIN = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
 
     /**
      * On Create method for Login Activity
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
             if (!username.isEmpty() && !password.isEmpty()) {
+=
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();

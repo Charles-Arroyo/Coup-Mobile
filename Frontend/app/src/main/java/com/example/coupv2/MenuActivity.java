@@ -96,8 +96,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         Toast.makeText(this, "WELCOME!!!", Toast.LENGTH_SHORT).show();
 
         // Initialize UI elements
-        playButton = findViewById(R.id.play_btn);
-        friendsButton = findViewById(R.id.friends_btn);
+        playButton = findViewById(R.id.game);
+        friendsButton = findViewById(R.id.list_btn);
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
