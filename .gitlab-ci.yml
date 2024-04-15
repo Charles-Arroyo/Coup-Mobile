@@ -6,7 +6,7 @@ android-build:
   image: afirefly/android-ci:java17
   stage: androidbuild
   tags:
-    - billy_tag
+    - Billy_Tag
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
@@ -24,7 +24,7 @@ android-test:
   image: afirefly/android-ci:java17
   stage: androidtest
   tags:
-    - billy_tag
+    - Billy_Tag
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/gradlew
