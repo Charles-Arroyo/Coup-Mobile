@@ -22,40 +22,50 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.coupv2.utils.Const;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
-    //game chat
+    //game chat Views
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
     private ImageButton submitText;
     private EditText chatMessage;
-    //track who the current player is
-    String whoTurnIsIt;
-    //cards of currentPlayer
-    String card1;
-    String card2;
-    //lives and coins of current players
-    int currentLives;
-    int currentCoins;
-     int currentTurnNumber;
-    //coins
-     int coins2;
-     int coins3;
-     int coins4;
-//    these three variables are for displaying ui
-//    boolean isWaiting;
-     String playerState;
-     boolean isContesting;
-    private ImageView gameBoard;
     private ImageButton openChat;
-    //get image view for waiting
+    //views for when player is waiting
     ImageView waitingOverlay;
-    //get image view for contesting
-    ImageView bigBlock;
+    //views for when player turn
+    private ImageView gameBoard;
+    //views for when in contest mode
     ImageView smallwhite1;
     TextView smallwhite1Text;
     ImageView smallwhite2;
     TextView smallwhite2Text;
     ImageView longwhite;
     TextView longwhitetext;
+    ImageView bigBlock;
+    //player variables
+    String card1;
+    String card2;
+    String playerState;
+    int turnIndex; //will be a value of 1-4
+    //screen variables
+    ImageView greenCard1;
+    ImageView greenCard2;
+    ImageView greenCard3;
+    ImageView redCard1;
+    ImageView redCard2;
+    ImageView redCard3;
+    ImageView yellowCard1;
+    ImageView yellowCard2;
+    ImageView yellowCard3;
+    ImageView blueCard1;
+    ImageView blueCard2;
+    ImageView blueCard3;
+    ImageView cardIcon2;
+    ImageView cardIcon3;
+    TextView numCoins1;
+    TextView numCoins2;
+    TextView numCoins3;
+    TextView numCoins4;
+
+
     @Override
     //keep websocket open from LobbyActivity
     protected void onResume() {
@@ -63,6 +73,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         JSONObject jsonObject = new JSONObject();
+        //let backend know that player is ready to receive data
         try {
             jsonObject.put("playerEmail", Const.getCurrentEmail());
             jsonObject.put("move", "ready");
@@ -76,24 +87,44 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play); // link tupdo Play activity XML
-        //gamechat
+        // link Play activity XML
+        setContentView(R.layout.activity_play);
+        //assign screen views
+        greenCard1 = findViewById(R.id.greenIcon1);
+        greenCard2 = findViewById(R.id.greenIcon2);
+        greenCard3 = findViewById(R.id.greenIcon3);
+        redCard1 = findViewById(R.id.redIcon1);
+        redCard2 = findViewById(R.id.redIcon2);
+        redCard3 = findViewById(R.id.redIcon3);
+        blueCard1 = findViewById(R.id.blueIcon1);
+        blueCard2 = findViewById(R.id.blueIcon2);
+        blueCard3 = findViewById(R.id.blueIcon3);
+        yellowCard1 = findViewById(R.id.yellowicon1);
+        yellowCard2 = findViewById(R.id.yellowicon2);
+        yellowCard3 = findViewById(R.id.yellowicon3);
+         numCoins1 = findViewById(R.id.oval1Text);
+         numCoins2 = findViewById(R.id.oval2Text);
+         numCoins3 = findViewById(R.id.oval3Text);
+         numCoins4 = findViewById(R.id.oval4Text);
+        //assign chat views
         scrollViewMessages = findViewById(R.id.scrollViewMessages1);
         layoutMessages = findViewById(R.id.layoutMessages);
         chatMessage =  findViewById(R.id.chatText);
         submitText =  findViewById(R.id.submitText);
-        //variables
-        gameBoard = findViewById(R.id.gameBoard);
         openChat = findViewById(R.id.imageButton2);
-        //contest variables
+        //assign view for player is waiting
+        waitingOverlay = findViewById(R.id.gameBoard_wait);
+        //assign view for player turn
+        gameBoard = findViewById(R.id.gameBoard);
+        gameBoard.setOnClickListener(gameBoardClickListener); //set gameBoard to be visible by default
+        //assign view for player is contesting
         smallwhite1 = findViewById(R.id.smallwhite1);
         smallwhite1Text = findViewById(R.id.smallwhite1Text);
         smallwhite2 = findViewById(R.id.smallwhite2);
         smallwhite2Text = findViewById(R.id.smallwhite2Text);
         longwhite = findViewById(R.id.longwhite);
         longwhitetext = findViewById(R.id.longwhitetext);
-        //set gameBoard to be visible by default
-        gameBoard.setOnClickListener(gameBoardClickListener);
+        bigBlock = findViewById(R.id.BIGBLOCK);
         openChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,9 +167,45 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
     }
 
+    //how to handle data coming from backend
     @Override
     public void onWebSocketMessage(String message) {
         Log.d("WebSocket", "Play Activity received: " + message);
+        //handle game data
+        if (message.trim().startsWith("{")) {
+            // It seems to be a JSON message, parse it
+            processJsonMessage(message);
+        }
+        //handle chat data
+        else if (message.matches(".*: '.*'")) {
+            // It matches the pattern "Username: 'message'"
+            processStringMessage(message);
+        }
+        // Unknown format
+        else {
+            Log.e("WebSocket", "Received message in unknown format: " + message);
+        }
+    }
+    //how to handle chat data
+    private void processStringMessage(String message) {
+        // Extract the username and message from the string
+        int colonIndex = message.indexOf(":");
+        if (colonIndex != -1) {
+            String username = message.substring(0, colonIndex).trim();
+            String messageContent = message.substring(colonIndex + 1).trim().replaceAll("^'(.*)'$", "$1");
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // Update UI components with the username and message
+                    // ...
+                }
+            });
+        }
+    }
+    //how to handle game data
+    private void processJsonMessage(String message) {
+        // Existing JSON processing code here...
         try {
             // Parse the message into a JSONObject
             JSONObject jsonObject = new JSONObject(message);
@@ -151,11 +218,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
-
-
-
-
                     try {
                         // Perform UI updates for each player
                         for (int i = 0; i < playerArray.length(); i++) {
@@ -198,15 +260,11 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                     }
                 }
             });
-
         } catch (JSONException e) {
             // If an exception is thrown, log the error and the message that caused it
             Log.e("WebSocket", "Error parsing JSON message: " + message, e);
         }
     }
-
-
-
 
 
     @Override
@@ -215,11 +273,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     }
     //check if player is waiting
     public void updatePlayerStateUi(){
-        //get image view for waiting
-        ImageView waitingOverlay = findViewById(R.id.gameBoard_wait);
-        //get image view for contesting
-        ImageView bigBlock = findViewById(R.id.BIGBLOCK);
-
         //if not player turn then display waiting
         if (playerState.equals("wait")){
             //hide contest layout
@@ -248,22 +301,20 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             smallwhite2Text.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
             longwhitetext.setVisibility(View.GONE);
-            waitingOverlay.setVisibility(View.GONE);
-            //do not show waiting screen
+            //hide waiting layout
             waitingOverlay.setVisibility(View.GONE);
             //set on game board listener
             gameBoard.setOnClickListener(gameBoardClickListener);
-            //disable listeners if not turn
+            //disable contest listeners
             smallwhite1.setOnClickListener(null);
             smallwhite2.setOnClickListener(null);
             longwhite.setOnClickListener(null);
         }
         //implement later
         else if(playerState.equals("contest")){
-            //disable gameBoard listener, and hide wait
-            //i think i need to hide old gameboard or just make sure its not visible
+            //hide waiting layout
             waitingOverlay.setVisibility(View.GONE);
-            //show game board with three new buttons
+            //show contest mode layout
             bigBlock.setVisibility(View.VISIBLE);
             smallwhite1.setVisibility(View.VISIBLE);
             smallwhite1Text.setVisibility(View.VISIBLE);
@@ -271,118 +322,114 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             smallwhite2Text.setVisibility(View.VISIBLE);
             longwhite.setVisibility(View.VISIBLE);
             longwhitetext.setVisibility(View.VISIBLE);
-            //disable listeners if not turn
+            //disable game listeners if not turn
             gameBoard.setOnClickListener(null);
-            //set listeners
+            //set contest listeners
             smallwhite1.setOnClickListener(blockButtonListener);
             smallwhite2.setOnClickListener(bluffButtonListener);
             longwhite.setOnClickListener(skipButtonListener);
         }
     }
-    //take in turn number and total coins
+    //update player coins
+//    public void updatePlayerCoinsUi(int totalCoins, int numOfTurn){
+//        if (numOfTurn == 1){
+//            numCoins1.setText(String.valueOf(totalCoins));
+//        }
+//        else if (numOfTurn == 2){
+//            numCoins2.setText(String.valueOf(totalCoins));
+//        }
+//        else if (numOfTurn == 3){
+//            numCoins3.setText(String.valueOf(totalCoins));
+//        }
+//        else if (numOfTurn == 4){
+//            numCoins4.setText(String.valueOf(totalCoins));
+//        }
+//    }
     public void updatePlayerCoinsUi(int totalCoins, int numOfTurn){
-        // Find the TextViews by ID
-        TextView oval1Text = findViewById(R.id.oval1Text);
-        TextView oval2Text = findViewById(R.id.oval2Text);
-        TextView oval3Text = findViewById(R.id.oval3Text);
-        TextView oval4Text = findViewById(R.id.oval4Text);
         if (numOfTurn == 1){
-            oval1Text.setText(String.valueOf(totalCoins));
+            numCoins1.setText(String.valueOf(totalCoins));
         }
         else if (numOfTurn == 2){
-            oval2Text.setText(String.valueOf(totalCoins));
+            numCoins2.setText(String.valueOf(totalCoins));
         }
         else if (numOfTurn == 3){
-            oval3Text.setText(String.valueOf(totalCoins));
+            numCoins3.setText(String.valueOf(totalCoins));
         }
         else if (numOfTurn == 4){
-            oval4Text.setText(String.valueOf(totalCoins));
+            numCoins4.setText(String.valueOf(totalCoins));
         }
-
     }
     //call method 4 times for each player
     public void updatePlayer1LivesUi(int lives){
-        ImageView cardIcon1 = findViewById(R.id.greenIcon1);
-        ImageView cardIcon2 = findViewById(R.id.greenIcon2);
-        ImageView cardIcon3 = findViewById(R.id.greenIcon3);
         if (lives ==  2){
-            cardIcon1.setVisibility(View.VISIBLE);
-            cardIcon2.setVisibility(View.VISIBLE);
-            cardIcon3.setVisibility(View.GONE);
+            greenCard1.setVisibility(View.VISIBLE);
+            greenCard2.setVisibility(View.VISIBLE);
+            greenCard3.setVisibility(View.GONE);
         }
         //one life
         else if (lives ==  1){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.VISIBLE);
+            greenCard1.setVisibility(View.GONE);
+            greenCard2.setVisibility(View.GONE);
+            greenCard3.setVisibility(View.VISIBLE);
         }
         else if (lives ==  0){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.GONE);
+            greenCard1.setVisibility(View.GONE);
+            greenCard2.setVisibility(View.GONE);
+            greenCard3.setVisibility(View.GONE);
         }
     }
     public void updatePlayer2LivesUi(int lives){
-        ImageView cardIcon1 = findViewById(R.id.yellowicon1);
-        ImageView cardIcon2 = findViewById(R.id.yellowicon2);
-        ImageView cardIcon3 = findViewById(R.id.yellowicon3);
         if (lives ==  2){
-            cardIcon1.setVisibility(View.VISIBLE);
-            cardIcon2.setVisibility(View.VISIBLE);
-            cardIcon3.setVisibility(View.GONE);
+            yellowCard1.setVisibility(View.VISIBLE);
+            yellowCard2.setVisibility(View.VISIBLE);
+            yellowCard3.setVisibility(View.GONE);
         }
         //one life
         else if (lives ==  1){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.VISIBLE);
+            yellowCard1.setVisibility(View.GONE);
+            yellowCard2.setVisibility(View.GONE);
+            yellowCard3.setVisibility(View.VISIBLE);
         }
         else if (lives ==  0){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.GONE);
+            yellowCard1.setVisibility(View.GONE);
+            yellowCard2.setVisibility(View.GONE);
+            yellowCard3.setVisibility(View.GONE);
         }
     }
     public void updatePlayer3LivesUi(int lives){
-        ImageView cardIcon1 = findViewById(R.id.redIcon1);
-        ImageView cardIcon2 = findViewById(R.id.redIcon2);
-        ImageView cardIcon3 = findViewById(R.id.redIcon3);
         if (lives ==  2){
-            cardIcon1.setVisibility(View.VISIBLE);
-            cardIcon2.setVisibility(View.VISIBLE);
-            cardIcon3.setVisibility(View.GONE);
+            redCard1.setVisibility(View.VISIBLE);
+            redCard2.setVisibility(View.VISIBLE);
+            redCard3.setVisibility(View.GONE);
         }
         //one life
         else if (lives ==  1){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.VISIBLE);
+            redCard1.setVisibility(View.GONE);
+            redCard2.setVisibility(View.GONE);
+            redCard3.setVisibility(View.VISIBLE);
         }
         else if (lives ==  0){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.GONE);
+            redCard1.setVisibility(View.GONE);
+            redCard2.setVisibility(View.GONE);
+            redCard3.setVisibility(View.GONE);
         }
     }
     public void updatePlayer4LivesUi(int lives){
-        ImageView cardIcon1 = findViewById(R.id.blueIcon1);
-        ImageView cardIcon2 = findViewById(R.id.blueIcon2);
-        ImageView cardIcon3 = findViewById(R.id.blueIcon3);
         if (lives ==  2){
-            cardIcon1.setVisibility(View.VISIBLE);
-            cardIcon2.setVisibility(View.VISIBLE);
-            cardIcon3.setVisibility(View.GONE);
+            blueCard1.setVisibility(View.VISIBLE);
+            blueCard2.setVisibility(View.VISIBLE);
+            blueCard3.setVisibility(View.GONE);
         }
         //one life
         else if (lives ==  1){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.VISIBLE);
+            blueCard1.setVisibility(View.GONE);
+            blueCard2.setVisibility(View.GONE);
+            blueCard3.setVisibility(View.VISIBLE);
         }
         else if (lives ==  0){
-            cardIcon1.setVisibility(View.GONE);
-            cardIcon2.setVisibility(View.GONE);
-            cardIcon3.setVisibility(View.GONE);
+            blueCard1.setVisibility(View.GONE);
+            blueCard2.setVisibility(View.GONE);
+            blueCard3.setVisibility(View.GONE);
         }
     }
     public void updatePlayerTurnUi(int turnNum){
@@ -417,7 +464,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     public void onWebSocketError(Exception ex) {
         Log.e("WebSocketListener", "Error received from WebSocket", ex);
     }
-    // A variable to store the game board click listener
+    //game board listener to open up Action Activity(only visible in turn mode)
     private View.OnClickListener gameBoardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -426,6 +473,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             startActivity(intent);
         }
     };
+    //listeners for contest mode
     private View.OnClickListener blockButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -472,20 +520,17 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         }
     };
     private void addMessageToLayout(String username, String message) {
+        //create a new view with xml layout and indicate where to add but dont attach yet
         View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
-
+        //find these views in the layout
         TextView textView = messageView.findViewById(R.id.placement);
         Button usernameButton = messageView.findViewById(R.id.btnUsername);
-
+        //assign these views
         textView.setText(message);
         usernameButton.setText(username);
-
-//        usernameButton.setOnClickListener(v -> {
-//            // For example, show a toast or open a user profile
-//            showUserPopup(username);
-//        });
-
+        //add view to linear layout
         layoutMessages.addView(messageView);
+        // After adding the message, scroll to the bottom of the scrollViewMessages to show the latest message.
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     };
 }
