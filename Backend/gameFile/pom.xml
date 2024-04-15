@@ -25,6 +25,12 @@
 <!--    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
 <!--    <java.version>11</java.version>-->
 
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <java.version>17</java.version> <!-- Set this to the Java version you need -->
+    </properties>
+
   </properties>
 
   <dependencies>
