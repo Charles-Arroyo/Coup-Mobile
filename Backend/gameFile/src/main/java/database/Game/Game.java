@@ -30,7 +30,7 @@ public class Game {
         players.add(new Player(name4, 2, false,2,"wait"));
         int var = 0;
         //Shuffle
-        Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
+//        Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
 
         for (int i = 0; i < players.size(); i++) { //Assigns index to player
             Player player = players.get(i);
@@ -43,7 +43,7 @@ public class Game {
 
         deck = new Deck(); // Create a Deck Object
         deck.initializeDeck(); //Initialize a deck of 15 Cards. [Duke,Duke,Duke,Captain,Captain...]
-        deck.shuffle(); //Shuffle/randomize Array List of Cards
+//        deck.shuffle(); //Shuffle/randomize Array List of Cards
         for (Player player : players) {
             player.setCardOne(deck.drawCard());
             player.setCardTwo(deck.drawCard());
@@ -61,15 +61,12 @@ public class Game {
     }
 
     public String associate(String move){
-        if(move.equals("Tax") ){
-            return "Duke";
-        }else if(move.equals("Steal")){
-            return "Captain";
-        }else if(move.equals("Assassinate")){
-            return "Assassin";
-        }else{
-            return "Nah";
-        }
+        return switch (move) {
+            case "Tax" -> "Duke";
+            case "Steal" -> "Captain";
+            case "Assassinate" -> "Assassin";
+            default -> "Nah";
+        };
     }
 
     public void getPlayers() {

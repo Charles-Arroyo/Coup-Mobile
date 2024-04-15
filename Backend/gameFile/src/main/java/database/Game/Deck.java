@@ -30,6 +30,10 @@ public class Deck {
         cards.add(new Card("Assassin"));
         cards.add(new Card("Assassin"));
 
+
+
+
+
     }
     public void shuffle(){
         Collections.shuffle(cards);

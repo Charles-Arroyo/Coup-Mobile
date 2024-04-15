@@ -79,13 +79,15 @@ public class Player {
         if(action.equals("Waiting")){
             setPlayerState("Waiting");
         }
+        if(action.equals("Foreign Aid")){
+            foreignAid();
+
+        }
     }
 
     public void coup(Player player){
-        if(this.coins >= 7){
             loseInfluence(player);
             loseCoins(7);
-        }
     }
 
 
