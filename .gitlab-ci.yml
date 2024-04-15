@@ -27,7 +27,7 @@ maven-test:
      - mvn test         # maven test
   only:
     refs:
-      - bo_runner
+      - Bo_CICD
     changes:
       - Backend/**/*
 
@@ -41,6 +41,6 @@ maven-test:
     - mvn test
   only:
     refs:
-      - bo_runner
+      - Bo_CICD
     changes:
       - Backend/**/*
