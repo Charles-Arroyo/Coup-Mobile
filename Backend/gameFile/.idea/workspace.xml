@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameAssassinateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameAssassinateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameCoupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameCoupTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameIncomeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameIncomeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameRevealCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameRevealCardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameStealTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameStealTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameTaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTaxTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameTurnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTurnTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,31 +41,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "Bo__CICD",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Main.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Bo__CICD&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="onetoone" />
@@ -91,6 +98,7 @@
       <workItem from="1713074385065" duration="164000" />
       <workItem from="1713150088454" duration="65000" />
       <workItem from="1713150484646" duration="9000" />
+      <workItem from="1713150629068" duration="55000" />
     </task>
     <servers />
   </component>
