@@ -171,10 +171,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="#2196F3"
-            android:onClick="onCloseButtonClick"
             android:text="Close Rules Overlay"
             android:textColorHighlight="#200C0C"
             app:iconTint="#4CAF50" />
+
 
     </LinearLayout>
 
