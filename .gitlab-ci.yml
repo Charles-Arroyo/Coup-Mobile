@@ -1,19 +1,4 @@
 
-auto-deploy:
-  stage: mavendeploy # one of the stages listed above
-  tags:
-    - springboot_tag # change to your runner's tag
-  script: # script to run the deployment service you created
-    - cd Backend # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-    - sudo mv gameFile/target/onetoone-1.0.0.jar /target/web-demo.jar
-    - sudo systemctl stop system-web-demo
-    - sudo systemctl start system-web-demo
-  only:
-    refs:
-      - main # only to trigger the pipeline when changes are pushed to 'main'
-    changes:
-      - Backend/gameFile/ # more specifically - only when changes are made inside the 'Backend' folder
-
 android-build:
   image: afirefly/android-ci:java17 # Docker image that has Android environments installed     gjandres/android-ci:latest
   stage: androidbuild # one of the stages listed above
