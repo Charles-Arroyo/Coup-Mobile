@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@ServerEndpoint(value = "/chatFriend/{userId}/{friendId}")
+@ServerEndpoint(value = "/chatFriend/{userEmail}/{friendEmail}")
 public class FriendChatSocket {
     private static UserRepository userRepository;
     private static FriendRepository friendRepository;
@@ -42,11 +42,13 @@ public class FriendChatSocket {
     private static Map<Integer, Session> sessions = new HashMap<>();
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId") Integer userId, @PathParam("friendId") Integer friendId) throws IOException {
-        sessions.put(userId, session);
+    public void onOpen(Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
-        User user = userRepository.findById(userId);
-        User friend = userRepository.findById(friendId);
+        sessions.put(userId, session);
 
         if (user != null && friend != null) {
             // Check if the users are friends
@@ -69,9 +71,11 @@ public class FriendChatSocket {
     }
 
     @OnMessage
-    public void onMessage(String message, Session session, @PathParam("userId") Integer userId, @PathParam("friendId") Integer friendId) throws IOException {
-        User user = userRepository.findById(userId);
-        User friend = userRepository.findById(friendId);
+    public void onMessage(String message, Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
         if (user != null && friend != null) {
             // Check if the users are friends
@@ -104,7 +108,9 @@ public class FriendChatSocket {
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("userId") Integer userId) {
+    public void onClose(Session session, @PathParam("userEmail") String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
         sessions.remove(userId);
     }
 }
