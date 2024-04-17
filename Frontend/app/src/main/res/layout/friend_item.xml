@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/editbox_background_normal"
-    android:backgroundTint="#FFFFFF"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="20dp"
     app:layout_anchorGravity="center">
 
-    <Button
+    <ImageButton
+        android:contentDescription="shows activeness"
         android:id="@+id/active"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_gravity="center|left"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center|start"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#FFFFFF" />
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/offline_icon" />
 
     <Button
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|left"
+        android:layout_gravity="center|start"
         android:layout_marginRight="50dp"
         android:layout_weight="1"
         android:backgroundTint="#FFFFFF"
@@ -35,13 +35,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_weight="1"
-        android:text=" "
+        android:contentDescription=""
+
         android:textColor="#000000" />
 
     <ImageButton
         android:id="@+id/msgButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
         android:layout_gravity="center|end"
         android:background="@android:drawable/ic_dialog_email" />
 

@@ -6,6 +6,8 @@ import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,12 +55,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
     private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
     -------------------------------------------------------------------------------------------------------------------------------
     Port 8443
-    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
-    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
-    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
-    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
-    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
+    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
+    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
+    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/true/";
+    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/false/";
     ---------------------------------------------------------------------------------------------------
     Mock URLS
     private static final String URL_ADD_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
@@ -71,11 +74,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
      */
 
-         private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
-        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
-        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
-        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
+        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
+        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
+        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
+        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/true/";
+        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/false/";
 
         /**
          * Method that runs and mostly intialize the functions in the menu
@@ -547,7 +551,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
                     View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
                     Button emailButton = friendView.findViewById(R.id.email);
-                    Button activeButton = friendView.findViewById(R.id.active);
+                    ImageButton activeButton = friendView.findViewById(R.id.active);
 
                     emailButton.setText(email);
                     emailButton.setOnClickListener(v -> showUserStats(email));
@@ -557,11 +561,14 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
                     emailButton.setText(email);
 
-                    if (isActive.equals("true")) {
-                        activeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.active_green)));
+                    //animation
+                    Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.spinning);
+                    activeButton.startAnimation(rotateAnimation);
 
+                    if (isActive.equals("true")) {
+                        activeButton.setBackground(ContextCompat.getDrawable(this, R.drawable.online_icon));
                     }else  if (isActive.equals("false")) {
-                        activeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.inactive_red)));
+                        activeButton.setBackground(ContextCompat.getDrawable(this, R.drawable.offline_icon));
 
                     }
 

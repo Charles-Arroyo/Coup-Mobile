@@ -66,7 +66,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
      */
     private final ArrayList<String> messagesList = new ArrayList<>();
     private final String user = Const.getCurrentEmail();
-    private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
+    private Button sendBtn, playButton, listButton,  statsButton, rulesButton;
 
 
     /**
@@ -82,11 +82,11 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu); // Set the layout for this activity
+        setContentView(R.layout.activity_admin_menu); // Set the layout for this activity
 
         // Initialize UI elements
         playButton = findViewById(R.id.game);
-        friendsButton = findViewById(R.id.list_btn);
+        listButton = findViewById(R.id.list_btn);
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
@@ -101,9 +101,9 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
             startActivity(intent);
         });
         // Friends Button
-        friendsButton.setOnClickListener(v -> {
+        listButton.setOnClickListener(v -> {
             // Start the friends activity
-            Intent intent = new Intent(AdminActivity.this, FriendsActivity.class);
+            Intent intent = new Intent(AdminActivity.this, ListActivity.class);
             startActivity(intent);
         });
         // Settings Button

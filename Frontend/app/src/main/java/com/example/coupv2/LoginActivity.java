@@ -60,8 +60,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         loginButton.setOnClickListener(v -> {
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (!username.isEmpty() && !password.isEmpty()) {
-=
+
+            if(username.equals("ADMIN") & password.equals("ADMIN")){
+                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                startActivity(intent);
+
+
+            } else if (!username.isEmpty() && !password.isEmpty()) {
+
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
