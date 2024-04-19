@@ -54,9 +54,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         Button sendBtn = findViewById(R.id.send_btn);
         ImageButton backButton = findViewById(R.id.back_btn);
 
-
-        String serverUrl = BASE_URL + user;
-        WebSocketManager.getInstance().connectWebSocket(serverUrl);
+        WebSocketManager.getInstance().connectWebSocket(BASE_URL);
         WebSocketManager.getInstance().setWebSocketListener(MessageActivity.this);
 
         title.setText(selectedFriendEmail);
@@ -85,14 +83,11 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
             int colonIndex = fullMessage.indexOf(":");
-
             if (colonIndex != -1) {
                 String username = fullMessage.substring(0, colonIndex).trim();
                 String message = fullMessage.substring(colonIndex + 1).trim();
 
                 addMessageToLayout(username, message);
-            } else {
-                addMessageToLayout("Server", fullMessage);
             }
         });
     }
@@ -133,8 +128,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
-        // Implement your logic here
-    }
+     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
@@ -150,16 +144,6 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         });
     }
 
-    /**
-     * Websocket method to reconnect the user when leaving activity
-     */
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        WebSocketManager.getInstance().setWebSocketListener(this);
-        WebSocketManager.getInstance().sendMessage("getFriends");
-    }
 
     /**
      * Websocket method to pause websocket connection when leaving activity
