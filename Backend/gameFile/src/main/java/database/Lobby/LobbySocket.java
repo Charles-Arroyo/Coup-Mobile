@@ -2,11 +2,14 @@ package database.Lobby;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import database.Chat.MessageRepository;
 import database.Game.Game;
 import database.Game.Player;
+import database.Spectator.Spectator;
+import database.Spectator.SpectatorRepository;
 import database.Users.User;
 import database.Users.UserRepository;
 import database.Websocketconfig.WebsocketConfig;
@@ -37,6 +40,8 @@ public class LobbySocket {
 
     private static UserRepository userRepository; // User Repo
 
+    private static SpectatorRepository spectatorRepository;
+
     private static Game game;
 
     @Autowired
@@ -47,6 +52,10 @@ public class LobbySocket {
     public void setLobbyRepository(LobbyRepository repo) {
         lobbyRepository = repo;  // we are setting the static variable
     }
+
+    @Autowired
+    public void setSpectatorRepository(SpectatorRepository repo) {spectatorRepository = repo;}
+
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
     private static Map<Session,User> sessionLobbyMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
@@ -57,62 +66,138 @@ public class LobbySocket {
 
 
 
+//        @OnOpen
+//        public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
+//            User user = userRepository.findByUserEmail(username); // find user
+//            sessionUserMap.put(session, user);
+//            userSessionMap.put(user,session);
+//
+//            if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
+//                Lobby newLobby = new Lobby(); // Create new Lobby
+//                newLobby.addUser(user); // add user
+//                lobbyRepository.save(newLobby); // Save lobby for admin use
+//                for(User userList : newLobby.getUserArraylist()) {
+//                    broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + newLobby.getUsers());
+//                    broadcastToSpecificUser(userList.getUserEmail(), "The ID is: " + newLobby.getId());
+//                }
+//            }else {
+//                //USER WANTS TO JOIN LOBBY
+//                Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find Lobby By ID
+//                if(!existingLobby.isFull()) {
+//                    existingLobby.addUser(user); // Add User to this Lobby
+//                    lobbyRepository.save(existingLobby); // Save Lobby
+//                    for(User userList : existingLobby.getUserArraylist()) {
+//                        broadcastToSpecificUser(userList.getUserEmail(), username + ": Joined the lobby");
+//                    }
+//
+//                    for(User userList : existingLobby.getUserArraylist()) {
+//                        broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + existingLobby.getUsers());
+//                    }
+//
+//                    if(existingLobby.isFull()){ //START GAME
+//                        /**
+//                         * INIT GAME
+//                         */
+//                        existingLobby.setGameStarted(true);
+//                        for(User userList : existingLobby.getUserArraylist()) {
+//                            broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
+//                        }
+//                        if(existingLobby.hasGameStarted()) {
+//                            List<Player> players = new ArrayList<>(4); // Create an Array list of Players
+//
+//                            game = new Game(players); //Pass in Deck and Array List
+//                            game.initGame(existingLobby.getUserArraylist().get(0).getUserEmail(),
+//                                    existingLobby.getUserArraylist().get(1).getUserEmail(),
+//                                    existingLobby.getUserArraylist().get(2).getUserEmail(),
+//                                    existingLobby.getUserArraylist().get(3).getUserEmail()); // Sends four players, see init game method
+//
+//                            /**
+//                             * INIT GAME
+//                             */
+//                        }
+//                    }
+//
+//                }else if(existingLobby.hasGameStarted()){
+//                    for(User userList : existingLobby.getUserArraylist()) {
+//                        broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
+//                    }
+//                }
+//
+//            }
+//        }
+
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
-        User user = userRepository.findByUserEmail(username); // find user
-        sessionUserMap.put(session, user);
-        userSessionMap.put(user,session);
-        if(lobbyId == 0){ //USER WANTS TO CREATE LOBBY
-            Lobby newLobby = new Lobby(); // Create new Lobby
-            newLobby.addUser(user); // add user
-            lobbyRepository.save(newLobby); // Save lobby for admin use
-            for(User userList : newLobby.getUserArraylist()) {
-                broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + newLobby.getUsers());
-                broadcastToSpecificUser(userList.getUserEmail(), "The ID is: " + newLobby.getId());
+        User user = userRepository.findByUserEmail(username); // find user by their email
+        sessionUserMap.put(session, user); // map the WebSocket session to the user
+        userSessionMap.put(user, session); // map the user to the WebSocket session
+
+        if (lobbyId == 0) { // USER WANTS TO CREATE LOBBY
+            Lobby newLobby = new Lobby(); // Create a new Lobby
+            newLobby.addUser(user); // add user to the lobby
+            lobbyRepository.save(newLobby); // save the new lobby
+            broadcastToAllInLobby(newLobby, "Users in lobby: " + newLobby.getUsers() + " The ID is: " + newLobby.getId());
+        } else { // USER WANTS TO JOIN LOBBY
+            Lobby existingLobby = lobbyRepository.findById(lobbyId); // find lobby by ID
+            if (existingLobby == null) {
+                session.getBasicRemote().sendText("Lobby not found");
+                session.close();
+                return;
             }
-        }else{ //USER WANTS TO JOIN LOBBY
-            Lobby existingLobby = lobbyRepository.findById(lobbyId); // Find Lobby By ID
-            if(!existingLobby.isFull()) {
-                existingLobby.addUser(user); // Add User to this Lobby
+            if (existingLobby.getUserArraylist().size() < 4) { // Check if lobby has less than 4 users
+                existingLobby.addUser(user); // Add user to the lobby
                 lobbyRepository.save(existingLobby); // Save Lobby
-                for(User userList : existingLobby.getUserArraylist()) {
-                    broadcastToSpecificUser(userList.getUserEmail(), username + ": Joined the lobby");
+                broadcastToAllInLobby(existingLobby, username + ": Joined the lobby");
+
+                if (existingLobby.getUserArraylist().size() == 4 && !existingLobby.hasGameStarted()) { // START GAME
+                    existingLobby.setGameStarted(true);
+                    existingLobby.setFull(true);
+                    lobbyRepository.save(existingLobby);
+                    startGame(existingLobby); // function to handle game initialization
                 }
-
-                for(User userList : existingLobby.getUserArraylist()) {
-                    broadcastToSpecificUser(userList.getUserEmail(), "Users in lobby: " + existingLobby.getUsers());
-                }
-
-
-                if(existingLobby.isFull()){ //START GAME
-                    /**
-                     * INIT GAME
-                     */
-                    for(User userList : existingLobby.getUserArraylist()) {
-                        broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
-                    }
-
-                    List<Player> players = new ArrayList<>(4); // Create an Array list of Players
-
-                    game = new Game(players); //Pass in Deck and Array List
-                    game.initGame(existingLobby.getUserArraylist().get(0).getUserEmail(),
-                            existingLobby.getUserArraylist().get(1).getUserEmail(),
-                            existingLobby.getUserArraylist().get(2).getUserEmail(),
-                            existingLobby.getUserArraylist().get(3).getUserEmail()); // Sends four players, see init game method
-
-                    /**
-                     * INIT GAME
-                     */
-                }
-
-            }else{
-                for(User userList : existingLobby.getUserArraylist()) {
-                    broadcastToSpecificUser(userList.getUserEmail(), "Lobby is full");
-                }
+            } else if (existingLobby.getUserArraylist().size() >= 4 || existingLobby.hasGameStarted()) { // Lobby is full or game has started
+                Spectator spectator = new Spectator(user);
+                spectator.joinLobby(existingLobby);
+                spectatorRepository.save(spectator); // Save the spectator to the database
+                broadcastToAllInLobby(existingLobby, username + " has joined the lobby as a spectator.");
             }
-
         }
     }
+
+    private void broadcastToAllInLobby(Lobby lobby, String message) {
+        // Send message to all active participants and spectators
+        lobby.getUserArraylist().forEach(u -> broadcastToSpecificUser(u.getUserEmail(), message));
+        lobby.getSpectators().forEach(u -> broadcastToSpecificUser(u.getUserEmail(), message));
+    }
+
+    private void startGame(Lobby lobby) {
+        if (lobby.getUserArraylist().size() == 4) {
+            // Convert each User in the lobby into a Player object using their individual email
+            List<Player> players = new ArrayList<>(4); // Create an ArrayList of Players
+
+            game = new Game(players); // Pass the list of Player objects to the Game constructor
+
+            // Add each user in the lobby as a Player object to the players list
+            game.initGame(
+                    lobby.getUserArraylist().get(0).getUserEmail(),
+                    lobby.getUserArraylist().get(1).getUserEmail(),
+                    lobby.getUserArraylist().get(2).getUserEmail(),
+                    lobby.getUserArraylist().get(3).getUserEmail()
+            );
+
+            // Mark the game as started in the lobby
+            lobby.setGameStarted(true);
+
+            // Notify all users in the lobby that the game is starting
+            broadcastToAllInLobby(lobby, "Lobby is full");
+        }
+//        else {
+//            // Notify all users in the lobby that the game cannot start yet
+//            broadcastToAllInLobby(lobby, "Not enough players to start the game. Waiting for more players to join.");
+//        }
+    }
+
+
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         /** Switch statements could be good
@@ -238,20 +323,51 @@ public class LobbySocket {
 
 
 
+//    @OnClose
+//    public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
+//        Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
+//        User user = userRepository.findByUserEmail(username); //Find UserName
+//        lobby.removeUser(user); // Remove user from lobby
+//        lobbyRepository.save(lobby); // Save Lobby
+//        sessionUserMap.remove(session); // Remove Users Session
+//        userSessionMap.remove(user);
+//        for(User userList : lobby.getUserArraylist()) {
+//            broadcastToSpecificUser(userList.getUserEmail(), username + " Has left");
+//        }
+//        ////NEW CODE NEW CODE
+//        if(lobby.isEmpty()){
+////          sessionLobbyMap.remove(session);
+//            lobbyRepository.delete(lobby);
+//        }
+//        ////NEW CODE NEW CODE
+//    }
+
+
     @OnClose
     public void onClose(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username")String username) {
         Lobby lobby = lobbyRepository.findById(userRepository.findByUserEmail(username).getLobby().getId()); //Find Lobby here it shows 0
         User user = userRepository.findByUserEmail(username); //Find UserName
-        lobby.removeUser(user); // Remove user from lobby
-        lobbyRepository.save(lobby); // Save Lobby
+
+        // Check if the user is a spectator
+        Spectator spectator = spectatorRepository.findByUser(user);
+        if (spectator != null && spectator.getActive()) {
+            spectator.leaveLobby();
+            spectatorRepository.save(spectator); // Update the spectator in the database
+            broadcastToAllInLobby(lobby, username + " has left the lobby as a spectator.");
+        } else {
+            // User is a regular participant
+            lobby.removeUser(user); // Remove user from lobby
+            lobbyRepository.save(lobby); // Save Lobby
+            for(User userList : lobby.getUserArraylist()) {
+                broadcastToSpecificUser(userList.getUserEmail(), username + " has left the lobby.");
+            }
+        }
+
         sessionUserMap.remove(session); // Remove Users Session
         userSessionMap.remove(user);
-        for(User userList : lobby.getUserArraylist()) {
-            broadcastToSpecificUser(userList.getUserEmail(), username + " Has left");
-        }
+
         ////NEW CODE NEW CODE
         if(lobby.isEmpty()){
-//          sessionLobbyMap.remove(session);
             lobbyRepository.delete(lobby);
         }
         ////NEW CODE NEW CODE

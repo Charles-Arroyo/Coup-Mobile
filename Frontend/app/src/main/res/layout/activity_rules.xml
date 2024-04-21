@@ -160,9 +160,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-             android:onClick="onCloseButtonClick"
-            android:text="Close Rules Overlay"
-              />
+            android:text="Close Rules Overlay" />
+
 
     </LinearLayout>
 

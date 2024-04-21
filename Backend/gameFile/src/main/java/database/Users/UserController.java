@@ -65,15 +65,15 @@ public class UserController {
 //    private String invalidSignIn = "Wrong SignId"; // This will return a string that alert the user that they dont have the right user.
 
 
-    /**
-     * Gets all users in the user repo
-     *
-     * @return
-     */
-    @GetMapping(path = "/users")
-    List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+//    /**
+//     * Gets all users in the user repo
+//     *
+//     * @return
+//     */
+//    @GetMapping(path = "/users")
+//    List<User> getAllUsers() {
+//        return userRepository.findAll();
+//    }
 
     /**
      * Gets a user based on unique ID
@@ -86,15 +86,15 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @GetMapping("/getId/{userEmail}")
-    public int getUserByEmail(@PathVariable String userEmail) {
-        User user = userRepository.findByUserEmail(userEmail);
-        if (user != null) {
-            return user.getId();
-        } else {
-            return -1;
-        }
-    }
+//    @GetMapping("/getId/{userEmail}")
+//    public int getUserByEmail(@PathVariable String userEmail) {
+//        User user = userRepository.findByUserEmail(userEmail);
+//        if (user != null) {
+//            return user.getId();
+//        } else {
+//            return -1;
+//        }
+//    }
 
     @Transactional
     @DeleteMapping(path = "/deleteLobby/{lobbyId}")
@@ -156,6 +156,60 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Allows the user to change their email
+     * @param userEmail
+     * @param updateUserEmail
+     * @return
+     */
+    @PutMapping(path = "/changeEmail/{userEmail}")
+    @Transactional
+    public String changeEmail(@PathVariable String userEmail, @RequestBody User updateUserEmail) {
+        if (updateUserEmail.getUserEmail() == null) {
+            return failure;
+        }
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        if (user == null) {
+            return failure;
+        }else {
+            user.setUserEmail(updateUserEmail.getUserEmail());
+            userRepository.save(user);
+
+            return success;
+        }
+    }
+
+    /**
+     * This will allow the user to change their password
+     * @param userEmail
+     * @param updateUserPassword
+     * @return
+     */
+
+    @PutMapping(path = "/changePass/{userEmail}")
+    @Transactional
+    public ResponseEntity<String> changePassword(@PathVariable String userEmail, @RequestBody User updateUserPassword) {
+        if (updateUserPassword.getPassword() == null) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Invalid password\"}");
+        }
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"User not found\"}");
+        }else {
+
+            // Ensure the user is authorized to change the password here
+            user.setPassword(updateUserPassword.getPassword());
+            userRepository.save(user);
+
+            return ResponseEntity.ok("{\"success\":true}");
+        }
+    }
+
 
 
 }
