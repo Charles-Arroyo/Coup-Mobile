@@ -57,14 +57,6 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/leaderboard" />
 
-        <ImageButton
-            android:id="@+id/settings_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@null"
-            android:contentDescription="use this button to check your settings"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/settings" />
     </LinearLayout>
 
     <LinearLayout

@@ -38,7 +38,7 @@ public class StatsActivity extends AppCompatActivity {
 
 
         // Initialize TextViews
-        email = findViewById(R.id.stats_email);
+        email = findViewById(R.id.stats_user);
         playerWins = findViewById(R.id.stats_wins);
         playerLosses = findViewById(R.id.stats_losses);
         playerGamesPlayed = findViewById(R.id.stats_games_played);
@@ -63,17 +63,17 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void getUserStats(String email) {
-        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + email;
+        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/" + email;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
                 response -> {
                     Log.d("StatsActivity", "Response received: " + response.toString()); // Debug log
                     try {
-                        int wins = response.getInt("userWins");
-                        int losses = response.getInt("userLost");
-                        int average =  (wins / (wins + losses)) * 100;
-                        int score = response.getInt("userScore");
-                        int rank = response.optInt("userRank");
+                        int wins = response.getInt("wins");
+                        int losses = response.getInt("losses");
+                        double average =  (wins / (wins + losses)) * 100;
+                        int score = response.getInt("score");
+                        int rank = response.optInt("rank");
                         int gamesPlayed = wins + losses;
 
                         playerWins.setText(String.format("Wins: %d", wins));

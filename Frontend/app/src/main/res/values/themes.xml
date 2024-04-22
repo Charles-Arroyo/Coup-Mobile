@@ -128,5 +128,22 @@
         <item name="colorOnSurface">#FFFFFF</item>
     </style>
 
+
+
+    <style name="DarkThemeRed" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#D32F2F</item> <!-- Deep red -->
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#C62828</item>
+        <item name="colorOnPrimaryContainer">#FFCDD2</item>
+        <item name="colorError">#CF6679</item>
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="colorErrorContainer">#B00020</item>
+        <item name="colorOnErrorContainer">#FFDAD4</item>
+        <item name="colorOnBackground">#FFFFFF</item>
+        <item name="colorSurface">#121212</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+    </style>
+
+
     <style name="Theme.CoupV2" parent="Base.Theme.CoupV2" />
 </resources>

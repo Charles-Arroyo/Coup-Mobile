@@ -55,7 +55,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
     private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
-    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
+    private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
@@ -81,13 +81,14 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.DarkThemeRed);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu); // Set the layout for this activity
 
         // Initialize UI elements
         playButton = findViewById(R.id.game);
         listButton = findViewById(R.id.list_btn);
-        settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
         logoffButton = findViewById(R.id.logoff_btn);
@@ -104,12 +105,6 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
         listButton.setOnClickListener(v -> {
             // Start the friends activity
             Intent intent = new Intent(AdminActivity.this, ListActivity.class);
-            startActivity(intent);
-        });
-        // Settings Button
-        settingsButton.setOnClickListener(v -> {
-            // Start the settings activity
-            Intent intent = new Intent(AdminActivity.this, SettingActivity.class);
             startActivity(intent);
         });
         // Stats Button

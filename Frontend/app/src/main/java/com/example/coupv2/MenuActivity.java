@@ -37,7 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/** @noinspection MismatchedQueryAndUpdateOfCollection*/
+
 public class MenuActivity extends AppCompatActivity implements WebSocketListener {
 
     /*
