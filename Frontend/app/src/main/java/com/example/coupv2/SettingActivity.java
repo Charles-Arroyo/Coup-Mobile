@@ -31,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(Const.getCurrentTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings); // link to Login activity XML
         userNameText = findViewById(R.id.settings_username_edt);
@@ -73,16 +74,13 @@ public class SettingActivity extends AppCompatActivity {
 
         // Create a request for a response that expects a raw string
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
-                            updateUserSettings(primaryKey, emailToChange);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
-                        }
+                response -> {
+                    try {
+                        int primaryKey = Integer.parseInt(response); // Convert the response to an integer
+                        updateUserSettings(primaryKey, emailToChange);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {

@@ -3,26 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@android:drawable/dialog_holo_dark_frame"
-    android:backgroundTint="#009688"
     android:orientation="horizontal"
     android:padding="20dp">
 
     <TextView
         android:id="@+id/tvRank"
-        android:layout_width="wrap_content"
+        android:layout_width="20dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="1"
-        android:textSize="18sp"
         android:textColor="#FFFFFF"
-        android:layout_marginEnd="16dp"/>
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:backgroundTint="#009688"
         android:text="Username"
         android:textColor="#FFFFFF" />
 

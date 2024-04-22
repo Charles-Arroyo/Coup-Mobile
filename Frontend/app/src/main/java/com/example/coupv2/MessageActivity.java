@@ -24,13 +24,18 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     private TextView title;
     private String user;
     private ScrollView scrollViewMessages;
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chatFriend/";
     //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chatFriend/";
+
     private ArrayList<String> messagesList = new ArrayList<>();
     private String selectedFriendEmail; // Moved the initialization to onCreate
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(Const.getCurrentTheme());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_msg);
 
@@ -39,6 +44,9 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         selectedFriendEmail = intent.getStringExtra("friend");
 
         user = Const.getCurrentEmail();
+
+        BASE_URL = BASE_URL  + user + "/" + selectedFriendEmail;
+
         msg = findViewById(R.id.msg);
         title = findViewById(R.id.tittle);
         scrollViewMessages = findViewById(R.id.scrollViewMessages);
@@ -46,16 +54,14 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         Button sendBtn = findViewById(R.id.send_btn);
         ImageButton backButton = findViewById(R.id.back_btn);
 
-
-        String serverUrl = BASE_URL + user;
-        WebSocketManager.getInstance().connectWebSocket(serverUrl);
+        WebSocketManager.getInstance().connectWebSocket(BASE_URL);
         WebSocketManager.getInstance().setWebSocketListener(MessageActivity.this);
 
         title.setText(selectedFriendEmail);
         sendBtn.setOnClickListener(v -> {
             String messageToSend = msg.getText().toString().trim();
             if (!messageToSend.isEmpty()) {
-                sendMessage(messageToSend); // Use sendMessage method here
+                WebSocketManager.getInstance().sendMessage(messageToSend);
                 msg.setText("");
             }
         });
@@ -67,23 +73,32 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         });
     }
 
-    private void sendMessage(String message) {
-        String fullMessage = selectedFriendEmail != null ? "@" + selectedFriendEmail + " " + message : message;
-        WebSocketManager.getInstance().sendMessage(fullMessage);
-    }
 
-    @Override
+    /**
+     * Used to write the message, with code to help parse the username from message
+     *
+     * @param fullMessage The received WebSocket message.
+     */
+
     public void onWebSocketMessage(String fullMessage) {
         runOnUiThread(() -> {
-            int i = fullMessage.indexOf(":");
-            if (i != -1) {
-                String username = fullMessage.substring(0, i).trim();
-                String message = fullMessage.substring(i + 1).trim();
+            int colonIndex = fullMessage.indexOf(":");
+            if (colonIndex != -1) {
+                String username = fullMessage.substring(0, colonIndex).trim();
+                String message = fullMessage.substring(colonIndex + 1).trim();
 
                 addMessageToLayout(username, message);
             }
         });
     }
+
+
+    /**
+     * Method to help dynamically add messages in the scrollview
+     *
+     * @param username adds username as a button
+     * @param message websocket receives messages
+     */
 
     private void addMessageToLayout(String username, String message) {
         View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
@@ -94,15 +109,10 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         textView.setText(message);
         usernameButton.setText(username);
 
-        usernameButton.setOnClickListener(v -> {
-            // For example, show a toast or open a user profile
-            showUserPopup(username);
-        });
 
         layoutMessages.addView(messageView);
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     }
-
     private void showUserPopup(String username) {
         // Create and display a popup with user information, or perform any other action
         Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
@@ -118,8 +128,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
-        // Implement your logic here
-    }
+     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
@@ -134,4 +143,27 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
             messagesList.add("WebSocket error: " + ex.getMessage());
         });
     }
+
+
+    /**
+     * Websocket method to pause websocket connection when leaving activity
+     */
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+    /**
+     * Method to disconnect when server breaks in the Web Socket
+     */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+
 }

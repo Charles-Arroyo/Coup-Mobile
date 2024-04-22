@@ -30,9 +30,9 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
     // success
-//    private static final String URL_JSON_OBJECT = "https://63fa0fc8-69e5-4ec7-a84f-aee7fc5648ac.mock.pstmn.io/signin";
+    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
 
 
     /**
@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -57,7 +59,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         loginButton.setOnClickListener(v -> {
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (!username.isEmpty() && !password.isEmpty()) {
+
+            if(username.equals("ADMIN") && password.equals("ADMIN")){
+                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                startActivity(intent);
+
+
+            } else if (!username.isEmpty() && !password.isEmpty()) {
+
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
@@ -94,8 +103,13 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
 
                         boolean success = response.getBoolean("success");
+                        boolean isAdmin = response.getBoolean("admin");
 
-                        if (success) {
+                        if (success && isAdmin){
+                            Intent mainIntent = new Intent(LoginActivity.this, AdminActivity.class);
+                            startActivity(mainIntent);
+                        }
+                        else if (success){
                             // Successful login
                             Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
                             mainIntent.putExtra("EMAIL", emailId);

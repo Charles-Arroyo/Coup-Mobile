@@ -6,6 +6,8 @@ import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,12 +55,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
     private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
     -------------------------------------------------------------------------------------------------------------------------------
     Port 8443
-    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
-    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
-    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
-    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
-    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+    private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
+    private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
+    private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
+    private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
+    private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/true/";
+    private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/false/";
     ---------------------------------------------------------------------------------------------------
     Mock URLS
     private static final String URL_ADD_FRIEND = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
@@ -71,11 +74,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
      */
 
-         private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
-        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
-        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
-        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
-        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
+        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
+        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
+        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
+        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
+        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/true/";
+        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/false/";
 
         /**
          * Method that runs and mostly intialize the functions in the menu
@@ -88,38 +92,50 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
-
-        friendsLayout = findViewById(R.id.friendsLayout);
-
-        WebSocketManager.getInstance().setWebSocketListener(this);
-
-        WebSocketManager.getInstance().sendMessage("getfriend");
-
-        friendEmailEditText = findViewById(R.id.friend_email_edittext);
-        friendsLayout = findViewById(R.id.friendsLayout);
-        exitButton = findViewById(R.id.exit_btn);
-        addFriendButton = findViewById(R.id.add_friend_btn);
-        deleteFriendButton = findViewById(R.id.delete_friend_btn);
-        refreshButton = findViewById(R.id.refresh_btn);
-        requestButton = findViewById(R.id.request_btn);
-
-        userEmail = Const.getCurrentEmail();
-        requestQueue = AppController.getInstance().getRequestQueue();
-
-        exitButton.setOnClickListener(v -> onBackPressed());
+            setTheme(Const.getCurrentTheme());
 
 
-        addFriendButton.setOnClickListener(this::onAddFriendClick);
-        deleteFriendButton.setOnClickListener(this::onDeleteFriendClick);
-//        refreshButton.setOnClickListener(v -> performRefreshRequest());
-        requestButton.setOnClickListener(v -> displayFriendRequestsPopup());
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_friends);
 
-        checkForFriendRequests();
+            friendsLayout = findViewById(R.id.friendsLayout);
 
-//        performRefreshRequest();
-    }
+            WebSocketManager.getInstance().setWebSocketListener(this);
+
+            WebSocketManager.getInstance().sendMessage("getfriend");
+
+            friendEmailEditText = findViewById(R.id.friend_email_edittext);
+            friendsLayout = findViewById(R.id.friendsLayout);
+            exitButton = findViewById(R.id.exit_btn);
+            addFriendButton = findViewById(R.id.add_friend_btn);
+            deleteFriendButton = findViewById(R.id.delete_friend_btn);
+            refreshButton = findViewById(R.id.refresh_btn);
+            requestButton = findViewById(R.id.request_btn);
+
+            userEmail = Const.getCurrentEmail();
+            requestQueue = AppController.getInstance().getRequestQueue();
+
+            exitButton.setOnClickListener(v -> onBackPressed());
+
+
+            addFriendButton.setOnClickListener(this::onAddFriendClick);
+            deleteFriendButton.setOnClickListener(this::onDeleteFriendClick);
+
+                requestButton.setOnClickListener(v -> {
+                    displayFriendRequestsPopup();
+                    WebSocketManager.getInstance().sendMessage("getfriend");
+                });
+
+                refreshButton.setOnClickListener(v -> {
+                    displayFriendRequestsPopup();
+                    WebSocketManager.getInstance().sendMessage("getfriend");
+
+                });
+
+
+                checkForFriendRequests();
+
+     }
 
         /**
          * method to gather email to add friend
@@ -161,10 +177,13 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
                         boolean success = response.getBoolean("success");
                         if (success) {
                             Toast.makeText(FriendsActivity.this, "Friend added successfully", Toast.LENGTH_SHORT).show();
-//                            performRefreshRequest();
+                             WebSocketManager.getInstance().sendMessage("getfriend");
+
                         } else {
                             String errorMessage = response.getString("message");
                             Toast.makeText(FriendsActivity.this, "Failed to add friend: " + errorMessage, Toast.LENGTH_SHORT).show();
+                            WebSocketManager.getInstance().sendMessage("getfriend");
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -186,8 +205,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         String friendEmail = friendEmailEditText.getText().toString();
         if (!friendEmail.isEmpty()) {
             performDeleteFriendRequest(friendEmail);
+            WebSocketManager.getInstance().sendMessage("getfriend");
+
         } else {
             Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
+            WebSocketManager.getInstance().sendMessage("getfriend");
+
         }
     }
 
@@ -207,10 +230,13 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
                         boolean success = response.getBoolean("success");
                         if (success) {
                             Toast.makeText(FriendsActivity.this, "Friend deleted successfully", Toast.LENGTH_SHORT).show();
-//                            performRefreshRequest();
+                             WebSocketManager.getInstance().sendMessage("getfriend");
+
                         } else {
                             String errorMessage = response.getString("message");
                             Toast.makeText(FriendsActivity.this, "Failed to delete friend: " + errorMessage, Toast.LENGTH_SHORT).show();
+                            WebSocketManager.getInstance().sendMessage("getfriend");
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -231,51 +257,10 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         public void onRefreshClick(View view) {
 //        performRefreshRequest();
         checkForFriendRequests();
-    }
+            WebSocketManager.getInstance().sendMessage("getfriend");
 
-    /*
-     private void performRefreshRequest() {
-        String fullUrl = URL_REFRESH_FRIENDS + userEmail;
+        }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, fullUrl, null,
-                response -> {
-                    friendsLayout.removeAllViews();
-
-                    try {
-                        JSONArray friendsArray = response.optJSONArray("friends");
-
-                        if (friendsArray == null || friendsArray.length() == 0) {
-                            Toast.makeText(FriendsActivity.this, "No friends found.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        for (int i = 0; i < friendsArray.length(); i++) {
-                            JSONObject friend = friendsArray.getJSONObject(i);
-                            String email = friend.optString("email", "No email");
-
-                            View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
-                            Button emailButton = friendView.findViewById(R.id.email);
-                            emailButton.setText(email);
-                            emailButton.setOnClickListener(v -> showUserStats(email));
-
-                            ImageButton messageButton = friendView.findViewById(R.id.msgButton);
-                            messageButton.setOnClickListener(v -> startMessageActivity(email));
-
-                            friendsLayout.addView(friendView);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(FriendsActivity.this, "Error parsing friend list", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> {
-                    friendsLayout.removeAllViews();
-                    Toast.makeText(FriendsActivity.this, "Error fetching friend list: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-     */
 
         /**
          * Method to get users stats and displays them in a HTTP GET Request
@@ -402,11 +387,13 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
                         boolean success = response.getBoolean("success");
                         if (success) {
                             Toast.makeText(FriendsActivity.this, "Friend request accepted: " + friendEmail, Toast.LENGTH_SHORT).show();
-//                            performRefreshRequest();
+                             WebSocketManager.getInstance().sendMessage("getfriend");
+
                             checkForFriendRequests();
                         } else {
-                            // Handle case where success is false
-                            Toast.makeText(FriendsActivity.this, "Friend request acceptance failed.", Toast.LENGTH_SHORT).show();
+                             Toast.makeText(FriendsActivity.this, "Friend request acceptance failed.", Toast.LENGTH_SHORT).show();
+                            WebSocketManager.getInstance().sendMessage("getfriend");
+
                         }
                     } catch (JSONException e) {
                         Toast.makeText(FriendsActivity.this, "Error parsing success response.", Toast.LENGTH_SHORT).show();
@@ -444,8 +431,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
                             Toast.makeText(FriendsActivity.this, "Friend request denied: " + friendEmail, Toast.LENGTH_SHORT).show();
                             checkForFriendRequests();
                         } else {
-                            // Handle case where success is false
-                            Toast.makeText(FriendsActivity.this, "Friend request denial failed.", Toast.LENGTH_SHORT).show();
+                             Toast.makeText(FriendsActivity.this, "Friend request denial failed.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         Toast.makeText(FriendsActivity.this, "Error parsing success response.", Toast.LENGTH_SHORT).show();
@@ -565,7 +551,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
                     View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
                     Button emailButton = friendView.findViewById(R.id.email);
-                    Button activeButton = friendView.findViewById(R.id.active);
+                    ImageButton activeButton = friendView.findViewById(R.id.active);
 
                     emailButton.setText(email);
                     emailButton.setOnClickListener(v -> showUserStats(email));
@@ -575,11 +561,14 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
                     emailButton.setText(email);
 
-                    if (isActive.equals("true")) {
-                        activeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.active_green)));
+                    //animation
+                    Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.spinning);
+                    activeButton.startAnimation(rotateAnimation);
 
+                    if (isActive.equals("true")) {
+                        activeButton.setBackground(ContextCompat.getDrawable(this, R.drawable.online_icon));
                     }else  if (isActive.equals("false")) {
-                        activeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.inactive_red)));
+                        activeButton.setBackground(ContextCompat.getDrawable(this, R.drawable.offline_icon));
 
                     }
 

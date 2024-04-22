@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/icon_purple_dark"
+        android:id="@+id/action_dark_purple"
+        android:title="Dark Purple" />
+    <item android:icon="@drawable/icon_purple_light"
+        android:id="@+id/action_light_purple"
+        android:title="Light Purple" />
+    <item android:icon="@drawable/icon_amber_dark"
+        android:id="@+id/action_dark_amber"
+        android:title="Dark Amber" />
+    <item android:icon="@drawable/icon_amber_light"
+        android:id="@+id/action_light_amber"
+        android:title="Light Amber" />
+    <item android:icon="@drawable/icon_turquoise_dark"
+        android:id="@+id/action_dark_turquoise"
+        android:title="Dark Turquoise" />
+    <item android:icon="@drawable/icon_turquoise_light"
+        android:id="@+id/action_light_turquoise"
+        android:title="Light Turquoise" />
+</menu>

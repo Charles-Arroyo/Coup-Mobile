@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.coupv2.utils.Const;
@@ -55,7 +56,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
     private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
-    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
+    private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
@@ -66,7 +67,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
      */
     private final ArrayList<String> messagesList = new ArrayList<>();
     private final String user = Const.getCurrentEmail();
-    private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
+    private Button sendBtn, playButton, listButton,  statsButton, rulesButton;
 
 
     /**
@@ -81,13 +82,14 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.DarkThemeRed);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu); // Set the layout for this activity
+        setContentView(R.layout.activity_admin_menu); // Set the layout for this activity
 
         // Initialize UI elements
-        playButton = findViewById(R.id.play_btn);
-        friendsButton = findViewById(R.id.friends_btn);
-        settingsButton = findViewById(R.id.settings_btn);
+        playButton = findViewById(R.id.game);
+        listButton = findViewById(R.id.list_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
         logoffButton = findViewById(R.id.logoff_btn);
@@ -101,23 +103,13 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
             startActivity(intent);
         });
         // Friends Button
-        friendsButton.setOnClickListener(v -> {
+        listButton.setOnClickListener(v -> {
             // Start the friends activity
-            Intent intent = new Intent(AdminActivity.this, FriendsActivity.class);
-            startActivity(intent);
-        });
-        // Settings Button
-        settingsButton.setOnClickListener(v -> {
-            // Start the settings activity
-            Intent intent = new Intent(AdminActivity.this, SettingActivity.class);
+            Intent intent = new Intent(AdminActivity.this, ListActivity.class);
             startActivity(intent);
         });
         // Stats Button
-        statsButton.setOnClickListener(v -> {
-            // Start the statistics activity
-            Intent intent = new Intent(AdminActivity.this, StatsActivity.class);
-            startActivity(intent);
-        });
+        statsButton.setOnClickListener(v -> showGlobalStatsPopup());
         // Return Button
         logoffButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
@@ -434,5 +426,55 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
         dialog.show();
     }
+
+    private void showGlobalStatsPopup() {
+        String statsUrl = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/GLB";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, statsUrl, null,
+                response -> {
+                    try {
+                        int totalPlayers = response.getInt("total_players");
+                        int activePlayers = response.getInt("active_players");
+                        int inactivePlayers = response.getInt("inactive_players");
+
+                        // Update the UI using the fetched data
+                        updateGlobalStatsUI(totalPlayers, activePlayers, inactivePlayers);
+                    } catch (JSONException e) {
+                        Toast.makeText(AdminActivity.this, "Error parsing statistics: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    Toast.makeText(AdminActivity.this, "Error fetching statistics: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void updateGlobalStatsUI(int totalPlayers, int activePlayers, int inactivePlayers) {
+        View view = getLayoutInflater().inflate(R.layout.popup_global_stats, null);
+
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+
+        TextView TotalPlayers = view.findViewById(R.id.glb_stats_total_players);
+        TextView ActivePlayers = view.findViewById(R.id.glb_stats_active_players);
+        TextView InactivePlayers = view.findViewById(R.id.glb_stats_inactive_players);
+        Button closeButton = view.findViewById(R.id.gbl_stats_back_btn);
+
+        TotalPlayers.setText("Total Players: " + totalPlayers);
+        ActivePlayers.setText("Active Players: " + activePlayers);
+        InactivePlayers.setText("Inactive Players: " + inactivePlayers);
+
+        closeButton.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 
 }
