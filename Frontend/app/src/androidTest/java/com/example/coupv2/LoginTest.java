@@ -42,6 +42,12 @@ public class LoginTest {
 
         //Goes To Menu
         onView(withId(R.id.logoff_btn)).check(matches(isClickable())).perform(click());
+
+        //Wait a brief momemnt so next activity can Process
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
+
         onView(withText("Yes")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
 
         //Wait a brief momemnt so next activity can Process

@@ -33,6 +33,7 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.DarkThemeRed);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -92,7 +93,7 @@ public class ListActivity extends AppCompatActivity {
     private void showUserPopup(String username) {
         LayoutInflater inflater = getLayoutInflater();
         View statsView = inflater.inflate(R.layout.admin_activity_stats, null);
-
+        TextView userName = statsView.findViewById(R.id.stats_user);
         TextView userEmail = statsView.findViewById(R.id.stats_email);
         TextView statsWins = statsView.findViewById(R.id.stats_wins);
         TextView statsLosses = statsView.findViewById(R.id.stats_losses);
@@ -102,7 +103,9 @@ public class ListActivity extends AppCompatActivity {
         TextView statsRank = statsView.findViewById(R.id.stats_rank);
         Button resetStatsButton = statsView.findViewById(R.id.reset_stats);
 
-        String userStatsUrl = USER_STATS_URL + username;  // Correctly create a local variable for the URL
+
+        userName.setText(username);
+        String userStatsUrl = USER_STATS_URL;  // Correctly create a local variable for the URL
 
         JsonObjectRequest statsRequest = new JsonObjectRequest(Request.Method.GET, userStatsUrl, null,
                 response -> {
@@ -125,7 +128,7 @@ public class ListActivity extends AppCompatActivity {
                         statsLosses.setText("Losses: " + losses);
                         statsGamesPlayed.setText("Games Played: " + gamesPlayed);
                         statsScore.setText("Score: " + score);
-                        statsAverage.setText("Average: " + average);
+                        statsAverage.setText("Winrate:" + average + "%");
                         statsRank.setText("Rank: " + rank);
                     } catch (JSONException e) {
                         Toast.makeText(ListActivity.this, "Failed to parse statistics", Toast.LENGTH_SHORT).show();
@@ -155,7 +158,7 @@ public class ListActivity extends AppCompatActivity {
 
 
     private void resetUserStats(String username) {
-        String resetUrl = RESET_SCORE_URL + username;  // Correctly create a local variable for the URL
+        String resetUrl = RESET_SCORE_URL;  // Correctly create a local variable for the URL
 
         JSONObject params = new JSONObject();
         try {
@@ -168,7 +171,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         JsonObjectRequest resetRequest = new JsonObjectRequest(Request.Method.PUT, resetUrl, params,
-                response -> Toast.makeText(ListActivity.this, "Statistics reset successfully.", Toast.LENGTH_SHORT).show(),
+                response -> Toast.makeText(ListActivity.this, "User stats reset successfully.", Toast.LENGTH_SHORT).show(),
                 error -> {
                     Toast.makeText(ListActivity.this, "Failed to reset statistics.", Toast.LENGTH_SHORT).show();
                     if (error.networkResponse != null) {
