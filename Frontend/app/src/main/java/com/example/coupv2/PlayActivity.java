@@ -29,7 +29,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     //has player order been determined (not using at current moment but might later)
 //    boolean playerOrder = false;
     //game chat Views
-    private LinearLayout layoutMessages;
+    private LinearLayout layoutMessages1;
     private ScrollView scrollViewMessages;
     private ImageButton submitText;
     private EditText chatMessage;
@@ -119,7 +119,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
          numCoins4 = findViewById(R.id.oval4Text);
         //assign chat views
         scrollViewMessages = findViewById(R.id.scrollViewMessages1);
-        layoutMessages = findViewById(R.id.layoutMessages);
+        layoutMessages1 = findViewById(R.id.layoutMessages1);
         chatMessage =  findViewById(R.id.chatText);
         submitText =  findViewById(R.id.submitText);
         openChat = findViewById(R.id.imageButton2);
@@ -189,7 +189,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             processJsonMessage(message);
         }
         //handle chat data
-        else if (message.matches(".*: '.*'")) {
+        else if (message.matches(".*: .*")) {
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
         }
@@ -205,7 +205,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         // Extract the username and message from the string
         int colonIndex = message.indexOf(":");
         if (colonIndex != -1) {
-            String username = message.substring(0, colonIndex).trim();
+            String usernameMessage = message.substring(0, colonIndex).trim();
             String messageContent = message.substring(colonIndex + 1).trim().replaceAll("^'(.*)'$", "$1");
 
             runOnUiThread(new Runnable() {
@@ -213,6 +213,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 public void run() {
                     // Update UI components with the username and message
                     // ...
+                    addMessageToLayout(usernameMessage, messageContent);
                 }
             });
         }
@@ -637,15 +638,15 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     };
     private void addMessageToLayout(String username, String message) {
         //create a new view with xml layout and indicate where to add but dont attach yet
-        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
+        View messageView = getLayoutInflater().inflate(R.layout.chat_item, layoutMessages1, false);
         //find these views in the layout
         TextView textView = messageView.findViewById(R.id.placement);
-        Button usernameButton = messageView.findViewById(R.id.btnUsername);
+        TextView usernameB = messageView.findViewById(R.id.viewUsername);
         //assign these views
         textView.setText(message);
-        usernameButton.setText(username);
+        usernameB.setText(username);
         //add view to linear layout
-        layoutMessages.addView(messageView);
+        layoutMessages1.addView(messageView);
         // After adding the message, scroll to the bottom of the scrollViewMessages to show the latest message.
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     };

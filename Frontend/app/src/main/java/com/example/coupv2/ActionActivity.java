@@ -100,7 +100,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
             @Override
             public void onClick(View v) {
                 // Creating the PopupMenu
-                PopupMenu popup = new PopupMenu(ActionActivity.this, incomeIcon1);
+                PopupMenu popup = new PopupMenu(ActionActivity.this, stealIcon4);
                 popup.getMenuInflater().inflate(R.menu.player_options_menu, popup.getMenu());
 
                 // Implementing click events on popup menu items
@@ -165,7 +165,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
             @Override
             public void onClick(View v) {
                 // Creating the PopupMenu
-                PopupMenu popup = new PopupMenu(ActionActivity.this, incomeIcon1);
+                PopupMenu popup = new PopupMenu(ActionActivity.this, assassinIcon6);
                 popup.getMenuInflater().inflate(R.menu.player_options_menu, popup.getMenu());
 
                 // Implementing click events on popup menu items
@@ -212,7 +212,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
             @Override
             public void onClick(View v) {
                 // Creating the PopupMenu
-                PopupMenu popup = new PopupMenu(ActionActivity.this, incomeIcon1);
+                PopupMenu popup = new PopupMenu(ActionActivity.this, coupIcon7);
                 popup.getMenuInflater().inflate(R.menu.player_options_menu, popup.getMenu());
 
                 // Implementing click events on popup menu items
