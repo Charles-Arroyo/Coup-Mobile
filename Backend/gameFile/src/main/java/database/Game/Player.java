@@ -1,5 +1,8 @@
 package database.Game;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
@@ -19,6 +22,8 @@ public class Player {
     int lives;
 
     int turnNumber;
+
+    ArrayList<String> playerView;
 
     public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {
         this.userEmail = userEmail;
@@ -75,9 +80,11 @@ public class Player {
             setCurrentMove("Coup");
             coup(player);
         }
-
         if(action.equals("Waiting")){
             setPlayerState("Waiting");
+        }
+        if(action.equals("Foreign Aid")){
+            foreignAid(player);
         }
     }
 
@@ -109,8 +116,8 @@ public class Player {
     /**
      *
      */
-    public void foreignAid(){
-        addCoins(2);
+    public void foreignAid(Player player){
+        player.addCoins(2);
     }
 
     /**
@@ -131,14 +138,19 @@ public class Player {
     /**
      *
      */
-    public void loseInfluence(Player player){
+    public String loseInfluence(Player player){
         Random random = new Random();
+
         if (random.nextBoolean()) {
+            String card = player.cardOne;
             player.cardOne = null;
             player.lives--;
+            return card;
         } else {
+            String card = player.cardTwo;
             player.cardTwo = null;
             player.lives--;
+            return card;
         }
 
     }
@@ -155,10 +167,10 @@ public class Player {
         }
     }
     public String revealCard(String card,Player player){
-        if(player.cardOne.equals(card)){
+        if(player.cardOne.contains(card)){
             return cardOne;
 
-        }else if(player.cardTwo.equals(card)){
+        }else if(player.cardTwo.contains(card)){
             return cardTwo;
         }else{
 
@@ -169,11 +181,15 @@ public class Player {
 
 
 
-    public void removeCard(String card, Player player){
-        if(player.cardOne.equals(card)){
+    public String removeCard(String card, Player player){
+        if(player.cardOne.contains(card)){
+            String cardSave = cardOne;
             cardOne = null;
+            return cardSave;
         }else{
+            String cardSave = cardTwo;
             cardTwo = null;
+            return cardSave;
         }
     }
 
@@ -341,6 +357,15 @@ public class Player {
 
     public void setPlayerState(String playerState) {
         this.playerState = playerState;
+    }
+
+    public String getPlayerView() {
+        return playerView.toString();
+    }
+
+
+    public void setPlayerView(ArrayList<String> playerView) {
+        this.playerView = playerView;
     }
 
     /*

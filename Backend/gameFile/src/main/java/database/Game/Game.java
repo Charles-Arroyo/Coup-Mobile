@@ -17,12 +17,15 @@ public class Game {
     String lastCharacterMove;
     Player currentPlayer;
 
+    Player blocker;
+
 
     public Game(List<Player> players) {
         this.players = players;
     }
 
     public void initGame(String name1, String name2, String name3, String name4) {
+        blocker = new Player("null",2,false,2,"wait");
         // Adds players
         players.add(new Player(name1, 2, false,2,"wait"));
         players.add(new Player(name2, 2, false,2,"wait"));
@@ -48,9 +51,23 @@ public class Game {
             player.setCardOne(deck.drawCard());
             player.setCardTwo(deck.drawCard());
         }
-
-
+        initPlayerViews();
     }
+
+    private void initPlayerViews() {
+        for (Player player : players) {
+
+            ArrayList<String> emailView = new ArrayList<>();
+
+            for (Player p : players) {
+                emailView.add(p.getUserEmail());
+            }
+
+            Collections.rotate(emailView, -players.indexOf(player));
+            player.setPlayerView(emailView);
+        }
+    }
+
 
     public String getLastCharacterMove() {
         return lastCharacterMove;
@@ -61,7 +78,7 @@ public class Game {
     }
 
     public String associate(String move){
-        if(move.equals("Tax") ){
+        if(move.equals("Tax") || move.equals("Foreign Aid") ){
             return "Duke";
         }else if(move.equals("Steal")){
             return "Captain";
@@ -71,6 +88,18 @@ public class Game {
             return "Nah";
         }
     }
+
+    public String associateBlock(String move){
+        if(move.equals("Foreign Aid") ){
+            return "Duke";
+        }else if(move.equals("Assassinate")){
+            return "Contessa";
+        }else{
+            return "Nah";
+        }
+    }
+
+
 
     public void getPlayers() {
         for (Player player : players) {
@@ -138,9 +167,15 @@ public class Game {
 
     }
 
+    @JsonIgnore
+    public Player getBlocker() {
+        return blocker;
+    }
 
-
-    //    @Override
+    public void setBlocker(Player blocker) {
+        this.blocker = blocker;
+    }
+//    @Override
 //    public String toString() {
 //        StringBuilder sb = new StringBuilder();
 //        sb.append("Game State:\n");

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import database.Chat.MessageRepository;
+import database.Game.Card;
 import database.Game.Game;
 import database.Game.Player;
 import database.Spectator.Spectator;
@@ -43,6 +44,7 @@ public class LobbySocket {
     private static SpectatorRepository spectatorRepository;
 
     private static Game game;
+
 
     @Autowired
     public void setUserRepository(UserRepository repo) {
@@ -242,26 +244,6 @@ public class LobbySocket {
         /**
          * todo: Need contest logic in game
          */
-//        //I can send game state to all even current
-//        JSONObject jsonpObject = new JSONObject(message); // Create JSON object
-//        String email = jsonpObject.getString("playerEmail"); // Get Player Email
-//        String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
-//        String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
-//        //Update move for current player
-//        // all other players get contest
-//        Player p = game.getPlayer(email); //Find player by their email
-//        if(state.equals("ready")){  //If the player message says ready to listen, give them the game
-//            broadcastToSpecificUserGAMEJSON(p.getUserEmail(),game);
-//        }else{
-//            p.action(state,game.getPlayer(targetPlayer)); // Does the player action for each player
-//            game.nextTurn();
-//            for(Player player : game.getPlayerArrayList()) {
-//                broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
-//            }
-//        }
-
-
-
         //todo need to listen after I sent to FE contest
         //GAME LOGIC TESTING
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
@@ -274,13 +256,12 @@ public class LobbySocket {
 
         if(state.startsWith("@")){
             for(Player player : game.getPlayerArrayList()){
-                broadcastToSpecificUser(p.getUserEmail(),p.getUserEmail() + ": " + state);
+                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": " + state.substring(1));
             }
         }
-
         if (state.equals("ready")) {  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); // Broadcast to each player indivual so front end can unqiuely set up UI
-        } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action
+        } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action for Players
             currentMove = state.substring(1); // save move for current player
             p.setCurrentMove(currentMove);
             //He will send me the action, it is my job to change all the other players to contest
@@ -290,35 +271,104 @@ public class LobbySocket {
                     player.setPlayerState("contest"); //set other players to contest
                 }
             }
-
-        } else if(state.contains("Coup")){
-            game.getCurrentPlayer().action("Coup",game.getPlayer(targetPlayer));
-        }else if (state.equals("Bluff")) {
+        } else if (state.equals("Bluff")) {
             //If any player called bluff, go into bluffing
             //Set each player to waiting.
-            game.associate(game.getCurrentPlayer().getCurrentMove());
-            if(game.getCurrentPlayer().revealCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
-                game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer());
-                game.nextTurn();
-            }else{
-                p.loseInfluence(p); // The bluffer loses influcence
-                game.getCurrentPlayer().removeCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()); // The Player their card
-                String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
-                game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
-                game.nextTurn();
+            if(game.getBlocker().getUserEmail().equals("Null")){ // Regular bluff for player
+                game.associate(game.getCurrentPlayer().getCurrentMove());
+                if(game.getCurrentPlayer().revealCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
+                  Card playerCard = new Card(game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer()));
+                  game.nextTurn();
+                }else{
+                    Card playerCard = new Card(p.loseInfluence(p)); // The bluffer loses Influence
+                    game.getCurrentPlayer().removeCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()); // The Player their card
+                    game.getDeckDeck().addCardToBottomOfDeck(playerCard);
+                    String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
+                    game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
+                    game.nextTurn();
+                }
+            }else{ //Special Bluff that reveals Blockers card.
+                // Find Blocking player, if the blocking player has a Card that can block the current players move,
+                // Current player loses card, if not, blocking player loses card.
+                Player blocker = game.getBlocker();
+                if(blocker.revealCard(blocker.getCurrentMove(), blocker).equals(blocker.getUserEmail() + " Was a liar")){ //If blocker was lying about his block
+                    blocker.loseInfluence(blocker);
+                    Card blockerCard = new Card(blocker.loseInfluence(blocker)); // Removes Card
+                    game.getDeckDeck().addCardToBottomOfDeck(blockerCard);
+                    game.nextTurn();
+                }else{ //If the blocker was not lying, bluff caller loses card and blocker gets a new card
+                    Card playerCard = new Card(p.loseInfluence(p)); // Save card for deck, and remove card
+                    Card blockerCard = new Card(blocker.removeCard(blocker.getCurrentMove(),blocker)); // Removes Card, duke is
+                    game.getDeckDeck().addCardToBottomOfDeck(playerCard);
+                    game.getDeckDeck().addCardToBottomOfDeck(blockerCard);
+                    String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
+                    blocker.gainInfluence(drawCard,blocker);
+                    game.nextTurn();
+                }
+
             }
+        } else if(state.contains("Block")) {
+            if(state.equals("Block")){
+                game.setBlocker(p);
+                game.getBlocker().setCurrentMove(game.associateBlock(game.getCurrentPlayer().getCurrentMove()));
+            }else{
+                game.setBlocker(p); // Save Blocker
+                game.getBlocker().setCurrentMove(state.substring(6)); //Saves Move ex (Block Duke)
+            }
+
+            // Now we need to set current Player to Contest, and All other players to wait
+            for(Player player : game.getPlayerArrayList()){
+                if (!player.equals(game.getBlocker())) {
+                    player.setPlayerState("Contest"); //set other players to contest
+                }else{
+                    player.setPlayerState("wait"); // Set Blocker to Wait
+                }
+            }
+            // Now we See if player wants to allow or not.
+        }
+        //AutoMatic Moves
+        else if(state.contains("Coup")){
+            game.getCurrentPlayer().action("Coup",game.getPlayer(targetPlayer));
         }else if(state.equals("*Income")){
             currentMove = state.substring(1); // save move for current player
             p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
             game.nextTurn();
         }
 
-        if(!state.equals("ready")) {
+        if(!state.equals("ready") && !state.contains("@")) { //Send game to everyone after a move.
             for (Player player : game.getPlayerArrayList()) {
                 broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
             }
         }
+        if(!state.equals("ready") && !state.contains("@")){
+            if(checkPass(game)){ //if all players or a player passed, do next turn
+                if(game.getBlocker().getUserEmail().equals("Null")){ // If all players passed, and blocking happened, Move can happen
+                    p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
+                    game.nextTurn();
+                }else{ // If all players passed, and blocking did happen, move cannot happen.
+                    game.nextTurn();
+                    game.getBlocker().setUserEmail("Null");
+                }
+                for (Player player : game.getPlayerArrayList()) {
+                    broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+                }
+            }
+        }
+
     }
+    
+    public boolean checkPass(Game game){
+        boolean allPlayersPassed = false;
+        for(Player player : game.getPlayerArrayList()){
+            if((player.getCurrentMove().equals("pass") || player.getCurrentMove().equals("wait")) && !player.getUserEmail().equals(game.getCurrentPlayer().getUserEmail())){
+                allPlayersPassed = true;
+            }else{
+               return false;
+            }
+        }
+        return allPlayersPassed;
+    }
+    
 
 
 
@@ -376,36 +426,36 @@ public class LobbySocket {
 
 
 
-    private void broadcastToAllUsers(String message) { // This method broadcasts to all user
-        sessionUserMap.forEach((session, user) -> {
-            try {
-                session.getBasicRemote().sendText(message);
-            }
-            catch (IOException e) {
-                logger.info("Exception: " + e.getMessage().toString());
-                e.printStackTrace();
-            }
-        });
-    }
+//    private void broadcastToAllUsers(String message) { // This method broadcasts to all user
+//        sessionUserMap.forEach((session, user) -> {
+//            try {
+//                session.getBasicRemote().sendText(message);
+//            }
+//            catch (IOException e) {
+//                logger.info("Exception: " + e.getMessage().toString());
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 
 
 
 
-    private void broadcastToSpecificUserJSON(String userEmail, Player data) {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> wrapper = new HashMap<>();
-        wrapper.put("player", data);
-
-        try {
-            String message = mapper.writeValueAsString(wrapper);
-            Session userSession = getSessionByEmail(userEmail);
-            if (userSession != null) {
-                userSession.getBasicRemote().sendText(message);
-            }
-        } catch (IOException e) {
-            logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
-        }
-    }
+//    private void broadcastToSpecificUserJSON(String userEmail, Player data) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        Map<String, Object> wrapper = new HashMap<>();
+//        wrapper.put("player", data);
+//
+//        try {
+//            String message = mapper.writeValueAsString(wrapper);
+//            Session userSession = getSessionByEmail(userEmail);
+//            if (userSession != null) {
+//                userSession.getBasicRemote().sendText(message);
+//            }
+//        } catch (IOException e) {
+//            logger.error("Error broadcasting to specific user: " + e.getMessage(), e);
+//        }
+//    }
 
 
 
@@ -453,48 +503,48 @@ public class LobbySocket {
     }
 
 
-    private void broadcastToSpecificLobby(int lobbyId, String message) {
-        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
-        sessionLobbyMap.forEach((session, lobby) -> {
-            // Check if the lobby matches the lobbyId we want to broadcast to
-            if (lobby.getId() == lobbyId) {
-                try {
-                    // Use the session to send the message
-                    session.getBasicRemote().sendText(message);
-                } catch (IOException e) {
-                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
-                }
-            }
-        });
-    }
+//    private void broadcastToSpecificLobby(int lobbyId, String message) {
+//        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
+//        sessionLobbyMap.forEach((session, lobby) -> {
+//            // Check if the lobby matches the lobbyId we want to broadcast to
+//            if (lobby.getId() == lobbyId) {
+//                try {
+//                    // Use the session to send the message
+//                    session.getBasicRemote().sendText(message);
+//                } catch (IOException e) {
+//                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
+//                }
+//            }
+//        });
+//    }
 
-    private void broadcastToSpecificLobbyGAMEJSON(int lobbyId, Game data) {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> wrapper = new HashMap<>();
-        wrapper.put("Game", data);
-
-        String message;
-        try {
-            // Serialize the Game object to JSON
-            message = mapper.writeValueAsString(wrapper);
-        } catch (IOException e) {
-            logger.error("Error serializing Game data: " + e.getMessage(), e);
-            return; // Stop execution if serialization fails
-        }
-
-        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
-        sessionLobbyMap.forEach((session, lobby) -> {
-            // Check if the lobby matches the lobbyId we want to broadcast to
-            if (lobby.getId() == lobbyId) {
-                try {
-                    // Use the session to send the JSON message
-                    session.getBasicRemote().sendText(message);
-                } catch (IOException e) {
-                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
-                }
-            }
-        });
-    }
+//    private void broadcastToSpecificLobbyGAMEJSON(int lobbyId, Game data) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        Map<String, Object> wrapper = new HashMap<>();
+//        wrapper.put("Game", data);
+//
+//        String message;
+//        try {
+//            // Serialize the Game object to JSON
+//            message = mapper.writeValueAsString(wrapper);
+//        } catch (IOException e) {
+//            logger.error("Error serializing Game data: " + e.getMessage(), e);
+//            return; // Stop execution if serialization fails
+//        }
+//
+//        // Iterate over the sessionLobbyMap to find sessions associated with the specific lobbyId
+//        sessionLobbyMap.forEach((session, lobby) -> {
+//            // Check if the lobby matches the lobbyId we want to broadcast to
+//            if (lobby.getId() == lobbyId) {
+//                try {
+//                    // Use the session to send the JSON message
+//                    session.getBasicRemote().sendText(message);
+//                } catch (IOException e) {
+//                    logger.error("Error broadcasting to specific lobby: " + e.getMessage(), e);
+//                }
+//            }
+//        });
+//    }
 
 
 

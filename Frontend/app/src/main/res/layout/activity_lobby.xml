@@ -10,23 +10,24 @@
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="284dp"
         android:text="Create Lobby"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="8dp"
         android:text="Join Lobby"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button1" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

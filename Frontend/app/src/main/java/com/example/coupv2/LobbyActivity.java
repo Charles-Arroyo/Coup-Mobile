@@ -17,7 +17,6 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 //        private String BASE_URL = "ws://localhost:8080/chat/";
     private Button connectBtn, joinBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
