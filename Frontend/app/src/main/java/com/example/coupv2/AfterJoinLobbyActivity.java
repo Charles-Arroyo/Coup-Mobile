@@ -16,7 +16,8 @@ import org.w3c.dom.Text;
 
 import com.example.coupv2.utils.Const;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private EditText lobbyNumber;
     private Button joinBtn;
     protected void onCreate(Bundle savedInstanceState) {

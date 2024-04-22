@@ -2,11 +2,27 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="LobbyActivity">
+        <State />
+      </entry>
       <entry key="PlayActivity">
         <State />
       </entry>
       <entry key="app">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="$USER_HOME$/.android/avd/Device_4.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-22T05:32:42.449821Z" />
+        </State>
       </entry>
     </value>
   </component>

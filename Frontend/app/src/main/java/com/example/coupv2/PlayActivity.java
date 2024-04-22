@@ -2,6 +2,7 @@ package com.example.coupv2;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.view.animation.Animation;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import org.java_websocket.handshake.ServerHandshake;
@@ -21,7 +23,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coupv2.utils.Const;
 
+import java.util.Objects;
+
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
+    //has player order been determined (not using at current moment but might later)
+//    boolean playerOrder = false;
     //game chat Views
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
@@ -64,8 +70,13 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     TextView numCoins2;
     TextView numCoins3;
     TextView numCoins4;
-
-
+    //order of game for current player
+    String Player1;
+    String Player2;
+    String Player3;
+    String Player4;
+    //last move (this is used for case of blocking stealing)
+    String lastMoveMade;
     @Override
     //keep websocket open from LobbyActivity
     protected void onResume() {
@@ -171,6 +182,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     @Override
     public void onWebSocketMessage(String message) {
         Log.d("WebSocket", "Play Activity received: " + message);
+
         //handle game data
         if (message.trim().startsWith("{")) {
             // It seems to be a JSON message, parse it
@@ -181,6 +193,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
         }
+
         // Unknown format
         else {
             Log.e("WebSocket", "Received message in unknown format: " + message);
@@ -188,6 +201,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     }
     //how to handle chat data
     private void processStringMessage(String message) {
+
         // Extract the username and message from the string
         int colonIndex = message.indexOf(":");
         if (colonIndex != -1) {
@@ -219,38 +233,88 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 @Override
                 public void run() {
                     try {
-                        // Perform UI updates for each player
+//                        lastMoveMade = game.getString("currentMove");
+
+                        //set player order before anything
                         for (int i = 0; i < playerArray.length(); i++) {
                             JSONObject player = playerArray.getJSONObject(i);
                             String playerEmail = player.getString("userEmail");
-                            int thisGuyCoins = player.getInt("coins");
-                            int thisGuyLives = player.getInt("lives");
-
-                            // Compare the current player's email with the logged-in user's email
+                            String playerViewString = player.getString("playerView");
+                            JSONArray playerView = new JSONArray(playerViewString);
                             if (playerEmail.equals(Const.getCurrentEmail())) {
-                                // Updating player state and cards for the current player
+                                for (int j = 0; j < playerView.length(); j++) {
+                                    String viewEmail = playerView.getString(j);
+                                    if(j == 0){
+                                        Player1 = viewEmail;
+                                    }
+                                    else if(j == 1){
+                                        Player2 = viewEmail;
+                                    }
+                                    else if(j == 2){
+                                        Player3 = viewEmail;
+                                    }
+                                    else if(j == 3){
+                                        Player4 = viewEmail;
+                                    }
+                                }
+                                // Updating player state and cards for the current -player
                                 playerState = player.getString("playerState");
                                 card1 = player.getString("cardOne");
                                 card2 = player.getString("cardTwo");
                             }
+                        }
+
+                        // Perform UI updates for each player
+                        for (int i = 0; i < playerArray.length(); i++) {
+                            //get all data from player object
+                            JSONObject player = playerArray.getJSONObject(i);
+                            String playerEmail = player.getString("userEmail");  //player email for current index
+                            int thisGuyCoins = player.getInt("coins");
+                            int thisGuyLives = player.getInt("lives");
+                            //determine player order
+                            String playerViewString = player.getString("playerView");
+                            JSONArray playerView = new JSONArray(playerViewString);
+
+                            // Compare the current player's email with the logged-in user's email
+//                            if (playerEmail.equals(Const.getCurrentEmail())) {
+//                                for (int j = 0; j < playerView.length(); j++) {
+//                                    String viewEmail = playerView.getString(j);
+//                                    if(j == 0){
+//                                        Player1 = viewEmail;
+//                                    }
+//                                    else if(j == 1){
+//                                        Player2 = viewEmail;
+//                                    }
+//                                    else if(j == 2){
+//                                        Player3 = viewEmail;
+//                                    }
+//                                    else if(j == 3){
+//                                        Player4 = viewEmail;
+//                                    }
+//                                }
+//                                // Updating player state and cards for the current -player
+//                                playerState = player.getString("playerState");
+//                                card1 = player.getString("cardOne");
+//                                card2 = player.getString("cardTwo");
+//                            }
 
                             // Update coins for current player
-                            updatePlayerCoinsUi(thisGuyCoins, i + 1);
+                            updatePlayerCoinsUi(thisGuyCoins, playerEmail);
 
                             // Update player lives based on index (player 1 is green, 2 is yellow, etc.)
-                            if (i == 0) {
+                            if (playerEmail.equals(Player1)) {
                                 updatePlayer1LivesUi(thisGuyLives);
-                            } else if (i == 1) {
+                            } else if (playerEmail.equals(Player2)) {
                                 updatePlayer2LivesUi(thisGuyLives);
-                            } else if (i == 2) {
+                            } else if (playerEmail.equals(Player3)) {
                                 updatePlayer3LivesUi(thisGuyLives);
-                            } else if (i == 3) {
+                            } else if (playerEmail.equals(Player4)) {
                                 updatePlayer4LivesUi(thisGuyLives);
                             }
 
                             // If this player's turn is true, then animate his character
                             if (player.getBoolean("turn")) {
-                                updatePlayerTurnUi(i + 1);
+                                updatePlayerTurnUi(playerEmail);
                             }
                         }
                         // Call updatePlayerStateUi separately to update the UI based on the player state
@@ -345,17 +409,17 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 //            numCoins4.setText(String.valueOf(totalCoins));
 //        }
 //    }
-    public void updatePlayerCoinsUi(int totalCoins, int numOfTurn){
-        if (numOfTurn == 1){
+    public void updatePlayerCoinsUi(int totalCoins, String currentPlayer){
+        if (currentPlayer.equals(Player1)){
             numCoins1.setText(String.valueOf(totalCoins));
         }
-        else if (numOfTurn == 2){
+        else if (currentPlayer.equals(Player2)){
             numCoins2.setText(String.valueOf(totalCoins));
         }
-        else if (numOfTurn == 3){
+        else if (currentPlayer.equals(Player3)){
             numCoins3.setText(String.valueOf(totalCoins));
         }
-        else if (numOfTurn == 4){
+        else if (currentPlayer.equals(Player4)){
             numCoins4.setText(String.valueOf(totalCoins));
         }
     }
@@ -432,7 +496,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             blueCard3.setVisibility(View.GONE);
         }
     }
-    public void updatePlayerTurnUi(int turnNum){
+    public void updatePlayerTurnUi(String currentPlayer){
         ImageView playerIcon1 = findViewById(R.id.person1);
         ImageView playerIcon2 = findViewById(R.id.person2);
         ImageView playerIcon3 = findViewById(R.id.person3);
@@ -446,16 +510,16 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         // Apply the pulse animation.
         Animation pulse = AnimationUtils.loadAnimation(PlayActivity.this, R.anim.pulse_animation);
         //if this screen is current player
-        if (turnNum == 1){
+        if (currentPlayer.equals(Player1)){
             playerIcon1.startAnimation(pulse);
         }
-        else if(turnNum == 2){
+        else if(currentPlayer.equals(Player2)){
             playerIcon2.startAnimation(pulse);
         }
-        else if(turnNum == 3){
+        else if(currentPlayer.equals(Player3)){
             playerIcon3.startAnimation(pulse);
         }
-        else if(turnNum == 4){
+        else if(currentPlayer.equals(Player4)){
             playerIcon4.startAnimation(pulse);
         }
     }
@@ -475,18 +539,70 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     };
     //listeners for contest mode
     private View.OnClickListener blockButtonListener = new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("playerEmail", Const.getCurrentEmail());
-                jsonObject.put("move", "Block");
-                jsonObject.put("targetPlayer", "null");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+            if (lastMoveMade.equals("Steal")){
+                PopupMenu popup = new PopupMenu(PlayActivity.this, smallwhite1);
+                popup.getMenuInflater().inflate(R.menu.steal_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Variable to hold the selected player
+                        String whatCharacter = null;
+                        // Check which item was clicked and set the selected player accordingly
+                        int id = item.getItemId();
+                        if (id == R.id.CA) {
+                            whatCharacter = "Ambassador";
+                        } else if (id == R.id.CC) {
+                            whatCharacter = "Captain";
+                        }
+                        // After picking the player, send the WebSocket message
+                        if (whatCharacter != null) {
+                            JSONObject jsonObject = new JSONObject();
+                            if (whatCharacter.equals("Ambassador")){
+                                try {
+                                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                                    jsonObject.put("move", "*Block Ambassador");
+                                    jsonObject.put("targetPlayer", null);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                String jsonStr = jsonObject.toString();
+                                WebSocketManager.getInstance().sendMessage(jsonStr);
+
+                            }
+                            //captain
+                            else {
+                                try {
+                                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                                    jsonObject.put("move", "*Block Captain");
+                                    jsonObject.put("targetPlayer", null);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                String jsonStr = jsonObject.toString();
+                                WebSocketManager.getInstance().sendMessage(jsonStr);
+                            }
+                        }
+                        return true;
+                    }
+                });
+
+                // Showing the popup
+                popup.show();
             }
-            String jsonStr = jsonObject.toString();
-            WebSocketManager.getInstance().sendMessage(jsonStr);
+            else{
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                    jsonObject.put("move", "Block");
+                    jsonObject.put("targetPlayer", "null");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                String jsonStr = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonStr);
+            }
         }
     };
     private View.OnClickListener bluffButtonListener = new View.OnClickListener() {
