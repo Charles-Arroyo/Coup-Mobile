@@ -7,7 +7,9 @@
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/gamelobbyheader.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_lobby2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_lobby2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/largeBtn.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/largebtn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/lobbyjoinheader.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
