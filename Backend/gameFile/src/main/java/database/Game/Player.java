@@ -59,31 +59,31 @@ public class Player {
      */
 
     public void action(String action, Player player){
-        if(action.equals("Assassinate")){
+        if(action.contains("Assassinate")){
             assassinate(player);
         }
-        if(action.equals("Tax")){
+        if(action.contains("Tax")){
             setCurrentMove("Tax");
-            tax();
+            tax(player);
         }
 
-        if(action.equals("Steal")){
+        if(action.contains("Steal")){
             setCurrentMove("Steal");
             steal(player);
         }
 
-        if(action.equals("Income")){
+        if(action.contains("Income")){
             setCurrentMove("Income");
             income();
         }
-        if(action.equals("Coup")){
+        if(action.contains("Coup")){
             setCurrentMove("Coup");
             coup(player);
         }
-        if(action.equals("Waiting")){
+        if(action.contains("Waiting")){
             setPlayerState("Waiting");
         }
-        if(action.equals("Foreign Aid")){
+        if(action.contains("Foreign Aid")){
             foreignAid(player);
         }
     }
@@ -208,17 +208,11 @@ public class Player {
     /**
      *
      */
-    public void tax(){
-        // TODO: add bluffing check
-        addCoins(3);
+    public void tax(Player player){
+        player.addCoins(3);
     }
 
-    /**
-     *
-     */
-    public void blockForeignAid(Player player){
-        // TODO: Implement this functionality
-    }
+
 
     /*____________________________End of Duke_______________________*/
 
@@ -233,7 +227,7 @@ public class Player {
     public void assassinate(Player player){
         if(this.coins >= 3){
             loseInfluence(player);
-            loseCoins(3);
+            this.loseCoins(3);
         }else{
             System.out.println("Not enough Coins");
         }
@@ -274,13 +268,6 @@ public class Player {
 
     /*____________________________________Contessa________________________________*/
 
-    /**
-     *
-     * @param player
-     */
-    public void blockAssassinate(Player player){
-        // TODO: Implement this functionality
-    }
 
     /*______________________________End of Contessa________________________________*/
 

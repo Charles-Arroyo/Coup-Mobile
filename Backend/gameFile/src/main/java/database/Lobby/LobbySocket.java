@@ -200,6 +200,8 @@ public class LobbySocket {
     }
 
 
+
+
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
         /** Switch statements could be good
@@ -271,6 +273,12 @@ public class LobbySocket {
                     player.setPlayerState("contest"); //set other players to contest
                 }
             }
+            //Message to Chat
+//            for(Player player : game.getPlayerArrayList()){
+//                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + " wants to: " + state.substring(1)); //Charles want to: income
+//            }
+
+
         } else if (state.equals("Bluff")) {
             //If any player called bluff, go into bluffing
             //Set each player to waiting.
@@ -328,23 +336,41 @@ public class LobbySocket {
         }
         //AutoMatic Moves
         else if(state.contains("Coup")){
-            game.getCurrentPlayer().action("Coup",game.getPlayer(targetPlayer));
+            //Messages for Coup
+//            for(Player player : game.getPlayerArrayList()){
+//                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + "took: " + state.substring(1) + " on: " + targetPlayer); //Charles want to: income
+//            }
+            p.action("Coup",game.getPlayer(targetPlayer));
         }else if(state.equals("*Income")){
+            //Messages for Income
+            for(Player player : game.getPlayerArrayList()){
+                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + " took: " + state.substring(1)); //Charles took: income
+            }
             currentMove = state.substring(1); // save move for current player
             p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
             game.nextTurn();
         }
+
 
         if(!state.equals("ready") && !state.contains("@")) { //Send game to everyone after a move.
             for (Player player : game.getPlayerArrayList()) {
                 broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
             }
         }
-        if(!state.equals("ready") && !state.contains("@")){
+
+        if(!state.equals("ready") && !state.contains("@") && (!state.contains("Income") && (!state.contains("Coup")))){
             if(checkPass(game)){ //if all players or a player passed, do next turn
                 if(game.getBlocker().getUserEmail().equals("Null")){ // If all players passed, and blocking happened, Move can happen
-                    p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
-                    game.nextTurn();
+                    if(currentMove.contains("Exchange")){
+                        //Draw Card
+                        //Tell FE what card it is
+                        //Wait for choice
+                        //
+                    }else{
+                        p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
+                        game.nextTurn();
+                    }
+
                 }else{ // If all players passed, and blocking did happen, move cannot happen.
                     game.nextTurn();
                     game.getBlocker().setUserEmail("Null");
