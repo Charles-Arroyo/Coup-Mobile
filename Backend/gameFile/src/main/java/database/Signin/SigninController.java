@@ -17,8 +17,8 @@ public class SigninController {
     @Autowired
     private SigninRepository signinRepository;
 
-    private String success = "{\"success\":true}";
-    private String failure = "{\"fail\":false}";
+    private String success = "{\"success\":\"true\"}";
+    private String failure = "{\"success\":\"false\"}";
 
     /**
      * Checks the repo, and allows user to sign in

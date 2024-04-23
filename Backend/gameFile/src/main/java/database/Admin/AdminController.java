@@ -141,5 +141,23 @@ public class AdminController {
         return ResponseEntity.ok("{\"success\":true}");
     }
 
+    /**
+     * This will allow the Admin to reset
+     * the score
+     * @param userEmail
+     * @return
+     */
+    @PutMapping(path = "/resetScore/{userEmail}")
+    public ResponseEntity<?> resetScore(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"User not found\"}");
+        }
+
+        user.setPoints(0);
+        userRepository.save(user);
+        return ResponseEntity.ok("{\"success\":true}");
+    }
+
 
 }
