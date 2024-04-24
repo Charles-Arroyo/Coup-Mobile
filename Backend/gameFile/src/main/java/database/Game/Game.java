@@ -78,11 +78,11 @@ public class Game {
     }
 
     public String associate(String move){
-        if(move.equals("Tax") || move.equals("Foreign Aid") ){
+        if(move.contains("Tax") || move.contains("Foreign aid") ){
             return "Duke";
-        }else if(move.equals("Steal")){
+        }else if(move.contains("Steal")){
             return "Captain";
-        }else if(move.equals("Assassinate")){
+        }else if(move.contains("Assassinate")){
             return "Assassin";
         }else{
             return "Nah";

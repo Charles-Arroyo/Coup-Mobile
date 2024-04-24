@@ -83,7 +83,7 @@ public class Player {
         if(action.contains("Waiting")){
             setPlayerState("Waiting");
         }
-        if(action.contains("Foreign Aid")){
+        if(action.contains("Foreign aid")){
             foreignAid(player);
         }
     }
@@ -173,6 +173,7 @@ public class Player {
         }else if(player.cardTwo.contains(card)){
             return cardTwo;
         }else{
+            String s = player.getUserEmail() + " Was a Liar";
 
             return player.getUserEmail() + " Was a Liar";
         }
