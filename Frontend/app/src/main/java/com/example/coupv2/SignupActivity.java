@@ -28,9 +28,9 @@ public class SignupActivity extends AppCompatActivity {
 
 
 //    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
-//    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signup";
+    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8443/signup";
     // success
-    private static final String URL_SIGNUP = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+//    private static final String URL_SIGNUP = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
     //fail
 //    private static final String URL_SIGNUP = "https://fc027c91-5b3c-49e3-8239-a0223c763b2a.mock.pstmn.io";
 
@@ -72,7 +72,7 @@ public class SignupActivity extends AppCompatActivity {
     private void performSignup(String username, String email, String password) {
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("username", username);
+            jsonRequest.put("name", username);
             jsonRequest.put("userEmail", email);
             jsonRequest.put("password", password);
         } catch (JSONException e) {

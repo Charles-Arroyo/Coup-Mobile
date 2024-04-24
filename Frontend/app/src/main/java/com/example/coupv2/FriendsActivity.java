@@ -74,12 +74,12 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
      */
 
-        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
-        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
-        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
-        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
-        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/true/";
-        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/acceptFriendOrNot/false/";
+        private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/sendRequest/";
+        private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8080/deleteFriend/";
+        private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8080/getAcceptedFriends/";
+        private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/gotFriendRequest/";
+        private static final String URL_ACCEPT_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/true/";
+        private static final String URL_DECLINE_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8080/acceptFriendOrNot/false/";
 
         /**
          * Method that runs and mostly intialize the functions in the menu
@@ -121,19 +121,15 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
             addFriendButton.setOnClickListener(this::onAddFriendClick);
             deleteFriendButton.setOnClickListener(this::onDeleteFriendClick);
 
-                requestButton.setOnClickListener(v -> {
-                    displayFriendRequestsPopup();
-                    WebSocketManager.getInstance().sendMessage("getfriend");
-                });
-
-                refreshButton.setOnClickListener(v -> {
-                    displayFriendRequestsPopup();
-                    WebSocketManager.getInstance().sendMessage("getfriend");
-
-                });
-
-
-                checkForFriendRequests();
+            requestButton.setOnClickListener(v -> {
+                displayFriendRequestsPopup();
+                WebSocketManager.getInstance().sendMessage("getfriend");
+            });
+            refreshButton.setOnClickListener(v -> {
+                displayFriendRequestsPopup();
+                WebSocketManager.getInstance().sendMessage("getfriend");
+            });
+            checkForFriendRequests();
 
      }
 
@@ -546,20 +542,20 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
                 for (int i = 0; i < friendsArray.length(); i++) {
                     JSONObject friend = friendsArray.getJSONObject(i);
-                    String email = friend.getString("email");
+                    String username = friend.getString("name");
                     String isActive = friend.getString("active");
 
                     View friendView = getLayoutInflater().inflate(R.layout.friend_item, friendsLayout, false);
                     Button emailButton = friendView.findViewById(R.id.email);
                     ImageButton activeButton = friendView.findViewById(R.id.active);
 
-                    emailButton.setText(email);
-                    emailButton.setOnClickListener(v -> showUserStats(email));
+                    emailButton.setText(username);
+                    emailButton.setOnClickListener(v -> showUserStats(username));
 
                     ImageButton messageButton = friendView.findViewById(R.id.msgButton);
-                    messageButton.setOnClickListener(v -> startMessageActivity(email));
+                    messageButton.setOnClickListener(v -> startMessageActivity(username));
 
-                    emailButton.setText(email);
+                    emailButton.setText(username);
 
                     //animation
                     Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.spinning);

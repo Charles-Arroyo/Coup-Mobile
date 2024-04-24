@@ -71,10 +71,10 @@ public class ListActivity extends AppCompatActivity {
         View userList = getLayoutInflater().inflate(R.layout.person_item, peopleLayout, false);
         TextView textView = userList.findViewById(R.id.tvPersonName);
         Button detailsButton = userList.findViewById(R.id.btnDetails);
-
+        Button deleteButton = userList.findViewById(R.id.delete_user_btn);
         textView.setText(name);
         detailsButton.setOnClickListener(v -> showUserPopup(name));
-
+        deleteButton.setOnClickListener(v -> deleteUser(name));
         peopleLayout.addView(userList);
     }
 
@@ -88,6 +88,32 @@ public class ListActivity extends AppCompatActivity {
                 view.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+
+    private void deleteUser(String email) {
+
+        String URL_DELETE_USER = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, URL_DELETE_USER, null,
+                response -> {
+                    try {
+                        boolean success = response.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(ListActivity.this, "User deleted successfully", Toast.LENGTH_SHORT).show();
+                            fetchUsers();
+                        } else {
+                            String errorMessage = response.getString("message");
+                            Toast.makeText(ListActivity.this, "Failed to delete user: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(ListActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(ListActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show());
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     private void showUserPopup(String username) {
@@ -153,19 +179,16 @@ public class ListActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        resetStatsButton.setOnClickListener(v -> resetUserStats(username));
+        resetStatsButton.setOnClickListener(v -> resetUserScore(username));
     }
 
 
-    private void resetUserStats(String username) {
+    private void resetUserScore(String username) {
         String resetUrl = RESET_SCORE_URL;  // Correctly create a local variable for the URL
 
         JSONObject params = new JSONObject();
         try {
-            params.put("wins", 0);
-            params.put("losses", 0);
             params.put("score", 0);
-            params.put("rank", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }

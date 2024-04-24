@@ -27,12 +27,12 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private Button loginButton;
     private Button signupButton;
 
-//    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
+    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
     // success
-    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
+//    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
 
 
     /**
@@ -101,16 +101,13 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                 response -> {
                     try {
 
+                        String success = response.getString("success");
 
-                        boolean success = response.getBoolean("success");
-                        boolean isAdmin = response.getBoolean("admin");
-
-                        if (success && isAdmin){
+                        if (success.equals("admin")){
                             Intent mainIntent = new Intent(LoginActivity.this, AdminActivity.class);
                             startActivity(mainIntent);
                         }
-                        else if (success){
-                            // Successful login
+                        else if (success.equals("true")){
                             Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
                             mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
@@ -119,7 +116,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                             WebSocketManager.getInstance().connectWebSocket(serverUrl);
 
                         } else {
-                            // Failed login
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -128,7 +124,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                     }
                 },
                 error -> {
-                    // Handle errors here
                     Toast.makeText(LoginActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 

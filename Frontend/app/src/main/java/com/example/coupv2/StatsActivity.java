@@ -63,6 +63,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void getUserStats(String email) {
+//        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/" + email;
         String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/" + email;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
