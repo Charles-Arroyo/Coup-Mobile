@@ -122,7 +122,6 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/getuser")
 
 
     /**
