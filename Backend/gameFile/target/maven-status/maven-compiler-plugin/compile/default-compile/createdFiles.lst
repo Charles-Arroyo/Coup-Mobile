@@ -1,4 +1,3 @@
-gamelogic\rules\rulesController.class
 database\Game\Card.class
 database\Game\GameRepository.class
 database\Main.class
@@ -7,17 +6,12 @@ database\Spectator\SpectatorController.class
 database\Chat\Message.class
 database\Users\UserRepository.class
 database\Ranking\Ranking.class
-gamelogic\cards\cards.class
 database\Friends\Friend.class
 database\Signin\Signin.class
 database\FriendChatMessage\FriendChatMessageRepository.class
-gamelogic\cards\cardsRepository.class
-gamelogic\gameRound\gameRound.class
-gamelogic\rules\rules.class
 database\FriendChat\FriendChatRepository.class
 database\Signin\SigninController.class
 database\Friends\FriendRepository.class
-gamelogic\rules\rulesRepository.class
 database\Spectator\SpectatorRepository.class
 database\Lobby\LobbyController.class
 database\Lobby\LobbyRepository.class
@@ -42,14 +36,11 @@ database\FriendChatMessage\FriendChatMessageController.class
 database\Signin\SigninRepository.class
 database\Lobby\Lobby.class
 database\Websocketconfig\WebsocketConfig.class
-gamelogic\cards\cardsController.class
 database\Game\Deck.class
 database\Admin\AdminRepository.class
 database\Stats\Stat.class
 database\FriendChat\FriendChatSocket.class
 database\FriendRequest\FriendRequestRepository.class
-gamelogic\gameRound\gameRoundRepository.class
-gamelogic\gameRound\gameRoundController.class
 database\Game\Player.class
 database\Chat\MessageRepository.class
 database\Chat\MessageController.class

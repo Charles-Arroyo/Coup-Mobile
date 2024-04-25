@@ -1,7 +1,1 @@
-GameTaxTest.class
-GameCoupTest.class
-GameTurnTest.class
-GameStealTest.class
-GameAssassinateTest.class
-GameIncomeTest.class
-GameRevealCardTest.class
+database\BoTestingSystemTest.class

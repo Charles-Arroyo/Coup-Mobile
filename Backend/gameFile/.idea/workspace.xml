@@ -5,12 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingCServiceUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingControllerIntegration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingControllerTotalIntegration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingControllerUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingRServiceUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../testing/src/gameFile/src/main/java/boapp/BoTestingSystemTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/application-logging-test.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/boapp/BoTestingSystemTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Admin/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Admin/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Admin/AdminRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Chat/ChatSocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Chat/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Chat/MessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Chat/MessageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChat/FriendChat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChat/FriendChatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChat/FriendChatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChat/FriendChatSocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChatMessage/FriendChatMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChatMessage/FriendChatMessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendChatMessage/FriendChatMessageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendRequest/FriendRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendRequest/FriendRequestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/FriendRequest/FriendRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Friends/Friend.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Friends/FriendController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Friends/FriendRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/Deck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/GameRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/GameSocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Game/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Lobby/Lobby.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Lobby/LobbyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Lobby/LobbyRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Ranking/Ranking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Ranking/RankingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Ranking/RankingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Signin/Signin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Signin/SigninController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Signin/SigninRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Signin/SigninSocket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Spectator/Spectator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Spectator/SpectatorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Spectator/SpectatorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Stats/Stat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Stats/StatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Stats/StatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Users/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Users/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Users/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/java/database/Websocketconfig/WebsocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../testing/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameAssassinateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameAssassinateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameCoupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameCoupTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameIncomeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameIncomeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameRevealCardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameRevealCardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameStealTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameStealTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameTaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameTaxTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GameTurnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testGame/java/GameTurnTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +103,7 @@
     "git-widget-placeholder": "bo__newBranch",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/bohte/Desktop/SP24/COMS309/mk1_8/Backend",
+    "last_opened_file_path": "C:/Users/bohte/OneDrive/Desktop/sp24/coms309/Backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,6 +150,7 @@
       <workItem from="1713150088454" duration="65000" />
       <workItem from="1713934236490" duration="30000" />
       <workItem from="1713991437994" duration="4000" />
+      <workItem from="1714027449229" duration="71000" />
     </task>
     <servers />
   </component>
