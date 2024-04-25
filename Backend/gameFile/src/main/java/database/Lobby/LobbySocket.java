@@ -258,7 +258,7 @@ public class LobbySocket {
         if(state.contains("pass")){
             p.setPlayerState("wait");
             for(Player player : game.getPlayerArrayList()){
-                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": wants to pass "); //Charles took: income
+                broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to pass."); //Charles took: income
             }
         }
 
@@ -281,23 +281,28 @@ public class LobbySocket {
                 }
             }
             for(Player player : game.getPlayerArrayList()){
-                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": I want to: " + state.substring(1)); //Charles took: income
+                broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove); //Charles took: income
             }
         } else if (state.equals("Bluff")) {
 
             //If any player called bluff, go into bluffing
             if(game.getBlocker().getUserEmail().equals("null")){ // Regular bluff for player
+                for(Player player : game.getPlayerArrayList()){
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Calls bluff on " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
+                }
+
                 game.associate(game.getCurrentPlayer().getCurrentMove());
                 if(game.getCurrentPlayer().revealCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()).equals(game.getCurrentPlayer().getUserEmail() + " Was a Liar")){ //if player is a liar, remove their card
                     Card playerCard = new Card(game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer()));
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": Was a liar, lost influence");
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + game.getCurrentPlayer().getUserEmail()+ " Lost influence "); //Charles took: income
                     }
                   game.nextTurn();
                 }else{
+
                     Card playerCard = new Card(p.loseInfluence(p)); // The bluffer loses Influence
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": Was telling the truth." + state.substring(1));
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
                     }
                     game.getCurrentPlayer().removeCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()); // The Player their card
                     game.getDeckDeck().addCardToBottomOfDeck(playerCard);
@@ -312,10 +317,13 @@ public class LobbySocket {
                 for(Player player : game.getPlayerArrayList()){
                     broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": calls bluff on: " + game.getBlocker().getUserEmail()); //Charles took: income
                 }
-                String s = blocker.getUserEmail() + " Was a Liar";
-                if(blocker.revealCard(blocker.getCurrentMove(), blocker).equals(blocker.getUserEmail() + " Was a Liar")){ //If blocker was lying about his block ?? NTO WOKRING
+
+                if(blocker.revealCard(blocker.getCurrentMove(), blocker).equals(blocker.getUserEmail() + " Was a Liar")){ //If blocker was lying about his block
                     Card blockerCard = new Card(blocker.loseInfluence(blocker)); // Removes Card
                     game.getDeckDeck().addCardToBottomOfDeck(blockerCard);
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + blocker.getUserEmail()+ " Lost influence "); //Charles took: income
+                    }
                     Player blockerRestart = new Player("null",2,false,2,"null");
                     game.setBlocker(blockerRestart);
                     game.nextTurn();
@@ -326,6 +334,9 @@ public class LobbySocket {
                     game.getDeckDeck().addCardToBottomOfDeck(blockerCard);
                     String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
                     blocker.gainInfluence(drawCard,blocker);
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
+                    }
                     Player blockerRestart = new Player("null",2,false,2,"null");
                     game.setBlocker(blockerRestart);
                     game.nextTurn();
@@ -336,16 +347,16 @@ public class LobbySocket {
             if(state.equals("Block")){
                 game.setBlocker(p);
                 game.getBlocker().setCurrentMove(game.associate(game.getCurrentPlayer().getCurrentMove()));
-
                 for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": Blocks  " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " blocks " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
                 }
-
             }else{
                 game.setBlocker(p); // Save Blocker
                 game.getBlocker().setCurrentMove(state.substring(6)); //Saves Move ex (Block Duke)
+                for(Player player : game.getPlayerArrayList()){
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " blocks " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
+                }
             }
-
             for(Player player : game.getPlayerArrayList()){
                 if (!player.equals(game.getBlocker())) {
                     player.setPlayerState("Contest"); //set other players to contest
@@ -363,7 +374,7 @@ public class LobbySocket {
         }else if(state.equals("*Income")){
             //Messages for Income
             for(Player player : game.getPlayerArrayList()){
-                broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": Took: " + state.substring(1)); //Charles took: income
+                broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " took income"); //Charles took: income
             }
         }
 
@@ -382,10 +393,10 @@ public class LobbySocket {
 
             //Blocking Final Checks for all other moves
             boolean truth = checkPass(game);
-            if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null")){ //if all players passed, and block did not happen do move (tax, etc)
+            if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && !state.equals("Bluff")){ //if all players passed, and block did not happen do move (tax, etc)
                 if(targetPlayer.equals("null")){
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed"); //Charles took: income
+                        broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
                     }
 
                     game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
@@ -395,7 +406,7 @@ public class LobbySocket {
                     game.nextTurn();
                 }
 
-            }else if((!state.contains("Income") && !state.contains("Coup")) && checkPass(game)){ // if block happened, and players did not challange, next turn
+            }else if((!state.contains("Income") && !state.contains("Coup")) && checkPass(game) && !state.equals("Bluff")){ // if block happened, and players did not challange (bluff) (They passed), next turn
                 if(!game.getBlocker().getUserEmail().equals("null")){ // Blocker is present
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, Block Stands"); //Charles took: income

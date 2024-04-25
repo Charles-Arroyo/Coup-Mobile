@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
@@ -106,7 +102,7 @@
       <updated>1712786260895</updated>
       <workItem from="1712786261263" duration="4193000" />
       <workItem from="1712979323377" duration="13179000" />
-      <workItem from="1713896675713" duration="19022000" />
+      <workItem from="1713896675713" duration="28199000" />
     </task>
     <servers />
   </component>
