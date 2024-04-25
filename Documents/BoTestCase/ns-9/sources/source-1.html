@@ -1,0 +1,346 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Lobby</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Lobby</a>
+</div>
+
+<h1>Coverage Summary for Class: Lobby (database.Lobby)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Lobby</td>
+<td class="coverageStat">
+  <span class="percent">
+    5.3%
+  </span>
+  <span class="absValue">
+    (1/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.3%
+  </span>
+  <span class="absValue">
+    (5/54)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Lobby$HibernateInstantiator$Lz0pEVBO</td>
+  </tr>
+  <tr>
+    <td class="name">Lobby$HibernateProxy$R9aXgxbi</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    5.3%
+  </span>
+  <span class="absValue">
+    (1/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.3%
+  </span>
+  <span class="absValue">
+    (5/54)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Lobby;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonBackReference;
+&nbsp;import database.Users.User;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;lobbies&quot;)
+&nbsp;public class Lobby {
+&nbsp;    @Id
+&nbsp;    @GeneratedValue
+&nbsp;    private int id;
+&nbsp;    @OneToMany(fetch = FetchType.EAGER)
+&nbsp;    @JoinColumn(name = &quot;lobby_id&quot;) // Adjust the column name as needed
+&nbsp;    private List&lt;User&gt; userList;  //List of users, specifically user emails.
+&nbsp;
+&nbsp;
+&nbsp;    //this is for the users to be turned into
+&nbsp;    //spectators if the lobby is full
+<b class="fc">&nbsp;    @OneToMany(fetch = FetchType.EAGER)</b>
+&nbsp;    @JoinColumn(name = &quot;spectator_lobby_id&quot;)
+&nbsp;    private List&lt;User&gt; spectators = new ArrayList&lt;&gt;();
+&nbsp;
+&nbsp;//    @OneToOne
+&nbsp;//    @JoinColumn(name = &quot;user_id&quot;)
+&nbsp;//    @JsonBackReference
+&nbsp;//    private User user;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private boolean isPrivate; //Private lobby (Implement Later)
+&nbsp;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private boolean isFull;
+&nbsp;
+&nbsp;
+&nbsp;    //This is used to determine if the user game
+&nbsp;    //have started or not to determine if the joining
+&nbsp;    //user is going to be a spectator
+<b class="fc">&nbsp;    private boolean gameStarted = false;</b>
+&nbsp;
+<b class="fc">&nbsp;    public Lobby() {</b>
+<b class="fc">&nbsp;        userList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        isFull = false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;//    @Transactional
+&nbsp;//    public void addUser(User user) {
+&nbsp;//        if(userList.size() &lt; 4){
+&nbsp;//            userList.add(user);
+&nbsp;//        }else{
+&nbsp;//            setFull(true);
+&nbsp;//        }
+&nbsp;//    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    public void addUser(User user) {
+<b class="nc">&nbsp;        if (userList.size() &lt; 4 &amp;&amp; !userList.contains(user)) { //checks if there is any user to not add same user again</b>
+<b class="nc">&nbsp;            userList.add(user);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            setFull(true);</b>
+&nbsp;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        StringBuilder sb = new StringBuilder();</b>
+<b class="nc">&nbsp;        sb.append(&quot;Lobby{&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&quot;id=&quot;).append(id);</b>
+<b class="nc">&nbsp;        sb.append(&quot;, isPrivate=&quot;).append(isPrivate);</b>
+<b class="nc">&nbsp;        sb.append(&quot;, isFull=&quot;).append(isFull);</b>
+<b class="nc">&nbsp;        sb.append(&quot;, users=[&quot;);</b>
+<b class="nc">&nbsp;        if (userList != null &amp;&amp; !userList.isEmpty()) {</b>
+<b class="nc">&nbsp;            for (User user : userList) {</b>
+<b class="nc">&nbsp;                sb.append(user.toString()); // Assuming User class has a sensible toString method.</b>
+<b class="nc">&nbsp;                sb.append(&quot;, &quot;); // To separate users</b>
+&nbsp;            }
+<b class="nc">&nbsp;            sb.setLength(sb.length() - 2); // Remove the last comma and space</b>
+&nbsp;        }
+<b class="nc">&nbsp;        sb.append(&quot;]&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&#39;}&#39;);</b>
+<b class="nc">&nbsp;        return sb.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public String getUsers() {
+<b class="nc">&nbsp;        if (userList != null &amp;&amp; !userList.isEmpty()) {</b>
+<b class="nc">&nbsp;            StringBuilder sb = new StringBuilder();</b>
+<b class="nc">&nbsp;            for (User user : userList) {</b>
+<b class="nc">&nbsp;                sb.append(user.getUserEmail()); // Append user email directly</b>
+<b class="nc">&nbsp;                sb.append(&quot;, &quot;); // To separate emails</b>
+&nbsp;            }
+<b class="nc">&nbsp;            sb.setLength(sb.length() - 2); // Remove the last comma and space</b>
+<b class="nc">&nbsp;            return sb.toString();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return &quot;No users in lobby&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void removeUser(User user){
+<b class="nc">&nbsp;        if (userList.contains(user)) {</b>
+<b class="nc">&nbsp;            userList.remove(user);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(&quot;User not found in the lobby.&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;User&gt; getUserArraylist() {
+<b class="nc">&nbsp;        return userList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void sortUsersByEmail() {
+&nbsp;        // Sort userArrayList by email
+<b class="nc">&nbsp;        userList.sort(Comparator.comparing(User::getUserEmail));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public String findUserByEmail(String email) {
+<b class="nc">&nbsp;        for (User user : userList) {</b>
+<b class="nc">&nbsp;            if (user.getUserEmail().equals(email)) {</b>
+<b class="nc">&nbsp;                return user.getUserEmail(); // User found</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null; // User not found</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getId(){
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;//   public String getAllUserEmails() {
+&nbsp;//    StringBuilder emails = new StringBuilder();
+&nbsp;//    for (User user : userList) {
+&nbsp;//        emails.append(user.getUserEmail()).append(&quot;, &quot;);
+&nbsp;//    }
+&nbsp;//    if (emails.length() &gt; 0) {
+&nbsp;//        emails.setLength(emails.length() - 2); // Remove the last comma and space
+&nbsp;//    }
+&nbsp;//    return emails.toString();
+&nbsp;//}
+&nbsp;
+&nbsp;
+&nbsp;//    public User finUserbyEmail(String email) {
+&nbsp;//        for (User user : userList) {
+&nbsp;//            if (user.getUserEmail().equals(email)) {
+&nbsp;//                return user; // User found
+&nbsp;//            }
+&nbsp;//        }
+&nbsp;//        return null; // User not found
+&nbsp;//    }
+&nbsp;
+&nbsp;    public boolean isPrivate() {
+<b class="nc">&nbsp;        return isPrivate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPrivate(boolean aPrivate) {
+<b class="nc">&nbsp;        isPrivate = aPrivate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isFull() {
+<b class="nc">&nbsp;        if(getUserArraylist().size() == 4){</b>
+<b class="nc">&nbsp;            isFull = true;</b>
+<b class="nc">&nbsp;            return isFull;</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            isFull = false;</b>
+<b class="nc">&nbsp;            return isFull;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setFull(boolean full) {
+<b class="nc">&nbsp;        isFull = full;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isEmpty(){
+<b class="nc">&nbsp;        return userList.isEmpty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Checker to see if the game started yet or not
+&nbsp;    public boolean hasGameStarted() {
+<b class="nc">&nbsp;        return gameStarted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setGameStarted(boolean gameStarted) {
+<b class="nc">&nbsp;        this.gameStarted = gameStarted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //This will allow the user to be turned into spectators
+&nbsp;
+&nbsp;    public void addSpectator(User user) {
+<b class="nc">&nbsp;        spectators.add(user);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean removeSpectator(User user) {
+<b class="nc">&nbsp;        return spectators.remove(user);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;User&gt; getSpectators() {
+<b class="nc">&nbsp;        return spectators;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>
