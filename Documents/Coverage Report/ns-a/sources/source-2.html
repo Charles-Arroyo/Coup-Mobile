@@ -1,0 +1,205 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RankingController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Ranking</a>
+</div>
+
+<h1>Coverage Summary for Class: RankingController (database.Ranking)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RankingController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Ranking;
+&nbsp;
+&nbsp;import database.Stats.Stat;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@RestController
+<b class="nc">&nbsp;public class RankingController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private RankingRepository rankingRepository;
+&nbsp;
+&nbsp;
+&nbsp;    @GetMapping(path = &quot;/getListUserRanking&quot;)
+&nbsp;    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; getRankingList() {
+<b class="nc">&nbsp;        Ranking ranking = getOrCreateAndUpdateRanking(); // Fetches or updates the ranking as needed</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Map&lt;String, Object&gt;&gt; rankings = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (ranking != null &amp;&amp; ranking.getUsers() != null) {</b>
+&nbsp;            // Create a list from the ranking&#39;s users, sorted by points in descending order
+<b class="nc">&nbsp;            List&lt;User&gt; sortedUsers = ranking.getUsers().stream()</b>
+<b class="nc">&nbsp;                    .sorted(Comparator.comparingInt(User::getPoints).reversed())</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+&nbsp;
+<b class="nc">&nbsp;            int rank = 1; // Initialize rank</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; sortedUsers.size(); i++) {</b>
+&nbsp;                // Check if the current user (not the first one) has the same points as the previous one to handle ties
+<b class="nc">&nbsp;                if (i &gt; 0 &amp;&amp; sortedUsers.get(i).getPoints() == sortedUsers.get(i - 1).getPoints()) {</b>
+<b class="nc">&nbsp;                    rank--; // Decrement rank to keep the same rank value for tied users</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                User user = sortedUsers.get(i);</b>
+<b class="nc">&nbsp;                String username = user.getName() != null ? user.getName() : &quot;&quot;;</b>
+<b class="nc">&nbsp;                Integer score = user.getPoints() != null ? user.getPoints() : 0;</b>
+&nbsp;
+<b class="nc">&nbsp;                Map&lt;String, Object&gt; userRanking = Map.of(</b>
+<b class="nc">&nbsp;                        &quot;rank&quot;, rank,</b>
+&nbsp;                        &quot;username&quot;, username,
+&nbsp;                        &quot;score&quot;, score);
+<b class="nc">&nbsp;                rankings.add(userRanking);</b>
+&nbsp;
+<b class="nc">&nbsp;                rank++; // Prepare the next rank value</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        response.put(&quot;rankings&quot;, rankings);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(response);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    public Ranking getOrCreateAndUpdateRanking() {
+&nbsp;        // Retrieve the latest ranking, or create a new one if none exists
+<b class="nc">&nbsp;        Ranking ranking = rankingRepository.findTopByOrderByIdDesc()</b>
+<b class="nc">&nbsp;                .orElseGet(() -&gt; new Ranking()); // Assuming constructor with name</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;User&gt; allUsers = userRepository.findAll();</b>
+&nbsp;
+&nbsp;        // Update user points before adding them to the ranking
+<b class="nc">&nbsp;        allUsers.forEach(user -&gt; user.setPoints(calculateUserPoints(user)));</b>
+&nbsp;
+<b class="nc">&nbsp;        if (ranking != null &amp;&amp; ranking.getUsers() != null) {</b>
+&nbsp;            // Clear current users and re-add to manage ranking consistently
+<b class="nc">&nbsp;            ranking.getUsers().clear();</b>
+&nbsp;
+&nbsp;            // Filter out users with 0 points and either 0 wins or 0 losses
+<b class="nc">&nbsp;            List&lt;User&gt; filteredUsers = allUsers.stream()</b>
+<b class="nc">&nbsp;                    .filter(user -&gt; {</b>
+<b class="nc">&nbsp;                        Stat userStat = user.getStat();</b>
+<b class="nc">&nbsp;                        return user.getPoints() != 0 || (userStat != null &amp;&amp; userStat.getGameWon() != 0 &amp;&amp; userStat.getGameLost() != 0);</b>
+&nbsp;                    })
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+&nbsp;
+<b class="nc">&nbsp;            filteredUsers.forEach(ranking::addUser);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Save the updated ranking
+<b class="nc">&nbsp;        return rankingRepository.save(ranking);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int calculateUserPoints(User user) {
+<b class="nc">&nbsp;        Stat userStat = user.getStat();</b>
+<b class="nc">&nbsp;        if (userStat != null) {</b>
+<b class="nc">&nbsp;            return Math.max((userStat.getGameWon() * 10) - (userStat.getGameLost() * 2), 0);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 09:37</div>
+</div>
+</body>
+</html>
