@@ -6,7 +6,7 @@
     android:background="@android:drawable/dialog_holo_dark_frame"
     android:backgroundTint="#4CAF50"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/viewUsername"
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:background="@null"
-        android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHighlight="#FFFFFF"
         android:textColorHint="#FFFDFD"

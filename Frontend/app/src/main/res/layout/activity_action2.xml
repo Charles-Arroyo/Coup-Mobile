@@ -26,6 +26,10 @@
             android:orientation="horizontal">
 
             <!-- Assassin Card -->
+
+            <!-- Captain Card -->
+
+            <!-- Duke Card -->
             <ImageButton
                 android:id="@+id/assassin"
                 android:layout_width="565dp"
@@ -36,9 +40,6 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/assassin" />
 
-            <!-- Captain Card -->
-
-            <!-- Duke Card -->
             <ImageButton
                 android:id="@+id/captain"
                 android:layout_width="565dp"

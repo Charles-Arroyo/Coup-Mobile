@@ -6,7 +6,20 @@
         <State />
       </entry>
       <entry key="PlayActivity">
-        <State />
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="$USER_HOME$/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-23T23:11:09.567656Z" />
+        </State>
       </entry>
       <entry key="app">
         <State>
@@ -21,7 +34,7 @@
               </deviceKey>
             </Target>
           </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-22T07:16:08.486418Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-25T00:30:37.796225Z" />
         </State>
       </entry>
     </value>

@@ -1,6 +1,7 @@
 package com.example.coupv2;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,11 +24,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coupv2.utils.Const;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
     //has player order been determined (not using at current moment but might later)
 //    boolean playerOrder = false;
+    //timer
+    private CountDownTimer countDownTimer;
+    private TextView timerTextView;
     //game chat Views
     private LinearLayout layoutMessages1;
     private ScrollView scrollViewMessages;
@@ -36,6 +41,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     private ImageButton openChat;
     //views for when player is waiting
     ImageView waitingOverlay;
+    ImageView deadOverLay;
     //views for when player turn
     private ImageView gameBoard;
     //views for when in contest mode
@@ -77,10 +83,12 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String Player4;
     //last move (this is used for case of blocking stealing)
     String lastMoveMade;
+
     @Override
     //keep websocket open from LobbyActivity
     protected void onResume() {
         super.onResume();
+        loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         JSONObject jsonObject = new JSONObject();
@@ -98,6 +106,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startTimer();
+//        loadMessages();
         // link Play activity XML
         setContentView(R.layout.activity_play);
         //assign screen views
@@ -123,8 +133,10 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         chatMessage =  findViewById(R.id.chatText);
         submitText =  findViewById(R.id.submitText);
         openChat = findViewById(R.id.imageButton2);
-        //assign view for player is waiting
+        //assign view for when player is waiting
         waitingOverlay = findViewById(R.id.gameBoard_wait);
+        //assign view for when player is dead
+        deadOverLay = findViewById(R.id.gameBoard_dead);
         //assign view for player turn
         gameBoard = findViewById(R.id.gameBoard);
         gameBoard.setOnClickListener(gameBoardClickListener); //set gameBoard to be visible by default
@@ -136,6 +148,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         longwhite = findViewById(R.id.longwhite);
         longwhitetext = findViewById(R.id.longwhitetext);
         bigBlock = findViewById(R.id.BIGBLOCK);
+        //assign timer view
+        timerTextView = findViewById(R.id.timerText);
         openChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,17 +158,17 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 startActivity(intent);
             }
         });
-        Button testButton = findViewById(R.id.btn123);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                ImageView playerIcon = findViewById(R.id.person3); // Replace with your actual ImageView ID.
-//                // Apply the pulse animation.
-//                Animation pulse = AnimationUtils.loadAnimation(PlayActivity.this, R.anim.pulse_animation);
-//                playerIcon.startAnimation(pulse);
-                updatePlayerStateUi();
-            }
-        });
+//        Button testButton = findViewById(R.id.btn123);
+//        testButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                ImageView playerIcon = findViewById(R.id.person3); // Replace with your actual ImageView ID.
+////                // Apply the pulse animation.
+////                Animation pulse = AnimationUtils.loadAnimation(PlayActivity.this, R.anim.pulse_animation);
+////                playerIcon.startAnimation(pulse);
+//                updatePlayerStateUi();
+//            }
+//        });
         submitText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +185,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 WebSocketManager.getInstance().sendMessage(jsonStr);
             }
         });
+
     }
 
     @Override
@@ -213,7 +228,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 public void run() {
                     // Update UI components with the username and message
                     // ...
-                    addMessageToLayout(usernameMessage, messageContent);
+//                    addMessageToLayout(usernameMessage, messageContent);
+                    sendMessage(usernameMessage, messageContent);
                 }
             });
         }
@@ -234,14 +250,13 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 @Override
                 public void run() {
                     try {
-//                        lastMoveMade = game.getString("currentMove");
-
-                        //set player order before anything
+                        //set player order before anything and check if they are still alive
                         for (int i = 0; i < playerArray.length(); i++) {
                             JSONObject player = playerArray.getJSONObject(i);
                             String playerEmail = player.getString("userEmail");
                             String playerViewString = player.getString("playerView");
                             JSONArray playerView = new JSONArray(playerViewString);
+
                             if (playerEmail.equals(Const.getCurrentEmail())) {
                                 for (int j = 0; j < playerView.length(); j++) {
                                     String viewEmail = playerView.getString(j);
@@ -256,6 +271,19 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                                     }
                                     else if(j == 3){
                                         Player4 = viewEmail;
+                                    }
+                                }
+                                //check lives of other 3 players to know if they are still alive(this is for action against other players)
+                                if (player.getInt("lives") == 0){
+                                    //dont need to check themselves
+                                    if (playerEmail.equals(Player2)){
+                                        Player2 = null;
+                                    }
+                                    else if (playerEmail.equals(Player3)){
+                                        Player3 = null;
+                                    }
+                                    else if (playerEmail.equals(Player4)){
+                                        Player4 = null;
                                     }
                                 }
                                 // Updating player state and cards for the current -player
@@ -275,29 +303,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                             //determine player order
                             String playerViewString = player.getString("playerView");
                             JSONArray playerView = new JSONArray(playerViewString);
-
-                            // Compare the current player's email with the logged-in user's email
-//                            if (playerEmail.equals(Const.getCurrentEmail())) {
-//                                for (int j = 0; j < playerView.length(); j++) {
-//                                    String viewEmail = playerView.getString(j);
-//                                    if(j == 0){
-//                                        Player1 = viewEmail;
-//                                    }
-//                                    else if(j == 1){
-//                                        Player2 = viewEmail;
-//                                    }
-//                                    else if(j == 2){
-//                                        Player3 = viewEmail;
-//                                    }
-//                                    else if(j == 3){
-//                                        Player4 = viewEmail;
-//                                    }
-//                                }
-//                                // Updating player state and cards for the current -player
-//                                playerState = player.getString("playerState");
-//                                card1 = player.getString("cardOne");
-//                                card2 = player.getString("cardTwo");
-//                            }
 
                             // Update coins for current player
                             updatePlayerCoinsUi(thisGuyCoins, playerEmail);
@@ -334,7 +339,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
-
+        Log.e("WebSocketListener", Player1 + "disconnected");
     }
     //check if player is waiting
     public void updatePlayerStateUi(){
@@ -368,6 +373,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             longwhitetext.setVisibility(View.GONE);
             //hide waiting layout
             waitingOverlay.setVisibility(View.GONE);
+            deadOverLay.setVisibility(View.GONE);
             //set on game board listener
             gameBoard.setOnClickListener(gameBoardClickListener);
             //disable contest listeners
@@ -377,8 +383,9 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         }
         //implement later
         else if(playerState.equals("contest")){
-            //hide waiting layout
+            //hide waiting and dead layout
             waitingOverlay.setVisibility(View.GONE);
+            deadOverLay.setVisibility(View.GONE);
             //show contest mode layout
             bigBlock.setVisibility(View.VISIBLE);
             smallwhite1.setVisibility(View.VISIBLE);
@@ -393,6 +400,23 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             smallwhite1.setOnClickListener(blockButtonListener);
             smallwhite2.setOnClickListener(bluffButtonListener);
             longwhite.setOnClickListener(skipButtonListener);
+        }
+        else if (playerState.equals("dead")){  //hide contest layout
+        bigBlock.setVisibility(View.GONE);
+        smallwhite1.setVisibility(View.GONE);
+        smallwhite1Text.setVisibility(View.GONE);
+        smallwhite2.setVisibility(View.GONE);
+        smallwhite2Text.setVisibility(View.GONE);
+        longwhite.setVisibility(View.GONE);
+        longwhitetext.setVisibility(View.GONE);
+        waitingOverlay.setVisibility(View.GONE);
+        //show dead on screen
+        deadOverLay.setVisibility(View.VISIBLE);
+        //disable listeners if not turn
+        gameBoard.setOnClickListener(null);
+        smallwhite1.setOnClickListener(null);
+        smallwhite2.setOnClickListener(null);
+        longwhite.setOnClickListener(null);
         }
     }
     //update player coins
@@ -535,7 +559,11 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         public void onClick(View v) {
             // Handle game board click
             Intent intent = new Intent(PlayActivity.this, ActionActivity.class);
+            intent.putExtra("Player2Key", Player2); // Assume Player2 is a String with some value
+            intent.putExtra("Player3Key", Player3); // Assume Player3 is a String with some value
+            intent.putExtra("Player4Key", Player4); // Assume Player4 is a String with some value
             startActivity(intent);
+
         }
     };
     //listeners for contest mode
@@ -621,19 +649,24 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             WebSocketManager.getInstance().sendMessage(jsonStr);
         }
     };
+
+    //pass button function
     private View.OnClickListener skipButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
-                jsonObject.put("move", "Allow");
+                jsonObject.put("move", "Pass");
                 jsonObject.put("targetPlayer", "null");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
             String jsonStr = jsonObject.toString();
             WebSocketManager.getInstance().sendMessage(jsonStr);
+            //update state to waiting
+            playerState = "wait";
+            updatePlayerStateUi();
         }
     };
     private void addMessageToLayout(String username, String message) {
@@ -650,4 +683,29 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         // After adding the message, scroll to the bottom of the scrollViewMessages to show the latest message.
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     };
+    //timer
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(60000, 1000) { // 60 seconds with 1 second tick
+            public void onTick(long millisUntilFinished) {
+                timerTextView.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                timerTextView.setText("done!");
+            }
+        }.start();
+    };
+    private void loadMessages() {
+        List<String[]> existingMessages = ChatManager.getInstance().getMessages();
+        for (String[] messageData : existingMessages) {
+            addMessageToLayout(messageData[0], messageData[1]);
+        }
+    };
+    public void sendMessage(String username, String message) {
+        // Add message to layout
+        addMessageToLayout(username, message);
+        // Save message to Singleton
+        ChatManager.getInstance().addMessage(username, message);
+    }
+
 }
