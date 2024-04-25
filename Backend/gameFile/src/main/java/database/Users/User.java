@@ -54,6 +54,7 @@ public class User {
      */
 
     @OneToMany(mappedBy = "requestedUser", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<FriendRequest> receivedFriendRequests = new ArrayList<>();
 
     @OneToMany(mappedBy = "requestingUser", cascade = CascadeType.ALL, orphanRemoval = true)
