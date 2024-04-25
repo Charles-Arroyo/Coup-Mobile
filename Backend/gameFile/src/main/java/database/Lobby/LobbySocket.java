@@ -131,6 +131,8 @@ public class LobbySocket {
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
         User user = userRepository.findByUserEmail(username); // find user by their email
+
+
         sessionUserMap.put(session, user); // map the WebSocket session to the user
         userSessionMap.put(user, session); // map the user to the WebSocket session
 

@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootApplication
 @EnableJpaRepositories
-class Main {
+public class Main {
 
     public static void main(String[] args) {
 //        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);

@@ -5,25 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/coupcardcharles.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/foreignaidchalres.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/incomecardcharles.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/taxcharles.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/GameSocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameAssassinateTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameCoupTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameIncomeTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameRevealCardTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameStealTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameTaxTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GameTurnTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/LobbyTesting/LobbyOnOpenTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../Documents/Coverage Report" />
@@ -52,7 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "JUnit.java in onetoone.executor": "Run",
+    "JUnit.java in onetoone.executor": "Coverage",
     "Maven.onetoone [clean].executor": "Run",
     "Maven.onetoone [install].executor": "Run",
     "Maven.onetoone [package].executor": "Run",
@@ -85,7 +86,7 @@
       <recent name="$PROJECT_DIR$/src/test/java/GameTesting" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.java in onetoone">
+  <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="java in onetoone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="onetoone" />
       <option name="TEST_OBJECT" value="directory" />
@@ -129,7 +130,7 @@
       <updated>1712786260895</updated>
       <workItem from="1712786261263" duration="4193000" />
       <workItem from="1712979323377" duration="13179000" />
-      <workItem from="1713896675713" duration="31895000" />
+      <workItem from="1713896675713" duration="41215000" />
     </task>
     <servers />
   </component>
@@ -163,6 +164,6 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/gameFile$java_in_onetoone.ic" NAME="java in onetoone Coverage Results" MODIFIED="1714055381439" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/gameFile$java_in_onetoone.ic" NAME="java in onetoone Coverage Results" MODIFIED="1714066639789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
