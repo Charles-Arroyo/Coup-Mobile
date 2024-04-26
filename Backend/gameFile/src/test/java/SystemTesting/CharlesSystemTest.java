@@ -47,6 +47,33 @@ public class CharlesSystemTest {
         RestAssured.registerParser("text/plain", Parser.JSON); // Register 'text/plain' to be parsed as JSON
     }
 
+//    @Test
+//    public void getSignInLogTest() {
+//        Response response = RestAssured.given()
+//                .when()
+//                .get("/getsignLog/pizza");
+//
+//        response.then()
+//                .assertThat()
+//                .statusCode(200)
+//                .body("signInLogs", not(empty()));
+//    }
+
+    @Test
+    public void checkUserStatusTestNonActiveUser() {
+        Response response = RestAssured.given()
+                .when()
+                .get("/checkUserStatus/cat");
+
+        response.then()
+                .assertThat()
+                .statusCode(200);
+    }
+
+    /**
+     * Test for signing up with a used username
+     */
+
     @Test
     public void signUpTestExistingUser() {
         // Create a JSON object for the request body
@@ -67,47 +94,54 @@ public class CharlesSystemTest {
                 .body("fail", equalTo(false));
     }
 
+    /**
+     * Test for sigining in with account
+     */
+    @Test
+    public void signInTestExistingUser(){
+        // Create a JSON object for the request body
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("password", "123");
+        requestBody.put("userEmail", "zat");
+
+        // Send request and receive response
+        Response response = RestAssured.given().
+                contentType("application/json").
+                body(requestBody.toString()).
+                when().
+                post("/signin");
+
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body("success", equalTo(true));
     }
-//
-//
-//    @Test
-//    public void testSignUpCreatesUserAndStats() {
-//        JSONObject requestBody = new JSONObject();
-//        requestBody.put("email", "newuser@example.com");
-//        requestBody.put("password", "password123");
-//
-//        // Assume the user does not exist yet
-//        Mockito.when(userRepository.findByUserEmail("newuser@example.com")).thenReturn(null);
-//
-//        // Assume saving user and stats works correctly
-//        Mockito.when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArguments()[0]);
-//        Mockito.when(statRepository.save(any(Stat.class))).thenAnswer(i -> i.getArguments()[0]);
-//
-//        // Send request
-//        Response response = RestAssured.given()
-//                .contentType("application/json")
-//                .body(requestBody.toString())
-//                .when()
-//                .post("/signup");
-//
-//        // Assert the response was successful
-//        response.then()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("success", equalTo(true));
-//
-//        // Verify the user was saved with stats
-//        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-//        Mockito.verify(userRepository).save(userCaptor.capture());
-//        User savedUser = userCaptor.getValue();
-//
-//        assertNotNull(savedUser.getStat());
-//        assertNotNull(savedUser.getStat()); // Ensure ID is set, indicating it was saved
-//
-//        // Verify the stat repository was used
-//        Mockito.verify(statRepository).save(any(Stat.class));
-//    }
-//
-//
-//
-//}
+
+
+    /**
+     * Test for signing in without an account
+     */
+    @Test
+    public void signInTestNonExistingUser(){
+        // Create a JSON object for the request body
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("password", "123");
+        requestBody.put("userEmail", "NotReal");
+
+        // Send request and receive response
+        Response response = RestAssured.given().
+                contentType("application/json").
+                body(requestBody.toString()).
+                when().
+                post("/signin");
+
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body("fail", equalTo(false));
+    }
+
+    }
+
+
+

@@ -19,18 +19,22 @@ public class Player {
 
     String playerState; // playerState: wait, turn, contest
 
+    @JsonIgnore
+    String targetPlayer;
+
     int lives;
 
     int turnNumber;
 
     ArrayList<String> playerView;
 
-    public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {
+    public Player(String userEmail, int coins, boolean turn,int lives,String playerState, String targetPlayer) {
         this.userEmail = userEmail;
         this.coins = 2;
         this.turn = turn;
         this.lives = 2;
         this.playerState = playerState;
+        this.targetPlayer = targetPlayer;
     }
 
     public void setTurnNumber(int number){
@@ -355,6 +359,15 @@ public class Player {
     public void setPlayerView(ArrayList<String> playerView) {
         this.playerView = playerView;
     }
+
+    public String getTargetPlayer() {
+        return targetPlayer;
+    }
+
+    public void setTargetPlayer(String targetPlayer) {
+        this.targetPlayer = targetPlayer;
+    }
+
 
     /*
      * Getters and Setters

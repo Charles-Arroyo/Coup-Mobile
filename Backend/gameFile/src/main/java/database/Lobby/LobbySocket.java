@@ -194,6 +194,8 @@ public class LobbySocket {
 
             // Notify all users in the lobby that the game is starting
             broadcastToAllInLobby(lobby, "Lobby is full");
+
+
         }
 //        else {
 //            // Notify all users in the lobby that the game cannot start yet
@@ -206,45 +208,6 @@ public class LobbySocket {
 
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
-        /** Switch statements could be good
-         * 1. Listen for Front end to Start Game
-         * 2. Broadcast to Front End the Game, so it init the game on UI
-         * 3. Listen for current Player's move
-         * 4. Broadcast to non-current player's current Players move
-         * 5. Listen to All non-current player's move/Counter
-         *     if(ANY player sends Bluff)
-         *          Reveal Card of current Player
-         *          Remove Influence of currentPlayer, or bluffer.
-         *          End turn
-         *          Send front end new UI
-         *      else if(ANY Player Blocks)
-         *        1. Broadcast to current Player blocking players Block
-         *        2. Listen for Current Players move
-         *              if(Call Bluff)
-         *                   Revel blocking players card
-         *                   Remove Influence of currentPlayer, or blocker.
-         *                   End Turn
-         *              else if(Block)
-         *                  Listen for Blockers Counter
-         *                     if(call bluff)
-         *                          Reveal Card of current Player
-         *                          Remove Influence of currentPlayer, or bluffer.
-         *                          End turn
-         *                          Send front end new UI
-         *                      else
-         *                      Current Player perform move
-         *                      End turn
-         *                      Send front end new UI
-         *               else if(no bluff)
-         *               Deny action for current player
-         *               end turn.
-         *               Send front end new UI
-         *      else if(ALL players/Player attacked do nothing)
-         *         Current Player perform move
-         *         End turn
-         *         Send front end new UI
-         */
-
         /**
          * todo: Need contest logic in game
          */
@@ -256,6 +219,7 @@ public class LobbySocket {
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
         Player p = game.getPlayer(email); //Find player by their email
         String currentMove = state;
+        p.setTargetPlayer(targetPlayer);
 
         if(state.contains("pass")){
             p.setPlayerState("wait");
@@ -272,6 +236,7 @@ public class LobbySocket {
 
         if (state.equals("ready")) {  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); // Broadcast to each player indivual so front end can unqiuely set up UI
+
         } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action for Players
             currentMove = state.substring(1); // save move for current player
             p.setCurrentMove(currentMove);
@@ -282,9 +247,17 @@ public class LobbySocket {
                     player.setPlayerState("contest"); //set other players to contest
                 }
             }
-            for(Player player : game.getPlayerArrayList()){
-                broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove); //Charles took: income
+            if(targetPlayer.contains("null")){
+                for(Player player : game.getPlayerArrayList()){
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove); //Charles took: income
+                }
+            }else{
+                for(Player player : game.getPlayerArrayList()){
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove + " " + targetPlayer); //Charles took: income
+                }
             }
+
+
         } else if (state.equals("Bluff")) {
 
             //If any player called bluff, go into bluffing
@@ -326,7 +299,7 @@ public class LobbySocket {
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + blocker.getUserEmail()+ " Lost influence "); //Charles took: income
                     }
-                    Player blockerRestart = new Player("null",2,false,2,"null");
+                    Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
                     game.nextTurn();
                 }else{ //If the blocker was not lying, bluff caller loses card and blocker gets a new card
@@ -339,7 +312,7 @@ public class LobbySocket {
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
                     }
-                    Player blockerRestart = new Player("null",2,false,2,"null");
+                    Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
                     game.nextTurn();
                 }
@@ -361,7 +334,7 @@ public class LobbySocket {
             }
             for(Player player : game.getPlayerArrayList()){
                 if (!player.equals(game.getBlocker())) {
-                    player.setPlayerState("Contest"); //set other players to contest
+                    player.setPlayerState("contest"); //set other players to contest
                 }else{
                     player.setPlayerState("wait"); // Set Blocker to Wait
                 }
@@ -378,6 +351,7 @@ public class LobbySocket {
             for(Player player : game.getPlayerArrayList()){
                 broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " took income"); //Charles took: income
             }
+
         }
 
 
@@ -396,7 +370,7 @@ public class LobbySocket {
             //Blocking Final Checks for all other moves
             boolean truth = checkPass(game);
             if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && !state.equals("Bluff")){ //if all players passed, and block did not happen do move (tax, etc)
-                if(targetPlayer.equals("null")){
+                if(game.getCurrentPlayer().getTargetPlayer().equals("null")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
                     }
@@ -404,7 +378,14 @@ public class LobbySocket {
                     game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
                     game.nextTurn();
                 }else{
-                    game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getPlayer(targetPlayer));
+
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
+                    }
+                    game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getPlayer(game.getCurrentPlayer().getTargetPlayer()));
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: "+game.getCurrentPlayer().getUserEmail()+ " " + game.getCurrentPlayer().getCurrentMove() + game.getCurrentPlayer().getTargetPlayer()); //Charles took: income
+                    }
                     game.nextTurn();
                 }
 
@@ -414,7 +395,7 @@ public class LobbySocket {
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, Block Stands"); //Charles took: income
                     }
                     game.nextTurn();
-                    Player blockerRestart = new Player("null",2,false,2,"null");
+                    Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
                 }
                 //Do nothing if blocking has not happened
@@ -422,6 +403,10 @@ public class LobbySocket {
 
             for (Player player : game.getPlayerArrayList()) {
                 broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
+            }
+
+            for(Player player : game.getPlayerArrayList()){
+                broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: The current player is: " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
             }
 
         }

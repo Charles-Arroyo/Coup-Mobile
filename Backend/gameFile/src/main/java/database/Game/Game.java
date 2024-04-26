@@ -25,12 +25,12 @@ public class Game {
     }
 
     public void initGame(String name1, String name2, String name3, String name4) {
-        blocker = new Player("null",2,false,2,"wait");
+        blocker = new Player("null",2,false,2,"wait","null");
         // Adds players
-        players.add(new Player(name1, 2, false,2,"wait"));
-        players.add(new Player(name2, 2, false,2,"wait"));
-        players.add(new Player(name3, 2, false,2,"wait"));
-        players.add(new Player(name4, 2, false,2,"wait"));
+        players.add(new Player(name1, 2, false,2,"wait","null"));
+        players.add(new Player(name2, 2, false,2,"wait","null"));
+        players.add(new Player(name3, 2, false,2,"wait","null"));
+        players.add(new Player(name4, 2, false,2,"wait","null"));
         int var = 0;
         //Shuffle
         Collections.shuffle(players); //Shuffles Player to allow fair chance for 1st move
