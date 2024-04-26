@@ -17,7 +17,8 @@ import org.w3c.dom.Text;
 import com.example.coupv2.utils.Const;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
-private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
     private EditText lobbyNumber;
     private Button joinBtn;
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,12 @@ private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
             @Override
             public void onClick(View v) {
                 String lobbyNum = lobbyNumber.getText().toString();
-                String serverUrl = BASE_URL + lobbyNum + '/' +Const.getCurrentEmail();
+//                String serverUrl = BASE_URL + lobbyNum + '/' +Const.getCurrentEmail();
                 // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(AfterJoinLobbyActivity.this);
+//                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+//                WebSocketManager.getInstance().setWebSocketListener(AfterJoinLobbyActivity.this);
                 Intent intent = new Intent(AfterJoinLobbyActivity.this, AfterCreateLobbyActivity.class);
+                intent.putExtra("lobbyNumber", lobbyNum);
                 startActivity(intent);
             }
         });
@@ -50,7 +52,7 @@ private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
 
     @Override
     public void onWebSocketMessage(String message) {
-
+        Log.d("WebSocket", "AfterJoinLobby Activity received: " + message);
     }
 
     @Override

@@ -84,10 +84,30 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     //last move (this is used for case of blocking stealing)
     String lastMoveMade;
 
-    @Override
+//    @Override
     //keep websocket open from LobbyActivity
     protected void onResume() {
         super.onResume();
+        loadMessages();
+        //set listener to this class
+//        WebSocketManager.getInstance().setWebSocketListener(this);
+        JSONObject jsonObject = new JSONObject();
+        //let backend know that player is ready to receive data
+        try {
+            jsonObject.put("playerEmail", Const.getCurrentEmail());
+            jsonObject.put("move", "ready");
+            jsonObject.put("targetPlayer", "null");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        String jsonStr = jsonObject.toString();
+        WebSocketManager.getInstance().sendMessage(jsonStr);
+        Log.d("GameDebug", "Player State Resume: " + playerState);
+    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
@@ -102,10 +122,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         }
         String jsonStr = jsonObject.toString();
         WebSocketManager.getInstance().sendMessage(jsonStr);
-    }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
         startTimer();
 //        loadMessages();
         // link Play activity XML
@@ -244,6 +261,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             JSONObject game = jsonObject.getJSONObject("Game");
             // Read the player array
             final JSONArray playerArray = game.getJSONArray("playerArrayList");
+            lastMoveMade = game.getString("lastCharacterMove");  // Use optString to handle null cases
 
             // This will run on the UI thread
             runOnUiThread(new Runnable() {
@@ -322,9 +340,14 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                             if (player.getBoolean("turn")) {
                                 updatePlayerTurnUi(playerEmail);
                             }
+//                            if (player.getBoolean("")) {
+//                                updatePlayerTurnUi(playerEmail);
+//                            }
                         }
                         // Call updatePlayerStateUi separately to update the UI based on the player state
+
                         updatePlayerStateUi();
+                        Log.d("GameDebug", "Player State: " + playerState);
                     } catch (JSONException e) {
                         Log.e("WebSocket", "Error parsing JSON in UI thread", e);
                     }
@@ -339,7 +362,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
-        Log.e("WebSocketListener", Player1 + "disconnected");
+        Log.e("WebSocketListener", Player1 + " disconnected");
     }
     //check if player is waiting
     public void updatePlayerStateUi(){
@@ -571,6 +594,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
         @Override
         public void onClick(View v) {
+            Log.d("GameDebug", "lastMoveMade: " + lastMoveMade);
             if (lastMoveMade.equals("Steal")){
                 PopupMenu popup = new PopupMenu(PlayActivity.this, smallwhite1);
                 popup.getMenuInflater().inflate(R.menu.steal_menu, popup.getMenu());
@@ -657,7 +681,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
-                jsonObject.put("move", "Pass");
+                jsonObject.put("move", "pass");
                 jsonObject.put("targetPlayer", "null");
             } catch (JSONException e) {
                 throw new RuntimeException(e);

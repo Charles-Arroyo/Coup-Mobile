@@ -2,6 +2,7 @@ package com.example.coupv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,7 +15,7 @@ import com.example.coupv2.utils.Const;
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
-private static final String BASE_URL = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+//private static final String BASE_URL = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
     private Button connectBtn, joinBtn;
 
 
@@ -32,11 +33,13 @@ private static final String BASE_URL = "http://coms-309-023.class.las.iastate.ed
             //
             @Override
             public void onClick(View v) {
-                String serverUrl = BASE_URL + Const.getCurrentEmail();
-                // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+//                String serverUrl = BASE_URL + Const.getCurrentEmail();
+//                // Establish WebSocket connection and set listener
+//                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+//                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+
                 Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                intent.putExtra("createLobby", true);
                 startActivity(intent);
             }
         });
@@ -59,6 +62,7 @@ private static final String BASE_URL = "http://coms-309-023.class.las.iastate.ed
          * is used to post a runnable to the UI thread's message queue, allowing UI updates
          * to occur safely from a background or non-UI thread.
          */
+        Log.d("WebSocket", "Lobby Activity received: " + message);
 //        runOnUiThread(() -> {
 //            String s = msgTv.getText().toString();
 //            msgTv.setText(s + "\n"+message);
