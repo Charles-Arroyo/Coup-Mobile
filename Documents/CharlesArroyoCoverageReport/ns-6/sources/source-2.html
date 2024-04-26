@@ -1,0 +1,255 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FriendRequestController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.FriendRequest</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendRequestController (database.FriendRequest)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FriendRequestController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    1.3%
+  </span>
+  <span class="absValue">
+    (1/75)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.FriendRequest;
+&nbsp;
+&nbsp;
+&nbsp;import database.Chat.MessageRepository;
+&nbsp;import database.Friends.Friend;
+&nbsp;import database.Friends.FriendRepository;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.RestController;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;@RestController
+<b class="fc">&nbsp;public class FriendRequestController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    UserRepository userRepository; //Creating a repository(mySQL of users)
+&nbsp;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    MessageRepository messageRepository; //Creating a repository(mySQL of users)
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    FriendRepository friendRepository; // //Creating a repository(mySQL of Friends)
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    FriendRequestRepository friendRequestRepository;
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping(path = &quot;/sendRequest/{userEmail}/{friendWannaBe}&quot;)
+&nbsp;    public Map&lt;String, Object&gt; friendRequest(@PathVariable String userEmail, @PathVariable String friendWannaBe) {
+<b class="nc">&nbsp;        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        User friendRequestSender = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        User friendToBe = userRepository.findByUserEmail(friendWannaBe);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (friendToBe == null || friendRequestSender == null) {</b>
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, false);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;One or both users do not exist&quot;);</b>
+<b class="nc">&nbsp;            return response;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (friendRepository.findByUser1AndUser2(friendRequestSender, friendToBe) != null || friendRepository.existsByUser1AndUser2(friendRequestSender, friendToBe)) {</b>
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, false);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;Users are already friends&quot;);</b>
+<b class="nc">&nbsp;            return response;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        boolean existingRequest = friendRequestRepository.existsByRequestingUserAndRequestedUser(friendRequestSender, friendToBe);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (existingRequest) {</b>
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, false);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;Friend request already exists&quot;);</b>
+<b class="nc">&nbsp;            return response;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        FriendRequest friendRequest = new FriendRequest();</b>
+<b class="nc">&nbsp;        friendRequest.setRequestingUser(friendRequestSender);</b>
+<b class="nc">&nbsp;        friendRequest.setRequestedUser(friendToBe);</b>
+<b class="nc">&nbsp;        friendRequestRepository.save(friendRequest);</b>
+&nbsp;
+<b class="nc">&nbsp;        response.put(&quot;success&quot;, true);</b>
+<b class="nc">&nbsp;        response.put(&quot;message&quot;, &quot;Friend request sent successfully&quot;);</b>
+<b class="nc">&nbsp;        return response;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(path = &quot;/gotFriendRequest/{userEmails}&quot;)
+&nbsp;    public Map&lt;String, Object&gt; gotFriendRequest(@PathVariable String userEmails) {
+<b class="nc">&nbsp;        List&lt;String&gt; userEmailList = Arrays.asList(userEmails.split(&quot;,&quot;));</b>
+<b class="nc">&nbsp;        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        List&lt;Map&lt;String, String&gt;&gt; friendRequestList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (String userEmail : userEmailList) {</b>
+<b class="nc">&nbsp;            User user = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;            if (user != null) {</b>
+<b class="nc">&nbsp;                List&lt;FriendRequest&gt; receivedFriendRequests = friendRequestRepository.findByRequestedUser(user);</b>
+&nbsp;
+<b class="nc">&nbsp;                for (FriendRequest friendRequest : receivedFriendRequests) {</b>
+<b class="nc">&nbsp;                    User requestingUser = friendRequest.getRequestingUser();</b>
+<b class="nc">&nbsp;                    Map&lt;String, String&gt; friendRequestData = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;                    friendRequestData.put(&quot;email&quot;, requestingUser.getUserEmail());</b>
+<b class="nc">&nbsp;                    friendRequestData.put(&quot;name&quot;, requestingUser.getName());</b>
+<b class="nc">&nbsp;                    friendRequestList.add(friendRequestData);</b>
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        if (friendRequestList.isEmpty()) {</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;No friend requests found&quot;);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            response.put(&quot;requests&quot;, friendRequestList);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return response;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @PostMapping(path = &quot;/acceptFriendOrNot/{yesOrNo}/{userEmail}/{askingPerson}&quot;)
+&nbsp;    public Map&lt;String, Object&gt; acceptFriendOrNot(@PathVariable boolean yesOrNo, @PathVariable String userEmail, @PathVariable String askingPerson) {
+<b class="nc">&nbsp;        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        User userAdding = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        User askingUser = userRepository.findByUserEmail(askingPerson);</b>
+&nbsp;
+<b class="nc">&nbsp;        FriendRequest friendRequest = friendRequestRepository.findByRequestingUserAndRequestedUser(askingUser, userAdding);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (friendRequest == null) {</b>
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, false);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;Friend request not found&quot;);</b>
+<b class="nc">&nbsp;            return response;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (yesOrNo) {</b>
+<b class="nc">&nbsp;            if (friendRepository.existsByUser1AndUser2(userAdding, askingUser) || friendRepository.existsByUser1AndUser2(askingUser, userAdding)) {</b>
+<b class="nc">&nbsp;                response.put(&quot;success&quot;, false);</b>
+<b class="nc">&nbsp;                response.put(&quot;message&quot;, &quot;Friendship already exists&quot;);</b>
+<b class="nc">&nbsp;                friendRequestRepository.delete(friendRequest);</b>
+<b class="nc">&nbsp;                return response;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Friend friend1 = new Friend();</b>
+<b class="nc">&nbsp;            friend1.setUser1(userAdding);</b>
+<b class="nc">&nbsp;            friend1.setUser2(askingUser);</b>
+<b class="nc">&nbsp;            friend1.setAccepted(true);</b>
+&nbsp;
+<b class="nc">&nbsp;            Friend friend2 = new Friend();</b>
+<b class="nc">&nbsp;            friend2.setUser1(askingUser);</b>
+<b class="nc">&nbsp;            friend2.setUser2(userAdding);</b>
+<b class="nc">&nbsp;            friend2.setAccepted(true);</b>
+&nbsp;
+<b class="nc">&nbsp;            friendRepository.save(friend1);</b>
+<b class="nc">&nbsp;            friendRepository.save(friend2);</b>
+&nbsp;
+<b class="nc">&nbsp;            friendRequestRepository.delete(friendRequest);</b>
+&nbsp;
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, true);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;Friend request accepted successfully&quot;);</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            friendRequestRepository.delete(friendRequest);</b>
+&nbsp;
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, true);</b>
+<b class="nc">&nbsp;            response.put(&quot;message&quot;, &quot;Friend request rejected&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return response;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 17:20</div>
+</div>
+</body>
+</html>
