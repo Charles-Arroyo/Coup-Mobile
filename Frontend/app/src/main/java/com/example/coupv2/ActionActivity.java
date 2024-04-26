@@ -50,57 +50,35 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
         incomeIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "*Income");
-                    jsonObject.put("targetPlayer", "null");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-                Log.d("WebSocket", "sent");
+
 //                go to new activity when clicked on
-                Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                intent2.putExtra("move", "*Income"); // Assume Player3 is a String with some value
+                intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+//                intent.putExtra("json_data", jsonStr);
+                startActivity(intent2);
             }
         });
 
         aidIcon2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", " *Aid");
-                    jsonObject.put("targetPlayer", "null");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-//                go to new activity when clicked on
-                Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                intent2.putExtra("move", "*Aid"); // Assume Player3 is a String with some value
+                intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                startActivity(intent2);
             }
         });
         taxIcon3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "*Tax");
-                    jsonObject.put("targetPlayer", "null");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-//                go to new activity when clicked on
-                Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                intent2.putExtra("move", "*Tax"); // Assume Player3 is a String with some value
+                intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                startActivity(intent2);
             }
         });
         stealIcon4.setOnClickListener(new View.OnClickListener() {
@@ -146,20 +124,25 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                         }
                         // After picking the player, send the WebSocket message
                         if (whatPlayer != null) {
-                            JSONObject jsonObject = new JSONObject();
-                            try {
-                                jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "*Steal");
-                                jsonObject.put("targetPlayer", whatPlayer);
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            String jsonStr = jsonObject.toString();
-                            WebSocketManager.getInstance().sendMessage(jsonStr);
-
-                            // Now, move to the new activity
-                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                            startActivity(intent);
+//                            JSONObject jsonObject = new JSONObject();
+//                            try {
+//                                jsonObject.put("playerEmail", Const.getCurrentEmail());
+//                                jsonObject.put("move", "*Steal");
+//                                jsonObject.put("targetPlayer", whatPlayer);
+//                            } catch (JSONException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            String jsonStr = jsonObject.toString();
+//                            WebSocketManager.getInstance().sendMessage(jsonStr);
+//
+//                            // Now, move to the new activity
+//                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
+//                            startActivity(intent);
+                            Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                            intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                            intent2.putExtra("move", "*Steal"); // Assume Player3 is a String with some value
+                            intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                            startActivity(intent2);
                         }
                         return true;
                     }
@@ -172,19 +155,24 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
         exchangeIcon5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "*Exchange");
-                    jsonObject.put("targetPlayer", "null");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-//                go to new activity when clicked on
-                Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                startActivity(intent);
+//                JSONObject jsonObject = new JSONObject();
+//                try {
+//                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+//                    jsonObject.put("move", "*Exchange");
+//                    jsonObject.put("targetPlayer", "null");
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                String jsonStr = jsonObject.toString();
+//                WebSocketManager.getInstance().sendMessage(jsonStr);
+////                go to new activity when clicked on
+//                Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
+//                startActivity(intent);
+                Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                intent2.putExtra("move", "*Exchange"); // Assume Player3 is a String with some value
+                intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                startActivity(intent2);
             }
         });
         assassinIcon6.setOnClickListener(new View.OnClickListener() {
@@ -229,20 +217,25 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                         }
                         // After picking the player, send the WebSocket message
                         if (whatPlayer != null) {
-                            JSONObject jsonObject = new JSONObject();
-                            try {
-                                jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "*Assassinate");
-                                jsonObject.put("targetPlayer", whatPlayer);
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            String jsonStr = jsonObject.toString();
-                            WebSocketManager.getInstance().sendMessage(jsonStr);
-
-                            // Now, move to the new activity
-                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                            startActivity(intent);
+//                            JSONObject jsonObject = new JSONObject();
+//                            try {
+//                                jsonObject.put("playerEmail", Const.getCurrentEmail());
+//                                jsonObject.put("move", "*Assassinate");
+//                                jsonObject.put("targetPlayer", whatPlayer);
+//                            } catch (JSONException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            String jsonStr = jsonObject.toString();
+//                            WebSocketManager.getInstance().sendMessage(jsonStr);
+//
+//                            // Now, move to the new activity
+//                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
+//                            startActivity(intent);
+                            Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                            intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                            intent2.putExtra("move", "*Assassinate"); // Assume Player3 is a String with some value
+                            intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                            startActivity(intent2);
                         }
                         return true;
                     }
@@ -295,20 +288,25 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
                         }
                         // After picking the player, send the WebSocket message
                         if (whatPlayer != null) {
-                            JSONObject jsonObject = new JSONObject();
-                            try {
-                                jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                jsonObject.put("move", "#Coup");
-                                jsonObject.put("targetPlayer", whatPlayer);
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
-                            String jsonStr = jsonObject.toString();
-                            WebSocketManager.getInstance().sendMessage(jsonStr);
-
-                            // Now, move to the new activity
-                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
-                            startActivity(intent);
+//                            JSONObject jsonObject = new JSONObject();
+//                            try {
+//                                jsonObject.put("playerEmail", Const.getCurrentEmail());
+//                                jsonObject.put("move", "#Coup");
+//                                jsonObject.put("targetPlayer", whatPlayer);
+//                            } catch (JSONException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            String jsonStr = jsonObject.toString();
+//                            WebSocketManager.getInstance().sendMessage(jsonStr);
+//
+//                            // Now, move to the new activity
+//                            Intent intent = new Intent(ActionActivity.this, PlayActivity.class);
+//                            startActivity(intent);
+                            Intent intent2 = new Intent(ActionActivity.this, PlayActivity.class);
+                            intent2.putExtra("playerEmail", Const.getCurrentEmail()); // Assume Player2 is a String with some value
+                            intent2.putExtra("move", "#Coup"); // Assume Player3 is a String with some value
+                            intent2.putExtra("targetPlayer", "null"); // Assume Player4 is a String with some value
+                            startActivity(intent2);
                         }
                         return true;
                     }

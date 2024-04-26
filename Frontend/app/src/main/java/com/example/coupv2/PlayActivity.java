@@ -86,29 +86,129 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
 //    @Override
     //keep websocket open from LobbyActivity
+//@Override
+//protected void onStart() {
+//    super.onStart();
+//    loadMessages();
+//    Intent intent = getIntent();
+//
+//    // If it contains the extra data, process it
+//    if (intent.hasExtra("json_data")) {
+//
+//        try {
+//            String jsonData = intent.getStringExtra("json_data");
+//            JSONObject jsonObject2 = new JSONObject(jsonData);
+//            String jsonStr2 = jsonObject2.toString();
+//            WebSocketManager.getInstance().sendMessage(jsonStr2);
+//            Log.d("WebSocket", "Income sent");
+//            // Use the jsonObject as needed
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            // Handle the error appropriately
+//        }
+//    }
+//
+//}
+@Override
+protected void onPause() {
+    super.onPause();
+    Log.d("ActivityLifecycle", "onPause called");
+}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("ActivityLifecycle", "onStop called");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ActivityLifecycle", "onDestroy called");
+    }
+    @Override
     protected void onResume() {
         super.onResume();
         loadMessages();
         //set listener to this class
-//        WebSocketManager.getInstance().setWebSocketListener(this);
-        JSONObject jsonObject = new JSONObject();
-        //let backend know that player is ready to receive data
-        try {
-            jsonObject.put("playerEmail", Const.getCurrentEmail());
-            jsonObject.put("move", "ready");
-            jsonObject.put("targetPlayer", "null");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+        WebSocketManager.getInstance().setWebSocketListener(this);
+
+        Log.d("ActivityLifecycle", "onResume called");
+        // Get the intent that started this activity
+        Intent intent = getIntent();
+        if (intent.hasExtra("playerEmail") && intent.hasExtra("move") && intent.hasExtra("targetPlayer")) {
+            Log.d("GameDebug", "We in ");
+            // Retrieve the data from the intent
+            String pE = intent.getStringExtra("playerEmail");
+            String mov = intent.getStringExtra("move");
+            String tp = intent.getStringExtra("targetPlayer");
+            try {
+                // Create a new JSONObject
+                JSONObject jsonObject = new JSONObject();
+
+                // Put each piece of data into the JSONObject with a key
+                jsonObject.put("playerEmail", pE);
+                jsonObject.put("move", mov);
+                jsonObject.put("targetPlayer", tp);
+
+                // Use jsonObject.toString() to get JSON string representation
+                String jsonString = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonString);
+                // Now you can use jsonString for your purposes, like sending it over a network
+
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+//            e.printStackTrace();
+            }
+
+
         }
-        String jsonStr = jsonObject.toString();
-        WebSocketManager.getInstance().sendMessage(jsonStr);
+
+//        JSONObject jsonObject = new JSONObject();
+        //let backend know that player is ready to receive data
+//        try {
+//            jsonObject.put("playerEmail", Const.getCurrentEmail());
+//            jsonObject.put("move", "ready");
+//            jsonObject.put("targetPlayer", "null");
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
+//        String jsonStr = jsonObject.toString();
+//        WebSocketManager.getInstance().sendMessage(jsonStr);
+
+
+        // Get the intent that started this activity
+//        Intent intent = getIntent();
+//
+//        // If it contains the extra data, process it
+//        if (intent.hasExtra("json_data")) {
+//
+//            try {
+//                String jsonData = intent.getStringExtra("json_data");
+//                JSONObject jsonObject2 = new JSONObject(jsonData);
+//                String jsonStr2 = jsonObject2.toString();
+//                WebSocketManager.getInstance().sendMessage(jsonStr2);
+//                Log.d("WebSocket", "Income sent");
+//                // Use the jsonObject as needed
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                // Handle the error appropriately
+//            }
+//        }
+//
+
+
         Log.d("GameDebug", "Player State Resume: " + playerState);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("ActivityLifecycle", "onStart called");
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        loadMessages();
+        Log.d("ActivityLifecycle", "onCreate called");
+//        loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         JSONObject jsonObject = new JSONObject();
@@ -167,6 +267,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         bigBlock = findViewById(R.id.BIGBLOCK);
         //assign timer view
         timerTextView = findViewById(R.id.timerText);
+        loadMessages();
         openChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,6 +354,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     }
     //how to handle game data
     private void processJsonMessage(String message) {
+
         // Existing JSON processing code here...
         try {
             // Parse the message into a JSONObject
@@ -725,6 +827,24 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             addMessageToLayout(messageData[0], messageData[1]);
         }
     };
+    private void showUserCards() {
+        if(card1 == "assassin"){
+
+        }
+        else if(card1 == "ambassador"){
+
+        }
+        else if(card1 == "captain"){
+
+        }
+        else if(card1 == "contra"){
+
+        }
+        else if(card1 == "duke"){
+
+        }
+    };
+
     public void sendMessage(String username, String message) {
         // Add message to layout
         addMessageToLayout(username, message);
