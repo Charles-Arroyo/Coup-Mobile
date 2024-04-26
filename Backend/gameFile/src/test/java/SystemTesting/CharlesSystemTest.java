@@ -47,17 +47,17 @@ public class CharlesSystemTest {
         RestAssured.registerParser("text/plain", Parser.JSON); // Register 'text/plain' to be parsed as JSON
     }
 
-//    @Test
-//    public void getSignInLogTest() {
-//        Response response = RestAssured.given()
-//                .when()
-//                .get("/getsignLog/pizza");
-//
-//        response.then()
-//                .assertThat()
-//                .statusCode(200)
-//                .body("signInLogs", not(empty()));
-//    }
+    @Test
+    public void getSignInLogTest() {
+        Response response = RestAssured.given()
+                .when()
+                .get("/getsignLog/pizza");
+
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body("signInLogs", not(empty()));
+    }
 
     @Test
     public void checkUserStatusTestNonActiveUser() {
