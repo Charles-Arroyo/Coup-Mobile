@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,9 +17,9 @@ import org.w3c.dom.Text;
 
 import com.example.coupv2.utils.Const;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private EditText lobbyNumber;
-    private Button joinBtn;
+    private ImageButton joinBtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afterjoinlobby);

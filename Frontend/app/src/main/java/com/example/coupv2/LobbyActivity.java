@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,16 +16,16 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
 //        private String BASE_URL = "ws://localhost:8080/chat/";
-    private Button connectBtn, joinBtn;
+    private ImageButton connectBtn, joinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(R.layout.activity_lobbycharles);
 
         /* initialize UI elements */
-        connectBtn = (Button) findViewById(R.id.button1);
-        joinBtn = (Button) findViewById(R.id.button2);
+        connectBtn = (ImageButton) findViewById(R.id.button1);
+        joinBtn = (ImageButton) findViewById(R.id.button2);
 
 
         connectBtn.setOnClickListener(new View.OnClickListener() {

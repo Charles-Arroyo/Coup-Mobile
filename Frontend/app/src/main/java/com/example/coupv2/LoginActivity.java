@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +25,13 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
+    private ImageButton loginButton;
+    private ImageButton signupButton;
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
     // success
 //    private static final String URL_JSON_OBJECT = "https://63fa0fc8-69e5-4ec7-a84f-aee7fc5648ac.mock.pstmn.io/signin";
 
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_charles);
 
         emailIdEditText = findViewById(R.id.login_email_edt);
         passwordEditText = findViewById(R.id.login_password_edt);

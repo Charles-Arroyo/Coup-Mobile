@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,13 +22,13 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText emailIdEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
+    private ImageButton loginButton;
+    private ImageButton signupButton;
 
 
 
 //    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
-    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signup";
+    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8443/signup";
     // success
 //    private static final String URL_SIGNUP = "https://c0552578-2f02-4669-999e-030ad7fa3950.mock.pstmn.io";
     //fail
@@ -36,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_charles);
 
 
         emailIdEditText = findViewById(R.id.signup_email_edt);

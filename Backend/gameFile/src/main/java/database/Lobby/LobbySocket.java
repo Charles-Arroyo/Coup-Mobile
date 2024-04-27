@@ -155,6 +155,8 @@ public class LobbySocket {
         String email = jsonpObject.getString("playerEmail"); // Get Player Email
         String state = jsonpObject.getString("move"); // Actions/Game State, Can be one of the following: Ready, Bluffing, Action, waiting
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
+        String card1 = jsonpObject.getString("card1");
+        String card2 = jsonpObject.getString("card2");
         Player p = game.getPlayer(email); //Find player by their email
         String currentMove = state;
         p.setTargetPlayer(targetPlayer);
@@ -178,22 +180,31 @@ public class LobbySocket {
             p.setCurrentMove(currentMove);
             //He will send me the action, it is my job to change all the other players to contest
             p.setPlayerState("wait"); //Send action player to wait
-            for(Player player : game.getPlayerArrayList()){
-                if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) {
-                    player.setPlayerState("contest"); //set other players to contest
+            if(card1.equals("null") && card2.equals("null")){
+                if(game.getCurrentPlayer().getCurrentMove().equals("Tax") || game.getCurrentPlayer().getCurrentMove().equals("Foreign aid") ){
+                    for(Player player : game.getPlayerArrayList()){
+                        if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) {
+                            player.setPlayerState("challenge"); //set other players to contest
+                        }
+                    }
+                }else{
+                    for(Player player : game.getPlayerArrayList()){
+                        if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) {
+                            player.setPlayerState("contest"); //set other players to contest
+                        }
+                    }
+                }
+
+                if(targetPlayer.contains("null")){
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove); //Charles took: income
+                    }
+                }else{
+                    for(Player player : game.getPlayerArrayList()){
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove + " " + targetPlayer); //Charles took: income
+                    }
                 }
             }
-            if(targetPlayer.contains("null")){
-                for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove); //Charles took: income
-                }
-            }else{
-                for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " wants to "+ currentMove + " " + targetPlayer); //Charles took: income
-                }
-            }
-
-
         } else if (state.equals("Bluff")) {
 
             //If any player called bluff, go into bluffing
@@ -309,15 +320,14 @@ public class LobbySocket {
             //Blocking Final Checks for all other moves
             boolean truth = checkPass(game);
             if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && !state.equals("Bluff")){ //if all players passed, and block did not happen do move (tax, etc)
-                if(game.getCurrentPlayer().getTargetPlayer().equals("null")){
+                if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().equals("Foreign aid")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
                     }
 
                     game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
                     game.nextTurn();
-                }else{
-
+                }else if(!game.getCurrentPlayer().getCurrentMove().equals("Foreign aid")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
                     }
@@ -326,6 +336,27 @@ public class LobbySocket {
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: "+game.getCurrentPlayer().getUserEmail()+ " " + game.getCurrentPlayer().getCurrentMove() + game.getCurrentPlayer().getTargetPlayer()); //Charles took: income
                     }
                     game.nextTurn();
+                }else{ // If we got ambassador
+                    if(card1.equals("null") && card2.equals("null")){ // If we have not gotten card
+                        for(Player player : game.getPlayerArrayList()){
+                            broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
+                        }
+                        String cardOne = game.getDeckDeck().drawCard();
+                        String cardTwo = game.getDeckDeck().drawCard();
+                        broadcastToSpecificUser(game.getCurrentPlayer().getUserEmail(), "Cards: " + cardOne  + " " + cardTwo);
+
+                    }else { // If we have gotten card now, remember we still have the cards he originally had.
+                        //Two cards will go back in deck, the other two will go on him
+                        Card cardUno = new Card(game.getCurrentPlayer().getCardOne());
+                        Card cardDos = new Card(game.getCurrentPlayer().getCardTwo());
+                        game.getDeckDeck().addCardToBottomOfDeck(cardUno);
+                        game.getDeckDeck().addCardToBottomOfDeck(cardDos);
+                        game.getCurrentPlayer().setCardOne(card1);
+                        game.getCurrentPlayer().setCardTwo(card2);
+                        game.nextTurn();
+                    }
+
+
                 }
 
             }else if((!state.contains("Income") && !state.contains("Coup")) && checkPass(game) && !state.equals("Bluff")){ // if block happened, and players did not challange (bluff) (They passed), next turn

@@ -3,13 +3,14 @@ package com.example.coupv2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button loginButton;     // define login button variable
-    private Button signupButton;    // define signup button variable
+    private ImageButton loginButton;     // define login button variable
+    private ImageButton signupButton;    // define signup button variable
 
     /**
      * Main Oncreate to intialize elements in the title screen
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_charles);
 
         /* initialize UI elements */
 

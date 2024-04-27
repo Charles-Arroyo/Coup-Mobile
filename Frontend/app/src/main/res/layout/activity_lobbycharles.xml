@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.110000014"
-        app:srcCompat="@drawable/gamelobbyheader" />
+        app:srcCompat="@drawable/gamelobbyheadertwo" />
 
     <ImageButton
         android:id="@+id/button1"
@@ -27,6 +27,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/imageView9"
         app:layout_constraintVertical_bias="0.65"
+        android:background="@null"
         app:srcCompat="@drawable/createlobby" />
 
     <ImageButton
@@ -39,6 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9"
         app:layout_constraintVertical_bias="0.65"
+        android:background="@null"
         app:srcCompat="@drawable/joinlobbybtn" />
 
     <androidx.constraintlayout.widget.Guideline
