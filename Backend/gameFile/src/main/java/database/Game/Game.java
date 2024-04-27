@@ -19,6 +19,9 @@ public class Game {
 
     Player blocker;
 
+    @JsonIgnore
+    Player winner;
+
 
     public Game(List<Player> players) {
         this.players = players;
@@ -111,22 +114,54 @@ public class Game {
         return players;
     }
 
-    public void nextTurn() {
-        currentPlayer.setTurn(false); // Set their turn to false
-        int CurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber) % players.size(); // Find next user
-        currentPlayer = players.get(CurrentPlayerIndex); // Assign player to this player
-        currentPlayer.setPlayerState("turn");
-        players.get(CurrentPlayerIndex).setTurn(true); // Set turn to true
+//    public void nextTurn() {
+//        currentPlayer.setTurn(false); // Set their turn to false
+//
+//        int CurrentPlayerIndex = (getPlayer(currentPlayer.getUserEmail()).turnNumber) % players.size(); // Find next user
+//        currentPlayer = players.get(CurrentPlayerIndex); // Assign player to this player
+//        currentPlayer.setPlayerState("turn");
+//        players.get(CurrentPlayerIndex).setTurn(true); // Set turn to true
+//
+//        for(Player player : getPlayerArrayList()){
+//            if(!player.getUserEmail().equals(currentPlayer.getUserEmail())){
+//                player.setPlayerState("wait");
+//            }
+//        }
+//    }
 
-        for(Player player : getPlayerArrayList()){
-            if(!player.getUserEmail().equals(currentPlayer.getUserEmail())){
-                player.setPlayerState("wait");
+    public void nextTurn() {
+        currentPlayer.setTurn(false); // End current player's turn
+
+        int index = players.indexOf(currentPlayer); // Get the current player's index
+        int nextPlayerIndex = (index + 1) % players.size(); // Calculate the next player index
+
+        // Find the next player with lives > 0
+        while (players.get(nextPlayerIndex).getLives() <= 0) {
+            nextPlayerIndex = (nextPlayerIndex + 1) % players.size();
+            // Check to prevent infinite loop in case all players have 0 lives
+            if (nextPlayerIndex == index) {
+                // You could handle the scenario where no players are left
+                return;
             }
         }
 
-        System.out.println("The next player is: " + currentPlayer.toString()); // Print Player
+        currentPlayer = players.get(nextPlayerIndex); // Assign next player
+        currentPlayer.setTurn(true); // Start their turn
+        currentPlayer.setPlayerState("turn"); // Set player state to "turn"
 
+        // Update all other players to "wait" state
+        for (Player player : players) {
+            if (!player.getUserEmail().equals(currentPlayer.getUserEmail())) {
+                player.setPlayerState("wait");
+            }
+            if(!player.getUserEmail().equals(currentPlayer.getUserEmail()) && player.getLives() == 0){
+                player.setPlayerState("dead");
+            }
+        }
     }
+
+
+
 
     public Player getPlayer(String playerName) {
         for (Player player : players) {
@@ -189,4 +224,12 @@ public class Game {
 //        return sb.toString();
 //    }
 
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
 }

@@ -28,9 +28,11 @@ public class Player {
 
     ArrayList<String> playerView;
 
+
+
     public Player(String userEmail, int coins, boolean turn,int lives,String playerState, String targetPlayer) {
         this.userEmail = userEmail;
-        this.coins = 2;
+        this.coins = 3;
         this.turn = turn;
         this.lives = 2;
         this.playerState = playerState;
@@ -142,28 +144,44 @@ public class Player {
     /**
      *
      */
-    public String loseInfluence(Player player){
+    public String loseInfluence(Player player) {
         Random random = new Random();
+        boolean hasCardOne = !player.cardOne.equals("null");
+        boolean hasCardTwo = !player.cardTwo.equals("null");
 
-        if (random.nextBoolean()) {
-            String card = player.cardOne;
-            player.cardOne = null;
+        if (hasCardOne && hasCardTwo) {
+            // Both cards are available, randomly lose one
+            if (random.nextBoolean()) {
+                player.cardOne = "null";
+                player.lives--;
+                return player.cardOne;
+            } else {
+                player.cardTwo = "null";
+                player.lives--;
+                return player.cardTwo;
+            }
+        } else if (hasCardOne) {
+            // Only cardOne is available
+            player.cardOne = "null";
             player.lives--;
-            return card;
-        } else {
-            String card = player.cardTwo;
-            player.cardTwo = null;
+            return player.cardOne;
+        } else if (hasCardTwo) {
+            // Only cardTwo is available
+            player.cardTwo = "null";
             player.lives--;
-            return card;
+            return player.cardTwo;
         }
 
+        // If this point is reached, the player has no cards left, handle as needed
+        return "No card left to lose"; // or throw an exception, based on your game rules
     }
 
+
     public void gainInfluence(String card, Player player){
-        if(cardOne == null){
+        if(cardOne.equals("null")){
             player.setCardOne(card);
             player.lives++;
-        }else if(cardTwo == null){
+        }else if(cardTwo.equals("null")){
             player.setCardTwo(card);
             player.lives++;
         }else{
@@ -171,6 +189,7 @@ public class Player {
         }
     }
     public String revealCard(String card,Player player){
+
         if(player.cardOne.contains(card)){
             return cardOne;
 
@@ -189,11 +208,12 @@ public class Player {
     public String removeCard(String card, Player player){
         if(player.cardOne.contains(card)){
             String cardSave = cardOne;
-            cardOne = null;
+            cardOne = "null";
+            player.lives--;
             return cardSave;
         }else{
             String cardSave = cardTwo;
-            cardTwo = null;
+            player.lives--;
             return cardSave;
         }
     }
@@ -230,12 +250,9 @@ public class Player {
      * @param player
      */
     public void assassinate(Player player){
-        if(this.coins >= 3){
             loseInfluence(player);
             this.loseCoins(3);
-        }else{
-            System.out.println("Not enough Coins");
-        }
+
     }
     /*______________________________End of Assassin_______________________*/
 

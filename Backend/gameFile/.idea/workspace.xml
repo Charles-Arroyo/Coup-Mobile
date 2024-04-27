@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameAssassinateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameAssassinateTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameCoupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameCoupTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameIncomeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameIncomeTest.java" afterDir="false" />
@@ -13,8 +16,19 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameStealTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameStealTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameTaxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameTaxTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/GameTesting/GameTurnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GameTesting/GameTurnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SystemTesting/CharlesSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SystemTesting/CharlesSystemTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/SystemTesting/CharlesSystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SystemTesting/CharlesSystemTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameAssassinateTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameCoupTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameIncomeTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameRevealCardTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameStealTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameTaxTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/GameTesting/GameTurnTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +102,7 @@
       <recent name="$PROJECT_DIR$/src/test/java/GameTesting" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.java in onetoone">
+  <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="CharlesSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="onetoone" />
       <extension name="coverage">
@@ -147,8 +161,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.java in onetoone" />
         <item itemvalue="Spring Boot.Main" />
+        <item itemvalue="JUnit.java in onetoone" />
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
         <item itemvalue="JUnit.GameIncomeTest.testIncomeFeatureIncreasesCoinsByOneForEachPlayer" />
         <item itemvalue="JUnit.CharlesSystemTest" />
@@ -193,20 +207,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/database/test/LobbyRepositoryTest.java</url>
           <line>17</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/GameTesting/GameIncomeTest.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/test/java/GameTesting/GameIncomeTest.java</url>
-          <line>15</line>
-          <properties class="GameTesting.GameIncomeTest">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
