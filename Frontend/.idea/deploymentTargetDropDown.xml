@@ -5,6 +5,9 @@
       <entry key="LobbyActivity">
         <State />
       </entry>
+      <entry key="MenuTest">
+        <State />
+      </entry>
       <entry key="PlayActivity">
         <State>
           <runningDeviceTargetSelectedWithDropDown>
