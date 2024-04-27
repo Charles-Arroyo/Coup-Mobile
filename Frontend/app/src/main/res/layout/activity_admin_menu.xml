@@ -130,6 +130,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.16000003"
-        app:srcCompat="@drawable/icon_assassin" />
+        app:srcCompat="@drawable/assassin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

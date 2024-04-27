@@ -21,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.coupv2.utils.Const;
 
@@ -83,7 +85,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String Player4;
     //last move (this is used for case of blocking stealing)
     String lastMoveMade;
-
+    int totalCoins = 0;
 //    @Override
     //keep websocket open from LobbyActivity
 //@Override
@@ -153,6 +155,7 @@ protected void onPause() {
                 // Use jsonObject.toString() to get JSON string representation
                 String jsonString = jsonObject.toString();
                 WebSocketManager.getInstance().sendMessage(jsonString);
+                Log.d("Websocket", "MoveMade:" + mov);
                 // Now you can use jsonString for your purposes, like sending it over a network
 
             } catch (JSONException e) {
@@ -361,9 +364,11 @@ protected void onPause() {
             JSONObject jsonObject = new JSONObject(message);
             // Parse game object
             JSONObject game = jsonObject.getJSONObject("Game");
+//            JSONObject deck = jsonObject.getJSONObject("deck");
+            JSONObject currentPlayer = game.getJSONObject("currentPlayer");
             // Read the player array
             final JSONArray playerArray = game.getJSONArray("playerArrayList");
-            lastMoveMade = game.getString("lastCharacterMove");  // Use optString to handle null cases
+            lastMoveMade = currentPlayer.getString("currentMove");  // Use optString to handle null cases
 
             // This will run on the UI thread
             runOnUiThread(new Runnable() {
@@ -394,22 +399,23 @@ protected void onPause() {
                                     }
                                 }
                                 //check lives of other 3 players to know if they are still alive(this is for action against other players)
-                                if (player.getInt("lives") == 0){
-                                    //dont need to check themselves
-                                    if (playerEmail.equals(Player2)){
-                                        Player2 = null;
-                                    }
-                                    else if (playerEmail.equals(Player3)){
-                                        Player3 = null;
-                                    }
-                                    else if (playerEmail.equals(Player4)){
-                                        Player4 = null;
-                                    }
-                                }
+//                                if (player.getInt("lives") == 0){
+//                                    //dont need to check themselves
+//                                    if (playerEmail.equals(Player2)){
+//                                        Player2 = null;
+//                                    }
+//                                    else if (playerEmail.equals(Player3)){
+//                                        Player3 = null;
+//                                    }
+//                                    else if (playerEmail.equals(Player4)){
+//                                        Player4 = null;
+//                                    }
+//                                }
                                 // Updating player state and cards for the current -player
                                 playerState = player.getString("playerState");
                                 card1 = player.getString("cardOne");
                                 card2 = player.getString("cardTwo");
+                                totalCoins = player.getInt("coins");
                             }
                         }
 
@@ -437,6 +443,18 @@ protected void onPause() {
                             } else if (playerEmail.equals(Player4)) {
                                 updatePlayer4LivesUi(thisGuyLives);
                             }
+                            if (thisGuyLives == 0){
+                                //dont need to check themselves
+                                if (playerEmail.equals(Player2)){
+                                    Player2 = null;
+                                }
+                                else if (playerEmail.equals(Player3)){
+                                    Player3 = null;
+                                }
+                                else if (playerEmail.equals(Player4)){
+                                    Player4 = null;
+                                }
+                            }
 
                             // If this player's turn is true, then animate his character
                             if (player.getBoolean("turn")) {
@@ -463,9 +481,32 @@ protected void onPause() {
 
 
     @Override
+//    public void onWebSocketClose(int code, String reason, boolean remote) {
+//        Log.e("WebSocketListener", Player1 + " disconnected");
+//    }
     public void onWebSocketClose(int code, String reason, boolean remote) {
-        Log.e("WebSocketListener", Player1 + " disconnected");
+        // Log the closure information with the player name, code, reason, and initiator.
+        String initiator = remote ? "Remote" : "Local";
+        Log.e("WebSocketListener", Player1 + " disconnected - Code: " + code + ", Reason: " + reason + ", Initiator: " + initiator);
+
+        // Handle different cases based on the closure code if needed
+        switch (code) {
+            case 1000:
+                Log.d("WebSocketListener", "Normal closure");
+                break;
+            case 1001:
+                Log.d("WebSocketListener", "Going away");
+                break;
+            // Add other cases as needed based on the codes you expect to handle.
+            default:
+                Log.d("WebSocketListener", "Disconnected due to unknown or unhandled reason");
+                break;
+        }
+
+        // Do any additional cleanup or state updates needed on closure
+        // ...
     }
+
     //check if player is waiting
     public void updatePlayerStateUi(){
         //if not player turn then display waiting
@@ -523,6 +564,27 @@ protected void onPause() {
             gameBoard.setOnClickListener(null);
             //set contest listeners
             smallwhite1.setOnClickListener(blockButtonListener);
+            smallwhite2.setOnClickListener(bluffButtonListener);
+            longwhite.setOnClickListener(skipButtonListener);
+        }
+        //implement later
+        else if(playerState.equals("challenge")){
+            //hide waiting and dead layout
+            waitingOverlay.setVisibility(View.GONE);
+            deadOverLay.setVisibility(View.GONE);
+            //show challenge mode layout
+            bigBlock.setVisibility(View.VISIBLE);
+            //hide block
+            smallwhite1.setVisibility(View.GONE);
+            smallwhite1Text.setVisibility(View.GONE);
+            smallwhite2.setVisibility(View.VISIBLE);
+            smallwhite2Text.setVisibility(View.VISIBLE);
+            longwhite.setVisibility(View.VISIBLE);
+            longwhitetext.setVisibility(View.VISIBLE);
+            //disable game listeners if not turn
+            gameBoard.setOnClickListener(null);
+            //set contest listeners
+            smallwhite1.setOnClickListener(null);
             smallwhite2.setOnClickListener(bluffButtonListener);
             longwhite.setOnClickListener(skipButtonListener);
         }
@@ -682,18 +744,19 @@ protected void onPause() {
     private View.OnClickListener gameBoardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+//            numCoins1 = 5;
             // Handle game board click
             Intent intent = new Intent(PlayActivity.this, ActionActivity.class);
             intent.putExtra("Player2Key", Player2); // Assume Player2 is a String with some value
             intent.putExtra("Player3Key", Player3); // Assume Player3 is a String with some value
             intent.putExtra("Player4Key", Player4); // Assume Player4 is a String with some value
+            intent.putExtra("coins", totalCoins); // Assume Player4 is a String with some value
             startActivity(intent);
 
         }
     };
     //listeners for contest mode
     private View.OnClickListener blockButtonListener = new View.OnClickListener() {
-
         @Override
         public void onClick(View v) {
             Log.d("GameDebug", "lastMoveMade: " + lastMoveMade);
@@ -719,6 +782,7 @@ protected void onPause() {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Ambassador");
                                     jsonObject.put("targetPlayer", null);
+                                    Log.d("Websocket", "MoveMade: *Block Ambassador");
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -732,6 +796,7 @@ protected void onPause() {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Captain");
                                     jsonObject.put("targetPlayer", null);
+                                    Log.d("Websocket", "MoveMade: *Block Captain");
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -752,6 +817,7 @@ protected void onPause() {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                     jsonObject.put("move", "Block");
                     jsonObject.put("targetPlayer", "null");
+                    Log.d("Websocket", "MoveMade: Block");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -761,6 +827,7 @@ protected void onPause() {
         }
     };
     private View.OnClickListener bluffButtonListener = new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
             JSONObject jsonObject = new JSONObject();
@@ -768,6 +835,7 @@ protected void onPause() {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
                 jsonObject.put("move", "Bluff");
                 jsonObject.put("targetPlayer", "null");
+                Log.d("Websocket", "MoveMade: Bluff");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -785,6 +853,7 @@ protected void onPause() {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
                 jsonObject.put("move", "pass");
                 jsonObject.put("targetPlayer", "null");
+                Log.d("Websocket", "MoveMade: Skip");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -827,23 +896,53 @@ protected void onPause() {
             addMessageToLayout(messageData[0], messageData[1]);
         }
     };
-    private void showUserCards() {
-        if(card1 == "assassin"){
+//    private void showUserCards() {
+//        if(card1 == "assassin"){
+//
+//        }
+//        else if(card1 == "ambassador"){
+//
+//        }
+//        else if(card1 == "captain"){
+//
+//        }
+//        else if(card1 == "contra"){
+//
+//        }
+//        else if(card1 == "duke"){
+//
+//        }
+//    };
 
-        }
-        else if(card1 == "ambassador"){
-
-        }
-        else if(card1 == "captain"){
-
-        }
-        else if(card1 == "contra"){
-
-        }
-        else if(card1 == "duke"){
-
-        }
-    };
+//    private void addCardToLayoutLeft(String cardName) {
+////        R.layout.activity_play
+//        ConstraintLayout layout = findViewById(R.id.centralGridArea); // Replace with your ConstraintLayout's ID
+//        ImageView cardView = new ImageView(this);
+//
+//        // Set an ID to the ImageView
+//        cardView.setId(View.generateViewId());
+//        int drawableId = getResources().getIdentifier(cardName.toLowerCase(), "drawable", getPackageName());
+//        // Set the image resource based on the card name
+//        cardView.setImageResource(drawableId);
+//
+//        // Add ImageView to the ConstraintLayout
+//        layout.addView(cardView, new ConstraintLayout.LayoutParams(
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+//                ConstraintLayout.LayoutParams.WRAP_CONTENT));
+//
+//        // Use ConstraintSet to apply constraints programmatically
+//        ConstraintSet set = new ConstraintSet();
+//        set.clone(layout);
+//
+//        // Copy constraints from greenIcon1 to cardView
+//        set.connect(cardView.getId(), ConstraintSet.START, R.id.greenIcon1, ConstraintSet.START, 0);
+//        set.connect(cardView.getId(), ConstraintSet.END, R.id.greenIcon1, ConstraintSet.END, 0);
+//        set.connect(cardView.getId(), ConstraintSet.TOP, R.id.greenIcon1, ConstraintSet.TOP, 0);
+//        set.connect(cardView.getId(), ConstraintSet.BOTTOM, R.id.greenIcon1, ConstraintSet.BOTTOM, 0);
+//
+//        // Apply the constraints to the layout
+//        set.applyTo(layout);
+//    }
 
     public void sendMessage(String username, String message) {
         // Add message to layout

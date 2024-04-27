@@ -386,24 +386,24 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         // Set up for the assassin
         ImageButton assassinButton = view.findViewById(R.id.assassin);
-        assassinButton.setOnClickListener(v -> showImagePopup(R.drawable.assassin));
+        assassinButton.setOnClickListener(v -> showImagePopup(R.drawable.assassin1));
 
         // Set up for the captain
         ImageButton captainButton = view.findViewById(R.id.captain);
-        captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain));
+        captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain1));
 
         // Set up for the duke
         ImageButton dukeButton = view.findViewById(R.id.duke);
-        dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke));
+        dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke1));
 
         // Set up for the contra
         ImageButton contraButton = view.findViewById(R.id.contra);
-        contraButton.setOnClickListener(v -> showImagePopup(R.drawable.contra));
+        contraButton.setOnClickListener(v -> showImagePopup(R.drawable.contra1));
 
 
         // Set up for the ambassador
         ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
-        ambassadorButton.setOnClickListener(v -> showImagePopup(R.drawable.ambassador));
+        ambassadorButton.setOnClickListener(v -> showImagePopup(R.drawable.ambassador1));
 
         // Close button inside the BottomSheetDialog
         Button closeButton = view.findViewById(R.id.close_rules_coup_overlay_button);

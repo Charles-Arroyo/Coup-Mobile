@@ -38,7 +38,7 @@
                 android:background="@null"
                 android:contentDescription="@string/assassin"
                 android:scaleType="fitCenter"
-                android:src="@drawable/assassin" />
+                android:src="@drawable/assassin1" />
 
             <ImageButton
                 android:id="@+id/captain"
@@ -48,7 +48,7 @@
                 android:background="@null"
                 android:contentDescription="@string/captain"
                 android:scaleType="fitCenter"
-                android:src="@drawable/captain" />
+                android:src="@drawable/captain1" />
 
             <ImageButton
                 android:id="@+id/duke"
@@ -58,7 +58,7 @@
                 android:background="@null"
                 android:contentDescription="@string/duke"
                 android:scaleType="fitCenter"
-                android:src="@drawable/duke" />
+                android:src="@drawable/duke1" />
 
             <!-- Contra Card -->
             <ImageButton
@@ -69,7 +69,7 @@
                 android:background="@null"
                 android:contentDescription="@string/ambassador"
                 android:scaleType="fitCenter"
-                android:src="@drawable/contra" />
+                android:src="@drawable/contra1" />
 
             <!-- Ambassador Card -->
             <ImageButton
@@ -80,7 +80,7 @@
                 android:background="@null"
                 android:contentDescription="@string/contra"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ambassador" />
+                android:src="@drawable/ambassador1" />
 
         </LinearLayout>
     </HorizontalScrollView>
