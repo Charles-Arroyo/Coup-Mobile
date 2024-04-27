@@ -76,9 +76,8 @@ public class User {
     @JoinColumn(name = "ranking_id")
     private Ranking ranking;
 
-    @OneToOne
-    @JoinColumn
-    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_picture_id")
     private ProfilePicture profilePicture;
 
 
@@ -229,7 +228,13 @@ public class User {
     }
 
 
+    public ProfilePicture getProfilePicture() {
+        return profilePicture;
+    }
 
+    public void setProfilePicture(ProfilePicture profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 }
 
 

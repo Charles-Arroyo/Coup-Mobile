@@ -63,7 +63,7 @@ public class FriendChatSocket {
 
                 // Send the chat history to the connected client
                 for (FriendChatMessage message : chatHistory) {
-                    String sender = message.getSender().equals(user) ? "You" : message.getSender().getUserEmail();
+                    String sender = message.getSender().equals(user) ? "You" : message.getSender().getName();
                     session.getBasicRemote().sendText(sender + ": " + message.getContent());
                 }
             }
@@ -101,7 +101,7 @@ public class FriendChatSocket {
                 // Send the message to the friend's session
                 Session friendSession = sessions.get(friendId);
                 if (friendSession != null && friendSession.isOpen()) {
-                    friendSession.getBasicRemote().sendText(user.getUserEmail() + ": " + message);
+                    friendSession.getBasicRemote().sendText(user.getName() + ": " + message);
                 }
             }
         }

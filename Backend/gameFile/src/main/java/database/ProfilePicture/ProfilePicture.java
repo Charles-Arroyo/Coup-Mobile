@@ -22,9 +22,14 @@ import java.util.Objects;
 
 @Entity
 public class ProfilePicture {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Lob
+    private byte[] data;
+    //The picture data is stored as a byte array in the database using the @Lob annotation,
+    //which allows storing large objects.
 
 
 
@@ -38,5 +43,13 @@ public class ProfilePicture {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public byte[] getData() {
+        return data;
     }
 }

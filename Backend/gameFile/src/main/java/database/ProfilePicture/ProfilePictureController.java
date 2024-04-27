@@ -11,6 +11,8 @@ import jakarta.persistence.*;
 import database.FriendRequest.FriendRequest;
 import lombok.Singular;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -21,9 +23,7 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProfilePictureController {
@@ -34,20 +34,32 @@ public class ProfilePictureController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
-    @PutMapping(path = "/userProfileChange/{userEmail}")
-    public String changeUserProfile(@PathVariable String userEmail){
-        // check if the user exists
-        if(userRepository.findByUserEmail(userEmail) == null){
+    @PutMapping("/api/profilePicture/{userEmail}")
+    public String updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null) {
             return failure;
         }
-        // find the user
-        User user = userRepository.findByUserEmail(userEmail);
 
-
-
+        ProfilePicture profilePicture = user.getProfilePicture();
+        if (profilePicture == null) {
+            profilePicture = new ProfilePicture();
+            user.setProfilePicture(profilePicture);
+        }
+        profilePicture.setData(pictureData);
+        userRepository.save(user);
 
         return success;
     }
 
+    @GetMapping("/api/profilePicture/{userEmail}")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null || user.getProfilePicture() == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
 
+        byte[] pictureData = user.getProfilePicture().getData();
+        return ResponseEntity.ok(pictureData);
+    }
 }
