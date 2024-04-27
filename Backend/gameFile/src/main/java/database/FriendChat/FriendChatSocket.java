@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@ServerEndpoint(value = "/chatFriend/{username}/{friendName}")
+@ServerEndpoint(value = "/chatFriend/{userEmail}/{friendEmail}")
 public class FriendChatSocket {
     private static UserRepository userRepository;
     private static FriendRepository friendRepository;
@@ -42,11 +42,11 @@ public class FriendChatSocket {
     private static Map<Integer, Session> sessions = new HashMap<>();
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username, @PathParam("friendName") String friendName) throws IOException {
-        User user = userRepository.findByName(username);
-        User friend = userRepository.findByName(friendName);
-        Integer friendId = userRepository.findByName(friendName).getId();
-        Integer userId = userRepository.findByName(username).getId();
+    public void onOpen(Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
         sessions.put(userId, session);
 
@@ -71,11 +71,11 @@ public class FriendChatSocket {
     }
 
     @OnMessage
-    public void onMessage(String message, Session session, @PathParam("username") String username, @PathParam("friendName") String friendName) throws IOException {
-        User user = userRepository.findByName(username);
-        User friend = userRepository.findByName(friendName);
-        Integer friendId = userRepository.findByName(friendName).getId();
-        Integer userId = userRepository.findByName(username).getId();
+    public void onMessage(String message, Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
         if (user != null && friend != null) {
             // Check if the users are friends
@@ -108,9 +108,9 @@ public class FriendChatSocket {
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("username") String username) {
-        User user = userRepository.findByName(username);
-        Integer userId = userRepository.findByName(username).getId();
+    public void onClose(Session session, @PathParam("userEmail") String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
         sessions.remove(userId);
     }
 }
