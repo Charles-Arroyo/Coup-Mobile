@@ -90,6 +90,7 @@ public class User {
         this.id = id;
         this.password = password;
         points = 0;
+        profilePicture = new ProfilePicture();
     }
 
     public User() {
