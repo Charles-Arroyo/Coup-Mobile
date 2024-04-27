@@ -27,7 +27,7 @@ public class WebSocketManager {
      * only one instance of the WebSocketManager exists throughout the application.
      * Synchronization ensures thread safety when accessing or creating the instance.
      *
-     * @return A synchronized instance of WebSocketManager.
+     * @return A synchronized instance bof WebSocketManager.
      */
     public static synchronized WebSocketManager getInstance() {
         if (instance == null) {
@@ -119,7 +119,7 @@ public class WebSocketManager {
          */
         @Override
         public void onOpen(ServerHandshake handshakedata) {
-//            Log.d("WebSocket", "Connected");
+            Log.d("WebSocket", "Connected");
             if (webSocketListener != null) {
                 webSocketListener.onWebSocketOpen(handshakedata);
             }

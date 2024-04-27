@@ -75,6 +75,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
      */
 
         private static final String URL_ADD_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/sendRequest/";
+        private static final String connectWebSocekt = "http://coms-309-023.class.las.iastate.edu:8443/signin/";
         private static final String URL_DELETE_FRIEND = "http://coms-309-023.class.las.iastate.edu:8443/deleteFriend/";
         private static final String URL_REFRESH_FRIENDS = "http://coms-309-023.class.las.iastate.edu:8443/getAcceptedFriends/";
         private static final String URL_CHECK_FRIEND_REQUESTS = "http://coms-309-023.class.las.iastate.edu:8443/gotFriendRequest/";
@@ -99,10 +100,14 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
             setContentView(R.layout.activity_friends);
 
             friendsLayout = findViewById(R.id.friendsLayout);
+            String newUrl = connectWebSocekt + Const.getCurrentEmail();
+            WebSocketManager.getInstance().connectWebSocket(newUrl);
 
             WebSocketManager.getInstance().setWebSocketListener(this);
 
             WebSocketManager.getInstance().sendMessage("getfriend");
+            Log.d("WebSocket", "getfriend is sent");
+
 
             friendEmailEditText = findViewById(R.id.friend_email_edittext);
             friendsLayout = findViewById(R.id.friendsLayout);
@@ -206,6 +211,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         if (!friendEmail.isEmpty()) {
             performDeleteFriendRequest(friendEmail);
             WebSocketManager.getInstance().sendMessage("getfriend");
+
 
         } else {
             Toast.makeText(this, "Please enter a friend's email", Toast.LENGTH_SHORT).show();
@@ -480,7 +486,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         @Override
         public void onWebSocketMessage(String message) {
-            Log.d("WebSocket", "Message received in Friends Activity" + message);
+            Log.d("WebSocket", "Message received in Friends Activity: " + message);
             runOnUiThread(() -> updateFriendList(message));
         }
 
@@ -494,7 +500,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         @Override
         public void onWebSocketClose(int code, String reason, boolean remote) {
-            Log.d("FriendsActivity", "WebSocket closed");
+            Log.d("WebSocket", "WebSocket closed");
 
         }
 
@@ -517,8 +523,9 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
         @Override
         protected void onResume() {
             super.onResume();
-             WebSocketManager.getInstance().setWebSocketListener(this);
-             WebSocketManager.getInstance().sendMessage("getFriends");
+//             WebSocketManager.getInstance().setWebSocketListener(this);
+//             WebSocketManager.getInstance().sendMessage("getfriend");
+//            Log.d("WebSocket", "getfriend is sent");
         }
 
         /**

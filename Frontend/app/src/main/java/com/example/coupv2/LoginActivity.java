@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                             Const.setCurrentEmail(emailId);
                             String serverUrl = ACTIVE_URL + emailId;
                             WebSocketManager.getInstance().connectWebSocket(serverUrl);
+                            Log.d("WebSocket", "WebSocket connected from login");
 
                         } else {
                             // Failed login

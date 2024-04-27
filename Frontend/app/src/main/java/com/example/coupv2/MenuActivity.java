@@ -339,7 +339,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         backButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
-        bottomSheetDialog.setOnDismissListener(dialogInterface -> WebSocketManager.getInstance().disconnectWebSocket());
+//        bottomSheetDialog.setOnDismissListener(dialogInterface -> WebSocketManager.getInstance().disconnectWebSocket());
 
         bottomSheetDialog.show();
 
@@ -421,6 +421,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
+        Log.d("WebSocket", "WebSocket closed in MenuActivity");
         runOnUiThread(() -> {
             String source = remote ? "server" : "local";
             String message = "Connection closed by " + source + ". Reason: " + reason;
@@ -509,7 +510,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     protected void onResume() {
         super.onResume();
         WebSocketManager.getInstance().setWebSocketListener(this);
-        WebSocketManager.getInstance().sendMessage("getFriends");
+//        WebSocketManager.getInstance().sendMessage("getFriends");
+//        Log.d("WebSocket", "getFriends from menu");
     }
 
     /**
@@ -530,6 +532,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     protected void onDestroy() {
         super.onDestroy();
         WebSocketManager.getInstance().removeWebSocketListener();
+
     }
 
 
