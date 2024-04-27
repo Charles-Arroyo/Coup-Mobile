@@ -34,7 +34,7 @@ public class ProfilePictureController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
-    @PutMapping("/api/profilePicture/{userEmail}")
+    @PutMapping("/profilePicture/{userEmail}")
     public String updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
@@ -52,7 +52,7 @@ public class ProfilePictureController {
         return success;
     }
 
-    @GetMapping("/api/profilePicture/{userEmail}")
+    @GetMapping("/profilePicture/{userEmail}")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null || user.getProfilePicture() == null) {
