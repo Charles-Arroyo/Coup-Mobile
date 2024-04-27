@@ -2,6 +2,7 @@ database\Game\Card.class
 database\Game\GameRepository.class
 database\Main.class
 database\Admin\Admin.class
+database\ProfilePicture\ProfilePicture.class
 database\Spectator\SpectatorController.class
 database\Chat\Message.class
 database\Users\UserRepository.class
@@ -35,7 +36,9 @@ database\Chat\ChatSocket.class
 database\FriendChatMessage\FriendChatMessageController.class
 database\Signin\SigninRepository.class
 database\Lobby\Lobby.class
+database\ProfilePicture\ProfilePictureRepository.class
 database\Websocketconfig\WebsocketConfig.class
+database\ProfilePicture\ProfilePictureController.class
 database\Game\Deck.class
 database\Admin\AdminRepository.class
 database\Stats\Stat.class

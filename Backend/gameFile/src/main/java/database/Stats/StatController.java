@@ -88,9 +88,9 @@ public class StatController {
 //
 //        }
 
-    @GetMapping(path = "/getStats/{id}")
-    public Map<String, Object> list(@PathVariable int id) {
-        User user = userRepository.findById(id);
+    @GetMapping(path = "/getStats/{userEmail}")
+    public Map<String, Object> list(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
 
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");

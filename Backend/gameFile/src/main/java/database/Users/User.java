@@ -1,7 +1,9 @@
 package database.Users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import database.Lobby.Lobby;
+import database.ProfilePicture.ProfilePicture;
 import database.Ranking.Ranking;
 import jakarta.persistence.*;
 import database.Stats.Stat;
@@ -73,6 +75,11 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "ranking_id")
     private Ranking ranking;
+
+    @OneToOne
+    @JoinColumn
+    @JsonIgnore
+    private ProfilePicture profilePicture;
 
 
 
