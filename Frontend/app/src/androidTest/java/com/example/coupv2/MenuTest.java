@@ -26,7 +26,7 @@ public class MenuTest {
     @Rule
     public ActivityScenarioRule<LoginActivity> activityRule = new ActivityScenarioRule<>(LoginActivity.class);
 
-    public String email = "bpd@iastate.edu";
+    public String email = "pizza";
     public String password = "123";
 
 
@@ -81,7 +81,7 @@ public class MenuTest {
 
     @Test
     public void noPasswordLogin() {
-        String email = "bpd@email.com";
+        String email = "cheese";
         onView(withId(R.id.login_email_edt)).perform(typeText(email), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
 
