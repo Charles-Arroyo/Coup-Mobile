@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -361,6 +362,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
 
     public void onWebSocketMessage(String fullMessage) {
+        Log.d("WebSocket", "Message received in Menu Activity" + fullMessage);
         runOnUiThread(() -> {
             int colonIndex = fullMessage.indexOf(":");
 
@@ -405,6 +407,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
+        Log.d("WebSocket", "WebSocket connected in Menu Activity");
+
     }
 
 

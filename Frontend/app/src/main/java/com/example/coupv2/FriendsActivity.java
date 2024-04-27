@@ -469,7 +469,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         @Override
         public void onWebSocketOpen(ServerHandshake handshakedata) {
-            Log.d("FriendsActivity", "WebSocket connected");
+            Log.d("WebSocket", "WebSocket connected in Friends Activity");
         }
 
         /**
@@ -480,7 +480,7 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
 
         @Override
         public void onWebSocketMessage(String message) {
-            Log.d("FriendsActivity", "Message received: " + message);
+            Log.d("WebSocket", "Message received in Friends Activity" + message);
             runOnUiThread(() -> updateFriendList(message));
         }
 

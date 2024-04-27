@@ -3,6 +3,7 @@ package com.example.coupv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -143,7 +144,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
-
+        Log.d("WebSocket", "WebSocket connected in LoginActivty");
     }
 
     /**
@@ -154,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     public void onWebSocketMessage(String message) {
-
+        Log.d("WebSocket", "Message received in Login: " + message);
     }
 
     /**
