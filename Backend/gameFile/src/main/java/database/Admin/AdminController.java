@@ -158,5 +158,39 @@ public class AdminController {
         return ResponseEntity.ok("{\"success\":true}");
     }
 
+    /**
+     * Get a list of user's signin
+     *
+     * @param userEmail
+     * @return
+     */
+    @GetMapping(path = "/getUserLogs/{userEmail}")
+    public ResponseEntity<Map<String, Object>> getSignInLog(@PathVariable String userEmail) {
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUserEmail(userEmail));
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Signin> signInLogs = signinRepository.findByUser(user);
+
+            List<Map<String, Object>> signInLogList = new ArrayList<>();
+            for (Signin signIn : signInLogs) {
+                Map<String, Object> signInLog = new HashMap<>();
+                signInLog.put("id", signIn.getId());
+                signInLog.put("userId", signIn.getUser().getId());
+                signInLog.put("lastSignInTimestamp", signIn.getLastSignInTimestamp());
+                signInLog.put("signInCount", signIn.getSignInCount());
+                signInLog.put("lastSignOutTimestamp", signIn.getLastSignOutTimestamp());
+                signInLogList.add(signInLog);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", user.getId());
+            response.put("signInLogs", signInLogList);
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

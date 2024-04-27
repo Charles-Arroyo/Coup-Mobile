@@ -62,38 +62,38 @@ public class SigninController {
 
 
 
-    /**
-     *
-     * @param userEmail
-     * @return
-     */
-    @GetMapping(path = "/getsignLog/{userEmail}")
-    public ResponseEntity<Map<String, Object>> getSignInLog(@PathVariable String userEmail) {
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUserEmail(userEmail));
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Signin> signInLogs = signinRepository.findByUser(user);
-
-            List<Map<String, Object>> signInLogList = new ArrayList<>();
-            for (Signin signIn : signInLogs) {
-                Map<String, Object> signInLog = new HashMap<>();
-                signInLog.put("id", signIn.getId());
-                signInLog.put("userId", signIn.getUser().getId());
-                signInLog.put("lastSignInTimestamp", signIn.getLastSignInTimestamp());
-                signInLog.put("signInCount", signIn.getSignInCount());
-                signInLog.put("lastSignOutTimestamp", signIn.getLastSignOutTimestamp());
-                signInLogList.add(signInLog);
-            }
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("userId", user.getId());
-            response.put("signInLogs", signInLogList);
-
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    /**
+//     *
+//     * @param userEmail
+//     * @return
+//     */
+//    @GetMapping(path = "/getsignLog/{userEmail}")
+//    public ResponseEntity<Map<String, Object>> getSignInLog(@PathVariable String userEmail) {
+//        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUserEmail(userEmail));
+//        if (optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            List<Signin> signInLogs = signinRepository.findByUser(user);
+//
+//            List<Map<String, Object>> signInLogList = new ArrayList<>();
+//            for (Signin signIn : signInLogs) {
+//                Map<String, Object> signInLog = new HashMap<>();
+//                signInLog.put("id", signIn.getId());
+//                signInLog.put("userId", signIn.getUser().getId());
+//                signInLog.put("lastSignInTimestamp", signIn.getLastSignInTimestamp());
+//                signInLog.put("signInCount", signIn.getSignInCount());
+//                signInLog.put("lastSignOutTimestamp", signIn.getLastSignOutTimestamp());
+//                signInLogList.add(signInLog);
+//            }
+//
+//            Map<String, Object> response = new HashMap<>();
+//            response.put("userId", user.getId());
+//            response.put("signInLogs", signInLogList);
+//
+//            return ResponseEntity.ok(response);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @GetMapping(path = "/checkUserStatus/{userEmail}")
     public ResponseEntity<Map<String, Object>> checkUserStatus(@PathVariable String userEmail) {
