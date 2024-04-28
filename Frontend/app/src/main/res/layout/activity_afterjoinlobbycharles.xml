@@ -31,7 +31,7 @@
     <!-- Adjust this value as needed -->
 
 
-    <TextView
+    <EditText
         android:id="@+id/lobby_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -22,7 +22,7 @@ public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSock
     private ImageButton joinBtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_afterjoinlobby);
+        setContentView(R.layout.activity_afterjoinlobbycharles);
         lobbyNumber = findViewById(R.id.lobby_input);
         joinBtn = findViewById(R.id.join_btn);
 

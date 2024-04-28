@@ -180,8 +180,8 @@ public class LobbySocket {
             p.setCurrentMove(currentMove);
             //He will send me the action, it is my job to change all the other players to contest
             p.setPlayerState("wait"); //Send action player to wait
-            if(card1.equals("null") && card2.equals("null")){
-                if(game.getCurrentPlayer().getCurrentMove().equals("Tax") || game.getCurrentPlayer().getCurrentMove().equals("Foreign aid") ){
+            if(card1.equals("null") && card2.equals("null")){  // If FE is sending cards, we don't want to change states
+                if(game.getCurrentPlayer().getCurrentMove().equals("Tax") || game.getCurrentPlayer().getCurrentMove().equals("Exchange")){ // Set challange (no Blocking)
                     for(Player player : game.getPlayerArrayList()){
                         if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) {
                             player.setPlayerState("challenge"); //set other players to contest
@@ -189,7 +189,7 @@ public class LobbySocket {
                     }
                 }else{
                     for(Player player : game.getPlayerArrayList()){
-                        if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) {
+                        if (!player.equals(game.getCurrentPlayer()) && !player.getPlayerState().equals("dead")) { // Set contest, no blocking
                             player.setPlayerState("contest"); //set other players to contest
                         }
                     }
@@ -320,14 +320,14 @@ public class LobbySocket {
             //Blocking Final Checks for all other moves
             boolean truth = checkPass(game);
             if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && !state.equals("Bluff")){ //if all players passed, and block did not happen do move (tax, etc)
-                if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().equals("Foreign aid")){
+                if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
                     }
 
                     game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
                     game.nextTurn();
-                }else if(!game.getCurrentPlayer().getCurrentMove().equals("Foreign aid")){
+                }else if(!game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
                     }
@@ -341,19 +341,51 @@ public class LobbySocket {
                         for(Player player : game.getPlayerArrayList()){
                             broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
                         }
-                        String cardOne = game.getDeckDeck().drawCard();
-                        String cardTwo = game.getDeckDeck().drawCard();
-                        broadcastToSpecificUser(game.getCurrentPlayer().getUserEmail(), "Cards: " + cardOne  + " " + cardTwo);
+
+                        if(game.getCurrentPlayer().getLives() == 1){
+                            String cardOne = game.getDeckDeck().drawCard();
+                            game.getCurrentPlayer().setExchangeCard1(cardOne);
+                            game.getCurrentPlayer().setPlayerState("Exchange1");
+                        }else{
+                            String cardOne = game.getDeckDeck().drawCard();
+                            String cardTwo = game.getDeckDeck().drawCard();
+                            game.getCurrentPlayer().setExchangeCard1(cardOne);
+                            game.getCurrentPlayer().setExchangeCard2(cardTwo);
+                            game.getCurrentPlayer().setPlayerState("Exchange2");
+                        }
+
 
                     }else { // If we have gotten card now, remember we still have the cards he originally had.
-                        //Two cards will go back in deck, the other two will go on him
-                        Card cardUno = new Card(game.getCurrentPlayer().getCardOne());
-                        Card cardDos = new Card(game.getCurrentPlayer().getCardTwo());
-                        game.getDeckDeck().addCardToBottomOfDeck(cardUno);
-                        game.getDeckDeck().addCardToBottomOfDeck(cardDos);
-                        game.getCurrentPlayer().setCardOne(card1);
-                        game.getCurrentPlayer().setCardTwo(card2);
-                        game.nextTurn();
+                        //Two cards will go back in deck (his oringal), the other  will go with him
+
+                        if(game.getCurrentPlayer().getCardOne().equals("null")){
+                            Card cardUno = new Card(game.getCurrentPlayer().getCardTwo());
+                            game.getDeckDeck().addCardToBottomOfDeck(cardUno);
+                            game.getCurrentPlayer().setCardTwo(card1);
+                            game.getCurrentPlayer().setExchangeCard1("null");
+                            game.getCurrentPlayer().setExchangeCard2("null");
+                            game.nextTurn();
+                        }else if(game.getCurrentPlayer().getCardTwo().equals("null")){
+                            Card cardUno = new Card(game.getCurrentPlayer().getCardOne());
+                            game.getDeckDeck().addCardToBottomOfDeck(cardUno);
+                            game.getCurrentPlayer().setCardOne(card1);
+                            game.getCurrentPlayer().setExchangeCard1("null");
+                            game.getCurrentPlayer().setExchangeCard2("null");
+                            game.nextTurn();
+                        }else{ //both cards are present
+                            Card cardUno = new Card(game.getCurrentPlayer().getCardOne());
+                            Card cardDos = new Card(game.getCurrentPlayer().getCardTwo());
+                            game.getDeckDeck().addCardToBottomOfDeck(cardUno);
+                            game.getDeckDeck().addCardToBottomOfDeck(cardDos);
+                            game.getCurrentPlayer().setCardOne(card1);
+                            game.getCurrentPlayer().setCardTwo(card2);
+                            game.getCurrentPlayer().setExchangeCard1("null");
+                            game.getCurrentPlayer().setExchangeCard2("null");
+                            game.nextTurn();
+                        }
+
+
+
                     }
 
 

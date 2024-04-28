@@ -10,6 +10,9 @@ public class Player {
     String userEmail;
     String cardOne;
     String cardTwo;
+
+    String exchangeCard1;
+    String exchangeCard2;
     int coins;
     Boolean turn;
     //made public for testing
@@ -37,6 +40,8 @@ public class Player {
         this.lives = 2;
         this.playerState = playerState;
         this.targetPlayer = targetPlayer;
+        this.exchangeCard1 = "null";
+        this.exchangeCard2 = "null";
     }
 
     public void setTurnNumber(int number){
@@ -384,6 +389,22 @@ public class Player {
 
     public void setTargetPlayer(String targetPlayer) {
         this.targetPlayer = targetPlayer;
+    }
+
+    public String getExchangeCard1() {
+        return exchangeCard1;
+    }
+
+    public void setExchangeCard1(String exchangeCard1) {
+        this.exchangeCard1 = exchangeCard1;
+    }
+
+    public String getExchangeCard2() {
+        return exchangeCard2;
+    }
+
+    public void setExchangeCard2(String exchangeCard2) {
+        this.exchangeCard2 = exchangeCard2;
     }
 
 
