@@ -24,6 +24,8 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.DialogInterface;
+// ... other imports
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,6 +101,15 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String Player2;
     String Player3;
     String Player4;
+
+
+    ImageView playerIcon1;
+    ImageView playerIcon2;
+    ImageView playerIcon3;
+    ImageView playerIcon4;
+
+
+
     //last move (this is used for case of blocking stealing)
     String lastMoveMade;
     int totalCoins = 0;
@@ -257,6 +268,129 @@ protected void onPause() {
         submitButton = findViewById(R.id.button5);
         submitButton.setOnClickListener(submitExchange);
 
+
+        //playericons
+        playerIcon1 = findViewById(R.id.person1);
+         playerIcon2 = findViewById(R.id.person2);
+         playerIcon3 = findViewById(R.id.person3);
+         playerIcon4 = findViewById(R.id.person4);
+
+
+
+        // Set a click listener for the button
+        playerIcon1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get the username of the player
+                String playerUsername = Player1; // Replace with actual logic to retrieve the username
+
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
+
+                // Set the title and message of the dialog
+                builder.setTitle("Player Information");
+                builder.setMessage("Username: " + playerUsername);
+
+                // Add a button to close the dialog
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        // Set a click listener for the button
+        playerIcon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get the username of the player
+                String playerUsername = Player2; // Replace with actual logic to retrieve the username
+
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
+
+                // Set the title and message of the dialog
+                builder.setTitle("Player Information");
+                builder.setMessage("Username: " + playerUsername);
+
+                // Add a button to close the dialog
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+        // Set a click listener for the button
+        playerIcon3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get the username of the player
+                String playerUsername = Player3; // Replace with actual logic to retrieve the username
+
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
+
+                // Set the title and message of the dialog
+                builder.setTitle("Player Information");
+                builder.setMessage("Username: " + playerUsername);
+
+                // Add a button to close the dialog
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+        // Set a click listener for the button
+        playerIcon4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get the username of the player
+                String playerUsername = Player4; // Replace with actual logic to retrieve the username
+
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
+
+                // Set the title and message of the dialog
+                builder.setTitle("Player Information");
+                builder.setMessage("Username: " + playerUsername);
+
+                // Add a button to close the dialog
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        dialog.dismiss();
+                    }
+                });
+
+                // Create and show the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+
+
         //assign screen views
         greenCard1 = findViewById(R.id.player1);
         greenCard2 = findViewById(R.id.player2);
@@ -302,6 +436,27 @@ protected void onPause() {
         bigBlock = findViewById(R.id.BIGBLOCK);
         //assign timer view
         timerTextView = findViewById(R.id.timerText);
+
+
+        // Create an AlertDialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Set the title and message of the dialog
+        builder.setTitle("Player Information");
+        builder.setMessage("Username: " + Const.getCurrentEmail());
+
+        // Add a button to close the dialog
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+
 
 
         loadMessages();
@@ -854,10 +1009,10 @@ protected void onPause() {
         }
     }
     public void updatePlayerTurnUi(String currentPlayer){
-        ImageView playerIcon1 = findViewById(R.id.person1);
-        ImageView playerIcon2 = findViewById(R.id.person2);
-        ImageView playerIcon3 = findViewById(R.id.person3);
-        ImageView playerIcon4 = findViewById(R.id.person4);
+//        ImageView playerIcon1 = findViewById(R.id.person1);
+//        ImageView playerIcon2 = findViewById(R.id.person2);
+//        ImageView playerIcon3 = findViewById(R.id.person3);
+//        ImageView playerIcon4 = findViewById(R.id.person4);
 
         // Stop any animations that are currently running on all player icons
         playerIcon1.clearAnimation();
@@ -995,7 +1150,7 @@ protected void onPause() {
                                 try {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Ambassador");
-                                    jsonObject.put("targetPlayer", null);
+                                    jsonObject.put("targetPlayer", "null");
                                     jsonObject.put("card1", "null");
                                     jsonObject.put("card2", "null");
                                     Log.d("Websocket", "MoveMade: *Block Ambassador");
@@ -1011,7 +1166,7 @@ protected void onPause() {
                                 try {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Captain");
-                                    jsonObject.put("targetPlayer", null);
+                                    jsonObject.put("targetPlayer", "null");
                                     jsonObject.put("card1", "null");
                                     jsonObject.put("card2", "null");
                                     Log.d("Websocket", "MoveMade: *Block Captain");
@@ -1247,5 +1402,7 @@ protected void onPause() {
 
         dialog.show();
     }
+
+
 
 }
