@@ -87,13 +87,16 @@ public class Game {
             return "Captain";
         }else if(move.contains("Assassinate")){
             return "Assassin";
-        }else{
+        }else if(move.contains("Exchange")){
+            return "Ambassador";
+        }
+        else{
             return "Nah";
         }
     }
 
     public String associateBlock(String move){
-        if(move.equals("Foreign Aid") ){
+        if(move.equals("Foreign aid") ){
             return "Duke";
         }else if(move.equals("Assassinate")){
             return "Contessa";
@@ -157,6 +160,7 @@ public class Game {
             if(!player.getUserEmail().equals(currentPlayer.getUserEmail()) && player.getLives() == 0){
                 player.setPlayerState("dead");
             }
+            player.setCurrentMove("null");
         }
     }
 

@@ -35,7 +35,7 @@ public class Player {
 
     public Player(String userEmail, int coins, boolean turn,int lives,String playerState, String targetPlayer) {
         this.userEmail = userEmail;
-        this.coins = 3;
+        this.coins = 7;
         this.turn = turn;
         this.lives = 2;
         this.playerState = playerState;
@@ -102,7 +102,7 @@ public class Player {
     public void coup(Player player){
         if(this.coins >= 7){
             loseInfluence(player);
-            loseCoins(7);
+            this.loseCoins(7);
         }
     }
 
@@ -153,28 +153,29 @@ public class Player {
         Random random = new Random();
         boolean hasCardOne = !player.cardOne.equals("null");
         boolean hasCardTwo = !player.cardTwo.equals("null");
+        String card1 = player.getCardOne();
+        String card2 = player.getCardTwo();
 
         if (hasCardOne && hasCardTwo) {
-            // Both cards are available, randomly lose one
             if (random.nextBoolean()) {
                 player.cardOne = "null";
                 player.lives--;
-                return player.cardOne;
+                return card1;
             } else {
                 player.cardTwo = "null";
                 player.lives--;
-                return player.cardTwo;
+                return card2;
             }
         } else if (hasCardOne) {
             // Only cardOne is available
             player.cardOne = "null";
             player.lives--;
-            return player.cardOne;
+            return card1;
         } else if (hasCardTwo) {
             // Only cardTwo is available
             player.cardTwo = "null";
             player.lives--;
-            return player.cardTwo;
+            return card2;
         }
 
         // If this point is reached, the player has no cards left, handle as needed
@@ -219,6 +220,7 @@ public class Player {
             return cardSave;
         }else{
             String cardSave = cardTwo;
+            cardTwo = "null";
             player.lives--;
             return cardSave;
         }
