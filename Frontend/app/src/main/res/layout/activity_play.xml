@@ -41,6 +41,13 @@
         app:layout_constraintTop_toBottomOf="@id/topBr"
         app:layout_constraintVertical_bias="0.0">
 
+
+
+
+
+
+
+
 <!--        action move layout if turn-->
         <ImageView
             android:id="@+id/gameBoard"
@@ -91,33 +98,33 @@
 
 
         <!--        green icons-->
-        <ImageView
-            android:id="@+id/greenIcon1"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon1"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
-        <ImageView
-            android:id="@+id/greenIcon2"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon2"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
-        <ImageView
-            android:id="@+id/greenIcon3"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon3"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 <!--        yellow icons-->
         <ImageView
             android:id="@+id/yellowicon1"
@@ -153,27 +160,27 @@
             app:layout_constraintVertical_bias="0.487" />
 
             <!--blue icons-->
-            <ImageView
-                android:id="@+id/blueIcon1"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintVertical_bias="0.172" />
+        <ImageView
+            android:id="@+id/blueIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.172" />
 
-            <ImageView
-                android:id="@+id/blueIcon2"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintVertical_bias="0.805" />
+        <ImageView
+            android:id="@+id/blueIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.805" />
 
 
             <ImageView
@@ -242,9 +249,7 @@
             android:layout_height="88dp"
             android:src="@drawable/person"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/greenIcon2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+            app:layout_constraintTop_toBottomOf="@+id/blueIcon2" />
 
             <ImageView
                 android:id="@+id/person2"
@@ -284,7 +289,9 @@
             android:layout_height="85dp"
             android:src="@drawable/greyoval"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toBottomOf="@+id/blueIcon2" />
+            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <TextView
             android:id="@+id/oval4Text"
@@ -324,7 +331,7 @@
             android:layout_width="53dp"
             android:layout_height="88dp"
             android:src="@drawable/greyoval"
-            app:layout_constraintEnd_toStartOf="@+id/greenIcon1"
+            app:layout_constraintEnd_toStartOf="@+id/player1"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -607,22 +614,99 @@
             app:layout_constraintTop_toTopOf="@+id/timericon"
             />
 
+        <ImageView
+            android:id="@+id/player1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView5"-->
-<!--            android:layout_width="58dp"-->
-<!--            android:layout_height="91dp"-->
-<!--            app:srcCompat="@drawable/icon_contra"-->
-<!--            tools:layout_editor_absoluteX="141dp"-->
-<!--            tools:layout_editor_absoluteY="417dp" />-->
+        <ImageView
+            android:id="@+id/player2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView6"-->
-<!--            android:layout_width="58dp"-->
-<!--            android:layout_height="91dp"-->
-<!--            app:srcCompat="@drawable/icon_ambassador"-->
-<!--            tools:layout_editor_absoluteX="214dp"-->
-<!--            tools:layout_editor_absoluteY="418dp" />-->
+
+        <ImageView
+            android:id="@+id/player3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
+
+        <CheckBox
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon1"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.58000004" />
+
+        <CheckBox
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
+            app:layout_constraintHorizontal_bias="0.86"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.42000002" />
+
+        <CheckBox
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon2"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.58000004" />
+
+        <CheckBox
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon2"
+            app:layout_constraintTop_toBottomOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.35000002" />
+
+        <Button
+            android:id="@+id/button5"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.85" />
+
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
 

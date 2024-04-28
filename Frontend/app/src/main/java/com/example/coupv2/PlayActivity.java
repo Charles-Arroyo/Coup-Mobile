@@ -1,5 +1,6 @@
 package com.example.coupv2;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,10 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -32,6 +38,14 @@ import java.util.Objects;
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
     //has player order been determined (not using at current moment but might later)
 //    boolean playerOrder = false;
+
+
+    //exchange
+    CheckBox checkbox1;
+    CheckBox checkbox2;
+    CheckBox checkbox3;
+    CheckBox checkbox4;
+    Button submitButton;
     //timer
     private CountDownTimer countDownTimer;
     private TextView timerTextView;
@@ -57,6 +71,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     //player variables
     String card1;
     String card2;
+    String exCard1;
+    String exCard2;
     String playerState;
     int turnIndex; //will be a value of 1-4
     //screen variables
@@ -151,7 +167,8 @@ protected void onPause() {
                 jsonObject.put("playerEmail", pE);
                 jsonObject.put("move", mov);
                 jsonObject.put("targetPlayer", tp);
-
+                jsonObject.put("card1", "null");
+                jsonObject.put("card2", "null");
                 // Use jsonObject.toString() to get JSON string representation
                 String jsonString = jsonObject.toString();
                 WebSocketManager.getInstance().sendMessage(jsonString);
@@ -220,20 +237,35 @@ protected void onPause() {
             jsonObject.put("playerEmail", Const.getCurrentEmail());
             jsonObject.put("move", "ready");
             jsonObject.put("targetPlayer", "null");
+            jsonObject.put("card1", "null");
+            jsonObject.put("card2", "null");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         String jsonStr = jsonObject.toString();
         WebSocketManager.getInstance().sendMessage(jsonStr);
 
-        startTimer();
+//        startTimer();
 //        loadMessages();
         // link Play activity XML
         setContentView(R.layout.activity_play);
+        //exchange buttons
+         checkbox1 = findViewById(R.id.radioButton);
+         checkbox2 = findViewById(R.id.radioButton1);
+         checkbox3 = findViewById(R.id.radioButton2);
+         checkbox4 = findViewById(R.id.radioButton3);
+        submitButton = findViewById(R.id.button5);
+        submitButton.setOnClickListener(submitExchange);
+
         //assign screen views
-        greenCard1 = findViewById(R.id.greenIcon1);
-        greenCard2 = findViewById(R.id.greenIcon2);
-        greenCard3 = findViewById(R.id.greenIcon3);
+        greenCard1 = findViewById(R.id.player1);
+        greenCard2 = findViewById(R.id.player2);
+        greenCard3 = findViewById(R.id.player3);
+        //assign card listeners
+        greenCard1.setOnClickListener(card1ClickListener);
+        greenCard2.setOnClickListener(card2ClickListener);
+        greenCard3.setOnClickListener(card3ClickListener);
+        //other cards
         redCard1 = findViewById(R.id.redIcon1);
         redCard2 = findViewById(R.id.redIcon2);
         redCard3 = findViewById(R.id.redIcon3);
@@ -270,6 +302,8 @@ protected void onPause() {
         bigBlock = findViewById(R.id.BIGBLOCK);
         //assign timer view
         timerTextView = findViewById(R.id.timerText);
+
+
         loadMessages();
         openChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,6 +333,8 @@ protected void onPause() {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                     jsonObject.put("move", "@" + messageToSend);
                     jsonObject.put("targetPlayer", "null");
+                    jsonObject.put("card1", "null");
+                    jsonObject.put("card2", "null");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -375,6 +411,9 @@ protected void onPause() {
                 @Override
                 public void run() {
                     try {
+                        //set exchange cards
+                        exCard1 = currentPlayer.getString("exchangeCard1");
+                        exCard2 = currentPlayer.getString("exchangeCard2");
                         //set player order before anything and check if they are still alive
                         for (int i = 0; i < playerArray.length(); i++) {
                             JSONObject player = playerArray.getJSONObject(i);
@@ -511,6 +550,13 @@ protected void onPause() {
     public void updatePlayerStateUi(){
         //if not player turn then display waiting
         if (playerState.equals("wait")){
+            //disable exchange
+            checkbox1.setVisibility(View.GONE);
+            checkbox2.setVisibility(View.GONE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+            submitButton.setVisibility(View.GONE);
+            submitButton.setOnClickListener(null);
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
@@ -529,6 +575,13 @@ protected void onPause() {
         }
         //if player turn
         else if (playerState.equals("turn")){
+            //disable exchange
+            checkbox1.setVisibility(View.GONE);
+            checkbox2.setVisibility(View.GONE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+            submitButton.setVisibility(View.GONE);
+            submitButton.setOnClickListener(null);
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
@@ -549,6 +602,13 @@ protected void onPause() {
         }
         //implement later
         else if(playerState.equals("contest")){
+            //disable exchange
+            checkbox1.setVisibility(View.GONE);
+            checkbox2.setVisibility(View.GONE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+            submitButton.setVisibility(View.GONE);
+            submitButton.setOnClickListener(null);
             //hide waiting and dead layout
             waitingOverlay.setVisibility(View.GONE);
             deadOverLay.setVisibility(View.GONE);
@@ -567,8 +627,82 @@ protected void onPause() {
             smallwhite2.setOnClickListener(bluffButtonListener);
             longwhite.setOnClickListener(skipButtonListener);
         }
+        else if(playerState.equals("Exchange2")){
+            //hide game board
+            gameBoard.setVisibility(View.GONE);
+            //disable listeners if not turn
+            gameBoard.setOnClickListener(null);
+            smallwhite1.setOnClickListener(null);
+            smallwhite2.setOnClickListener(null);
+            longwhite.setOnClickListener(null);
+            //hide contest layout
+            bigBlock.setVisibility(View.GONE);
+            smallwhite1.setVisibility(View.GONE);
+            smallwhite1Text.setVisibility(View.GONE);
+            smallwhite2.setVisibility(View.GONE);
+            smallwhite2Text.setVisibility(View.GONE);
+            longwhite.setVisibility(View.GONE);
+            longwhitetext.setVisibility(View.GONE);
+            //show button and listeners
+            checkbox1.setVisibility(View.VISIBLE);
+            checkbox2.setVisibility(View.VISIBLE);
+            checkbox3.setVisibility(View.VISIBLE);
+            checkbox4.setVisibility(View.VISIBLE);
+            //update names for check boxes
+            checkbox1.setText(card1);
+            checkbox2.setText(card2);
+            checkbox3.setText(exCard1);
+            checkbox4.setText(exCard2);
+            submitButton.setVisibility(View.VISIBLE);
+            submitButton.setOnClickListener(submitExchange);
+
+        }
+        else if(playerState.equals("Exchange1")){
+            waitingOverlay.setVisibility(View.GONE);
+
+            waitingOverlay.setVisibility(View.GONE);
+
+            //hide game board
+            gameBoard.setVisibility(View.GONE);
+            //disable listeners if not turn
+            gameBoard.setOnClickListener(null);
+            smallwhite1.setOnClickListener(null);
+            smallwhite2.setOnClickListener(null);
+            longwhite.setOnClickListener(null);
+            //hide contest layout
+            bigBlock.setVisibility(View.GONE);
+            smallwhite1.setVisibility(View.GONE);
+            smallwhite1Text.setVisibility(View.GONE);
+            smallwhite2.setVisibility(View.GONE);
+            smallwhite2Text.setVisibility(View.GONE);
+            longwhite.setVisibility(View.GONE);
+            longwhitetext.setVisibility(View.GONE);
+            //show button and listeners
+            checkbox1.setVisibility(View.VISIBLE);
+            checkbox2.setVisibility(View.VISIBLE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+            //update names for check boxes
+            if(Objects.equals(card1, "null")){
+                checkbox1.setText(card2);
+            }
+            if(Objects.equals(card2, "null")){
+                checkbox1.setText(card1);
+            }
+            checkbox2.setText(exCard1);
+            submitButton.setVisibility(View.VISIBLE);
+            submitButton.setOnClickListener(submitExchange);
+
+        }
         //implement later
         else if(playerState.equals("challenge")){
+            //disable exchange
+            checkbox1.setVisibility(View.GONE);
+            checkbox2.setVisibility(View.GONE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+            submitButton.setVisibility(View.GONE);
+            submitButton.setOnClickListener(null);
             //hide waiting and dead layout
             waitingOverlay.setVisibility(View.GONE);
             deadOverLay.setVisibility(View.GONE);
@@ -641,17 +775,28 @@ protected void onPause() {
             greenCard1.setVisibility(View.VISIBLE);
             greenCard2.setVisibility(View.VISIBLE);
             greenCard3.setVisibility(View.GONE);
+            //disable card listeners
+            greenCard3.setOnClickListener(null);
         }
         //one life
         else if (lives ==  1){
             greenCard1.setVisibility(View.GONE);
             greenCard2.setVisibility(View.GONE);
             greenCard3.setVisibility(View.VISIBLE);
+            //disable card listeners
+            greenCard1.setOnClickListener(null);
+            greenCard2.setOnClickListener(null);
+            //enable
+            greenCard3.setOnClickListener(card3ClickListener);
         }
         else if (lives ==  0){
             greenCard1.setVisibility(View.GONE);
             greenCard2.setVisibility(View.GONE);
             greenCard3.setVisibility(View.GONE);
+            //disable card listeners
+            greenCard1.setOnClickListener(null);
+            greenCard2.setOnClickListener(null);
+            greenCard3.setOnClickListener(null);
         }
     }
     public void updatePlayer2LivesUi(int lives){
@@ -755,6 +900,75 @@ protected void onPause() {
 
         }
     };
+    private View.OnClickListener card1ClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (Objects.equals(card1, "Assassin")){
+                showImagePopup(R.drawable.assassin1);
+            }
+            else if (Objects.equals(card1, "Contessa")){
+                showImagePopup(R.drawable.contra1);
+            }
+            else if (Objects.equals(card1, "Duke")){
+                showImagePopup(R.drawable.duke1);
+            }
+            else if (Objects.equals(card1, "Captain")){
+                showImagePopup(R.drawable.captain1);
+            }
+            else if (Objects.equals(card1, "Ambassador")){
+                showImagePopup(R.drawable.ambassador1);
+            }
+
+        }
+    };
+    private View.OnClickListener card2ClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (Objects.equals(card2, "Assassin")){
+                showImagePopup(R.drawable.assassin1);
+            }
+            else if (Objects.equals(card2, "Contessa")){
+                showImagePopup(R.drawable.contra1);
+            }
+            else if (Objects.equals(card2, "Duke")){
+                showImagePopup(R.drawable.duke1);
+            }
+            else if (Objects.equals(card2, "Captain")){
+                showImagePopup(R.drawable.captain1);
+            }
+            else if (Objects.equals(card2, "Ambassador")){
+                showImagePopup(R.drawable.ambassador1);
+            }
+
+        }
+    };
+    private View.OnClickListener card3ClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String card = null;
+            if (Objects.equals(card1, "null")){
+                 card = card2;
+            }
+            else{
+                 card = card1;
+            }
+            if (Objects.equals(card, "Assassin")){
+                showImagePopup(R.drawable.assassin1);
+            }
+            else if (Objects.equals(card, "Contessa")){
+                showImagePopup(R.drawable.contra1);
+            }
+            else if (Objects.equals(card, "Duke")){
+                showImagePopup(R.drawable.duke1);
+            }
+            else if (Objects.equals(card, "Captain")){
+                showImagePopup(R.drawable.captain1);
+            }
+            else if (Objects.equals(card, "Ambassador")){
+                showImagePopup(R.drawable.ambassador1);
+            }
+        }
+    };
     //listeners for contest mode
     private View.OnClickListener blockButtonListener = new View.OnClickListener() {
         @Override
@@ -782,6 +996,8 @@ protected void onPause() {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Ambassador");
                                     jsonObject.put("targetPlayer", null);
+                                    jsonObject.put("card1", "null");
+                                    jsonObject.put("card2", "null");
                                     Log.d("Websocket", "MoveMade: *Block Ambassador");
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -796,6 +1012,8 @@ protected void onPause() {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                                     jsonObject.put("move", "*Block Captain");
                                     jsonObject.put("targetPlayer", null);
+                                    jsonObject.put("card1", "null");
+                                    jsonObject.put("card2", "null");
                                     Log.d("Websocket", "MoveMade: *Block Captain");
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -817,6 +1035,8 @@ protected void onPause() {
                     jsonObject.put("playerEmail", Const.getCurrentEmail());
                     jsonObject.put("move", "Block");
                     jsonObject.put("targetPlayer", "null");
+                    jsonObject.put("card1", "null");
+                    jsonObject.put("card2", "null");
                     Log.d("Websocket", "MoveMade: Block");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -835,6 +1055,8 @@ protected void onPause() {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
                 jsonObject.put("move", "Bluff");
                 jsonObject.put("targetPlayer", "null");
+                jsonObject.put("card1", "null");
+                jsonObject.put("card2", "null");
                 Log.d("Websocket", "MoveMade: Bluff");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -853,6 +1075,8 @@ protected void onPause() {
                 jsonObject.put("playerEmail", Const.getCurrentEmail());
                 jsonObject.put("move", "pass");
                 jsonObject.put("targetPlayer", "null");
+                jsonObject.put("card1", "null");
+                jsonObject.put("card2", "null");
                 Log.d("Websocket", "MoveMade: Skip");
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -863,6 +1087,108 @@ protected void onPause() {
             playerState = "wait";
             updatePlayerStateUi();
         }
+    };
+
+
+    private View.OnClickListener submitExchange = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //if one life
+            if (card1.equals("null") || card2.equals("null")) {
+                String scard1 = "null";
+                int checkedCount = 0;
+                if (checkbox1.isChecked()) {
+                    checkedCount++;
+                    scard1 = checkbox1.getText().toString();
+                } else {
+                    scard1 = "null"; // Reset scard1 if checkbox1 is unchecked
+                }
+                if (checkbox2.isChecked()) {
+                    scard1 = checkbox2.getText().toString();
+                    checkedCount++;
+                } else {
+                    scard1 = "null"; // Reset scard1 if checkbox2 is unchecked
+                }
+
+                if (checkedCount == 0) {
+                    // No checkbox is selected
+                    Toast.makeText(PlayActivity.this, "Please select at least one option", Toast.LENGTH_SHORT).show();
+                } else if (checkedCount > 1) {
+                    // More than one checkbox is selected
+                    Toast.makeText(PlayActivity.this, "You can only select up to one option", Toast.LENGTH_SHORT).show();
+                } else {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("playerEmail", Const.getCurrentEmail());
+                        jsonObject.put("move", "*Exchange");
+                        jsonObject.put("targetPlayer", "null");
+                        jsonObject.put("card1", scard1);
+                        jsonObject.put("card2", "null");
+                        Log.d("Websocket", "MoveMade: Bluff");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String jsonStr = jsonObject.toString();
+                    WebSocketManager.getInstance().sendMessage(jsonStr);
+                }
+            }
+
+            else {
+                int checkedCount = 0;
+                String scard1 = "null";
+                String scard2 = "null";
+
+                if (checkbox1.isChecked()) {
+                    checkedCount++;
+                    scard1 = checkbox1.getText().toString();
+                }
+                if (checkbox2.isChecked()) {
+                    checkedCount++;
+                    scard2 = checkbox2.getText().toString();
+                }
+                if (checkbox3.isChecked()) {
+                    checkedCount++;
+                    if (scard1.equals("null")) {
+                        scard1 = checkbox3.getText().toString();
+                    } else {
+                        scard2 = checkbox3.getText().toString();
+                    }
+                }
+                if (checkbox4.isChecked()) {
+                    checkedCount++;
+                    if (scard1.equals("null")) {
+                        scard1 = checkbox4.getText().toString();
+                    } else {
+                        scard2 = checkbox4.getText().toString();
+                    }
+                }
+
+                if (checkedCount == 0) {
+                    // No checkbox is selected
+                    Toast.makeText(PlayActivity.this, "Please select at least one option", Toast.LENGTH_SHORT).show();
+                } else if (checkedCount > 2) {
+                    // More than two checkboxes are selected
+                    Toast.makeText(PlayActivity.this, "You can only select up to two options", Toast.LENGTH_SHORT).show();
+                } else {
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("playerEmail", Const.getCurrentEmail());
+                        jsonObject.put("move", "*Exchange");
+                        jsonObject.put("targetPlayer", "null");
+                        jsonObject.put("card1", scard1);
+                        jsonObject.put("card2", scard2);
+                        Log.d("Websocket", "MoveMade: Bluff");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String jsonStr = jsonObject.toString();
+                    WebSocketManager.getInstance().sendMessage(jsonStr);
+                }
+            }
+
+
+        }
+
     };
     private void addMessageToLayout(String username, String message) {
         //create a new view with xml layout and indicate where to add but dont attach yet
@@ -896,59 +1222,30 @@ protected void onPause() {
             addMessageToLayout(messageData[0], messageData[1]);
         }
     };
-//    private void showUserCards() {
-//        if(card1 == "assassin"){
-//
-//        }
-//        else if(card1 == "ambassador"){
-//
-//        }
-//        else if(card1 == "captain"){
-//
-//        }
-//        else if(card1 == "contra"){
-//
-//        }
-//        else if(card1 == "duke"){
-//
-//        }
-//    };
 
-//    private void addCardToLayoutLeft(String cardName) {
-////        R.layout.activity_play
-//        ConstraintLayout layout = findViewById(R.id.centralGridArea); // Replace with your ConstraintLayout's ID
-//        ImageView cardView = new ImageView(this);
-//
-//        // Set an ID to the ImageView
-//        cardView.setId(View.generateViewId());
-//        int drawableId = getResources().getIdentifier(cardName.toLowerCase(), "drawable", getPackageName());
-//        // Set the image resource based on the card name
-//        cardView.setImageResource(drawableId);
-//
-//        // Add ImageView to the ConstraintLayout
-//        layout.addView(cardView, new ConstraintLayout.LayoutParams(
-//                ConstraintLayout.LayoutParams.WRAP_CONTENT,
-//                ConstraintLayout.LayoutParams.WRAP_CONTENT));
-//
-//        // Use ConstraintSet to apply constraints programmatically
-//        ConstraintSet set = new ConstraintSet();
-//        set.clone(layout);
-//
-//        // Copy constraints from greenIcon1 to cardView
-//        set.connect(cardView.getId(), ConstraintSet.START, R.id.greenIcon1, ConstraintSet.START, 0);
-//        set.connect(cardView.getId(), ConstraintSet.END, R.id.greenIcon1, ConstraintSet.END, 0);
-//        set.connect(cardView.getId(), ConstraintSet.TOP, R.id.greenIcon1, ConstraintSet.TOP, 0);
-//        set.connect(cardView.getId(), ConstraintSet.BOTTOM, R.id.greenIcon1, ConstraintSet.BOTTOM, 0);
-//
-//        // Apply the constraints to the layout
-//        set.applyTo(layout);
-//    }
 
     public void sendMessage(String username, String message) {
         // Add message to layout
         addMessageToLayout(username, message);
         // Save message to Singleton
         ChatManager.getInstance().addMessage(username, message);
+    }
+    private void showImagePopup(int imageResource) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogLayout = getLayoutInflater().inflate(R.layout.popup_image, null);
+        ImageView imageView = dialogLayout.findViewById(R.id.popup_image);
+
+        imageView.setImageResource(imageResource);
+        builder.setView(dialogLayout);
+        AlertDialog dialog = builder.create();
+
+        dialogLayout.setOnClickListener(v -> dialog.dismiss());
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+
+        dialog.show();
     }
 
 }
