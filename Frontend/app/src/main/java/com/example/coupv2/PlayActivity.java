@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     CheckBox checkbox3;
     CheckBox checkbox4;
     Button submitButton;
+    private int checkedCount = 0;
     //timer
     private CountDownTimer countDownTimer;
     private TextView timerTextView;
@@ -158,6 +160,7 @@ protected void onPause() {
     protected void onResume() {
         super.onResume();
         loadMessages();
+//        setupCheckboxes();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
 
@@ -190,9 +193,8 @@ protected void onPause() {
                 throw new RuntimeException(e);
 //            e.printStackTrace();
             }
-
-
         }
+
 
 //        JSONObject jsonObject = new JSONObject();
         //let backend know that player is ready to receive data
@@ -658,9 +660,11 @@ protected void onPause() {
 //                                updatePlayerTurnUi(playerEmail);
 //                            }
                         }
-                        // Call updatePlayerStateUi separately to update the UI based on the player state
-
                         updatePlayerStateUi();
+                        setupCheckboxes();
+                        if (playerState.equals("contest") || playerState.equals("challenge")){
+                            startTimer();
+                        }
                         Log.d("GameDebug", "Player State: " + playerState);
                     } catch (JSONException e) {
                         Log.e("WebSocket", "Error parsing JSON in UI thread", e);
@@ -730,6 +734,8 @@ protected void onPause() {
         }
         //if player turn
         else if (playerState.equals("turn")){
+            gameBoard.setVisibility(View.VISIBLE);
+
             //disable exchange
             checkbox1.setVisibility(View.GONE);
             checkbox2.setVisibility(View.GONE);
@@ -783,6 +789,8 @@ protected void onPause() {
             longwhite.setOnClickListener(skipButtonListener);
         }
         else if(playerState.equals("Exchange2")){
+            waitingOverlay.setVisibility(View.GONE);
+
             //hide game board
             gameBoard.setVisibility(View.GONE);
             //disable listeners if not turn
@@ -813,7 +821,6 @@ protected void onPause() {
 
         }
         else if(playerState.equals("Exchange1")){
-            waitingOverlay.setVisibility(View.GONE);
 
             waitingOverlay.setVisibility(View.GONE);
 
@@ -1149,7 +1156,7 @@ protected void onPause() {
                             if (whatCharacter.equals("Ambassador")){
                                 try {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                    jsonObject.put("move", "*Block Ambassador");
+                                    jsonObject.put("move", "Block Ambassador");
                                     jsonObject.put("targetPlayer", "null");
                                     jsonObject.put("card1", "null");
                                     jsonObject.put("card2", "null");
@@ -1165,11 +1172,11 @@ protected void onPause() {
                             else {
                                 try {
                                     jsonObject.put("playerEmail", Const.getCurrentEmail());
-                                    jsonObject.put("move", "*Block Captain");
+                                    jsonObject.put("move", "Block Captain");
                                     jsonObject.put("targetPlayer", "null");
                                     jsonObject.put("card1", "null");
                                     jsonObject.put("card2", "null");
-                                    Log.d("Websocket", "MoveMade: *Block Captain");
+                                    Log.d("Websocket", "MoveMade: Block Captain");
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -1248,79 +1255,103 @@ protected void onPause() {
     private View.OnClickListener submitExchange = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // Variables to hold the selections
-            String selectedCard1 = "null";
-            String selectedCard2 = "null";
 
-            // Check the state of each checkbox and record the selected ones
-            if (checkbox1.isChecked()) {
-                if (selectedCard1.equals("null")) {
+
+            if (Objects.equals(playerState, "Exchange2")) {
+                // Variables to hold the selections
+                String selectedCard1 = "null";
+                String selectedCard2 = "null";
+
+                // Check which checkboxes are checked and record the selections
+                if (checkbox1.isChecked()) {
                     selectedCard1 = checkbox1.getText().toString();
-                } else {
-                    selectedCard2 = checkbox1.getText().toString();
                 }
-            }
-            if (checkbox2.isChecked()) {
-                if (selectedCard1.equals("null")) {
+                if (checkbox2.isChecked()) {
+                    if (selectedCard1.equals("null")) {
+                        selectedCard1 = checkbox2.getText().toString();
+                    } else {
+                        selectedCard2 = checkbox2.getText().toString();
+                    }
+                }
+                if (checkbox3.isChecked()) {
+                    if (selectedCard1.equals("null")) {
+                        selectedCard1 = checkbox3.getText().toString();
+                    } else {
+                        selectedCard2 = checkbox3.getText().toString();
+                    }
+                }
+                if (checkbox4.isChecked()) {
+                    if (selectedCard1.equals("null")) {
+                        selectedCard1 = checkbox4.getText().toString();
+                    } else {
+                        selectedCard2 = checkbox4.getText().toString();
+                    }
+                }
+
+
+
+                // Verify that two cards are selected
+                if (selectedCard1.equals("null") || selectedCard2.equals("null")) {
+                    // If less than two cards are selected, inform the user and do not proceed
+                    Toast.makeText(PlayActivity.this, "You must select at least two cards to proceed", Toast.LENGTH_SHORT).show();
+                    return; // Exit the onClick method early
+                }
+
+
+                // Proceed with the exchange
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                    jsonObject.put("move", "*Exchange");
+                    jsonObject.put("targetPlayer", "null");
+                    jsonObject.put("card1", selectedCard1);
+                    jsonObject.put("card2", selectedCard2);
+                    Log.d("Websocket", "MoveMade: Exchange");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String jsonStr = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonStr);
+            } else if (Objects.equals(playerState, "Exchange1")) {
+                // Variables to hold the selections
+                String selectedCard1 = "null";
+
+                // Check which checkboxes are checked and record the selections
+                if (checkbox1.isChecked()) {
+                    selectedCard1 = checkbox1.getText().toString();
+                }
+                if (checkbox2.isChecked()) {
                     selectedCard1 = checkbox2.getText().toString();
-                } else {
-                    selectedCard2 = checkbox2.getText().toString();
                 }
-            }
-            // Repeat this for any additional checkboxes
-            if (checkbox3.isChecked()) {
-                if (selectedCard1.equals("null")) {
-                    selectedCard1 = checkbox3.getText().toString();
-                } else {
-                    selectedCard2 = checkbox3.getText().toString();
-                }
-            }
-            if (checkbox4.isChecked()) {
-                if (selectedCard1.equals("null")) {
-                    selectedCard1 = checkbox4.getText().toString();
-                } else {
-                    selectedCard2 = checkbox4.getText().toString();
-                }
-            }
-            // Check the number of cards the user has
-            boolean hasTwoCards = !card1.equals("null") && !card2.equals("null");
-            boolean hasSelectedTwo = !selectedCard1.equals("null") && !selectedCard2.equals("null");
-            boolean hasSelectedAtLeastOne = !selectedCard1.equals("null") || !selectedCard2.equals("null");
 
-            if (hasTwoCards) {
-                // If the user has two cards, they must select exactly two checkboxes
-                if (!hasSelectedTwo) {
-                    Toast.makeText(PlayActivity.this, "Please select exactly two cards.", Toast.LENGTH_SHORT).show();
-                    return; // Do not proceed further
-                }
-            } else {
-                // If the user has one card, they must select at least one checkbox but not two
-                if (!hasSelectedAtLeastOne) {
-                    Toast.makeText(PlayActivity.this, "Please select at least one card.", Toast.LENGTH_SHORT).show();
-                    return; // Do not proceed further
-                }
-                if (hasSelectedTwo) {
-                    Toast.makeText(PlayActivity.this, "You can only select one card.", Toast.LENGTH_SHORT).show();
-                    return; // Do not proceed further
-                }
-            }
 
-            // Proceed with the exchange
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("playerEmail", Const.getCurrentEmail());
-                jsonObject.put("move", "*Exchange");
-                jsonObject.put("targetPlayer", "null");
-                jsonObject.put("card1", selectedCard1);
-                jsonObject.put("card2", selectedCard2);
-                Log.d("Websocket", "MoveMade: Exchange");
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            String jsonStr = jsonObject.toString();
-            WebSocketManager.getInstance().sendMessage(jsonStr);
 
+
+                // Verify that two cards are selected
+                if (selectedCard1.equals("null") ) {
+                    // If less than two cards are selected, inform the user and do not proceed
+                    Toast.makeText(PlayActivity.this, "You must select at least one card to proceed", Toast.LENGTH_SHORT).show();
+                    return; // Exit the onClick method early
+                }
+                // Proceed with the exchange
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                    jsonObject.put("move", "*Exchange");
+                    jsonObject.put("targetPlayer", "null");
+                    jsonObject.put("card1", selectedCard1);
+                    jsonObject.put("card2", "null");
+                    Log.d("Websocket", "MoveMade: Exchange");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                String jsonStr = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonStr);
+            }
         }
+    };
     private void addMessageToLayout(String username, String message) {
         //create a new view with xml layout and indicate where to add but dont attach yet
         View messageView = getLayoutInflater().inflate(R.layout.chat_item, layoutMessages1, false);
@@ -1379,6 +1410,47 @@ protected void onPause() {
         dialog.show();
     }
 
+    private void setupCheckboxes() {
+        //exchange buttons
+        checkbox1 = findViewById(R.id.radioButton);
+        checkbox2 = findViewById(R.id.radioButton1);
+        checkbox3 = findViewById(R.id.radioButton2);
+        checkbox4 = findViewById(R.id.radioButton3);
+
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Update the checked count
+                if (isChecked) {
+                    checkedCount++;
+                } else {
+                    checkedCount--;
+                }
+                if (Objects.equals(playerState, "Exchange2")){
+                    // If more than two checkboxes are selected, show a toast and uncheck the last selected checkbox
+                    if (checkedCount > 2) {
+                        Toast.makeText(PlayActivity.this, "You can only select up to two options", Toast.LENGTH_SHORT).show();
+                        // Uncheck and do not count the last checkbox that caused the overflow
+                        buttonView.setChecked(false);
+                        checkedCount--;
+                    }
+                }
+                else if (Objects.equals(playerState, "Exchange1")){
+                    // If more than one checkboxe os selected, show a toast and uncheck the last selected checkbox
+                    if (checkedCount > 1) {
+                        Toast.makeText(PlayActivity.this, "You can only select one option", Toast.LENGTH_SHORT).show();
+                        // Uncheck and do not count the last checkbox that caused the overflow
+                        buttonView.setChecked(false);
+                        checkedCount--;
+                    }
+                }
+            }
+        };
+        checkbox1.setOnCheckedChangeListener(listener);
+        checkbox2.setOnCheckedChangeListener(listener);
+        checkbox3.setOnCheckedChangeListener(listener);
+        checkbox4.setOnCheckedChangeListener(listener);
+    }
 
 
 }
