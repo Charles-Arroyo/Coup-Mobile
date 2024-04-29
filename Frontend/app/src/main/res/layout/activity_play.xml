@@ -41,6 +41,13 @@
         app:layout_constraintTop_toBottomOf="@id/topBr"
         app:layout_constraintVertical_bias="0.0">
 
+
+
+
+
+
+
+
 <!--        action move layout if turn-->
         <ImageView
             android:id="@+id/gameBoard"
@@ -71,34 +78,53 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.37"
             app:layout_constraintWidth_percent="0.6" />
-        <!--        green icons-->
-        <ImageView
-            android:id="@+id/greenIcon1"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
+        <!--        action move layout if DEAD-->
         <ImageView
-            android:id="@+id/greenIcon2"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
-
-        <ImageView
-            android:id="@+id/greenIcon3"
-            android:layout_width="45dp"
-            android:layout_height="88dp"
-            android:src="@drawable/greeniconshape"
+            android:id="@+id/gameBoard_dead"
+            android:layout_width="194dp"
+            android:layout_height="178dp"
+            android:src="@drawable/dead"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".3"
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.37"
+            app:layout_constraintWidth_percent="0.6" />
+
+
+
+        <!--        green icons-->
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon1"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon2"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/greenIcon3"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:src="@drawable/greeniconshape"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 <!--        yellow icons-->
         <ImageView
             android:id="@+id/yellowicon1"
@@ -134,27 +160,27 @@
             app:layout_constraintVertical_bias="0.487" />
 
             <!--blue icons-->
-            <ImageView
-                android:id="@+id/blueIcon1"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintVertical_bias="0.172" />
+        <ImageView
+            android:id="@+id/blueIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.172" />
 
-            <ImageView
-                android:id="@+id/blueIcon2"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintVertical_bias="0.805" />
+        <ImageView
+            android:id="@+id/blueIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.805" />
 
 
             <ImageView
@@ -223,11 +249,11 @@
             android:layout_height="88dp"
             android:src="@drawable/person"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/greenIcon2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-            <ImageView
+        <ImageView
                 android:id="@+id/person2"
                 android:layout_width="53dp"
                 android:layout_height="88dp"
@@ -305,7 +331,7 @@
             android:layout_width="53dp"
             android:layout_height="88dp"
             android:src="@drawable/greyoval"
-            app:layout_constraintEnd_toStartOf="@+id/greenIcon1"
+            app:layout_constraintEnd_toStartOf="@+id/player1"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -390,40 +416,57 @@
 <!--            app:layout_constraintTop_toTopOf="@+id/imageView" />-->
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="1dp">
+<!--        <ScrollView-->
+<!--            android:id="@+id/scrollViewMessages1"-->
+<!--            android:layout_width="380dp"-->
+<!--            android:layout_height="170dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.0">-->
 
-            <TextView
-                android:id="@+id/tx1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="The Conversation will appear here:\n"
-                android:textSize="20dp" />
-        </ScrollView>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutMessages1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+<!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
 
         <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="370dp"
-                android:layout_height="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintStart_toStartOf="@+id/guideline7"
-                app:srcCompat="@drawable/whitetextbox" />
+            android:id="@+id/imageView4"
+            android:layout_width="370dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:srcCompat="@drawable/whitetextbox" />
 
-            <ImageButton
-                android:id="@+id/imageButtonwf"
+        <EditText
+            android:id="@+id/chatText"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:hint="Enter Chat Here"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/submitText"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            app:layout_constraintVertical_bias="0.55" />
+
+        <ImageButton
+                android:id="@+id/submitText"
                 android:layout_width="31dp"
                 android:layout_height="27dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/imageView"
-                app:layout_constraintVertical_bias="0.9"
+                app:layout_constraintVertical_bias="0.95"
                 app:srcCompat="@drawable/submit" />
 
             <ImageButton
@@ -446,6 +489,9 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="52dp"
@@ -555,27 +601,129 @@
             app:layout_constraintTop_toTopOf="@+id/longwhite"
             app:layout_constraintVertical_bias="0.48000002" />
 
-        <!--        random button-->
-        <Button
-            android:id="@+id/btn123"
-            android:layout_width="57dp"
-            android:layout_height="39dp"
-            android:text="Button"
-            app:layout_constraintBottom_toTopOf="@+id/oval3"
-            app:layout_constraintEnd_toStartOf="@+id/timericon"
-            app:layout_constraintHorizontal_bias="0.0"
+
+<!--        timer-->
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/timericon"
+            app:layout_constraintEnd_toEndOf="@+id/timericon"
+            app:layout_constraintStart_toStartOf="@+id/timericon"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            />
+
+        <ImageView
+            android:id="@+id/player1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
+
+        <ImageView
+            android:id="@+id/player2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
+
+
+        <ImageView
+            android:id="@+id/player3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            app:srcCompat="@drawable/cardbackhit_2_bottom" />
+
+        <CheckBox
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
+            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon1"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.58000004" />
+
+        <CheckBox
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
+            app:layout_constraintHorizontal_bias="0.86"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.132" />
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.42000002" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView5"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="88dp"-->
-<!--            app:srcCompat="@drawable/icon_ambassador"-->
-<!--            tools:layout_editor_absoluteX="357dp"-->
-<!--            tools:layout_editor_absoluteY="295dp" />-->
+        <CheckBox
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon2"
+            app:layout_constraintTop_toTopOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.58000004" />
 
+        <CheckBox
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="RadioButton"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
+            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintStart_toStartOf="@+id/yellowicon2"
+            app:layout_constraintTop_toBottomOf="@+id/timericon"
+            app:layout_constraintVertical_bias="0.35000002" />
+
+        <Button
+            android:id="@+id/button5"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.85" />
+        <ScrollView
+            android:id="@+id/scrollViewMessages1"
+            android:layout_width="380dp"
+            android:layout_height="170dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <LinearLayout
+                android:id="@+id/layoutMessages1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Messages will be added here dynamically -->
+            </LinearLayout>
+        </ScrollView>
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
 

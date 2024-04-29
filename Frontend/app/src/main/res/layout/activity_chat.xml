@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@android:drawable/dialog_holo_dark_frame"
+    android:backgroundTint="#4CAF50"
+    android:orientation="horizontal"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/btnUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:backgroundTint="#4CAF50"
+        android:text="Username"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/placement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@null"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#FFFDFD"
+        android:textColorLink="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>
