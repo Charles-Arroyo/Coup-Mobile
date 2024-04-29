@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="21dp">
+
+
+    <ImageButton
+        android:id="@+id/imageView6"
+        android:layout_width="389dp"
+        android:layout_height="460dp"
+        app:srcCompat="@drawable/acitonbox"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="122dp"
+        android:layout_height="109dp"
+        android:background="@null"
+        app:srcCompat="@drawable/fa"
+        tools:layout_editor_absoluteX="273dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="120dp"
+        android:layout_height="108dp"
+        android:background="@null"
+        app:srcCompat="@drawable/stealwidget3"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="323dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="401dp"
+        android:layout_height="113dp"
+        android:background="@null"
+        app:srcCompat="@drawable/coupwidget"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="473dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="125dp"
+        android:layout_height="105dp"
+        android:background="@null"
+        app:srcCompat="@drawable/asswidget2"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="323dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="125dp"
+        android:layout_height="110dp"
+        android:background="@null"
+        app:srcCompat="@drawable/incomewidget2"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="124dp"
+        android:layout_height="107dp"
+        android:background="@null"
+        app:srcCompat="@drawable/taxwidget2"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="176dp" />
+
+    <ImageButton
+        android:id="@+id/whiteshape4"
+        android:layout_width="124dp"
+        android:layout_height="107dp"
+        android:background="@null"
+        app:srcCompat="@drawable/exchangewidget"
+        tools:layout_editor_absoluteX="271dp"
+        tools:layout_editor_absoluteY="321dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
