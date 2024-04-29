@@ -40,16 +40,16 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.main_login_btn);    // link to login button in the Main activity XML
         signupButton = findViewById(R.id.main_signup_btn);  // link to signup button in the Main activity XML
 
-        COUP = findViewById(R.id.COUP);
+//        COUP = findViewById(R.id.COUP);
 
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_out);
 
-        COUP.startAnimation(fadeInAnimation);
-        loginButton.startAnimation(fadeInAnimation);
-        signupButton.startAnimation(fadeInAnimation);
+//        COUP.startAnimation(fadeInAnimation);
+//        loginButton.startAnimation(fadeInAnimation);
+//        signupButton.startAnimation(fadeInAnimation);
 
-        fadeInAnimation.setDuration(3000);
+//        fadeInAnimation.setDuration(3000);
         /* click listener on login button pressed */
         loginButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);

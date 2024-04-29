@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -30,7 +31,7 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_action); // link to Play activity XML
+        setContentView(R.layout.activity_action_charles); // link to Play activity XML
 
         // Get the intent that started this activity
         Intent intent = getIntent();
@@ -40,13 +41,13 @@ public class ActionActivity extends AppCompatActivity implements WebSocketListen
         String player4 = intent.getStringExtra("Player4Key");
         int tCoins = intent.getIntExtra("coins", 0);
         //Views
-        ImageView incomeIcon1 = findViewById(R.id.whiteshape1);
-        ImageView aidIcon2 =  findViewById(R.id.whiteshape2);
-        ImageView taxIcon3 = findViewById(R.id.whiteshape3);
-        ImageView stealIcon4 = findViewById(R.id.whiteshape4);
-        ImageView exchangeIcon5 = findViewById(R.id.whiteshape5);
-        ImageView assassinIcon6 = findViewById(R.id.whiteshape6);
-        ImageView coupIcon7 = findViewById(R.id.whiteshape7);
+        ImageButton incomeIcon1 = findViewById(R.id.whiteshape1);
+        ImageButton aidIcon2 =  findViewById(R.id.whiteshape2);
+        ImageButton taxIcon3 = findViewById(R.id.whiteshape3);
+        ImageButton stealIcon4 = findViewById(R.id.whiteshape4);
+        ImageButton exchangeIcon5 = findViewById(R.id.whiteshape5);
+        ImageButton assassinIcon6 = findViewById(R.id.whiteshape6);
+        ImageButton coupIcon7 = findViewById(R.id.whiteshape7);
         Button backBtn = findViewById(R.id.back_button);
 
         incomeIcon1.setOnClickListener(new View.OnClickListener() {
