@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#974A94">
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="94dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/welcomebackheader" />
+
+    <ImageButton
+        android:id="@+id/login_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="11dp"
+        android:background="@null"
+        app:layout_constraintBottom_toTopOf="@+id/login_signup_btn"
+        app:layout_constraintStart_toStartOf="@+id/largecirclebtn"
+        app:layout_constraintTop_toBottomOf="@+id/login_password_edt"
+        app:srcCompat="@drawable/sumbitbtn" />
+
+
+    <ImageView
+        android:id="@+id/largecirclebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/largecirclebtn2"
+        app:layout_constraintTop_toTopOf="@+id/login_password_edt"
+        app:srcCompat="@drawable/largecirclebtn" />
+
+
+    <EditText
+        android:id="@+id/login_password_edt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="19dp"
+        android:gravity="center"
+        android:hint="Enter Password here"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/login_login_btn"
+        app:layout_constraintEnd_toEndOf="@+id/largecirclebtn"
+        app:layout_constraintTop_toBottomOf="@+id/login_email_edt" />
+
+    <ImageButton
+        android:id="@+id/login_signup_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="101dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/login_login_btn"
+        app:layout_constraintTop_toBottomOf="@+id/login_login_btn"
+        app:srcCompat="@drawable/signupswitchbtn" />
+
+    <ImageView
+        android:id="@+id/largecirclebtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_email_edt"
+        app:srcCompat="@drawable/largecirclebtn" />
+
+    <EditText
+        android:id="@+id/login_email_edt"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="22dp"
+        android:gravity="center"
+        android:hint="Enter Email Here"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/login_password_edt"
+        app:layout_constraintStart_toStartOf="@+id/imageView17"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_email_edt"
+        app:layout_constraintStart_toStartOf="@+id/largecirclebtn2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView16"
+        app:srcCompat="@drawable/couplogo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

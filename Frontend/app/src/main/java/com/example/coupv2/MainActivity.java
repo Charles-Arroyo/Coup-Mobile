@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button loginButton;     // define login button variable
-    private Button signupButton;    // define signup button variable
+    private ImageButton loginButton;     // define login button variable
+    private ImageButton signupButton;    // define signup button variable
 
     private ImageView COUP;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.DarkTheme);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_charles);
 
         /* initialize UI elements */
 

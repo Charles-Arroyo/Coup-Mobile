@@ -1,5 +1,8 @@
 package database.Game;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
@@ -7,6 +10,9 @@ public class Player {
     String userEmail;
     String cardOne;
     String cardTwo;
+
+    String exchangeCard1;
+    String exchangeCard2;
     int coins;
     Boolean turn;
     //made public for testing
@@ -16,16 +22,26 @@ public class Player {
 
     String playerState; // playerState: wait, turn, contest
 
+    @JsonIgnore
+    String targetPlayer;
+
     int lives;
 
     int turnNumber;
 
-    public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {
+    ArrayList<String> playerView;
+
+
+
+    public Player(String userEmail, int coins, boolean turn,int lives,String playerState, String targetPlayer) {
         this.userEmail = userEmail;
-        this.coins = 2;
+        this.coins = 7;
         this.turn = turn;
         this.lives = 2;
         this.playerState = playerState;
+        this.targetPlayer = targetPlayer;
+        this.exchangeCard1 = "null";
+        this.exchangeCard2 = "null";
     }
 
     public void setTurnNumber(int number){
@@ -54,37 +70,39 @@ public class Player {
      */
 
     public void action(String action, Player player){
-        if(action.equals("Assassinate")){
+        if(action.contains("Assassinate")){
             assassinate(player);
         }
-        if(action.equals("Tax")){
+        if(action.contains("Tax")){
             setCurrentMove("Tax");
-            tax();
+            tax(player);
         }
 
-        if(action.equals("Steal")){
+        if(action.contains("Steal")){
             setCurrentMove("Steal");
             steal(player);
         }
 
-        if(action.equals("Income")){
+        if(action.contains("Income")){
             setCurrentMove("Income");
             income();
         }
-        if(action.equals("Coup")){
+        if(action.contains("Coup")){
             setCurrentMove("Coup");
             coup(player);
         }
-
-        if(action.equals("Waiting")){
+        if(action.contains("Waiting")){
             setPlayerState("Waiting");
+        }
+        if(action.contains("Foreign aid")){
+            foreignAid(player);
         }
     }
 
     public void coup(Player player){
         if(this.coins >= 7){
             loseInfluence(player);
-            loseCoins(7);
+            this.loseCoins(7);
         }
     }
 
@@ -109,8 +127,8 @@ public class Player {
     /**
      *
      */
-    public void foreignAid(){
-        addCoins(2);
+    public void foreignAid(Player player){
+        player.addCoins(2);
     }
 
     /**
@@ -131,23 +149,45 @@ public class Player {
     /**
      *
      */
-    public void loseInfluence(Player player){
+    public String loseInfluence(Player player) {
         Random random = new Random();
-        if (random.nextBoolean()) {
-            player.cardOne = null;
+        boolean hasCardOne = !player.cardOne.equals("null");
+        boolean hasCardTwo = !player.cardTwo.equals("null");
+        String card1 = player.getCardOne();
+        String card2 = player.getCardTwo();
+
+        if (hasCardOne && hasCardTwo) {
+            if (random.nextBoolean()) {
+                player.cardOne = "null";
+                player.lives--;
+                return card1;
+            } else {
+                player.cardTwo = "null";
+                player.lives--;
+                return card2;
+            }
+        } else if (hasCardOne) {
+            // Only cardOne is available
+            player.cardOne = "null";
             player.lives--;
-        } else {
-            player.cardTwo = null;
+            return card1;
+        } else if (hasCardTwo) {
+            // Only cardTwo is available
+            player.cardTwo = "null";
             player.lives--;
+            return card2;
         }
 
+        // If this point is reached, the player has no cards left, handle as needed
+        return "No card left to lose"; // or throw an exception, based on your game rules
     }
 
+
     public void gainInfluence(String card, Player player){
-        if(cardOne == null){
+        if(cardOne.equals("null")){
             player.setCardOne(card);
             player.lives++;
-        }else if(cardTwo == null){
+        }else if(cardTwo.equals("null")){
             player.setCardTwo(card);
             player.lives++;
         }else{
@@ -155,12 +195,14 @@ public class Player {
         }
     }
     public String revealCard(String card,Player player){
-        if(player.cardOne.equals(card)){
+
+        if(player.cardOne.contains(card)){
             return cardOne;
 
-        }else if(player.cardTwo.equals(card)){
+        }else if(player.cardTwo.contains(card)){
             return cardTwo;
         }else{
+            String s = player.getUserEmail() + " Was a Liar";
 
             return player.getUserEmail() + " Was a Liar";
         }
@@ -169,11 +211,18 @@ public class Player {
 
 
 
-    public void removeCard(String card, Player player){
-        if(player.cardOne.equals(card)){
-            cardOne = null;
+
+    public String removeCard(String card, Player player){
+        if(player.cardOne.contains(card)){
+            String cardSave = cardOne;
+            cardOne = "null";
+            player.lives--;
+            return cardSave;
         }else{
-            cardTwo = null;
+            String cardSave = cardTwo;
+            cardTwo = "null";
+            player.lives--;
+            return cardSave;
         }
     }
 
@@ -192,17 +241,11 @@ public class Player {
     /**
      *
      */
-    public void tax(){
-        // TODO: add bluffing check
-        addCoins(3);
+    public void tax(Player player){
+        player.addCoins(3);
     }
 
-    /**
-     *
-     */
-    public void blockForeignAid(Player player){
-        // TODO: Implement this functionality
-    }
+
 
     /*____________________________End of Duke_______________________*/
 
@@ -215,12 +258,9 @@ public class Player {
      * @param player
      */
     public void assassinate(Player player){
-        if(this.coins >= 3){
             loseInfluence(player);
-            loseCoins(3);
-        }else{
-            System.out.println("Not enough Coins");
-        }
+            this.loseCoins(3);
+
     }
     /*______________________________End of Assassin_______________________*/
 
@@ -258,13 +298,6 @@ public class Player {
 
     /*____________________________________Contessa________________________________*/
 
-    /**
-     *
-     * @param player
-     */
-    public void blockAssassinate(Player player){
-        // TODO: Implement this functionality
-    }
 
     /*______________________________End of Contessa________________________________*/
 
@@ -342,6 +375,40 @@ public class Player {
     public void setPlayerState(String playerState) {
         this.playerState = playerState;
     }
+
+    public String getPlayerView() {
+        return playerView.toString();
+    }
+
+
+    public void setPlayerView(ArrayList<String> playerView) {
+        this.playerView = playerView;
+    }
+
+    public String getTargetPlayer() {
+        return targetPlayer;
+    }
+
+    public void setTargetPlayer(String targetPlayer) {
+        this.targetPlayer = targetPlayer;
+    }
+
+    public String getExchangeCard1() {
+        return exchangeCard1;
+    }
+
+    public void setExchangeCard1(String exchangeCard1) {
+        this.exchangeCard1 = exchangeCard1;
+    }
+
+    public String getExchangeCard2() {
+        return exchangeCard2;
+    }
+
+    public void setExchangeCard2(String exchangeCard2) {
+        this.exchangeCard2 = exchangeCard2;
+    }
+
 
     /*
      * Getters and Setters

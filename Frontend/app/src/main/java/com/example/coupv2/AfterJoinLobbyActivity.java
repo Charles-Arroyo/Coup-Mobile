@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +20,12 @@ public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSock
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
 //    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private EditText lobbyNumber;
-    private Button joinBtn;
+    private ImageButton joinBtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_afterjoinlobby);
+        setContentView(R.layout.activity_afterjoinlobbycharles);
         lobbyNumber = findViewById(R.id.lobby_input);
         joinBtn = findViewById(R.id.join_btn);
 

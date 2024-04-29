@@ -59,4 +59,9 @@ public class Deck {
         sb.append("]");
         return sb.toString();
     }
+
+    public void addCardToBottomOfDeck(Card card){
+        this.cards.add(card);
+    }
+
 }
