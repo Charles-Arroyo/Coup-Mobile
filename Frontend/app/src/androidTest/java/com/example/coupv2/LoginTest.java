@@ -28,36 +28,31 @@ public class LoginTest {
 
     @Test
     public void normalLogin() {
-        String email = "bpd@iastate.edu";
+        String email = "pizza";
         String password = "123";
 
         onView(withId(R.id.login_email_edt)).perform(typeText(email), closeSoftKeyboard());
         onView(withId(R.id.login_password_edt)).perform(typeText(password), closeSoftKeyboard());
         onView(withId(R.id.login_login_btn)).perform(click());
 
-        //Wait a brief momemnt so next activity can Process
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {}
 
-        //Goes To Menu
         onView(withId(R.id.logoff_btn)).check(matches(isClickable())).perform(click());
 
-        //Wait a brief momemnt so next activity can Process
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {}
 
         onView(withText("Yes")).inRoot(isDialog()).check(matches(isDisplayed())).perform(click());
 
-        //Wait a brief momemnt so next activity can Process
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {}
 
         onView(withId(R.id.main_login_btn)).check(matches(isClickable())).perform(click());
 
-        //Wait a brief momemnt so next activity can Process
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {}
@@ -81,7 +76,7 @@ public class LoginTest {
 
 
 
-     }
+    }
 
     @Test
     public void noPasswordLogin() {

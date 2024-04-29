@@ -99,7 +99,7 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/list_btn"
+            android:id="@+id/friends_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

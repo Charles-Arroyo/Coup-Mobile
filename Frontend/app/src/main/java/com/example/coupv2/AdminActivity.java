@@ -40,21 +40,21 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
         -----------------------------------
         RANKINGS
 
-        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8445/getListUserRanking";
         private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
         private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8O80/getListUserRanking";
 
         ------------------------------------
         GLOBAL CHAT FEATURE
 
-        private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
+        private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8445/chat/";
         private String BASE_URL = "ws://10.0.2.2:8080/chat/";
         private String BASE_URL = "ws://10.29.182.205:8080/chat/";
 
      */
 
 
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8445/getListUserRanking";
     private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;
@@ -89,7 +89,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
         // Initialize UI elements
         playButton = findViewById(R.id.game);
-        listButton = findViewById(R.id.list_btn);
+        listButton = findViewById(R.id.friends_button);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
         logoffButton = findViewById(R.id.logoff_btn);
