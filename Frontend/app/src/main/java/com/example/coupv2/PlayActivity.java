@@ -1248,103 +1248,79 @@ protected void onPause() {
     private View.OnClickListener submitExchange = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //if one life
-            if (card1.equals("null") || card2.equals("null")) {
-                String scard1 = "null";
-                int checkedCount = 0;
-                if (checkbox1.isChecked()) {
-                    checkedCount++;
-                    scard1 = checkbox1.getText().toString();
-                } else {
-                    scard1 = "null"; // Reset scard1 if checkbox1 is unchecked
-                }
-                if (checkbox2.isChecked()) {
-                    scard1 = checkbox2.getText().toString();
-                    checkedCount++;
-                } else {
-                    scard1 = "null"; // Reset scard1 if checkbox2 is unchecked
-                }
+            // Variables to hold the selections
+            String selectedCard1 = "null";
+            String selectedCard2 = "null";
 
-                if (checkedCount == 0) {
-                    // No checkbox is selected
-                    Toast.makeText(PlayActivity.this, "Please select at least one option", Toast.LENGTH_SHORT).show();
-                } else if (checkedCount > 1) {
-                    // More than one checkbox is selected
-                    Toast.makeText(PlayActivity.this, "You can only select up to one option", Toast.LENGTH_SHORT).show();
+            // Check the state of each checkbox and record the selected ones
+            if (checkbox1.isChecked()) {
+                if (selectedCard1.equals("null")) {
+                    selectedCard1 = checkbox1.getText().toString();
                 } else {
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("playerEmail", Const.getCurrentEmail());
-                        jsonObject.put("move", "*Exchange");
-                        jsonObject.put("targetPlayer", "null");
-                        jsonObject.put("card1", scard1);
-                        jsonObject.put("card2", "null");
-                        Log.d("Websocket", "MoveMade: Bluff");
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    String jsonStr = jsonObject.toString();
-                    WebSocketManager.getInstance().sendMessage(jsonStr);
+                    selectedCard2 = checkbox1.getText().toString();
+                }
+            }
+            if (checkbox2.isChecked()) {
+                if (selectedCard1.equals("null")) {
+                    selectedCard1 = checkbox2.getText().toString();
+                } else {
+                    selectedCard2 = checkbox2.getText().toString();
+                }
+            }
+            // Repeat this for any additional checkboxes
+            if (checkbox3.isChecked()) {
+                if (selectedCard1.equals("null")) {
+                    selectedCard1 = checkbox3.getText().toString();
+                } else {
+                    selectedCard2 = checkbox3.getText().toString();
+                }
+            }
+            if (checkbox4.isChecked()) {
+                if (selectedCard1.equals("null")) {
+                    selectedCard1 = checkbox4.getText().toString();
+                } else {
+                    selectedCard2 = checkbox4.getText().toString();
+                }
+            }
+            // Check the number of cards the user has
+            boolean hasTwoCards = !card1.equals("null") && !card2.equals("null");
+            boolean hasSelectedTwo = !selectedCard1.equals("null") && !selectedCard2.equals("null");
+            boolean hasSelectedAtLeastOne = !selectedCard1.equals("null") || !selectedCard2.equals("null");
+
+            if (hasTwoCards) {
+                // If the user has two cards, they must select exactly two checkboxes
+                if (!hasSelectedTwo) {
+                    Toast.makeText(PlayActivity.this, "Please select exactly two cards.", Toast.LENGTH_SHORT).show();
+                    return; // Do not proceed further
+                }
+            } else {
+                // If the user has one card, they must select at least one checkbox but not two
+                if (!hasSelectedAtLeastOne) {
+                    Toast.makeText(PlayActivity.this, "Please select at least one card.", Toast.LENGTH_SHORT).show();
+                    return; // Do not proceed further
+                }
+                if (hasSelectedTwo) {
+                    Toast.makeText(PlayActivity.this, "You can only select one card.", Toast.LENGTH_SHORT).show();
+                    return; // Do not proceed further
                 }
             }
 
-            else {
-                int checkedCount = 0;
-                String scard1 = "null";
-                String scard2 = "null";
-
-                if (checkbox1.isChecked()) {
-                    checkedCount++;
-                    scard1 = checkbox1.getText().toString();
-                }
-                if (checkbox2.isChecked()) {
-                    checkedCount++;
-                    scard2 = checkbox2.getText().toString();
-                }
-                if (checkbox3.isChecked()) {
-                    checkedCount++;
-                    if (scard1.equals("null")) {
-                        scard1 = checkbox3.getText().toString();
-                    } else {
-                        scard2 = checkbox3.getText().toString();
-                    }
-                }
-                if (checkbox4.isChecked()) {
-                    checkedCount++;
-                    if (scard1.equals("null")) {
-                        scard1 = checkbox4.getText().toString();
-                    } else {
-                        scard2 = checkbox4.getText().toString();
-                    }
-                }
-
-                if (checkedCount == 0) {
-                    // No checkbox is selected
-                    Toast.makeText(PlayActivity.this, "Please select at least one option", Toast.LENGTH_SHORT).show();
-                } else if (checkedCount > 2) {
-                    // More than two checkboxes are selected
-                    Toast.makeText(PlayActivity.this, "You can only select up to two options", Toast.LENGTH_SHORT).show();
-                } else {
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("playerEmail", Const.getCurrentEmail());
-                        jsonObject.put("move", "*Exchange");
-                        jsonObject.put("targetPlayer", "null");
-                        jsonObject.put("card1", scard1);
-                        jsonObject.put("card2", scard2);
-                        Log.d("Websocket", "MoveMade: Bluff");
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    String jsonStr = jsonObject.toString();
-                    WebSocketManager.getInstance().sendMessage(jsonStr);
-                }
+            // Proceed with the exchange
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("playerEmail", Const.getCurrentEmail());
+                jsonObject.put("move", "*Exchange");
+                jsonObject.put("targetPlayer", "null");
+                jsonObject.put("card1", selectedCard1);
+                jsonObject.put("card2", selectedCard2);
+                Log.d("Websocket", "MoveMade: Exchange");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
-
+            String jsonStr = jsonObject.toString();
+            WebSocketManager.getInstance().sendMessage(jsonStr);
 
         }
-
-    };
     private void addMessageToLayout(String username, String message) {
         //create a new view with xml layout and indicate where to add but dont attach yet
         View messageView = getLayoutInflater().inflate(R.layout.chat_item, layoutMessages1, false);
