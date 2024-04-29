@@ -39,9 +39,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
-    //has player order been determined (not using at current moment but might later)
-//    boolean playerOrder = false;
-
 
     //exchange
     CheckBox checkbox1;
@@ -51,7 +48,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     Button submitButton;
     private int checkedCount = 0;
     //timer
-    private CountDownTimer countDownTimer;
+//    private CountDownTimer countDownTimer;
     private TextView timerTextView;
     //game chat Views
     private LinearLayout layoutMessages1;
@@ -78,7 +75,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String exCard1;
     String exCard2;
     String playerState;
-    int turnIndex; //will be a value of 1-4
     //screen variables
     ImageView greenCard1;
     ImageView greenCard2;
@@ -92,8 +88,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     ImageView blueCard1;
     ImageView blueCard2;
     ImageView blueCard3;
-    ImageView cardIcon2;
-    ImageView cardIcon3;
+
     TextView numCoins1;
     TextView numCoins2;
     TextView numCoins3;
@@ -115,31 +110,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     //last move (this is used for case of blocking stealing)
     String lastMoveMade;
     int totalCoins = 0;
-//    @Override
-    //keep websocket open from LobbyActivity
-//@Override
-//protected void onStart() {
-//    super.onStart();
-//    loadMessages();
-//    Intent intent = getIntent();
-//
-//    // If it contains the extra data, process it
-//    if (intent.hasExtra("json_data")) {
-//
-//        try {
-//            String jsonData = intent.getStringExtra("json_data");
-//            JSONObject jsonObject2 = new JSONObject(jsonData);
-//            String jsonStr2 = jsonObject2.toString();
-//            WebSocketManager.getInstance().sendMessage(jsonStr2);
-//            Log.d("WebSocket", "Income sent");
-//            // Use the jsonObject as needed
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            // Handle the error appropriately
-//        }
-//    }
-//
-//}
+
 @Override
 protected void onPause() {
     super.onPause();
@@ -160,7 +131,6 @@ protected void onPause() {
     protected void onResume() {
         super.onResume();
         loadMessages();
-//        setupCheckboxes();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
 
@@ -191,43 +161,8 @@ protected void onPause() {
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
-//            e.printStackTrace();
             }
         }
-
-
-//        JSONObject jsonObject = new JSONObject();
-        //let backend know that player is ready to receive data
-//        try {
-//            jsonObject.put("playerEmail", Const.getCurrentEmail());
-//            jsonObject.put("move", "ready");
-//            jsonObject.put("targetPlayer", "null");
-//        } catch (JSONException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String jsonStr = jsonObject.toString();
-//        WebSocketManager.getInstance().sendMessage(jsonStr);
-
-
-        // Get the intent that started this activity
-//        Intent intent = getIntent();
-//
-//        // If it contains the extra data, process it
-//        if (intent.hasExtra("json_data")) {
-//
-//            try {
-//                String jsonData = intent.getStringExtra("json_data");
-//                JSONObject jsonObject2 = new JSONObject(jsonData);
-//                String jsonStr2 = jsonObject2.toString();
-//                WebSocketManager.getInstance().sendMessage(jsonStr2);
-//                Log.d("WebSocket", "Income sent");
-//                // Use the jsonObject as needed
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//                // Handle the error appropriately
-//            }
-//        }
-//
 
 
         Log.d("GameDebug", "Player State Resume: " + playerState);
@@ -258,8 +193,6 @@ protected void onPause() {
         String jsonStr = jsonObject.toString();
         WebSocketManager.getInstance().sendMessage(jsonStr);
 
-//        startTimer();
-//        loadMessages();
         // link Play activity XML
         setContentView(R.layout.activity_play);
         //exchange buttons
@@ -276,7 +209,6 @@ protected void onPause() {
          playerIcon2 = findViewById(R.id.person2);
          playerIcon3 = findViewById(R.id.person3);
          playerIcon4 = findViewById(R.id.person4);
-
 
 
         // Set a click listener for the button
@@ -455,11 +387,6 @@ protected void onPause() {
             }
         });
 
-        // Create and show the AlertDialog
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-
-
 
         loadMessages();
         openChat.setOnClickListener(new View.OnClickListener() {
@@ -470,17 +397,6 @@ protected void onPause() {
                 startActivity(intent);
             }
         });
-//        Button testButton = findViewById(R.id.btn123);
-//        testButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                ImageView playerIcon = findViewById(R.id.person3); // Replace with your actual ImageView ID.
-////                // Apply the pulse animation.
-////                Animation pulse = AnimationUtils.loadAnimation(PlayActivity.this, R.anim.pulse_animation);
-////                playerIcon.startAnimation(pulse);
-//                updatePlayerStateUi();
-//            }
-//        });
         submitText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -594,19 +510,7 @@ protected void onPause() {
                                         Player4 = viewEmail;
                                     }
                                 }
-                                //check lives of other 3 players to know if they are still alive(this is for action against other players)
-//                                if (player.getInt("lives") == 0){
-//                                    //dont need to check themselves
-//                                    if (playerEmail.equals(Player2)){
-//                                        Player2 = null;
-//                                    }
-//                                    else if (playerEmail.equals(Player3)){
-//                                        Player3 = null;
-//                                    }
-//                                    else if (playerEmail.equals(Player4)){
-//                                        Player4 = null;
-//                                    }
-//                                }
+
                                 // Updating player state and cards for the current -player
                                 playerState = player.getString("playerState");
                                 card1 = player.getString("cardOne");
@@ -662,9 +566,7 @@ protected void onPause() {
                         }
                         updatePlayerStateUi();
                         setupCheckboxes();
-                        if (playerState.equals("contest") || playerState.equals("challenge")){
-                            startTimer();
-                        }
+
                         Log.d("GameDebug", "Player State: " + playerState);
                     } catch (JSONException e) {
                         Log.e("WebSocket", "Error parsing JSON in UI thread", e);
@@ -1366,18 +1268,7 @@ protected void onPause() {
         // After adding the message, scroll to the bottom of the scrollViewMessages to show the latest message.
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
     };
-    //timer
-    private void startTimer() {
-        countDownTimer = new CountDownTimer(60000, 1000) { // 60 seconds with 1 second tick
-            public void onTick(long millisUntilFinished) {
-                timerTextView.setText("seconds remaining: " + millisUntilFinished / 1000);
-            }
 
-            public void onFinish() {
-                timerTextView.setText("done!");
-            }
-        }.start();
-    };
     private void loadMessages() {
         List<String[]> existingMessages = ChatManager.getInstance().getMessages();
         for (String[] messageData : existingMessages) {

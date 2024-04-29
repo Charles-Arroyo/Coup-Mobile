@@ -302,10 +302,8 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/oval4"
             app:layout_constraintEnd_toEndOf="@+id/oval4"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/oval4"
-            app:layout_constraintTop_toTopOf="@+id/oval4"
-            app:layout_constraintVertical_bias="0.524" />
+            app:layout_constraintTop_toTopOf="@+id/oval4" />
 
         <ImageView
             android:id="@+id/oval2"
@@ -418,24 +416,24 @@
 <!--            app:layout_constraintTop_toTopOf="@+id/imageView" />-->
 
 
-        <ScrollView
-            android:id="@+id/scrollViewMessages1"
-            android:layout_width="380dp"
-            android:layout_height="170dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+<!--        <ScrollView-->
+<!--            android:id="@+id/scrollViewMessages1"-->
+<!--            android:layout_width="380dp"-->
+<!--            android:layout_height="170dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.0">-->
 
-            <LinearLayout
-                android:id="@+id/layoutMessages1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- Messages will be added here dynamically -->
-            </LinearLayout>
-        </ScrollView>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutMessages1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
+<!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
+<!--            </LinearLayout>-->
+<!--        </ScrollView>-->
 
         <ImageView
             android:id="@+id/imageView4"
@@ -708,7 +706,24 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_bias="0.85" />
+        <ScrollView
+            android:id="@+id/scrollViewMessages1"
+            android:layout_width="380dp"
+            android:layout_height="170dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
+            <LinearLayout
+                android:id="@+id/layoutMessages1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Messages will be added here dynamically -->
+            </LinearLayout>
+        </ScrollView>
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
 
