@@ -2,7 +2,6 @@ package com.example.coupv2;
 
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
@@ -97,7 +96,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         // Initialize UI elements
         playButton = findViewById(R.id.game);
-        friendsButton = findViewById(R.id.list_btn);
+        friendsButton = findViewById(R.id.friends_button);
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
@@ -121,7 +120,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         });
 
-                    // Play Button
+        // Play Button
         playButton.setOnClickListener(v -> {
             // Start the looby activity
             Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
@@ -131,17 +130,18 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         });
         // Friends Button
         friendsButton.setOnClickListener(v -> {
-             Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
+            Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
         // Settings Button
         settingsButton.setOnClickListener(v -> {
-             Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
+            Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
             startActivity(intent);
         });
         // Stats Button
         statsButton.setOnClickListener(v -> {
-            showUserStats(user);
+            Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
+            startActivity(intent);
         });
         // Return Button
         logoffButton.setOnClickListener(v -> {
@@ -288,7 +288,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         } else if (rank == 3) {
             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.bronze)));
         } else {
-             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
+            btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
         }
 
 
@@ -304,13 +304,13 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
 
     private void showUserStats(String username) {
-         Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, StatsActivity.class);
-        intent.putExtra("USERNAME", username);
+//        Intent intent = new Intent(this, StatsActivity.class);
+//        intent.putExtra("USERNAME", username);
 
         // Launch StatsActivity as a dialog
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
     /**
      * Sets a bottom dialog for a global messaging activity which connects from everyone in the game
@@ -370,7 +370,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
                 addMessageToLayout(username, message);
             } else {
-                 addMessageToLayout("Server", fullMessage);
+                addMessageToLayout("Server", fullMessage);
             }
         });
     }
@@ -488,9 +488,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         builder.setView(dialogLayout);
         AlertDialog dialog = builder.create();
 
-         dialogLayout.setOnClickListener(v -> dialog.dismiss());
+        dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
-         if (dialog.getWindow() != null) {
+        if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 
@@ -505,7 +505,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     protected void onResume() {
         super.onResume();
         WebSocketManager.getInstance().setWebSocketListener(this);
-        WebSocketManager.getInstance().sendMessage("getFriends");
     }
 
     /**
@@ -531,3 +530,4 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
 
 }
+

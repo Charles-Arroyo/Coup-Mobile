@@ -7,9 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.java_websocket.handshake.ServerHandshake;
-
 import com.example.coupv2.utils.Const;
+
+import org.java_websocket.handshake.ServerHandshake;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
@@ -79,5 +79,6 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     public void onWebSocketError(Exception ex) {}
+
 
 }

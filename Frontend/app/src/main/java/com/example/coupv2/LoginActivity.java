@@ -27,10 +27,10 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private Button loginButton;
     private Button signupButton;
 
-    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
+    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8443/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8445/signin";
     // success
 //    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
 
@@ -109,11 +109,10 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                         }
                         else if (success.equals("true")){
                             Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
-                            mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
                             Const.setCurrentEmail(emailId);
                             String serverUrl = ACTIVE_URL + emailId;
-                            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+                            WebSocketManager2.getInstance().connectWebSocket(serverUrl);
 
                         } else {
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -175,4 +174,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     public void onWebSocketError(Exception ex) {
 
     }
+
+
 }

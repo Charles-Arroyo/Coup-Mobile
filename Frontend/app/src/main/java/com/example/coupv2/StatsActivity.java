@@ -7,6 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,10 @@ public class StatsActivity extends AppCompatActivity {
             playerRank, playerAverage;
     private String currentUserEmail;
     private Button back, email;
+    public static final String URL_IMAGE = "http://10.0.2.2:8080/images/1";
+
+
+
 
 
     @Override
@@ -35,7 +40,7 @@ public class StatsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String currEmail = intent.getStringExtra("USERNAME");
 
-
+        currentUserEmail = Const.getCurrentEmail();
 
         // Initialize TextViews
         email = findViewById(R.id.stats_user);
@@ -46,6 +51,7 @@ public class StatsActivity extends AppCompatActivity {
         playerRank = findViewById(R.id.stats_rank);
         playerAverage = findViewById(R.id.stats_average);
         back = findViewById(R.id.back_stats);
+//        pfp = (ImageView) findViewById(R.id.stats_profile_picture);
 
 
 
@@ -59,12 +65,41 @@ public class StatsActivity extends AppCompatActivity {
 
         email.setAnimation(pulse);
         // Now fetch the primary key using the current user's email
-        getUserStats(currEmail);
+        getUserStats();
     }
 
-    private void getUserStats(String email) {
-//        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/" + email;
-        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/" + email;
+
+//    private void makeImageRequest() {
+//
+//        ImageRequest imageRequest = new ImageRequest(
+//                URL_IMAGE,
+//                response -> {
+//                    // Display the image in the ImageView
+//                    imageView.setImageBitmap(response);
+//                },
+//                0, // Width, set to 0 to get the original width
+//                0, // Height, set to 0 to get the original height
+//                ImageView.ScaleType.FIT_XY, // ScaleType
+//                Bitmap.Config.RGB_565, // Bitmap config
+//
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        // Handle errors here
+//                        Log.e("Volley Error", error.toString());
+//                    }
+//                }
+//        );
+//
+//        // Adding request to request queue
+//        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(imageRequest);
+//    }
+
+
+    private void getUserStats() {
+        //        String STATS_URL = "https://coms-309-023.class.las.iastate.edu:8443/getStats/" + currentUserEmail;
+
+        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
                 response -> {
@@ -72,15 +107,15 @@ public class StatsActivity extends AppCompatActivity {
                     try {
                         int wins = response.getInt("wins");
                         int losses = response.getInt("losses");
-                        double average =  (wins / (wins + losses)) * 100;
+                        double average = ((double) wins / (wins + losses)) * 100; // Corrected average calculation
                         int score = response.getInt("score");
-                        int rank = response.optInt("rank");
+                        int rank = response.getInt("rank");
                         int gamesPlayed = wins + losses;
 
                         playerWins.setText(String.format("Wins: %d", wins));
                         playerLosses.setText(String.format("Losses: %d", losses));
                         playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
-                        playerAverage.setText(String.format("Average Wins: %d", average));
+                        playerAverage.setText(String.format("Average Wins: %.2f%%", average));
                         playerScore.setText(String.format("Score: %d", score));
                         playerRank.setText(String.format("Rank: %d", rank));
                     } catch (Exception e) {
@@ -89,6 +124,7 @@ public class StatsActivity extends AppCompatActivity {
                 },
                 error -> {
                     Log.e("StatsActivity", "Volley error: " + error.toString());
+                    Toast.makeText(getApplicationContext(), "Failed to load stats", Toast.LENGTH_SHORT).show();
                     if (error.networkResponse != null) {
                         Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
                     }
@@ -98,5 +134,6 @@ public class StatsActivity extends AppCompatActivity {
         RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
         requestQueue.add(jsonObjectRequest);
     }
+
 }
 

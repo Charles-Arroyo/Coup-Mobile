@@ -28,7 +28,7 @@ public class LoginTest {
 
     @Test
     public void normalLogin() {
-        String email = "bpd@iastate.edu";
+        String email = "pizza";
         String password = "123";
 
         onView(withId(R.id.login_email_edt)).perform(typeText(email), closeSoftKeyboard());
@@ -76,7 +76,7 @@ public class LoginTest {
 
 
 
-     }
+    }
 
     @Test
     public void noPasswordLogin() {

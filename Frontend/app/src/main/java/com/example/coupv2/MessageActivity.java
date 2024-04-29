@@ -26,7 +26,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     private ScrollView scrollViewMessages;
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chatFriend/";
     //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chatFriend/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chatFriend/";
 
     private ArrayList<String> messagesList = new ArrayList<>();
     private String selectedFriendEmail; // Moved the initialization to onCreate
@@ -47,6 +47,10 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
 
         BASE_URL = BASE_URL  + user + "/" + selectedFriendEmail;
 
+        WebSocketManager.getInstance().connectWebSocket(BASE_URL);
+        WebSocketManager.getInstance().setWebSocketListener(this);
+
+
         msg = findViewById(R.id.msg);
         title = findViewById(R.id.tittle);
         scrollViewMessages = findViewById(R.id.scrollViewMessages);
@@ -54,8 +58,6 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         Button sendBtn = findViewById(R.id.send_btn);
         ImageButton backButton = findViewById(R.id.back_btn);
 
-        WebSocketManager.getInstance().connectWebSocket(BASE_URL);
-        WebSocketManager.getInstance().setWebSocketListener(MessageActivity.this);
 
         title.setText(selectedFriendEmail);
         sendBtn.setOnClickListener(v -> {
@@ -142,27 +144,6 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
         runOnUiThread(() -> {
             messagesList.add("WebSocket error: " + ex.getMessage());
         });
-    }
-
-
-    /**
-     * Websocket method to pause websocket connection when leaving activity
-     */
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        WebSocketManager.getInstance().removeWebSocketListener();
-    }
-
-    /**
-     * Method to disconnect when server breaks in the Web Socket
-     */
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        WebSocketManager.getInstance().removeWebSocketListener();
     }
 
 
