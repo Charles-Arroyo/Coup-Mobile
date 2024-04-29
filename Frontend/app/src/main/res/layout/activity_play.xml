@@ -49,26 +49,27 @@
 
 
 <!--        action move layout if turn-->
+        <!--        action move layout if waiting-->
         <ImageView
             android:id="@+id/gameBoard"
             android:layout_width="194dp"
             android:layout_height="178dp"
+            android:src="@drawable/action"
             android:visibility="visible"
-            android:src="@drawable/imageview_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".3"
-            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.37"
+            app:layout_constraintVertical_bias="0.377"
             app:layout_constraintWidth_percent="0.6" />
-        <!--        action move layout if waiting-->
+
         <ImageView
             android:id="@+id/gameBoard_wait"
             android:layout_width="194dp"
             android:layout_height="178dp"
-            android:src="@drawable/group_23"
+            android:src="@drawable/waiting"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
             android:id="@+id/gameBoard_dead"
             android:layout_width="194dp"
             android:layout_height="178dp"
-            android:src="@drawable/dead"
+            android:src="@drawable/wasted"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -521,7 +522,9 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.367"
-            app:srcCompat="@drawable/biggreyblockj" />
+            app:srcCompat="@drawable/contest" />
+
+
 
         <ImageView
             android:id="@+id/smallwhite1"
