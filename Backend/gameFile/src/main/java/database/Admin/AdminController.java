@@ -64,8 +64,11 @@ public class AdminController {
      * @return
      */
     @GetMapping(path = "/users")
-    List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Map<String, Object> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        Map<String, Object> response = new HashMap<>();
+        response.put("users", users);
+        return response;
     }
 
 
@@ -130,16 +133,34 @@ public class AdminController {
      * @param userEmail
      * @return
      */
+    @Transactional
     @DeleteMapping(path = "/deleteUser/{userEmail}")
     public ResponseEntity<?> deleteUser(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"User not found\"}");
         }
+
+        // Remove the user from the lobby
+        user.setLobby(null);
+
+        // Remove the user from the ranking
+        user.setRanking(null);
+
+
+        // Delete the associated stat record
+        Stat stat = user.getStat();
+        if (stat != null) {
+            statRepository.delete(stat);
+        }
+
+        signinRepository.deleteSigninByUser(user);
+
+        // Delete the user
         userRepository.delete(user);
+
         return ResponseEntity.ok("{\"success\":true}");
     }
-
     /**
      * This will allow the Admin to reset
      * the score
@@ -190,6 +211,32 @@ public class AdminController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @GetMapping(path = "/globalStat")
+    public ResponseEntity<?> globalStat(){
+        User user;
+        int allUsers = userRepository.findAll().size();
+        int i = 0;
+        int active = 0;
+        int notActive = 0;
+
+        while(i < allUsers) {
+            user = userRepository.findAll().get(i);
+            if(user.isActive()){
+                active++;
+            }else{
+                notActive++;
+            }
+            i++;
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("total_players", allUsers);
+        response.put("active_players", active);
+        response.put("not_active_players", notActive);
+        return ResponseEntity.ok(response);
+
     }
 
 

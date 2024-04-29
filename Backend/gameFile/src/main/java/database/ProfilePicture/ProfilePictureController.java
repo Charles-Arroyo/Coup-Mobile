@@ -55,11 +55,16 @@ public class ProfilePictureController {
     @GetMapping("/profilePicture/{userEmail}")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
-        if (user == null || user.getProfilePicture() == null) {
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        byte[] pictureData = user.getProfilePicture().getData();
+        ProfilePicture profilePicture = user.getProfilePicture();
+        if (profilePicture == null || profilePicture.getData() == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+
+        byte[] pictureData = profilePicture.getData();
         return ResponseEntity.ok(pictureData);
     }
 }

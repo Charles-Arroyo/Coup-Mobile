@@ -1,3 +1,4 @@
+database\Theme\ThemeRepository.class
 database\Game\Card.class
 database\Game\GameRepository.class
 database\Main.class
@@ -38,11 +39,13 @@ database\Signin\SigninRepository.class
 database\Lobby\Lobby.class
 database\ProfilePicture\ProfilePictureRepository.class
 database\Websocketconfig\WebsocketConfig.class
+database\Theme\ThemeController.class
 database\ProfilePicture\ProfilePictureController.class
 database\Game\Deck.class
 database\Admin\AdminRepository.class
 database\Stats\Stat.class
 database\FriendChat\FriendChatSocket.class
+database\Theme\Theme.class
 database\FriendRequest\FriendRequestRepository.class
 database\Game\Player.class
 database\Chat\MessageRepository.class

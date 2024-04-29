@@ -28,6 +28,7 @@ public class StatController {
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
 
+    @Autowired
     private RankingController rankingController;
 
 
