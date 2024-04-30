@@ -2,7 +2,7 @@ package com.example.coupv2;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +30,6 @@ import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.coupv2.utils.Const;
 
@@ -40,24 +38,21 @@ import java.util.Objects;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
 
-    //exchange
+    //exchange setup
     CheckBox checkbox1;
     CheckBox checkbox2;
     CheckBox checkbox3;
     CheckBox checkbox4;
     Button submitButton;
     private int checkedCount = 0;
-    //timer
-//    private CountDownTimer countDownTimer;
-    private TextView timerTextView;
-    //game chat Views
+    //chat layout views
     private LinearLayout layoutMessages1;
     private ScrollView scrollViewMessages;
-    private ImageButton submitText;
-    private EditText chatMessage;
-    private ImageButton openChat;
-    //views for when player is waiting
+    //view for text icon down screen
+    ImageView textBox;
+    //view for when player is waiting
     ImageView waitingOverlay;
+    //view for when player is dead
     ImageView deadOverLay;
     //views for when player turn
     private ImageView gameBoard;
@@ -72,9 +67,18 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     //player variables
     String card1;
     String card2;
-    String exCard1;
-    String exCard2;
+    String exCard1;   //used for exchange
+    String exCard2;   //used for exchange
+    //store current user coins
+    int totalCoins = 0;
     String playerState;
+    //last move (this is used for case of blocking stealing)
+    String lastMoveMade;
+    //order of game for current player
+    String Player1;
+    String Player2;
+    String Player3;
+    String Player4;
     //screen variables
     ImageView greenCard1;
     ImageView greenCard2;
@@ -88,57 +92,26 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     ImageView blueCard1;
     ImageView blueCard2;
     ImageView blueCard3;
-
     TextView numCoins1;
     TextView numCoins2;
     TextView numCoins3;
     TextView numCoins4;
-    //order of game for current player
-    String Player1;
-    String Player2;
-    String Player3;
-    String Player4;
-
-
+    //view for player icons
     ImageView playerIcon1;
     ImageView playerIcon2;
     ImageView playerIcon3;
     ImageView playerIcon4;
 
-
-
-    //last move (this is used for case of blocking stealing)
-    String lastMoveMade;
-    int totalCoins = 0;
-
-@Override
-protected void onPause() {
-    super.onPause();
-    Log.d("ActivityLifecycle", "onPause called");
-}
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("ActivityLifecycle", "onStop called");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("ActivityLifecycle", "onDestroy called");
-    }
     @Override
     protected void onResume() {
         super.onResume();
+        //load messages
         loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
-
-        Log.d("ActivityLifecycle", "onResume called");
-        // Get the intent that started this activity
+        // Get the intent that started this activity(this is used from action activity)
         Intent intent = getIntent();
         if (intent.hasExtra("playerEmail") && intent.hasExtra("move") && intent.hasExtra("targetPlayer")) {
-            Log.d("GameDebug", "We in ");
             // Retrieve the data from the intent
             String pE = intent.getStringExtra("playerEmail");
             String mov = intent.getStringExtra("move");
@@ -146,7 +119,6 @@ protected void onPause() {
             try {
                 // Create a new JSONObject
                 JSONObject jsonObject = new JSONObject();
-
                 // Put each piece of data into the JSONObject with a key
                 jsonObject.put("playerEmail", pE);
                 jsonObject.put("move", mov);
@@ -156,27 +128,15 @@ protected void onPause() {
                 // Use jsonObject.toString() to get JSON string representation
                 String jsonString = jsonObject.toString();
                 WebSocketManager.getInstance().sendMessage(jsonString);
-                Log.d("Websocket", "MoveMade:" + mov);
-                // Now you can use jsonString for your purposes, like sending it over a network
-
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }
-
-
-        Log.d("GameDebug", "Player State Resume: " + playerState);
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("ActivityLifecycle", "onStart called");
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ActivityLifecycle", "onCreate called");
-//        loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
         JSONObject jsonObject = new JSONObject();
@@ -195,23 +155,19 @@ protected void onPause() {
 
         // link Play activity XML
         setContentView(R.layout.activity_play);
-        //exchange buttons
+        //exchange buttons and setup
          checkbox1 = findViewById(R.id.radioButton);
          checkbox2 = findViewById(R.id.radioButton1);
          checkbox3 = findViewById(R.id.radioButton2);
          checkbox4 = findViewById(R.id.radioButton3);
-        submitButton = findViewById(R.id.button5);
-        submitButton.setOnClickListener(submitExchange);
-
-
+         submitButton = findViewById(R.id.button5);
+         submitButton.setOnClickListener(submitExchange);
         //playericons
         playerIcon1 = findViewById(R.id.person1);
          playerIcon2 = findViewById(R.id.person2);
          playerIcon3 = findViewById(R.id.person3);
          playerIcon4 = findViewById(R.id.person4);
-
-
-        // Set a click listener for the button
+        // Set a click listeners for player icons
         playerIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,14 +188,11 @@ protected void onPause() {
                         dialog.dismiss();
                     }
                 });
-
                 // Create and show the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
         });
-
-        // Set a click listener for the button
         playerIcon2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -266,7 +219,6 @@ protected void onPause() {
                 dialog.show();
             }
         });
-        // Set a click listener for the button
         playerIcon3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -293,7 +245,6 @@ protected void onPause() {
                 dialog.show();
             }
         });
-        // Set a click listener for the button
         playerIcon4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -321,15 +272,10 @@ protected void onPause() {
             }
         });
 
-
-
-
-
-        //assign screen views
+        //assign player cards
         greenCard1 = findViewById(R.id.player1);
         greenCard2 = findViewById(R.id.player2);
         greenCard3 = findViewById(R.id.player3);
-        //assign card listeners
         greenCard1.setOnClickListener(card1ClickListener);
         greenCard2.setOnClickListener(card2ClickListener);
         greenCard3.setOnClickListener(card3ClickListener);
@@ -343,16 +289,15 @@ protected void onPause() {
         yellowCard1 = findViewById(R.id.yellowicon1);
         yellowCard2 = findViewById(R.id.yellowicon2);
         yellowCard3 = findViewById(R.id.yellowicon3);
+        //assign coins
          numCoins1 = findViewById(R.id.oval1Text);
          numCoins2 = findViewById(R.id.oval2Text);
          numCoins3 = findViewById(R.id.oval3Text);
          numCoins4 = findViewById(R.id.oval4Text);
-        //assign chat views
+        //chat layout views
         scrollViewMessages = findViewById(R.id.scrollViewMessages1);
         layoutMessages1 = findViewById(R.id.layoutMessages1);
-        chatMessage =  findViewById(R.id.chatText);
-        submitText =  findViewById(R.id.submitText);
-        openChat = findViewById(R.id.imageButton2);
+        textBox =  findViewById(R.id.imageView4);
         //assign view for when player is waiting
         waitingOverlay = findViewById(R.id.gameBoard_wait);
         //assign view for when player is dead
@@ -365,13 +310,8 @@ protected void onPause() {
         smallwhite2 = findViewById(R.id.smallwhite2);
         longwhite = findViewById(R.id.longwhite);
         bigBlock = findViewById(R.id.BIGBLOCK);
-        //assign timer view
-        timerTextView = findViewById(R.id.timerText);
-
-
-        // Create an AlertDialog builder
+        // Create an AlertDialog builder for current player
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         // Set the title and message of the dialog
         builder.setTitle("Player Information");
         builder.setMessage("Username: " + Const.getCurrentEmail());
@@ -384,32 +324,13 @@ protected void onPause() {
             }
         });
 
-
         loadMessages();
-        openChat.setOnClickListener(new View.OnClickListener() {
+        //open up chat
+        textBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                go to new activity when clicked on
-                Intent intent = new Intent(PlayActivity.this, GameChatActivity.class);
-                startActivity(intent);
-            }
-        });
-        submitText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String messageToSend = chatMessage.getText().toString();
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "@" + messageToSend);
-                    jsonObject.put("targetPlayer", "null");
-                    jsonObject.put("card1", "null");
-                    jsonObject.put("card2", "null");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
+                showDialog();
             }
         });
 
@@ -435,17 +356,21 @@ protected void onPause() {
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
         }
+//        else if(){
+//
+//        }
+
 
         // Unknown format
         else {
             Log.e("WebSocket", "Received message in unknown format: " + message);
         }
     }
-    //how to handle chat data
-    private void processStringMessage(String message) {
+//    how to handle chat data
 
-        // Extract the username and message from the string
+    private void processStringMessage(String message) {
         int colonIndex = message.indexOf(":");
+        // Extract the username and message from the string
         if (colonIndex != -1) {
             String usernameMessage = message.substring(0, colonIndex).trim();
             String messageContent = message.substring(colonIndex + 1).trim().replaceAll("^'(.*)'$", "$1");
@@ -453,9 +378,7 @@ protected void onPause() {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    // Update UI components with the username and message
-                    // ...
-//                    addMessageToLayout(usernameMessage, messageContent);
+
                     sendMessage(usernameMessage, messageContent);
                 }
             });
@@ -470,7 +393,6 @@ protected void onPause() {
             JSONObject jsonObject = new JSONObject(message);
             // Parse game object
             JSONObject game = jsonObject.getJSONObject("Game");
-//            JSONObject deck = jsonObject.getJSONObject("deck");
             JSONObject currentPlayer = game.getJSONObject("currentPlayer");
             // Read the player array
             final JSONArray playerArray = game.getJSONArray("playerArrayList");
@@ -557,9 +479,6 @@ protected void onPause() {
                             if (player.getBoolean("turn")) {
                                 updatePlayerTurnUi(playerEmail);
                             }
-//                            if (player.getBoolean("")) {
-//                                updatePlayerTurnUi(playerEmail);
-//                            }
                         }
                         updatePlayerStateUi();
                         setupCheckboxes();
@@ -578,9 +497,6 @@ protected void onPause() {
 
 
     @Override
-//    public void onWebSocketClose(int code, String reason, boolean remote) {
-//        Log.e("WebSocketListener", Player1 + " disconnected");
-//    }
     public void onWebSocketClose(int code, String reason, boolean remote) {
         // Log the closure information with the player name, code, reason, and initiator.
         String initiator = remote ? "Remote" : "Local";
@@ -600,8 +516,6 @@ protected void onPause() {
                 break;
         }
 
-        // Do any additional cleanup or state updates needed on closure
-        // ...
     }
 
     //check if player is waiting
@@ -781,21 +695,7 @@ protected void onPause() {
         longwhite.setOnClickListener(null);
         }
     }
-    //update player coins
-//    public void updatePlayerCoinsUi(int totalCoins, int numOfTurn){
-//        if (numOfTurn == 1){
-//            numCoins1.setText(String.valueOf(totalCoins));
-//        }
-//        else if (numOfTurn == 2){
-//            numCoins2.setText(String.valueOf(totalCoins));
-//        }
-//        else if (numOfTurn == 3){
-//            numCoins3.setText(String.valueOf(totalCoins));
-//        }
-//        else if (numOfTurn == 4){
-//            numCoins4.setText(String.valueOf(totalCoins));
-//        }
-//    }
+
     public void updatePlayerCoinsUi(int totalCoins, String currentPlayer){
         if (currentPlayer.equals(Player1)){
             numCoins1.setText(String.valueOf(totalCoins));
@@ -895,10 +795,6 @@ protected void onPause() {
         }
     }
     public void updatePlayerTurnUi(String currentPlayer){
-//        ImageView playerIcon1 = findViewById(R.id.person1);
-//        ImageView playerIcon2 = findViewById(R.id.person2);
-//        ImageView playerIcon3 = findViewById(R.id.person3);
-//        ImageView playerIcon4 = findViewById(R.id.person4);
 
         // Stop any animations that are currently running on all player icons
         playerIcon1.clearAnimation();
@@ -1066,7 +962,6 @@ protected void onPause() {
                         return true;
                     }
                 });
-
                 // Showing the popup
                 popup.show();
             }
@@ -1130,11 +1025,9 @@ protected void onPause() {
         }
     };
 
-
     private View.OnClickListener submitExchange = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
 
             if (Objects.equals(playerState, "Exchange2")) {
                 // Variables to hold the selections
@@ -1167,15 +1060,12 @@ protected void onPause() {
                     }
                 }
 
-
-
                 // Verify that two cards are selected
                 if (selectedCard1.equals("null") || selectedCard2.equals("null")) {
                     // If less than two cards are selected, inform the user and do not proceed
                     Toast.makeText(PlayActivity.this, "You must select at least two cards to proceed", Toast.LENGTH_SHORT).show();
                     return; // Exit the onClick method early
                 }
-
 
                 // Proceed with the exchange
                 JSONObject jsonObject = new JSONObject();
@@ -1203,9 +1093,6 @@ protected void onPause() {
                 if (checkbox2.isChecked()) {
                     selectedCard1 = checkbox2.getText().toString();
                 }
-
-
-
 
                 // Verify that two cards are selected
                 if (selectedCard1.equals("null") ) {
@@ -1253,6 +1140,42 @@ protected void onPause() {
         }
     };
 
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Chat Message");
+        // Set up the input
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        builder.setView(input);
+        // Set up the buttons
+        builder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String message = input.getText().toString();
+//                String messageToSend = chatMessage.getText().toString();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("playerEmail", Const.getCurrentEmail());
+                    jsonObject.put("move", "@" + message);
+                    jsonObject.put("targetPlayer", "null");
+                    jsonObject.put("card1", "null");
+                    jsonObject.put("card2", "null");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                String jsonStr = jsonObject.toString();
+                WebSocketManager.getInstance().sendMessage(jsonStr);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
 
     public void sendMessage(String username, String message) {
         // Add message to layout
@@ -1284,7 +1207,6 @@ protected void onPause() {
         checkbox2 = findViewById(R.id.radioButton1);
         checkbox3 = findViewById(R.id.radioButton2);
         checkbox4 = findViewById(R.id.radioButton3);
-
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
