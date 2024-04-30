@@ -15,13 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <!-- Icons and timer go here -->
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:srcCompat="@drawable/timericon"-->
-<!--            tools:layout_editor_absoluteX="14dp"-->
-<!--            tools:layout_editor_absoluteY="4dp" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView3"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:srcCompat="@drawable/timericon"-->
+        <!--            tools:layout_editor_absoluteX="14dp"-->
+        <!--            tools:layout_editor_absoluteY="4dp" />-->
     </LinearLayout>
 
     <!-- Central grid area -->
@@ -48,7 +48,7 @@
 
 
 
-<!--        action move layout if turn-->
+        <!--        action move layout if turn-->
         <ImageView
             android:id="@+id/gameBoard"
             android:layout_width="194dp"
@@ -98,34 +98,34 @@
 
 
         <!--        green icons-->
-<!--        <ImageView-->
-<!--            android:id="@+id/greenIcon1"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="88dp"-->
-<!--            android:src="@drawable/greeniconshape"-->
-<!--            android:visibility="visible"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/greenIcon1"-->
+        <!--            android:layout_width="45dp"-->
+        <!--            android:layout_height="88dp"-->
+        <!--            android:src="@drawable/greeniconshape"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/greenIcon2"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="88dp"-->
-<!--            android:src="@drawable/greeniconshape"-->
-<!--            android:visibility="visible"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/greenIcon2"-->
+        <!--            android:layout_width="45dp"-->
+        <!--            android:layout_height="88dp"-->
+        <!--            android:src="@drawable/greeniconshape"-->
+        <!--            android:visibility="visible"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/greenIcon3"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="88dp"-->
-<!--            android:src="@drawable/greeniconshape"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
-<!--        yellow icons-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/greenIcon3"-->
+        <!--            android:layout_width="45dp"-->
+        <!--            android:layout_height="88dp"-->
+        <!--            android:src="@drawable/greeniconshape"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+        <!--        yellow icons-->
         <ImageView
             android:id="@+id/yellowicon1"
             android:layout_width="45dp"
@@ -159,7 +159,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_bias="0.487" />
 
-            <!--blue icons-->
+        <!--blue icons-->
         <ImageView
             android:id="@+id/blueIcon1"
             android:layout_width="45dp"
@@ -183,47 +183,47 @@
             app:layout_constraintVertical_bias="0.805" />
 
 
-            <ImageView
-                android:id="@+id/blueIcon3"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline5"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="@+id/guideline3"
-                app:layout_constraintVertical_bias="0.487" />
-<!--            red icons-->
-            <ImageView
-                android:id="@+id/redIcon1"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                app:layout_constraintEnd_toStartOf="@+id/guideline" />
+        <ImageView
+            android:id="@+id/blueIcon3"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/blueiconshape"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/guideline5"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintVertical_bias="0.487" />
+        <!--            red icons-->
+        <ImageView
+            android:id="@+id/redIcon1"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/rediconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline" />
 
-            <ImageView
-                android:id="@+id/redIcon2"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline2" />
-            <!--one life icon-->
-            <ImageView
-                android:id="@+id/redIcon3"
-                android:layout_width="45dp"
-                android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline3"
-                app:layout_constraintEnd_toStartOf="@+id/oval3"
-                app:layout_constraintHorizontal_bias="0.435"
-                app:layout_constraintStart_toStartOf="@+id/guideline2" />
+        <ImageView
+            android:id="@+id/redIcon2"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/rediconshape"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
+        <!--one life icon-->
+        <ImageView
+            android:id="@+id/redIcon3"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/rediconshape"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/oval3"
+            app:layout_constraintHorizontal_bias="0.435"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
-            <!--persons-->
+        <!--persons-->
         <ImageView
             android:id="@+id/person3"
             android:layout_width="53dp"
@@ -254,14 +254,14 @@
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <ImageView
-                android:id="@+id/person2"
-                android:layout_width="53dp"
-                android:layout_height="88dp"
-                android:src="@drawable/person"
-                app:layout_constraintStart_toStartOf="@+id/guideline7"
-                app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
+            android:id="@+id/person2"
+            android:layout_width="53dp"
+            android:layout_height="88dp"
+            android:src="@drawable/person"
+            app:layout_constraintStart_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />
 
-<!--            ovals-->
+        <!--            ovals-->
         <ImageView
             android:id="@+id/oval3"
             android:layout_width="53dp"
@@ -348,7 +348,7 @@
             app:layout_constraintStart_toStartOf="@+id/oval1"
             app:layout_constraintTop_toTopOf="@+id/oval1" />
 
-<!--guidelines-->
+        <!--guidelines-->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -390,74 +390,74 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.02" />
-<!--&lt;!&ndash;chat stuff&ndash;&gt;-->
-<!--            <ImageView-->
-<!--                android:id="@+id/imageView"-->
-<!--                android:layout_width="384dp"-->
-<!--                android:layout_height="207dp"-->
-<!--                android:visibility="visible"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/guideline5"-->
-<!--                app:layout_constraintVertical_bias="0.94"-->
-<!--                app:srcCompat="@drawable/chatbox" />-->
+        <!--&lt;!&ndash;chat stuff&ndash;&gt;-->
+        <!--            <ImageView-->
+        <!--                android:id="@+id/imageView"-->
+        <!--                android:layout_width="384dp"-->
+        <!--                android:layout_height="207dp"-->
+        <!--                android:visibility="visible"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="@+id/guideline5"-->
+        <!--                app:layout_constraintVertical_bias="0.94"-->
+        <!--                app:srcCompat="@drawable/chatbox" />-->
 
         <!-- Chat ListView goes here -->
-<!--        <ListView-->
-<!--            android:id="@+id/chat_list_view"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginBottom="207dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView" />-->
+        <!--        <ListView-->
+        <!--            android:id="@+id/chat_list_view"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_marginBottom="207dp"-->
+        <!--            android:background="@android:color/transparent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imageView" />-->
 
 
-<!--        <ScrollView-->
-<!--            android:id="@+id/scrollViewMessages1"-->
-<!--            android:layout_width="380dp"-->
-<!--            android:layout_height="170dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0">-->
+        <!--        <ScrollView-->
+        <!--            android:id="@+id/scrollViewMessages1"-->
+        <!--            android:layout_width="380dp"-->
+        <!--            android:layout_height="170dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.0">-->
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/layoutMessages1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-<!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/layoutMessages1"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="vertical">-->
+        <!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
+        <!--            </LinearLayout>-->
+        <!--        </ScrollView>-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imageView4"-->
-<!--            android:layout_width="370dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/guideline6"-->
-<!--            app:layout_constraintHorizontal_bias="0.521"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/guideline7"-->
-<!--            app:srcCompat="@drawable/whitetextbox" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageView4"-->
+        <!--            android:layout_width="370dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+        <!--            app:layout_constraintEnd_toStartOf="@+id/guideline6"-->
+        <!--            app:layout_constraintHorizontal_bias="0.521"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+        <!--            app:srcCompat="@drawable/whitetextbox" />-->
 
         <ImageButton
-                android:id="@+id/submitText"
-                android:layout_width="31dp"
-                android:layout_height="27dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
-                app:layout_constraintVertical_bias="0.95"
-                app:srcCompat="@drawable/submit" />
+            android:id="@+id/submitText"
+            android:layout_width="31dp"
+            android:layout_height="27dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.95"
+            app:srcCompat="@drawable/submit" />
 
 
 
-            <!--upper bar stuff-->
+        <!--upper bar stuff-->
         <ImageView
             android:id="@+id/timericon"
             android:layout_width="272dp"
@@ -470,19 +470,19 @@
 
 
 
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="52dp"
-                android:layout_height="42dp"
-                app:layout_constraintBottom_toTopOf="@+id/person2"
-                app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.060000002"
-                app:srcCompat="@drawable/home" />
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="52dp"
+            android:layout_height="42dp"
+            app:layout_constraintBottom_toTopOf="@+id/person2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.060000002"
+            app:srcCompat="@drawable/home" />
 
 
 
-<!--        contest mode icons-->
+        <!--        contest mode icons-->
         <ImageView
             android:id="@+id/BIGBLOCK"
             android:layout_width="227dp"
@@ -574,7 +574,7 @@
             app:layout_constraintVertical_bias="0.48000002" />
 
 
-<!--        timer-->
+        <!--        timer-->
         <TextView
             android:id="@+id/timerText"
             android:layout_width="wrap_content"
@@ -727,23 +727,23 @@
             app:layout_constraintTop_toTopOf="@+id/scrollViewMessages1"
             app:layout_constraintVertical_bias="0.9" />
         <!--        <ScrollView-->
-<!--            android:id="@+id/scrollViewMessages1"-->
-<!--            android:layout_width="380dp"-->
-<!--            android:layout_height="170dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.0">-->
+        <!--            android:id="@+id/scrollViewMessages1"-->
+        <!--            android:layout_width="380dp"-->
+        <!--            android:layout_height="170dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imageView"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imageView"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.0">-->
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/layoutMessages1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-<!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
-<!--            </LinearLayout>-->
-<!--        </ScrollView>-->
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/layoutMessages1"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="vertical">-->
+        <!--                &lt;!&ndash; Messages will be added here dynamically &ndash;&gt;-->
+        <!--            </LinearLayout>-->
+        <!--        </ScrollView>-->
 
         <!-- ... additional ImageView elements for red, blue, yellow, green icons -->
 

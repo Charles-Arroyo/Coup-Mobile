@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Admin/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Admin/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendChat/FriendChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/FriendChat/FriendChatSocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/Lobby.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Ranking/RankingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Ranking/RankingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/MainActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,34 +38,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.onetoone [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.onetoone [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.onetoone [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.Main.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.onetoone [clean].executor": "Run",
+    "Maven.onetoone [install].executor": "Run",
+    "Maven.onetoone [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Main.executor": "Run",
+    "git-widget-placeholder": "FinalDesign2",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="CharlesSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="onetoone" />

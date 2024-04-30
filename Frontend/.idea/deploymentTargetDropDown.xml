@@ -3,25 +3,38 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="PlayActivity">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="$USER_HOME$/.android/avd/Device_2.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-29T07:53:44.330944Z" />
+        </State>
       </entry>
       <entry key="SignUpTest">
         <State />
       </entry>
       <entry key="app">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
+          <targetSelectedWithDropDown>
             <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
+              <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="$USER_HOME$/.android/avd/Device_4.avd" />
+                  <value value="$USER_HOME$/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-29T07:10:37.585901Z" />
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-29T07:20:38.246308Z" />
         </State>
       </entry>
     </value>
