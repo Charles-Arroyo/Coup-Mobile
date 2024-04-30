@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidget.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidgets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpurple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/passwidget.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Spectator/Spectator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Spectator/Spectator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,7 +161,7 @@
       <workItem from="1714167515740" duration="1487000" />
       <workItem from="1714268308970" duration="6928000" />
       <workItem from="1714372161182" duration="1093000" />
-      <workItem from="1714460953879" duration="598000" />
+      <workItem from="1714460953879" duration="6496000" />
     </task>
     <servers />
   </component>
