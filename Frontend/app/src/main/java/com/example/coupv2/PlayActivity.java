@@ -37,7 +37,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
-
+    //
+    TextView currentPlayerText;
     //exchange setup
     CheckBox checkbox1;
     CheckBox checkbox2;
@@ -167,6 +168,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
          playerIcon2 = findViewById(R.id.person2);
          playerIcon3 = findViewById(R.id.person3);
          playerIcon4 = findViewById(R.id.person4);
+         //current player
+        currentPlayerText = findViewById(R.id.timerText);
         // Set a click listeners for player icons
         playerIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -477,6 +480,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
                             // If this player's turn is true, then animate his character
                             if (player.getBoolean("turn")) {
+                                currentPlayerText.setText("Current Player: " + playerEmail);
                                 updatePlayerTurnUi(playerEmail);
                             }
                         }

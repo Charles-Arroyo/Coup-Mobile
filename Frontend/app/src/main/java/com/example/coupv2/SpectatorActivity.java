@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class SpectatorActivity extends AppCompatActivity implements WebSocketListener{
+    TextView currentPlayerText;
 
     //timer
     //game chat Views
@@ -95,29 +96,6 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         loadMessages();
         //set listener to this class
         WebSocketManager.getInstance().setWebSocketListener(this);
-        // Get the intent that started this activity(this is used from action activity)
-        Intent intent = getIntent();
-        if (intent.hasExtra("playerEmail") && intent.hasExtra("move") && intent.hasExtra("targetPlayer")) {
-            // Retrieve the data from the intent
-            String pE = intent.getStringExtra("playerEmail");
-            String mov = intent.getStringExtra("move");
-            String tp = intent.getStringExtra("targetPlayer");
-            try {
-                // Create a new JSONObject
-                JSONObject jsonObject = new JSONObject();
-                // Put each piece of data into the JSONObject with a key
-                jsonObject.put("playerEmail", pE);
-                jsonObject.put("move", mov);
-                jsonObject.put("targetPlayer", tp);
-                jsonObject.put("card1", "null");
-                jsonObject.put("card2", "null");
-                // Use jsonObject.toString() to get JSON string representation
-                String jsonString = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonString);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     @Override
@@ -129,7 +107,7 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         //let backend know that player is ready to receive data
         try {
             jsonObject.put("playerEmail", Const.getCurrentEmail());
-            jsonObject.put("move", "ready");
+            jsonObject.put("move", "spectate");
             jsonObject.put("targetPlayer", "null");
             jsonObject.put("card1", "null");
             jsonObject.put("card2", "null");
@@ -140,13 +118,15 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         WebSocketManager.getInstance().sendMessage(jsonStr);
 
         // link Play activity XML
-        setContentView(R.layout.activity_play);
+        setContentView(R.layout.activity_spectator);
         //exchange buttons nad setup
         //playericons
         playerIcon1 = findViewById(R.id.person1);
         playerIcon2 = findViewById(R.id.person2);
         playerIcon3 = findViewById(R.id.person3);
         playerIcon4 = findViewById(R.id.person4);
+        //current player
+        currentPlayerText = findViewById(R.id.timerText);
         // Set a click listeners for player icons
         playerIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -429,6 +409,7 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
 
                             // If this player's turn is true, then animate his character
                             if (player.getBoolean("turn")) {
+                                currentPlayerText.setText("Current Player: " + playerEmail);
                                 updatePlayerTurnUi(playerEmail);
                             }
                         }
@@ -625,19 +606,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player1card1ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card1, "Assassin")){
+            if (Objects.equals(p1card1, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card1, "Contessa")){
+            else if (Objects.equals(p1card1, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card1, "Duke")){
+            else if (Objects.equals(p1card1, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card1, "Captain")){
+            else if (Objects.equals(p1card1, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card1, "Ambassador")){
+            else if (Objects.equals(p1card1, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -646,19 +627,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player1card2ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card2, "Assassin")){
+            if (Objects.equals(p1card2, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card2, "Contessa")){
+            else if (Objects.equals(p1card2, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card2, "Duke")){
+            else if (Objects.equals(p1card2, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card2, "Captain")){
+            else if (Objects.equals(p1card2, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card2, "Ambassador")){
+            else if (Objects.equals(p1card2, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -668,11 +649,11 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         @Override
         public void onClick(View v) {
             String card = null;
-            if (Objects.equals(card1, "null")){
-                card = card2;
+            if (Objects.equals(p1card1, "null")){
+                card = p1card2;
             }
             else{
-                card = card1;
+                card = p1card1;
             }
             if (Objects.equals(card, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
@@ -694,19 +675,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player2card1ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card1, "Assassin")){
+            if (Objects.equals(p2card1, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card1, "Contessa")){
+            else if (Objects.equals(p2card1, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card1, "Duke")){
+            else if (Objects.equals(p2card1, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card1, "Captain")){
+            else if (Objects.equals(p2card1, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card1, "Ambassador")){
+            else if (Objects.equals(p2card1, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -715,19 +696,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player2card2ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card2, "Assassin")){
+            if (Objects.equals(p2card2, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card2, "Contessa")){
+            else if (Objects.equals(p2card2, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card2, "Duke")){
+            else if (Objects.equals(p2card2, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card2, "Captain")){
+            else if (Objects.equals(p2card2, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card2, "Ambassador")){
+            else if (Objects.equals(p2card2, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -737,11 +718,11 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         @Override
         public void onClick(View v) {
             String card = null;
-            if (Objects.equals(card1, "null")){
-                card = card2;
+            if (Objects.equals(p2card1, "null")){
+                card = p2card2;
             }
             else{
-                card = card1;
+                card = p2card1;
             }
             if (Objects.equals(card, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
@@ -763,19 +744,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player3card1ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card1, "Assassin")){
+            if (Objects.equals(p3card1, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card1, "Contessa")){
+            else if (Objects.equals(p3card1, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card1, "Duke")){
+            else if (Objects.equals(p3card1, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card1, "Captain")){
+            else if (Objects.equals(p3card1, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card1, "Ambassador")){
+            else if (Objects.equals(p3card1, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -784,19 +765,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player3card2ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card2, "Assassin")){
+            if (Objects.equals(p3card2, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card2, "Contessa")){
+            else if (Objects.equals(p3card2, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card2, "Duke")){
+            else if (Objects.equals(p3card2, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card2, "Captain")){
+            else if (Objects.equals(p3card2, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card2, "Ambassador")){
+            else if (Objects.equals(p3card2, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -806,11 +787,11 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         @Override
         public void onClick(View v) {
             String card = null;
-            if (Objects.equals(card1, "null")){
-                card = card2;
+            if (Objects.equals(p3card1, "null")){
+                card = p3card2;
             }
             else{
-                card = card1;
+                card = p3card1;
             }
             if (Objects.equals(card, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
@@ -832,19 +813,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player4card1ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card1, "Assassin")){
+            if (Objects.equals(p4card1, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card1, "Contessa")){
+            else if (Objects.equals(p4card1, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card1, "Duke")){
+            else if (Objects.equals(p4card1, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card1, "Captain")){
+            else if (Objects.equals(p4card1, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card1, "Ambassador")){
+            else if (Objects.equals(p4card1, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -853,19 +834,19 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
     private View.OnClickListener Player4card2ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Objects.equals(card2, "Assassin")){
+            if (Objects.equals(p4card2, "Assassin")){
                 showImagePopup(R.drawable.assassin1);
             }
-            else if (Objects.equals(card2, "Contessa")){
+            else if (Objects.equals(p4card2, "Contessa")){
                 showImagePopup(R.drawable.contra1);
             }
-            else if (Objects.equals(card2, "Duke")){
+            else if (Objects.equals(p4card2, "Duke")){
                 showImagePopup(R.drawable.duke1);
             }
-            else if (Objects.equals(card2, "Captain")){
+            else if (Objects.equals(p4card2, "Captain")){
                 showImagePopup(R.drawable.captain1);
             }
-            else if (Objects.equals(card2, "Ambassador")){
+            else if (Objects.equals(p4card2, "Ambassador")){
                 showImagePopup(R.drawable.ambassador1);
             }
 
@@ -875,11 +856,11 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         @Override
         public void onClick(View v) {
             String card = null;
-            if (Objects.equals(card1, "null")){
-                card = card2;
+            if (Objects.equals(p4card1, "null")){
+                card = p4card2;
             }
             else{
-                card = card1;
+                card = p4card1;
             }
             if (Objects.equals(card, "Assassin")){
                 showImagePopup(R.drawable.assassin1);

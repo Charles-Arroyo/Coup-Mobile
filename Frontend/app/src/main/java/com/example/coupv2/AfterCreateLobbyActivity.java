@@ -23,6 +23,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
     private boolean isLobbyFull = false;
+    private boolean spectatorMode = false;
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
     @Override
@@ -67,23 +68,6 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     public void onWebSocketOpen(ServerHandshake handshakedata) {
         Log.d("WebSocket", "AfterCreateLobby Activity connected: ");
     }
-//old code
-//    @Override
-//    public void onWebSocketMessage(String message) {
-//        Log.d("WebSocket", "Create Lobby received: " + message);
-//        runOnUiThread(() -> {
-////            get whatever in in TextView at moment
-//            String s = msgTv.getText().toString();
-//            //add message from backend to whatever is in TextView
-//            msgTv.setText(s + "\n" + message);
-//            // Check if the received message from backend is "lobby is full"
-//            if ("Lobby is full".equals(message.trim())) {
-//                isLobbyFull = true;
-//                goToNewActivity(); // Call method to transition to the new activity
-//            }
-//        });
-//    }
-
 
     @Override
     public void onWebSocketMessage(String fullMessage) {
@@ -93,6 +77,11 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
             if ("Lobby is full".equals(fullMessage)) {
                 Log.d("WebSocketMessage", "ffsffs");
                  isLobbyFull = true;
+                goToNewActivity(); // Call method to transition to the new activity
+            }
+            else if ("spec".equals(fullMessage)) {
+                Log.d("WebSocketMessage", "ffsffs");
+                spectatorMode = true;
                 goToNewActivity(); // Call method to transition to the new activity
             }
             else{
@@ -128,6 +117,11 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
         if(isLobbyFull){
             WebSocketManager.getInstance().removeWebSocketListener();
             Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
+            startActivity(intent);
+        }
+        else if(spectatorMode){
+            WebSocketManager.getInstance().removeWebSocketListener();
+            Intent intent = new Intent(AfterCreateLobbyActivity.this, SpectatorActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
         }
     }

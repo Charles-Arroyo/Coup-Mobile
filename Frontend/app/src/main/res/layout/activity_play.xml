@@ -55,7 +55,7 @@
             android:layout_width="194dp"
             android:layout_height="178dp"
             android:src="@drawable/action"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".3"
@@ -572,30 +572,14 @@
             android:id="@+id/timerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="Current Player:"
             app:layout_constraintBottom_toBottomOf="@+id/timericon"
             app:layout_constraintEnd_toEndOf="@+id/timericon"
             app:layout_constraintStart_toStartOf="@+id/timericon"
-            app:layout_constraintTop_toTopOf="@+id/timericon"
-            />
-        <ScrollView
-            android:id="@+id/scrollViewMessages1"
-            android:layout_width="380dp"
-            android:layout_height="170dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="@+id/timericon" />
 
-            <LinearLayout
-                android:id="@+id/layoutMessages1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <!-- Messages will be added here dynamically -->
-            </LinearLayout>
-        </ScrollView>
+
         <ImageView
             android:id="@+id/player1"
             android:layout_width="45dp"
@@ -606,16 +590,19 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
+        <!--chat stuff-->
+
         <ImageView
             android:id="@+id/player2"
             android:layout_width="45dp"
             android:layout_height="88dp"
             android:src="@drawable/cardbackhitp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintBottom_toTopOf="@+id/scrollViewMessages1"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/guideline5"
-            app:srcCompat="@drawable/cardbackhit_2_bottom" />
-        <!--chat stuff-->
+            app:layout_constraintVertical_bias="0.44" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="384dp"
@@ -636,6 +623,24 @@
             app:layout_constraintHorizontal_bias="0.521"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:srcCompat="@drawable/whitetextbox" />
+        <ScrollView
+            android:id="@+id/scrollViewMessages1"
+            android:layout_width="380dp"
+            android:layout_height="170dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.0">
+
+            <LinearLayout
+                android:id="@+id/layoutMessages1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Messages will be added here dynamically -->
+            </LinearLayout>
+        </ScrollView>
 
         <ImageView
             android:id="@+id/player3"
@@ -651,53 +656,57 @@
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="RadioButton"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
-            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintHorizontal_bias="0.588"
             app:layout_constraintStart_toStartOf="@+id/yellowicon1"
             app:layout_constraintTop_toTopOf="@+id/timericon"
-            app:layout_constraintVertical_bias="0.58000004" />
+            app:layout_constraintVertical_bias="0.747" />
 
         <CheckBox
             android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="RadioButton"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/blueIcon2"
-            app:layout_constraintHorizontal_bias="0.86"
+            app:layout_constraintHorizontal_bias="0.588"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/timericon"
-            app:layout_constraintVertical_bias="0.42000002" />
+            app:layout_constraintVertical_bias="0.504" />
 
         <CheckBox
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="RadioButton"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
-            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintHorizontal_bias="0.593"
             app:layout_constraintStart_toStartOf="@+id/yellowicon2"
             app:layout_constraintTop_toTopOf="@+id/timericon"
-            app:layout_constraintVertical_bias="0.58000004" />
+            app:layout_constraintVertical_bias="0.623" />
 
         <CheckBox
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="RadioButton"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/blueIcon1"
-            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintHorizontal_bias="0.593"
             app:layout_constraintStart_toStartOf="@+id/yellowicon2"
             app:layout_constraintTop_toBottomOf="@+id/timericon"
-            app:layout_constraintVertical_bias="0.35000002" />
+            app:layout_constraintVertical_bias="0.293" />
 
         <Button
             android:id="@+id/button5"
