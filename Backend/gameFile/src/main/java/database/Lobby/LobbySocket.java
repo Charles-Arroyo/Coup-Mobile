@@ -407,8 +407,10 @@ public class LobbySocket {
 
             if(checkGameEnd(game)){
                 for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: The game is over. WINNER: " + game.getWinner().getUserEmail()); //Charles took: income
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: The game is over. WINNER: " + game.getWinner().getUserEmail());
                 }
+
+
                 for(Player player : game.getPlayerArrayList()){
                     broadcastToSpecificUser(player.getUserEmail(),  "Game Over");
                 }

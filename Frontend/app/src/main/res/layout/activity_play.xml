@@ -131,7 +131,7 @@
             android:id="@+id/yellowicon1"
             android:layout_width="45dp"
             android:layout_height="88dp"
-            android:src="@drawable/yellowiconshape"
+            android:src="@drawable/cardbackhit_2"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -142,7 +142,7 @@
             android:id="@+id/yellowicon2"
             android:layout_width="45dp"
             android:layout_height="88dp"
-            android:src="@drawable/yellowiconshape"
+            android:src="@drawable/cardbackhit_2"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -153,7 +153,7 @@
             android:id="@+id/yellowicon3"
             android:layout_width="45dp"
             android:layout_height="88dp"
-            android:src="@drawable/yellowiconshape"
+            android:src="@drawable/cardbackhit_2"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -165,7 +165,7 @@
             android:id="@+id/blueIcon1"
             android:layout_width="45dp"
             android:layout_height="88dp"
-            android:src="@drawable/blueiconshape"
+            android:src="@drawable/cardbackhit_2"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -176,7 +176,7 @@
             android:id="@+id/blueIcon2"
             android:layout_width="45dp"
             android:layout_height="88dp"
-            android:src="@drawable/blueiconshape"
+            android:src="@drawable/cardbackhit_2"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -188,7 +188,7 @@
                 android:id="@+id/blueIcon3"
                 android:layout_width="45dp"
                 android:layout_height="88dp"
-                android:src="@drawable/blueiconshape"
+                android:src="@drawable/cardbackhit_2"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -199,7 +199,7 @@
                 android:id="@+id/redIcon1"
                 android:layout_width="45dp"
                 android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
+                android:src="@drawable/cardbackhit_2"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
                 app:layout_constraintEnd_toStartOf="@+id/guideline" />
@@ -208,7 +208,7 @@
                 android:id="@+id/redIcon2"
                 android:layout_width="45dp"
                 android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
+                android:src="@drawable/cardbackhit_2"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline2" />
@@ -217,7 +217,7 @@
                 android:id="@+id/redIcon3"
                 android:layout_width="45dp"
                 android:layout_height="88dp"
-                android:src="@drawable/rediconshape"
+                android:src="@drawable/cardbackhit_2"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/guideline3"
                 app:layout_constraintEnd_toStartOf="@+id/oval3"
@@ -250,7 +250,7 @@
             android:layout_height="88dp"
             android:src="@drawable/person"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -332,8 +332,9 @@
             android:layout_width="53dp"
             android:layout_height="88dp"
             android:src="@drawable/greyoval"
-            app:layout_constraintEnd_toStartOf="@+id/player1"
-            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintBottom_toTopOf="@+id/scrollViewMessages1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.83"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
@@ -512,6 +513,8 @@
         <!--            app:layout_constraintTop_toBottomOf="@+id/yellowicon1" />-->
 
 <!--        contest mode icons-->
+
+
         <ImageView
             android:id="@+id/BIGBLOCK"
             android:layout_width="227dp"
@@ -522,22 +525,20 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.367"
-            app:srcCompat="@drawable/contest" />
-
-
+            app:srcCompat="@drawable/contestblock" />
 
         <ImageView
             android:id="@+id/smallwhite1"
-            android:layout_width="109dp"
-            android:layout_height="105dp"
+            android:layout_width="95dp"
+            android:layout_height="91dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.31"
+            app:layout_constraintHorizontal_bias="0.337"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.305"
-            app:srcCompat="@drawable/smallwhitebox_selector" />
+            app:layout_constraintVertical_bias="0.324"
+            app:srcCompat="@drawable/blockwidgets" />
 
         <TextView
             android:id="@+id/smallwhite1Text"
@@ -555,16 +556,16 @@
 
         <ImageView
             android:id="@+id/smallwhite2"
-            android:layout_width="109dp"
-            android:layout_height="105dp"
+            android:layout_width="95dp"
+            android:layout_height="91dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintHorizontal_bias="0.674"
             app:layout_constraintStart_toStartOf="@+id/yellowicon2"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.305"
-            app:srcCompat="@drawable/smallwhitebox_selector" />
+            app:layout_constraintVertical_bias="0.324"
+            app:srcCompat="@drawable/bluffwidget" />
 
         <TextView
             android:id="@+id/smallwhite2Text"
@@ -579,33 +580,22 @@
             app:layout_constraintTop_toTopOf="@+id/BIGBLOCK"
             app:layout_constraintVertical_bias="0.49" />
 
+
+        <!--        timer-->
+
         <ImageView
             android:id="@+id/longwhite"
-            android:layout_width="216dp"
-            android:layout_height="107dp"
+            android:layout_width="183dp"
+            android:layout_height="71dp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/timericon"
-            app:layout_constraintVertical_bias="0.69"
-            app:srcCompat="@drawable/longwhite_selector" />
+            app:layout_constraintVertical_bias="0.65"
+            app:srcCompat="@drawable/passwidget" />
 
-        <TextView
-            android:id="@+id/longwhitetext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:text="Allow"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintBottom_toBottomOf="@+id/BIGBLOCK"
-            app:layout_constraintEnd_toEndOf="@+id/longwhite"
-            app:layout_constraintStart_toStartOf="@+id/longwhite"
-            app:layout_constraintTop_toTopOf="@+id/longwhite"
-            app:layout_constraintVertical_bias="0.48000002" />
-
-
-<!--        timer-->
         <TextView
             android:id="@+id/timerText"
             android:layout_width="wrap_content"
@@ -617,24 +607,44 @@
             app:layout_constraintTop_toTopOf="@+id/timericon"
             />
 
+<!--        <ImageView-->
+<!--            android:id="@+id/player1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5"-->
+<!--            app:srcCompat="@drawable/cardbackhit_2_bottom" />-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/player2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/guideline5"-->
+<!--            app:srcCompat="@drawable/cardbackhitpurple" />-->
+
         <ImageView
             android:id="@+id/player1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/cardbackhitp"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline5"
-            app:srcCompat="@drawable/cardbackhit_2_bottom" />
+            app:layout_constraintBottom_toTopOf="@+id/scrollViewMessages1"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <ImageView
             android:id="@+id/player2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="88dp"
+            android:src="@drawable/cardbackhitp"
             android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5"
-            app:srcCompat="@drawable/cardbackhit_2_bottom" />
-
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <ImageView
             android:id="@+id/player3"
@@ -709,15 +719,17 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             app:layout_constraintVertical_bias="0.85" />
+
         <ScrollView
             android:id="@+id/scrollViewMessages1"
             android:layout_width="380dp"
             android:layout_height="170dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.027">
 
             <LinearLayout
                 android:id="@+id/layoutMessages1"
