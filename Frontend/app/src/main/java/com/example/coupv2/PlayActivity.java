@@ -362,11 +362,8 @@ protected void onPause() {
         gameBoard.setOnClickListener(gameBoardClickListener); //set gameBoard to be visible by default
         //assign view for player is contesting
         smallwhite1 = findViewById(R.id.smallwhite1);
-        smallwhite1Text = findViewById(R.id.smallwhite1Text);
         smallwhite2 = findViewById(R.id.smallwhite2);
-        smallwhite2Text = findViewById(R.id.smallwhite2Text);
         longwhite = findViewById(R.id.longwhite);
-        longwhitetext = findViewById(R.id.longwhitetext);
         bigBlock = findViewById(R.id.BIGBLOCK);
         //assign timer view
         timerTextView = findViewById(R.id.timerText);
@@ -621,12 +618,10 @@ protected void onPause() {
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
-            smallwhite1Text.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.GONE);
-            smallwhite2Text.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
-            longwhitetext.setVisibility(View.GONE);
-            //show waiting on screen
+            //show waiting on screeN
+
             waitingOverlay.setVisibility(View.VISIBLE);
             //disable listeners if not turn
             gameBoard.setOnClickListener(null);
@@ -648,11 +643,8 @@ protected void onPause() {
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
-            smallwhite1Text.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.GONE);
-            smallwhite2Text.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
-            longwhitetext.setVisibility(View.GONE);
             //hide waiting layout
             waitingOverlay.setVisibility(View.GONE);
             deadOverLay.setVisibility(View.GONE);
@@ -678,11 +670,8 @@ protected void onPause() {
             //show contest mode layout
             bigBlock.setVisibility(View.VISIBLE);
             smallwhite1.setVisibility(View.VISIBLE);
-            smallwhite1Text.setVisibility(View.VISIBLE);
             smallwhite2.setVisibility(View.VISIBLE);
-            smallwhite2Text.setVisibility(View.VISIBLE);
             longwhite.setVisibility(View.VISIBLE);
-            longwhitetext.setVisibility(View.VISIBLE);
             //disable game listeners if not turn
             gameBoard.setOnClickListener(null);
             //set contest listeners
@@ -703,11 +692,8 @@ protected void onPause() {
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
-            smallwhite1Text.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.GONE);
-            smallwhite2Text.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
-            longwhitetext.setVisibility(View.GONE);
             //show button and listeners
             checkbox1.setVisibility(View.VISIBLE);
             checkbox2.setVisibility(View.VISIBLE);
@@ -736,11 +722,8 @@ protected void onPause() {
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
-            smallwhite1Text.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.GONE);
-            smallwhite2Text.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
-            longwhitetext.setVisibility(View.GONE);
             //show button and listeners
             checkbox1.setVisibility(View.VISIBLE);
             checkbox2.setVisibility(View.VISIBLE);
@@ -774,11 +757,8 @@ protected void onPause() {
             bigBlock.setVisibility(View.VISIBLE);
             //hide block
             smallwhite1.setVisibility(View.GONE);
-            smallwhite1Text.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.VISIBLE);
-            smallwhite2Text.setVisibility(View.VISIBLE);
             longwhite.setVisibility(View.VISIBLE);
-            longwhitetext.setVisibility(View.VISIBLE);
             //disable game listeners if not turn
             gameBoard.setOnClickListener(null);
             //set contest listeners
@@ -789,11 +769,8 @@ protected void onPause() {
         else if (playerState.equals("dead")){  //hide contest layout
         bigBlock.setVisibility(View.GONE);
         smallwhite1.setVisibility(View.GONE);
-        smallwhite1Text.setVisibility(View.GONE);
         smallwhite2.setVisibility(View.GONE);
-        smallwhite2Text.setVisibility(View.GONE);
         longwhite.setVisibility(View.GONE);
-        longwhitetext.setVisibility(View.GONE);
         waitingOverlay.setVisibility(View.GONE);
         //show dead on screen
         deadOverLay.setVisibility(View.VISIBLE);
