@@ -19,7 +19,7 @@ import com.example.coupv2.utils.Const;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private TextView  playerWins, playerLosses, playerGamesPlayed, playerScore,
+    private TextView  playerWins, playerloses, playerGamesPlayed, playerScore,
             playerRank, playerAverage;
     private String currentUserEmail;
     private Button back, email;
@@ -45,7 +45,7 @@ public class StatsActivity extends AppCompatActivity {
         // Initialize TextViews
         email = findViewById(R.id.stats_user);
         playerWins = findViewById(R.id.stats_wins);
-        playerLosses = findViewById(R.id.stats_losses);
+        playerloses = findViewById(R.id.stats_losses);
         playerGamesPlayed = findViewById(R.id.stats_games_played);
         playerScore = findViewById(R.id.stats_score);
         playerRank = findViewById(R.id.stats_rank);
@@ -97,23 +97,23 @@ public class StatsActivity extends AppCompatActivity {
 
 
     private void getUserStats() {
-        //        String STATS_URL = "https://coms-309-023.class.las.iastate.edu:8443/getStats/" + currentUserEmail;
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8443/getStats/" + currentUserEmail;
 
-        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
+//        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
                 response -> {
                     Log.d("StatsActivity", "Response received: " + response.toString()); // Debug log
                     try {
                         int wins = response.getInt("wins");
-                        int losses = response.getInt("losses");
-                        double average = ((double) wins / (wins + losses)) * 100; // Corrected average calculation
+                        int loses = response.getInt("loses");
+                        double average = ((double) wins / (wins + loses)) * 100; // Corrected average calculation
                         int score = response.getInt("score");
                         int rank = response.getInt("rank");
-                        int gamesPlayed = wins + losses;
+                        int gamesPlayed = wins + loses;
 
                         playerWins.setText(String.format("Wins: %d", wins));
-                        playerLosses.setText(String.format("Losses: %d", losses));
+                        playerloses.setText(String.format("loses: %d", loses));
                         playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
                         playerAverage.setText(String.format("Average Wins: %.2f%%", average));
                         playerScore.setText(String.format("Score: %d", score));

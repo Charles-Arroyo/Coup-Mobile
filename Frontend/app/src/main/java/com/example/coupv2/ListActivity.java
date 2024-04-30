@@ -27,6 +27,7 @@ public class ListActivity extends AppCompatActivity {
     private EditText searchEditText;
     private Button searchButton, backButton;
     private RequestQueue requestQueue;
+    private String user;
 
 
     private String ALL_PLAYERS_URL = "http://coms-309-023.class.las.iastate.edu:8443/users";
@@ -36,7 +37,6 @@ public class ListActivity extends AppCompatActivity {
 
     private String RESET_SCORE_URL = "http://coms-309-023.class.las.iastate.edu:8443/resetScore/";
 
-    private String USER_STATS_URL = "http://coms-309-023.class.las.iastate.edu:8443/getStats/";
 
 
     @Override
@@ -128,7 +128,6 @@ public class ListActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View statsView = inflater.inflate(R.layout.admin_activity_stats, null);
         TextView userName = statsView.findViewById(R.id.stats_user);
-        TextView userEmail = statsView.findViewById(R.id.stats_email);
         TextView statsWins = statsView.findViewById(R.id.stats_wins);
         TextView statsLosses = statsView.findViewById(R.id.stats_losses);
         TextView statsGamesPlayed = statsView.findViewById(R.id.stats_games_played);
@@ -138,9 +137,8 @@ public class ListActivity extends AppCompatActivity {
         Button resetStatsButton = statsView.findViewById(R.id.reset_stats);
 
         userName.setText(username);
-        // Assuming userEmail has been set correctly elsewhere in your app
-        String email = userEmail.getText().toString();
-        String userStatsUrl = USER_STATS_URL + email; // Ensure USER_STATS_URL is defined and correct
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8443/getStats/pizza";
+        String userStatsUrl = STATS_URL + username;
 
         JsonObjectRequest statsRequest = new JsonObjectRequest(Request.Method.GET, userStatsUrl, null,
                 response -> {
@@ -166,7 +164,10 @@ public class ListActivity extends AppCompatActivity {
                 error -> {
                     Toast.makeText(ListActivity.this, "Error fetching statistics: " + error.toString(), Toast.LENGTH_SHORT).show();
                     if (error.networkResponse != null) {
+                        Log.e("StatsActivity", "Error Response code: " + error.networkResponse.statusCode);
                         Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
+                    } else {
+                        Log.e("StatsActivity", "Error: No network response");
                     }
                 }
         );

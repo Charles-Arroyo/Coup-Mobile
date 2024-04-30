@@ -136,7 +136,7 @@ public class SettingActivity extends AppCompatActivity {
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("password", userPassword); // newPassword is the updated password provided by the user
+            jsonRequest.put("password", userPassword);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,8 +25,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -34,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -50,12 +54,12 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         GLOBAL CHAT FEATURE
 
         private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
-        private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-        private String BASE_URL = "ws://10.29.182.205:8080/chat/";
+        private String BASE_URL = "ws://10.0.2.2:8443/chat/";
+        private String BASE_URL = "ws://10.29.182.205:8443/chat/";
 
      */
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton, themeButton;
     private EditText msg;
     private LinearLayout layoutMessages;
@@ -105,7 +109,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         msgButton = findViewById(R.id.msg_btn);
         themeButton = findViewById(R.id.theme_menu);
 
-        icon = findViewById(R.id.icon);
+
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
         Animation slideInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
         Animation slideOutAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
@@ -152,6 +156,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 Intent intent = new Intent(MenuActivity.this, MainActivity.class);
                 startActivity(intent);
+                WebSocketManager2.getInstance().disconnectWebSocket();
                 finish();
             });
             builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
@@ -207,6 +212,81 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
     }
 
+    private int Themes;
+    private void fetchTheme() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, null, null,
+                response -> {
+                    Log.d("ThemeActivity", "Response received: " + response.toString()); // Debug log
+                    try {
+                        Themes = response.getInt("theme");
+
+                    } catch (JSONException e) {
+                        Toast.makeText(MenuActivity.this, "Error parsing JSON data", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                },
+                error -> {
+                    Log.e("StatsActivity", "Volley error: " + error.toString());
+                    Toast.makeText(getApplicationContext(), "Failed to load stats", Toast.LENGTH_SHORT).show();
+                    if (error.networkResponse != null) {
+                        Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
+                    }
+                }
+        );
+
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void updateUserTheme(int theme) {
+        String url = "http://coms-309-023.class.las.iastate.edu:8443/changeName/" + user;
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("theme", theme); // newEmail is the updated email provided by the user
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(MenuActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest,
+                response -> {
+                    try {
+                        boolean success = response.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(MenuActivity.this, "Theme updated successfully", Toast.LENGTH_SHORT).show();
+                            Const.setCurrentTheme(theme);
+                        } else {
+                            Toast.makeText(MenuActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(MenuActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Log.e("MenuActivity", "Network Response Body: " + responseBody);
+                        try {
+                            new JSONObject(responseBody);
+                        } catch (JSONException e) {
+                            Log.e("MenuActivity", "Response is not valid JSON", e);
+                        }
+                    } else {
+                        Log.e("MenuActivity", "Network Error: " + error.toString());
+                    }
+                    Toast.makeText(MenuActivity.this, "Network Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                }
+
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
     /**
      * Popup function to show our ranking layout with all its features
      */
@@ -258,6 +338,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
+
+
+
 
 
     /**
