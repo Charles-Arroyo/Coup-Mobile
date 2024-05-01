@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="#3F51B5"
+        android:backgroundTint="#674A97"
         android:gravity="center"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -176,7 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#673AB7"
+        android:backgroundTint="#674A97"
         android:padding="25dp"
         android:text="Username"
         android:textSize="16sp"
@@ -194,18 +194,17 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="100dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/icon_purple_dark"
-
         android:focusableInTouchMode="false"
         android:foregroundGravity="center"
-=        app:circularflow_defaultRadius="40dp"
+        app:circularflow_defaultRadius="40dp"
         app:circularflow_radiusInDP="30dp"
         app:layout_constraintBottom_toTopOf="@+id/Wins_HL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stats_user"
-        app:layout_constraintVertical_bias="0.489" />
+        app:layout_constraintVertical_bias="0.489"
+        />
 
 
     <LinearLayout
