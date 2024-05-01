@@ -29,8 +29,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 //    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
-//    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signnup";
-    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8443/signnup";
+    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signnup";
     // success
 //    private static final String URL_SIGNUP = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
     //fail
@@ -41,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_charles);
 
-        usernameEditText = findViewById(R.id.signup_name_edt);
+        usernameEditText = findViewById(R.id.signup_username_edt);
 
         emailIdEditText = findViewById(R.id.signup_email_edt);
         passwordEditText = findViewById(R.id.signup_password_edt);

@@ -21,7 +21,6 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements WebSocketListener {
 
-//    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
@@ -31,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8443/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8443/signin";
 
-//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
     private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 

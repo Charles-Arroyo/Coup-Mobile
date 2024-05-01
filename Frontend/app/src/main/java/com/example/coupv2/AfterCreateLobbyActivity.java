@@ -26,11 +26,9 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     private ImageButton lobbyBackOut;
     private boolean isLobbyFull = false;
     private boolean spectatorMode = false;
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
-private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
-//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
-private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
-//
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftercreatelobby);

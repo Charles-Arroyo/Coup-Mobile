@@ -445,7 +445,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                                     }
                                     else if(j == 3){
                                         Player4 = viewEmail;
-                                        Player2Name = viewEmail;
+                                        Player4Name = viewEmail;
                                     }
                                 }
 

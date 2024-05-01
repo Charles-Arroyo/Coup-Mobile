@@ -21,7 +21,7 @@ import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
 
 public class StatsActivity extends AppCompatActivity {
-    private String currEmail;
+
     private TextView  playerWins, playerloses, playerGamesPlayed, playerScore,
             playerRank, playerAverage;
     private String currentUserEmail;
@@ -41,7 +41,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         Intent intent = getIntent();
-        currEmail = intent.getStringExtra("USER");
+        String currEmail = intent.getStringExtra("USER");
 
         // Initialize TextViews
         email = findViewById(R.id.stats_user);
@@ -113,16 +113,13 @@ public class StatsActivity extends AppCompatActivity {
      * Making image request
      * */
     private void makeImageRequest() {
-        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/getProfile/" + currEmail;
+        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + currentUserEmail;
 
         ImageRequest imageRequest = new ImageRequest(
                 URL_IMAGE,
                 response -> {
-                    if (response != null) {
-                        pfp.setImageBitmap(response);
-                    } else {
-                        Log.e("Bitmap Error", "Received null Bitmap");
-                    }
+                    // Display the image in the ImageView
+                    pfp.setImageBitmap(response);
                 },
                 0, // Width, set to 0 to get the original width
                 0, // Height, set to 0 to get the original height
