@@ -374,7 +374,14 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         }
         else if (message.equals("over")) {
             // It matches the pattern "Username: 'message'"
-            showGameOverDialog();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    showGameOverDialog();
+                }
+            });
+
         }
         // Unknown format
         else {
