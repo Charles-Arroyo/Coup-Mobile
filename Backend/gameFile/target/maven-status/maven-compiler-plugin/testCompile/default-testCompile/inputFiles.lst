@@ -1,7 +1,8 @@
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameRevealCardTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTurnTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameAssassinateTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTaxTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameCoupTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameIncomeTest.java
-/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameStealTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameAssassinateTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/SystemTesting/CharlesSystemTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameStealTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameTaxTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameTurnTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameRevealCardTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameCoupTest.java
+/Users/CharlesDylan/Desktop/309/mk1_8/Backend/gameFile/src/test/java/GameTesting/GameIncomeTest.java

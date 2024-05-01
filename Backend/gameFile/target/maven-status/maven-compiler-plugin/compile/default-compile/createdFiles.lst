@@ -48,7 +48,6 @@ database/Stats/Stat.class
 gamelogic/rules/rulesController.class
 database/Ranking/RankingController.class
 gamelogic/cards/cards.class
-database/Game/GameSocket.class
 database/FriendRequest/FriendRequestRepository.class
 gamelogic/cards/cardsController.class
 gamelogic/cards/cardsRepository.class

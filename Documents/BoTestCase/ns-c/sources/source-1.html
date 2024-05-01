@@ -1,0 +1,204 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Spectator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Spectator</a>
+</div>
+
+<h1>Coverage Summary for Class: Spectator (database.Spectator)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Spectator</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Spectator$HibernateInstantiator$jS8oGlli</td>
+  </tr>
+  <tr>
+    <td class="name">Spectator$HibernateProxy$wKc0iNP7</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.7%
+  </span>
+  <span class="absValue">
+    (1/15)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Spectator;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonManagedReference;
+&nbsp;import database.Lobby.Lobby;
+&nbsp;import database.Ranking.Ranking;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import database.Stats.Stat;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import database.FriendRequest.FriendRequest;
+&nbsp;import lombok.Singular;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.time.LocalDateTime;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@Entity
+&nbsp;public class Spectator {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private int id;
+&nbsp;
+&nbsp;    @ManyToOne(fetch = FetchType.EAGER)
+&nbsp;    private User user;
+&nbsp;
+&nbsp;    @ManyToOne(fetch = FetchType.EAGER)
+&nbsp;    private Lobby watchingLobby;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private boolean isActive;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private LocalDateTime joinTime;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private LocalDateTime leaveTime;
+&nbsp;
+<b class="nc">&nbsp;    public Spectator(User user) {</b>
+<b class="nc">&nbsp;        this.user = user;</b>
+<b class="nc">&nbsp;        this.isActive = true;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public Spectator() {</b>
+&nbsp;        // Default constructor
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(int id) {
+<b class="nc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getId() {
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUser(User user){
+<b class="nc">&nbsp;        this.user = user;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public User getUser(){
+<b class="nc">&nbsp;        return user;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public void setActive(boolean  isActive){this.isActive = isActive;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public boolean getActive(){return isActive;}</b>
+&nbsp;
+&nbsp;
+&nbsp;    public void joinLobby(Lobby lobby) {
+<b class="nc">&nbsp;        this.watchingLobby = lobby;</b>
+<b class="nc">&nbsp;        this.joinTime = LocalDateTime.now();</b>
+<b class="nc">&nbsp;        this.isActive = true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void leaveLobby() {
+<b class="nc">&nbsp;        this.leaveTime = LocalDateTime.now();</b>
+<b class="nc">&nbsp;        this.isActive = false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

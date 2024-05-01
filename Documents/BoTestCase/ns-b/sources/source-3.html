@@ -1,0 +1,416 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SigninSocket</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Signin</a>
+</div>
+
+<h1>Coverage Summary for Class: SigninSocket (database.Signin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SigninSocket</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.7%
+  </span>
+  <span class="absValue">
+    (5/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.8%
+  </span>
+  <span class="absValue">
+    (5/73)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;//package database.Signin;
+&nbsp;//
+&nbsp;//import database.Users.User;
+&nbsp;//import database.Users.UserRepository;
+&nbsp;//import jakarta.websocket.*;
+&nbsp;//import jakarta.websocket.server.PathParam;
+&nbsp;//import jakarta.websocket.server.ServerEndpoint;
+&nbsp;//import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;//import org.springframework.stereotype.Component;
+&nbsp;//
+&nbsp;//import java.io.IOException;
+&nbsp;//import java.util.HashMap;
+&nbsp;//import java.util.Map;
+&nbsp;//
+&nbsp;//@Component
+&nbsp;//@ServerEndpoint(value = &quot;/signin/{userEmail}&quot;)
+&nbsp;//public class SigninSocket {
+&nbsp;//
+&nbsp;//    // A static map to store the active WebSocket sessions for each connected user, keyed by their email
+&nbsp;//    private static Map&lt;String, Session&gt; userSessions = new HashMap&lt;&gt;();
+&nbsp;//
+&nbsp;//    // Repository instances injected through the constructor
+&nbsp;//    private final UserRepository userRepository;
+&nbsp;//    private final SigninRepository signinRepository;
+&nbsp;//
+&nbsp;//    // Constructor to inject the repository instances
+&nbsp;//    @Autowired
+&nbsp;//    public SigninSocket(UserRepository userRepository, SigninRepository signinRepository) {
+&nbsp;//        this.userRepository = userRepository;
+&nbsp;//        this.signinRepository = signinRepository;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    /**
+&nbsp;//     * This method is called when a new WebSocket connection is established.
+&nbsp;//     * It updates the user&#39;s active status, handles sign-in logging, and stores the new session in the userSessions map.
+&nbsp;//     *
+&nbsp;//     * @param session   The WebSocket session object
+&nbsp;//     * @param userEmail The user&#39;s email, used as the key in the userSessions map
+&nbsp;//     */
+&nbsp;//    @OnOpen
+&nbsp;//    public void onOpen(Session session, @PathParam(&quot;userEmail&quot;) String userEmail) {
+&nbsp;//        userSessions.put(userEmail, session);
+&nbsp;//        User user = userRepository.findByUserEmail(userEmail);
+&nbsp;//        if (user != null &amp;&amp; !user.isActive()) {
+&nbsp;//            user.setActive(true);
+&nbsp;//            userRepository.save(user);
+&nbsp;//        }
+&nbsp;//
+&nbsp;//        Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(user);
+&nbsp;//        Signin newSignin;
+&nbsp;//        if (existingSignin != null) {
+&nbsp;//            newSignin = existingSignin;
+&nbsp;//            newSignin.updateSignInInfo();
+&nbsp;//        } else {
+&nbsp;//            newSignin = new Signin(user);
+&nbsp;//            newSignin.setSignInCount(1);
+&nbsp;//            newSignin.updateSignInInfo();
+&nbsp;//        }
+&nbsp;//        signinRepository.save(newSignin);
+&nbsp;//
+&nbsp;//        System.out.println(&quot;User connected: &quot; + userEmail);
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    /**
+&nbsp;//     * This method is called when a message is received from the client.
+&nbsp;//     * It logs the received message and can be extended to handle specific message types or perform additional actions.
+&nbsp;//     *
+&nbsp;//     * @param session   The WebSocket session object
+&nbsp;//     * @param message   The message received from the client
+&nbsp;//     * @param userEmail The user&#39;s email
+&nbsp;//     */
+&nbsp;//    @OnMessage
+&nbsp;//    public void onMessage(Session session, String message, @PathParam(&quot;userEmail&quot;) String userEmail) {
+&nbsp;//        System.out.println(&quot;Received message from &quot; + userEmail + &quot;: &quot; + message);
+&nbsp;//        // Perform any necessary actions based on the received message
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    /**
+&nbsp;//     * This method is called when a WebSocket connection is closed.
+&nbsp;//     * It updates the user&#39;s active status to false and removes the user&#39;s session from the userSessions map.
+&nbsp;//     *
+&nbsp;//     * @param session   The WebSocket session object
+&nbsp;//     * @param userEmail The user&#39;s email
+&nbsp;//     */
+&nbsp;//    @OnClose
+&nbsp;//    public void onClose(Session session, @PathParam(&quot;userEmail&quot;) String userEmail) {
+&nbsp;//        User closeUserSession = userRepository.findByUserEmail(userEmail);
+&nbsp;//        if (closeUserSession != null) {
+&nbsp;//            closeUserSession.setActive(false);
+&nbsp;//            userRepository.save(closeUserSession);
+&nbsp;//        }
+&nbsp;//        userSessions.remove(userEmail);
+&nbsp;//
+&nbsp;//        System.out.println(&quot;User disconnected: &quot; + userEmail);
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    /**
+&nbsp;//     * This method is called when an error occurs during the WebSocket session.
+&nbsp;//     * It logs the error message.
+&nbsp;//     *
+&nbsp;//     * @param session   The WebSocket session object
+&nbsp;//     * @param throwable The exception or error that occurred
+&nbsp;//     * @param userEmail The user&#39;s email
+&nbsp;//     */
+&nbsp;//    @OnError
+&nbsp;//    public void onError(Session session, Throwable throwable, @PathParam(&quot;userEmail&quot;) String userEmail) {
+&nbsp;//        System.err.println(&quot;Error occurred for user &quot; + userEmail + &quot;: &quot; + throwable.getMessage());
+&nbsp;//        // Handle any errors that occur during the WebSocket session
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    /**
+&nbsp;//     * This method sends a message to the specified user&#39;s WebSocket session, if the session is open.
+&nbsp;//     *
+&nbsp;//     * @param userEmail The user&#39;s email
+&nbsp;//     * @param message   The message to be sent
+&nbsp;//     */
+&nbsp;//    public static void sendMessage(String userEmail, String message) {
+&nbsp;//        Session session = userSessions.get(userEmail);
+&nbsp;//        if (session != null &amp;&amp; session.isOpen()) {
+&nbsp;//            try {
+&nbsp;//                session.getBasicRemote().sendText(message);
+&nbsp;//            } catch (IOException e) {
+&nbsp;//                System.err.println(&quot;Error sending message to user &quot; + userEmail + &quot;: &quot; + e.getMessage());
+&nbsp;//
+&nbsp;//            }
+&nbsp;//        }
+&nbsp;//    }
+&nbsp;//}
+&nbsp;
+&nbsp;package database.Signin;
+&nbsp;
+&nbsp;import database.FriendRequest.FriendRequestRepository;
+&nbsp;import database.Friends.Friend;
+&nbsp;import database.Friends.FriendRepository;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import jakarta.websocket.*;
+&nbsp;import jakarta.websocket.server.PathParam;
+&nbsp;import jakarta.websocket.server.ServerEndpoint;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;
+&nbsp;@Component
+&nbsp;@ServerEndpoint(value = &quot;/signin/{userEmail}&quot;)
+<b class="fc">&nbsp;public class SigninSocket {</b>
+<b class="fc">&nbsp;    private static Map&lt;String, Session&gt; userSessions = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;    private static UserRepository userRepository;
+&nbsp;
+&nbsp;
+&nbsp;    private static SigninRepository signinRepository;
+&nbsp;
+&nbsp;
+&nbsp;    private static FriendRepository friendRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    public void setUserRepository(UserRepository repo) {
+<b class="fc">&nbsp;        userRepository = repo;  // we are setting the static variable</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    public void setSigninRepository(SigninRepository repo){
+<b class="fc">&nbsp;        signinRepository = repo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    public void setFriendRepository(FriendRepository repo){
+<b class="fc">&nbsp;        friendRepository = repo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @OnOpen
+&nbsp;    public void onOpen(Session session, @PathParam(&quot;userEmail&quot;) String userEmail) {
+<b class="nc">&nbsp;        userSessions.put(userEmail, session);</b>
+<b class="nc">&nbsp;        User user = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        if (user != null &amp;&amp; !user.isActive()) {</b>
+<b class="nc">&nbsp;            user.setActive(true);</b>
+<b class="nc">&nbsp;            userRepository.save(user);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(user);</b>
+&nbsp;        Signin newSignin;
+<b class="nc">&nbsp;        if (existingSignin != null) {</b>
+<b class="nc">&nbsp;            newSignin = existingSignin;</b>
+<b class="nc">&nbsp;            newSignin.updateSignInInfo();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            newSignin = new Signin(user);</b>
+<b class="nc">&nbsp;            newSignin.setSignInCount(1);</b>
+<b class="nc">&nbsp;            newSignin.updateSignInInfo();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        signinRepository.save(newSignin);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;User connected: &quot; + userEmail);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @OnMessage
+&nbsp;    public void onMessage(Session session, String message, @PathParam(&quot;userEmail&quot;) String userEmail) {
+<b class="nc">&nbsp;        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        User user = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        List&lt;Friend&gt; friendships = friendRepository.findByUser1OrUser2(user, user);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (message.equals(&quot;getfriend&quot;)) {</b>
+<b class="nc">&nbsp;            List&lt;User&gt; friendList = friendships.stream()</b>
+<b class="nc">&nbsp;                    .map(friendship -&gt; friendship.getUser1().equals(user) ? friendship.getUser2() : friendship.getUser1())</b>
+<b class="nc">&nbsp;                    .distinct()</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+&nbsp;
+<b class="nc">&nbsp;            response.put(&quot;success&quot;, true);</b>
+<b class="nc">&nbsp;            response.put(&quot;friends&quot;, friendList);</b>
+&nbsp;
+&nbsp;            // Send the response back to the client
+<b class="nc">&nbsp;            sendMessage(userEmail, createJsonString(response));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private String createJsonString(Map&lt;String, Object&gt; map) {
+<b class="nc">&nbsp;        StringBuilder sb = new StringBuilder();</b>
+<b class="nc">&nbsp;        sb.append(&quot;{&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Map.Entry&lt;String, Object&gt; entry : map.entrySet()) {</b>
+<b class="nc">&nbsp;            sb.append(&quot;\&quot;&quot;).append(entry.getKey()).append(&quot;\&quot;:&quot;);</b>
+<b class="nc">&nbsp;            Object value = entry.getValue();</b>
+&nbsp;
+<b class="nc">&nbsp;            if (value instanceof String) {</b>
+<b class="nc">&nbsp;                sb.append(&quot;\&quot;&quot;).append(value).append(&quot;\&quot;&quot;);</b>
+<b class="nc">&nbsp;            } else if (value instanceof List) {</b>
+<b class="nc">&nbsp;                sb.append(&quot;[&quot;);</b>
+<b class="nc">&nbsp;                List&lt;?&gt; list = (List&lt;?&gt;) value;</b>
+<b class="nc">&nbsp;                for (int i = 0; i &lt; list.size(); i++) {</b>
+<b class="nc">&nbsp;                    Object item = list.get(i);</b>
+<b class="nc">&nbsp;                    if (item instanceof User) {</b>
+<b class="nc">&nbsp;                        sb.append(createUserJsonString((User) item));</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        sb.append(createJsonString((Map&lt;String, Object&gt;) item));</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (i &lt; list.size() - 1) {</b>
+<b class="nc">&nbsp;                        sb.append(&quot;,&quot;);</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="nc">&nbsp;                sb.append(&quot;]&quot;);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                sb.append(value);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            sb.append(&quot;,&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (sb.charAt(sb.length() - 1) == &#39;,&#39;) {</b>
+<b class="nc">&nbsp;            sb.setLength(sb.length() - 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        sb.append(&quot;}&quot;);</b>
+<b class="nc">&nbsp;        return sb.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String createUserJsonString(User user) {
+<b class="nc">&nbsp;        StringBuilder sb = new StringBuilder();</b>
+<b class="nc">&nbsp;        sb.append(&quot;{&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&quot;\&quot;name\&quot;:\&quot;&quot;).append(user.getName()).append(&quot;\&quot;,&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&quot;\&quot;email\&quot;:\&quot;&quot;).append(user.getUserEmail()).append(&quot;\&quot;,&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&quot;\&quot;active\&quot;:\&quot;&quot;).append(user.isActive()).append(&quot;\&quot;&quot;);</b>
+<b class="nc">&nbsp;        sb.append(&quot;}&quot;);</b>
+<b class="nc">&nbsp;        return sb.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @OnClose
+&nbsp;    public void onClose(Session session, @PathParam(&quot;userEmail&quot;) String userEmail) {
+<b class="nc">&nbsp;        User closeUserSession = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        if (closeUserSession != null) {</b>
+<b class="nc">&nbsp;            closeUserSession.setActive(false);</b>
+<b class="nc">&nbsp;            userRepository.save(closeUserSession);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        userSessions.remove(userEmail);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;User disconnected: &quot; + userEmail);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @OnError
+&nbsp;    public void onError(Session session, Throwable throwable, @PathParam(&quot;userEmail&quot;) String userEmail) {
+<b class="nc">&nbsp;        System.err.println(&quot;Error occurred for user &quot; + userEmail + &quot;: &quot; + throwable.getMessage());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void sendMessage(String userEmail, String message) {
+<b class="nc">&nbsp;        Session session = userSessions.get(userEmail);</b>
+<b class="nc">&nbsp;        if (session != null &amp;&amp; session.isOpen()) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                session.getBasicRemote().sendText(message);</b>
+<b class="nc">&nbsp;            } catch (IOException e) {</b>
+<b class="nc">&nbsp;                System.err.println(&quot;Error sending message to user &quot; + userEmail + &quot;: &quot; + e.getMessage());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

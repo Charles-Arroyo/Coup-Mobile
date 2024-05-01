@@ -1,0 +1,225 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > SigninController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Signin</a>
+</div>
+
+<h1>Coverage Summary for Class: SigninController (database.Signin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SigninController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.7%
+  </span>
+  <span class="absValue">
+    (3/45)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Signin;
+&nbsp;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;@RestController
+<b class="fc">&nbsp;public class SigninController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private UserRepository userRepository;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private SigninRepository signinRepository;
+&nbsp;
+<b class="fc">&nbsp;    private String success = &quot;{\&quot;success\&quot;:\&quot;true\&quot;}&quot;;</b>
+<b class="fc">&nbsp;    private String failure = &quot;{\&quot;success\&quot;:\&quot;false\&quot;}&quot;;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks the repo, and allows user to sign in
+&nbsp;     *
+&nbsp;     * @param user
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @PostMapping(path = &quot;/signin&quot;)
+&nbsp;    public String signIn(@RequestBody User user) {
+<b class="nc">&nbsp;        User foundUser = userRepository.findByUserEmail(user.getUserEmail());</b>
+&nbsp;
+&nbsp;        // Check if the user is an admin
+<b class="nc">&nbsp;        if (user.getUserEmail().equals(&quot;admin&quot;) &amp;&amp; user.getPassword().equals(&quot;admin&quot;)) {</b>
+<b class="nc">&nbsp;            return &quot;{\&quot;success\&quot;:\&quot;admin\&quot;}&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (foundUser != null &amp;&amp; foundUser.getPassword().equals(user.getPassword())) {</b>
+<b class="nc">&nbsp;            foundUser.setActive(true);</b>
+<b class="nc">&nbsp;            userRepository.save(foundUser);</b>
+&nbsp;
+<b class="nc">&nbsp;            SigninSocket.sendMessage(foundUser.getUserEmail(), &quot;User signed in&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            if (signinRepository.findTopByUserOrderByLastSignInTimestampDesc(foundUser) != null) {</b>
+<b class="nc">&nbsp;                Signin existingSignin = signinRepository.findTopByUserOrderByLastSignInTimestampDesc(foundUser);</b>
+&nbsp;
+<b class="nc">&nbsp;                Signin newSignin = new Signin(foundUser);</b>
+<b class="nc">&nbsp;                newSignin.setSignInCount(existingSignin.getSignInCount());</b>
+<b class="nc">&nbsp;                newSignin.updateSignInInfo();</b>
+<b class="nc">&nbsp;                signinRepository.save(newSignin);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                Signin newSignIn = new Signin(foundUser);</b>
+<b class="nc">&nbsp;                newSignIn.updateSignInInfo();</b>
+<b class="nc">&nbsp;                signinRepository.save(newSignIn);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            return success;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return failure;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param userEmail
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @GetMapping(path = &quot;/getsignLog/{userEmail}&quot;)
+&nbsp;    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; getSignInLog(@PathVariable String userEmail) {
+<b class="nc">&nbsp;        Optional&lt;User&gt; optionalUser = Optional.ofNullable(userRepository.findByUserEmail(userEmail));</b>
+<b class="nc">&nbsp;        if (optionalUser.isPresent()) {</b>
+<b class="nc">&nbsp;            User user = optionalUser.get();</b>
+<b class="nc">&nbsp;            List&lt;Signin&gt; signInLogs = signinRepository.findByUser(user);</b>
+&nbsp;
+<b class="nc">&nbsp;            List&lt;Map&lt;String, Object&gt;&gt; signInLogList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;            for (Signin signIn : signInLogs) {</b>
+<b class="nc">&nbsp;                Map&lt;String, Object&gt; signInLog = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;                signInLog.put(&quot;id&quot;, signIn.getId());</b>
+<b class="nc">&nbsp;                signInLog.put(&quot;userId&quot;, signIn.getUser().getId());</b>
+<b class="nc">&nbsp;                signInLog.put(&quot;lastSignInTimestamp&quot;, signIn.getLastSignInTimestamp());</b>
+<b class="nc">&nbsp;                signInLog.put(&quot;signInCount&quot;, signIn.getSignInCount());</b>
+<b class="nc">&nbsp;                signInLog.put(&quot;lastSignOutTimestamp&quot;, signIn.getLastSignOutTimestamp());</b>
+<b class="nc">&nbsp;                signInLogList.add(signInLog);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            response.put(&quot;userId&quot;, user.getId());</b>
+<b class="nc">&nbsp;            response.put(&quot;signInLogs&quot;, signInLogList);</b>
+&nbsp;
+<b class="nc">&nbsp;            return ResponseEntity.ok(response);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(path = &quot;/checkUserStatus/{userEmail}&quot;)
+&nbsp;    public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; checkUserStatus(@PathVariable String userEmail) {
+<b class="nc">&nbsp;        User user = userRepository.findByUserEmail(userEmail);</b>
+<b class="nc">&nbsp;        if (user != null) {</b>
+<b class="nc">&nbsp;            Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            response.put(&quot;active&quot;, user.isActive());</b>
+<b class="nc">&nbsp;            return ResponseEntity.ok(response);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return ResponseEntity.notFound().build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +23,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText emailIdEditText, usernameEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
+    private ImageButton loginButton;
+    private ImageButton signupButton;
 
 
 
@@ -37,7 +38,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_charles);
 
         usernameEditText = findViewById(R.id.signup_username_edt);
 

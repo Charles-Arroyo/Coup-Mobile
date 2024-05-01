@@ -23,34 +23,49 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
     private boolean isLobbyFull = false;
-//    private TextView msgTv;     old code
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
     @Override
-    protected void onResume() {
-        super.onResume();
-        // Assuming WebSocketManager is your class that manages the WebSocket connection.
-        WebSocketManager.getInstance().setWebSocketListener(this);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Remove the listener when the activity goes into the background
-        // to prevent it from receiving WebSocket events
-        if (WebSocketManager.getInstance().getWebSocketListener() == this) {
-            WebSocketManager.getInstance().removeWebSocketListener();
-        }
-    }
+//    protected void onResume() {
+//        super.onResume();
+//        // Assuming WebSocketManager is your class that manages the WebSocket connection.
+//        WebSocketManager.getInstance().setWebSocketListener(this);
+//    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        // Remove the listener when the activity goes into the background
+//        // to prevent it from receiving WebSocket events
+//        if (WebSocketManager.getInstance().getWebSocketListener() == this) {
+//            WebSocketManager.getInstance().removeWebSocketListener();
+//        }
+//    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftercreatelobby);
+        boolean createLobby = getIntent().getBooleanExtra("createLobby", false);
+        String lobbyNumber = getIntent().getStringExtra("lobbyNumber");
+
+        //if user created lobby
+        if (createLobby){
+            String serverUrl = BASE_URL2 + Const.getCurrentEmail();
+            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+            WebSocketManager.getInstance().setWebSocketListener(AfterCreateLobbyActivity.this);
+        }
+        else {
+            String serverUrl = BASE_URL + lobbyNumber + '/' +Const.getCurrentEmail();
+            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+            WebSocketManager.getInstance().setWebSocketListener(AfterCreateLobbyActivity.this);
+        }
+        //if user joined lobby
         scrollViewMessages = findViewById(R.id.scrollViewMessages);
         layoutMessages = findViewById(R.id.layoutMessages);
-//        msgTv = (TextView) findViewById(R.id.tx1); old code
     }
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
-
+        Log.d("WebSocket", "AfterCreateLobby Activity connected: ");
     }
 //old code
 //    @Override
@@ -72,6 +87,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
 
     @Override
     public void onWebSocketMessage(String fullMessage) {
+        Log.d("WebSocket", "AfterCreateLobby Activity received: " + fullMessage);
         runOnUiThread(() -> {
             Log.d("WebSocketMessage", fullMessage);
             if ("Lobby is full".equals(fullMessage)) {

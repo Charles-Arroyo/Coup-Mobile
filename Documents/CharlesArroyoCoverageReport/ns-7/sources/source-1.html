@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Friend</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Friends</a>
+</div>
+
+<h1>Coverage Summary for Class: Friend (database.Friends)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Friend</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Friend$HibernateInstantiator$lHEFNcC1</td>
+  </tr>
+  <tr>
+    <td class="name">Friend$HibernateProxy$KgpcMddG</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Friends;
+&nbsp;
+&nbsp;import jakarta.persistence.Entity;
+&nbsp;import jakarta.persistence.GeneratedValue;
+&nbsp;import jakarta.persistence.GenerationType;
+&nbsp;import jakarta.persistence.Id;
+&nbsp;import jakarta.persistence.JoinColumn;
+&nbsp;import jakarta.persistence.ManyToOne;
+&nbsp;import com.fasterxml.jackson.annotation.JsonIgnore;
+&nbsp;import database.Users.User;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class simulates a relationship between a two emails known as a friendship
+&nbsp; */
+&nbsp;
+&nbsp;//@Entity
+&nbsp;//
+&nbsp;//public class Friend {
+&nbsp;//
+&nbsp;//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;//    @Id
+&nbsp;//    private int id; // Primary Key, not exposed to users.
+&nbsp;//
+&nbsp;//    @ManyToOne
+&nbsp;//    @JoinColumn(name = &quot;user_id&quot;)
+&nbsp;////    @JsonIgnore
+&nbsp;//    private User user;
+&nbsp;//
+&nbsp;//    private String friendEmail1;
+&nbsp;//    private String friendEmail2;
+&nbsp;//
+&nbsp;//    private boolean acceptance;
+&nbsp;//
+&nbsp;//    public Friend(String friendEmail1, String friendEmail2) {
+&nbsp;//        this.friendEmail1 = friendEmail1;
+&nbsp;//        this.friendEmail2 = friendEmail2;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//
+&nbsp;//    public Friend() {
+&nbsp;//
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public String getFriendEmail2() {
+&nbsp;//        return friendEmail2;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//
+&nbsp;//    public String getFriendEmail1() {
+&nbsp;//        return friendEmail1;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public void setFriendEmail2(String friendEmail2) {
+&nbsp;//        this.friendEmail2 = friendEmail2;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public void setFriendEmail1(String friendEmail1) {
+&nbsp;//        this.friendEmail1 = friendEmail1;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public boolean getAcceptance() {
+&nbsp;//        return acceptance;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public void setAcceptance(boolean acceptance) {
+&nbsp;//        this.acceptance = acceptance;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public int getId() {
+&nbsp;//        return id;
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    public void setUser(User user) {
+&nbsp;//        this.user = user;
+&nbsp;//    }
+&nbsp;//}
+&nbsp;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;friend_relationships&quot;)
+&nbsp;public class Friend {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private long id;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;user1_id&quot;, nullable = false)
+&nbsp;    private User user1;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;user2_id&quot;, nullable = false)
+&nbsp;    private User user2;
+&nbsp;
+&nbsp;    private boolean accepted;
+&nbsp;
+&nbsp;    // Constructors, getters, and setters
+<b class="fc">&nbsp;    public Friend(){</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public long getId() {
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public User getUser1() {
+<b class="nc">&nbsp;        return user1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUser1(User user1) {
+<b class="nc">&nbsp;        this.user1 = user1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public User getUser2() {
+<b class="nc">&nbsp;        return user2;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUser2(User user2) {
+<b class="nc">&nbsp;        this.user2 = user2;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isAccepted() {
+<b class="nc">&nbsp;        return accepted;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAccepted(boolean accepted) {
+<b class="nc">&nbsp;        this.accepted = accepted;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 17:20</div>
+</div>
+</body>
+</html>

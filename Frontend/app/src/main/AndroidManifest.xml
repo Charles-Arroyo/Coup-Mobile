@@ -86,6 +86,10 @@
 
         <!--        <activity-->
 <!--            android:name=".TestActivity"-->
+<!--            android:exported="false" />-->
+
+<!--        <activity-->
+<!--            android:name=".TestActivity"-->
 <!--            android:exported="true">-->
 <!--            &lt;!&ndash; This activity is the main entry point of the app and appears in the app launcher &ndash;&gt;-->
 <!--            <intent-filter>-->

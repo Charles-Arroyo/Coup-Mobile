@@ -105,7 +105,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/assassin"
+                    android:src="@drawable/assassin1"
                     android:contentDescription="@string/assassin" />
 
                 <!-- Captain Card -->
@@ -116,7 +116,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/captain"
+                    android:src="@drawable/captain1"
                     android:contentDescription="@string/captain" />
 
                 <!-- Duke Card -->
@@ -127,7 +127,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/duke"
+                    android:src="@drawable/duke1"
                     android:contentDescription="@string/duke" />
 
                 <!-- Contra Card -->
@@ -138,7 +138,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/contra"
+                    android:src="@drawable/contra1"
                     android:contentDescription="@string/ambassador" />
 
                 <!-- Ambassador Card -->
@@ -149,7 +149,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ambassador"
+                    android:src="@drawable/ambassador1"
                     android:contentDescription="@string/contra" />
 
             </LinearLayout>

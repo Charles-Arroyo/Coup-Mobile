@@ -5,42 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/GameSocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Ranking/Ranking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Ranking/Ranking.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Signin/SigninSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Signin/SigninSocket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameAssassinateTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameAssassinateTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameIncomeTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameRevealCardTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameStealTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTaxTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/GameTurnTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameAssassinateTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameCoupTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameIncomeTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameRevealCardTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameStealTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTaxTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-GameTurnTest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidget.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidgets.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpurple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/passwidget.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../Documents/Coverage Report" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -70,7 +67,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "gameCharlesApril29",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/billx/tutorials",
@@ -88,23 +85,82 @@
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.Main">
+    <configuration name="CharlesSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="onetoone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SystemTesting.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="SystemTesting" />
+      <option name="MAIN_CLASS_NAME" value="SystemTesting.CharlesSystemTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameIncomeTest.testIncomeFeatureIncreasesCoinsByOneForEachPlayer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="onetoone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GameTesting.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="GameTesting" />
+      <option name="MAIN_CLASS_NAME" value="GameTesting.GameIncomeTest" />
+      <option name="METHOD_NAME" value="testIncomeFeatureIncreasesCoinsByOneForEachPlayer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="java in onetoone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="onetoone" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="onetoone-1.0.0.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/target/onetoone-1.0.0.jar" />
       <method v="2" />
     </configuration>
-    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="onetoone" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="database.Main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.Main" />
+        <item itemvalue="JUnit.java in onetoone" />
         <item itemvalue="JAR Application.onetoone-1.0.0.jar" />
+        <item itemvalue="JUnit.GameIncomeTest.testIncomeFeatureIncreasesCoinsByOneForEachPlayer" />
+        <item itemvalue="JUnit.CharlesSystemTest" />
       </list>
     </recent_temporary>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-53826d6a" />
+      </set>
+    </attachedChunks>
+  </component>
+>>>>>>> main
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -115,7 +171,17 @@
       <updated>1712786260895</updated>
       <workItem from="1712786261263" duration="4193000" />
       <workItem from="1712979323377" duration="13179000" />
+<<<<<<< HEAD
       <workItem from="1714535900601" duration="31000" />
+=======
+      <workItem from="1713896675713" duration="57308000" />
+      <workItem from="1714166081343" duration="610000" />
+      <workItem from="1714166699891" duration="245000" />
+      <workItem from="1714167515740" duration="1487000" />
+      <workItem from="1714268308970" duration="6928000" />
+      <workItem from="1714372161182" duration="1093000" />
+      <workItem from="1714460953879" duration="598000" />
+>>>>>>> main
     </task>
     <servers />
   </component>
@@ -139,6 +205,7 @@
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="database.Lobby.LobbySocket" memberName="game" />
+        <PinnedItemInfo parentTag="database.Game.Game" memberName="AllPlayersReadyListen" />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>
@@ -146,5 +213,8 @@
         <watch expression="this.friends" language="JAVA" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/gameFile$java_in_onetoone.ic" NAME="java in onetoone Coverage Results" MODIFIED="1714169020190" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
