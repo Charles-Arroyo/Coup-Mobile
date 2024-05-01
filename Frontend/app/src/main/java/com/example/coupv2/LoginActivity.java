@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements WebSocketListener {
 
-    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/signin/";
+    private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
     private ImageButton loginButton;
