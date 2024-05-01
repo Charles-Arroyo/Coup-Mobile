@@ -16,48 +16,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32999998"
         app:srcCompat="@drawable/welcomeheader" />
-
-    <ImageView
-        android:id="@+id/imageViewN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/signup_name_edt"
-        app:srcCompat="@drawable/largecirclebtn" />
 
 
     <EditText
         android:id="@+id/signup_name_edt"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="38dp"
+        android:background="@drawable/largecirclebtn"
         android:gravity="center"
         android:hint="Enter Name Here"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_email_edt"
-        app:layout_constraintEnd_toEndOf="@+id/imageView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView21" />
-
-    <ImageView
-        android:id="@+id/imageViewE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/imageViewN"
-        app:layout_constraintTop_toTopOf="@+id/signup_email_edt"
-        app:srcCompat="@drawable/largecirclebtn" />
 
 
     <EditText
         android:id="@+id/signup_email_edt"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="41dp"
+        android:background="@drawable/largecirclebtn"
         android:gravity="center"
         android:hint="Enter Email Here"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_password_edt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +55,10 @@
         android:id="@+id/imageView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
         android:layout_marginBottom="9dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_name_edt"
-        app:layout_constraintStart_toStartOf="@+id/imageViewN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView19"
         app:srcCompat="@drawable/couplogo" />
 
@@ -79,13 +67,12 @@
         android:id="@+id/signup_signup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
         android:layout_marginBottom="11dp"
         android:background="@null"
         app:layout_constraintBottom_toTopOf="@+id/signup_login_btn"
-        app:layout_constraintStart_toStartOf="@+id/imageViewP"
         app:layout_constraintTop_toBottomOf="@+id/signup_password_edt"
-        app:srcCompat="@drawable/sumbitbtn" />
+        app:srcCompat="@drawable/sumbitbtn"
+        tools:layout_editor_absoluteX="126dp" />
 
     <ImageButton
         android:id="@+id/signup_login_btn"
@@ -99,25 +86,19 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_signup_btn"
         app:srcCompat="@drawable/switchtologinbtn" />
 
-    <ImageView
-        android:id="@+id/imageViewP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/imageViewE"
-        app:layout_constraintTop_toTopOf="@+id/signup_password_edt"
-        app:srcCompat="@drawable/largecirclebtn" />
-
     <EditText
         android:id="@+id/signup_password_edt"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="14dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="23dp"
+        android:background="@drawable/largecirclebtn"
         android:gravity="center"
         android:hint="Enter Password Here:"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/signup_signup_btn"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_email_edt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

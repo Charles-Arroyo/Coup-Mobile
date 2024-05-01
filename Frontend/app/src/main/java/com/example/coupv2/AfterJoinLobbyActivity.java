@@ -34,10 +34,6 @@ public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSock
             @Override
             public void onClick(View v) {
                 String lobbyNum = lobbyNumber.getText().toString();
-//                String serverUrl = BASE_URL + lobbyNum + '/' +Const.getCurrentEmail();
-                // Establish WebSocket connection and set listener
-//                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-//                WebSocketManager.getInstance().setWebSocketListener(AfterJoinLobbyActivity.this);
                 Intent intent = new Intent(AfterJoinLobbyActivity.this, AfterCreateLobbyActivity.class);
                 intent.putExtra("lobbyNumber", lobbyNum);
                 startActivity(intent);

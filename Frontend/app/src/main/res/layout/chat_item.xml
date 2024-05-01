@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:background="@android:drawable/dialog_holo_dark_frame"
-    android:backgroundTint="#4CAF50"
+    android:backgroundTint="#714A97"
     android:orientation="horizontal"
     android:padding="10dp">
 

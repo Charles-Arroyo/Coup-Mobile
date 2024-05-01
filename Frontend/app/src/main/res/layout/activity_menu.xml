@@ -66,8 +66,10 @@
 
     <LinearLayout
         android:id="@+id/central_panel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,35 +81,35 @@
 
         <Button
             android:id="@+id/game"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-             android:text="Play Game"
-             tools:ignore="HardcodedText" />
+            android:text="Play Game"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/rules_btn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-             android:text="Rules"
-             tools:ignore="HardcodedText" />
+            android:text="Rules"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/stats_btn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-             android:text="Stats"
-             tools:ignore="HardcodedText" />
+            android:text="Stats"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/friends_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-             android:text="Friends"
-             tools:ignore="HardcodedText" />
+            android:text="Friends"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <ImageView
@@ -121,20 +123,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.17000002"
         app:srcCompat="@drawable/captain" />
-
-    <ImageButton
-        android:id="@+id/theme_menu"
-        android:layout_width="59dp"
-        android:layout_height="52dp"
-        android:background="@null"
-        android:contentDescription=""
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976"
-        app:srcCompat="@drawable/icon_purple_dark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

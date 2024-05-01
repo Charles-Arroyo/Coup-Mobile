@@ -11,6 +11,8 @@ import database.Game.Game;
 import database.Game.Player;
 import database.Spectator.Spectator;
 import database.Spectator.SpectatorRepository;
+import database.Stats.Stat;
+import database.Stats.StatRepository;
 import database.Users.User;
 import database.Users.UserRepository;
 import database.Websocketconfig.WebsocketConfig;
@@ -43,6 +45,10 @@ public class LobbySocket {
 
     private static SpectatorRepository spectatorRepository;
 
+    private static StatRepository statRepository;
+
+
+
     private static Game game;
 
 
@@ -56,6 +62,11 @@ public class LobbySocket {
     }
 
     @Autowired
+    public void setStatRepository(StatRepository repo) {
+        statRepository = repo;  // we are setting the static variable
+    }
+
+    @Autowired
     public void setSpectatorRepository(SpectatorRepository repo) {spectatorRepository = repo;}
 
     private final Logger logger = LoggerFactory.getLogger(LobbySocket.class);
@@ -64,6 +75,11 @@ public class LobbySocket {
     private static Map<Session,User> sessionUserMap = new HashMap<>(); // Associate a Session with Users to find users to remove and add them
 
     private static Map < User, Session > userSessionMap = new Hashtable < > ();
+
+    private static Lobby existingLobby;
+
+    private static User userForStats;
+    private static Stat stateForUser;
 
 
     @OnOpen
@@ -80,7 +96,7 @@ public class LobbySocket {
             lobbyRepository.save(newLobby); // save the new lobby
             broadcastToAllInLobby(newLobby, "Users in lobby: " + newLobby.getUsers() + " The ID is: " + newLobby.getId());
         } else { // USER WANTS TO JOIN LOBBY
-            Lobby existingLobby = lobbyRepository.findById(lobbyId); // find lobby by ID
+             existingLobby = lobbyRepository.findById(lobbyId); // find lobby by ID
             if (existingLobby == null) {
                 session.getBasicRemote().sendText("Lobby not found");
                 session.close();
@@ -95,13 +111,31 @@ public class LobbySocket {
                     existingLobby.setGameStarted(true);
                     existingLobby.setFull(true);
                     lobbyRepository.save(existingLobby);
+
+                    /**
+                     * Stat Code
+                     */
+
+                    for(User stat : existingLobby.getUserArraylist()){
+                        Stat stat1 = stat.getStat();
+                        stat1.addGamePlayed();
+                        statRepository.save(stat1);
+                    }
+
+                    /**
+                     * Stat Code
+                     */
+
                     startGame(existingLobby); // function to handle game initialization
+
                 }
             } else if (existingLobby.getUserArraylist().size() >= 4 || existingLobby.hasGameStarted()) { // Lobby is full or game has started
                 Spectator spectator = new Spectator(user);
                 spectator.joinLobby(existingLobby);
                 spectatorRepository.save(spectator); // Save the spectator to the database
                 broadcastToAllInLobby(existingLobby, username + " has joined the lobby as a spectator.");
+                existingLobby.addSpectator(user); // Add Spectator to Array list
+                broadcastToSpecificUser(username,"spec");
             }
         }
     }
@@ -146,10 +180,9 @@ public class LobbySocket {
 
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
-        /**
-         * todo: Need contest logic in game
-         */
-        //todo need to listen after I sent to FE contest
+
+
+
         //GAME LOGIC TESTING
         JSONObject jsonpObject = new JSONObject(message); // Create JSON object
         String email = jsonpObject.getString("playerEmail"); // Get Player Email
@@ -157,9 +190,27 @@ public class LobbySocket {
         String targetPlayer = jsonpObject.getString("targetPlayer"); // Get opponentEmail
         String card1 = jsonpObject.getString("card1");
         String card2 = jsonpObject.getString("card2");
-        Player p = game.getPlayer(email); //Find player by their email
         String currentMove = state;
-        p.setTargetPlayer(targetPlayer);
+        Player p;
+        userForStats = userRepository.findByUserEmail(email);
+        stateForUser = userForStats.getStat(); // Find their stats
+
+
+        if(state.equals("spectate")){ // Find spectator
+            User Userspectator = userRepository.findByUserEmail(email);
+            Spectator spectator = new Spectator(Userspectator);
+            spectatorRepository.save(spectator); // Save the spectator to the database
+            p = new Spectator();
+            p.setUserEmail(email);
+            p.setTargetPlayer(targetPlayer);
+
+        }else{
+            p = game.getPlayer(email); //Find player by their email
+            p.setTargetPlayer(targetPlayer);
+        }
+
+
+
         if(state.contains("pass")){
             p.setPlayerState("wait");
             for(Player player : game.getPlayerArrayList()){
@@ -175,9 +226,13 @@ public class LobbySocket {
 
         if (state.equals("ready")) {  //If the player message says ready to listen, give them the game
             broadcastToSpecificUserGAMEJSON(p.getUserEmail(), game); // Broadcast to each player indivual so front end can unqiuely set up UI
+        }else if(state.equals("spectate")){
+            broadcastToSpecificUserGAMEJSON(email, game); // Broadcast to each player indivual so front end can unqiuely set up UI
         } else if (state.startsWith("*") && !state.contains("Coup") && !state.contains("Income")) { // Set Action for Players
             currentMove = state.substring(1); // save move for current player
             p.setCurrentMove(currentMove);
+            stateForUser.incrementSpecialMoves(currentMove);
+
             //He will send me the action, it is my job to change all the other players to contest
             p.setPlayerState("wait"); //Send action player to wait
             if(card1.equals("null") && card2.equals("null")){  // If FE is sending cards, we don't want to change states
@@ -206,7 +261,7 @@ public class LobbySocket {
                 }
             }
         } else if (state.equals("Bluff")) {
-
+            stateForUser.increaseBluff();
             //If any player called bluff, go into bluffing
             if(game.getBlocker().getUserEmail().equals("null")){ // Regular bluff for player
                 for(Player player : game.getPlayerArrayList()){
@@ -221,10 +276,8 @@ public class LobbySocket {
                     }
                   game.nextTurn();
                 }else{
-
                     Card playerCard  = new Card(p.loseInfluence(p));  // The bluffer loses Influence
                     game.getDeckDeck().addCardToBottomOfDeck(playerCard);
-
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
                     }
@@ -233,6 +286,12 @@ public class LobbySocket {
                     Card card4Deck = new Card(card);
                     game.getDeckDeck().addCardToBottomOfDeck(card4Deck);
                     game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
+
+                    if(game.getCurrentPlayer().getTargetPlayer().equals("null")){
+                        game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
+                    }else{
+                        game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getPlayer(game.getCurrentPlayer().getTargetPlayer()));
+                    }
                     game.nextTurn();
                 }
             }else{ //Special Bluff that reveals Blockers card.
@@ -269,6 +328,7 @@ public class LobbySocket {
 
             }
         } else if(state.contains("Block")) {
+            stateForUser.increaseBlock();
             if(state.equals("Block")){ // If it just a block, return the corresponding blocking card
                 game.setBlocker(p);
                 game.getBlocker().setCurrentMove(game.associateBlock(game.getCurrentPlayer().getCurrentMove()));
@@ -298,21 +358,28 @@ public class LobbySocket {
             for(Player player : game.getPlayerArrayList()){
                 broadcastToSpecificUser(player.getUserEmail(),p.getUserEmail() + ": Couped " + targetPlayer);
             }
+            stateForUser.increaseCoup();
         }else if(state.equals("*Income")){
             //Messages for Income
             for(Player player : game.getPlayerArrayList()){
                 broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " took income"); //Charles took: income
             }
 
+            for(User spectator : existingLobby.getSpectators()){
+                broadcastToSpecificUser(spectator.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " took income."); //Charles took: income
+            }
+            stateForUser.increaseIncome();
+
         }
 
 
         //Final BroadCast
-        if(!state.equals("ready") && !state.contains("@")){ // If it is not a message or ready
+        if(!state.equals("ready") && !state.contains("@") && !state.equals("spectate")){ // If it is not a message or ready
             if((state.contains("Income"))){ // If income, automatic Turn
                 currentMove = state.substring(1); // save move for current player
                 p.action(currentMove,game.getPlayer(p.getUserEmail())); // Does the player action for each player
                 game.nextTurn();
+
             } else if ((state.contains("Coup"))) { // If Coup, Automatic Turn
                 p.action(currentMove,game.getPlayer(targetPlayer)); // Does the player action for each player
                 game.nextTurn();
@@ -325,7 +392,6 @@ public class LobbySocket {
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
                     }
-
                     game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
                     game.nextTurn();
                 }else if(!game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
@@ -410,18 +476,51 @@ public class LobbySocket {
                     broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: The game is over. WINNER: " + game.getWinner().getUserEmail());
                 }
 
+                /**
+                 * Stat Code
+                 */
+                User winner = userRepository.findByUserEmail(game.getWinner().getUserEmail()); // Find Winner
+                Stat winnerStat = winner.getStat(); // Find their stats
+                winnerStat.incrementGameWon(); // increment game won
+                winnerStat.setAverages();
+                statRepository.save(winnerStat); // Save Repo
+                for(Player losers : game.getPlayerArrayList()){ // Set losers to lost
+                    if(!losers.getUserEmail().equals(game.getWinner().getUserEmail())){
+                        User loser = userRepository.findByUserEmail(losers.getUserEmail());
+                        Stat loserStat = loser.getStat();
+                        loserStat.incrementGameLost();
+                        loserStat.setAverages();
+                        loserStat.findMostUsedMove();
+                        loserStat.findMostUsedMove();
+                        statRepository.save(loserStat);
+                    }
+                }
+
+
+
+                /**
+                 * Stat Code
+                 */
 
                 for(Player player : game.getPlayerArrayList()){
                     broadcastToSpecificUser(player.getUserEmail(),  "Game Over");
                 }
+
+
+
+
             }else{
                 for (Player player : game.getPlayerArrayList()) {
                     broadcastToSpecificUserGAMEJSON(player.getUserEmail(), game);
                 }
 
-                for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: The current player is: " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
+                if(!existingLobby.isEmpty()){
+                    for(User spectator : existingLobby.getSpectators()){
+                        broadcastToSpecificUserGAMEJSON(spectator.getUserEmail(),  game);
+                    }
                 }
+
+                statRepository.save(stateForUser); //Saving stats
             }
         }
     }
@@ -492,11 +591,14 @@ public class LobbySocket {
         User user = userRepository.findByUserEmail(username); //Find UserName
 
         // Check if the user is a spectator
-        Spectator spectator = spectatorRepository.findByUser(user);
-        if (spectator != null && spectator.getActive()) {
-            spectator.leaveLobby();
-            spectatorRepository.save(spectator); // Update the spectator in the database
-            broadcastToAllInLobby(lobby, username + " has left the lobby as a spectator.");
+
+        if(!existingLobby.getSpectators().isEmpty()){
+            Spectator spectator = spectatorRepository.findByUser(user);
+            if (spectator != null && spectator.getActive()) {
+                spectator.leaveLobby();
+                spectatorRepository.save(spectator); // Update the spectator in the database
+                broadcastToAllInLobby(lobby, username + " has left the lobby as a spectator.");
+            }
         } else {
             // User is a regular participant
             lobby.removeUser(user); // Remove user from lobby
@@ -512,6 +614,15 @@ public class LobbySocket {
         ////NEW CODE NEW CODE
         if(lobby.isEmpty()){
             lobbyRepository.delete(lobby);
+            for(Player users : game.getPlayerArrayList()){ // Set losers to lost
+                    User usersStat = userRepository.findByUserEmail(users.getUserEmail());
+                    Stat usersStatStat = usersStat.getStat();
+                    usersStatStat.incrementGameLost();
+                    usersStatStat.setAverages();
+                    usersStatStat.findMostUsedMove();
+                    usersStatStat.findMostUsedMove();
+                    statRepository.save(usersStatStat);
+                }
         }
         ////NEW CODE NEW CODE
     }

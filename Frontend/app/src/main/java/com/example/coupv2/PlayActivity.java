@@ -1,12 +1,17 @@
 package com.example.coupv2;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,12 +44,10 @@ import java.util.Objects;
 
 public class PlayActivity extends AppCompatActivity implements WebSocketListener{
 
-    //exchange setup
-    CheckBox checkbox1;
-    CheckBox checkbox2;
-    CheckBox checkbox3;
-    CheckBox checkbox4;
-    Button submitButton;
+    //button for exchange
+    ImageButton exchangeBtn;
+    //player text
+    TextView currentPlayerText;
     private int checkedCount = 0;
     //chat layout views
     private LinearLayout layoutMessages1;
@@ -58,11 +62,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     private ImageView gameBoard;
     //views for when in contest mode
     ImageView smallwhite1;
-    TextView smallwhite1Text;
     ImageView smallwhite2;
-    TextView smallwhite2Text;
     ImageView longwhite;
-    TextView longwhitetext;
     ImageView bigBlock;
     //player variables
     String card1;
@@ -79,6 +80,10 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String Player2;
     String Player3;
     String Player4;
+    String Player1Name;
+    String Player2Name;
+    String Player3Name;
+    String Player4Name;
     //screen variables
     ImageView greenCard1;
     ImageView greenCard2;
@@ -156,23 +161,35 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         // link Play activity XML
         setContentView(R.layout.activity_play);
         //exchange buttons and setup
-         checkbox1 = findViewById(R.id.radioButton);
-         checkbox2 = findViewById(R.id.radioButton1);
-         checkbox3 = findViewById(R.id.radioButton2);
-         checkbox4 = findViewById(R.id.radioButton3);
-         submitButton = findViewById(R.id.button5);
-         submitButton.setOnClickListener(submitExchange);
+        exchangeBtn = findViewById(R.id.exchangeView);
+//         checkbox1 = findViewById(R.id.radioButton);
+//         checkbox2 = findViewById(R.id.radioButton1);
+//         checkbox3 = findViewById(R.id.radioButton2);
+//         checkbox4 = findViewById(R.id.radioButton3);
+//         submitButton = findViewById(R.id.button5);
+//         submitButton.setOnClickListener(submitExchange);
         //playericons
         playerIcon1 = findViewById(R.id.person1);
          playerIcon2 = findViewById(R.id.person2);
          playerIcon3 = findViewById(R.id.person3);
          playerIcon4 = findViewById(R.id.person4);
+         //current player
+        currentPlayerText = findViewById(R.id.timerText);
+
+
+        //exchange popup
+        exchangeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog2();
+            }
+        });
         // Set a click listeners for player icons
         playerIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player1; // Replace with actual logic to retrieve the username
+                String playerUsername = Player1Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -197,7 +214,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player2; // Replace with actual logic to retrieve the username
+                String playerUsername = Player2Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -223,7 +240,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player3; // Replace with actual logic to retrieve the username
+                String playerUsername = Player3Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -249,7 +266,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player4; // Replace with actual logic to retrieve the username
+                String playerUsername = Player4Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -257,7 +274,6 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                 // Set the title and message of the dialog
                 builder.setTitle("Player Information");
                 builder.setMessage("Username: " + playerUsername);
-
                 // Add a button to close the dialog
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -356,11 +372,10 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
         }
-//        else if(){
-//
-//        }
-
-
+        else if (message.equals("over")) {
+            // It matches the pattern "Username: 'message'"
+            showGameOverDialog();
+        }
         // Unknown format
         else {
             Log.e("WebSocket", "Received message in unknown format: " + message);
@@ -418,15 +433,19 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                                     String viewEmail = playerView.getString(j);
                                     if(j == 0){
                                         Player1 = viewEmail;
+                                        Player1Name = viewEmail;
                                     }
                                     else if(j == 1){
                                         Player2 = viewEmail;
+                                        Player2Name = viewEmail;
                                     }
                                     else if(j == 2){
                                         Player3 = viewEmail;
+                                        Player3Name = viewEmail;;
                                     }
                                     else if(j == 3){
                                         Player4 = viewEmail;
+                                        Player2Name = viewEmail;
                                     }
                                 }
 
@@ -477,11 +496,12 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
                             // If this player's turn is true, then animate his character
                             if (player.getBoolean("turn")) {
+                                currentPlayerText.setText("Current Player: " + playerEmail);
                                 updatePlayerTurnUi(playerEmail);
                             }
                         }
                         updatePlayerStateUi();
-                        setupCheckboxes();
+//                        setupCheckboxes();
 
                         Log.d("GameDebug", "Player State: " + playerState);
                     } catch (JSONException e) {
@@ -522,13 +542,8 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     public void updatePlayerStateUi(){
         //if not player turn then display waiting
         if (playerState.equals("wait")){
-            //disable exchange
-            checkbox1.setVisibility(View.GONE);
-            checkbox2.setVisibility(View.GONE);
-            checkbox3.setVisibility(View.GONE);
-            checkbox4.setVisibility(View.GONE);
-            submitButton.setVisibility(View.GONE);
-            submitButton.setOnClickListener(null);
+            exchangeBtn.setVisibility(View.GONE);
+
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
@@ -547,13 +562,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         else if (playerState.equals("turn")){
             gameBoard.setVisibility(View.VISIBLE);
 
-            //disable exchange
-            checkbox1.setVisibility(View.GONE);
-            checkbox2.setVisibility(View.GONE);
-            checkbox3.setVisibility(View.GONE);
-            checkbox4.setVisibility(View.GONE);
-            submitButton.setVisibility(View.GONE);
-            submitButton.setOnClickListener(null);
+            exchangeBtn.setVisibility(View.GONE);
             //hide contest layout
             bigBlock.setVisibility(View.GONE);
             smallwhite1.setVisibility(View.GONE);
@@ -572,12 +581,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         //implement later
         else if(playerState.equals("contest")){
             //disable exchange
-            checkbox1.setVisibility(View.GONE);
-            checkbox2.setVisibility(View.GONE);
-            checkbox3.setVisibility(View.GONE);
-            checkbox4.setVisibility(View.GONE);
-            submitButton.setVisibility(View.GONE);
-            submitButton.setOnClickListener(null);
+            exchangeBtn.setVisibility(View.GONE);
             //hide waiting and dead layout
             waitingOverlay.setVisibility(View.GONE);
             deadOverLay.setVisibility(View.GONE);
@@ -594,8 +598,9 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             longwhite.setOnClickListener(skipButtonListener);
         }
         else if(playerState.equals("Exchange2")){
+            exchangeBtn.setVisibility(View.VISIBLE);
             waitingOverlay.setVisibility(View.GONE);
-
+            deadOverLay.setVisibility(View.GONE);
             //hide game board
             gameBoard.setVisibility(View.GONE);
             //disable listeners if not turn
@@ -609,23 +614,11 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             smallwhite2.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
             //show button and listeners
-            checkbox1.setVisibility(View.VISIBLE);
-            checkbox2.setVisibility(View.VISIBLE);
-            checkbox3.setVisibility(View.VISIBLE);
-            checkbox4.setVisibility(View.VISIBLE);
-            //update names for check boxes
-            checkbox1.setText(card1);
-            checkbox2.setText(card2);
-            checkbox3.setText(exCard1);
-            checkbox4.setText(exCard2);
-            submitButton.setVisibility(View.VISIBLE);
-            submitButton.setOnClickListener(submitExchange);
-
         }
         else if(playerState.equals("Exchange1")){
-
+            exchangeBtn.setVisibility(View.VISIBLE);
             waitingOverlay.setVisibility(View.GONE);
-
+            deadOverLay.setVisibility(View.GONE);
             //hide game board
             gameBoard.setVisibility(View.GONE);
             //disable listeners if not turn
@@ -638,32 +631,12 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             smallwhite1.setVisibility(View.GONE);
             smallwhite2.setVisibility(View.GONE);
             longwhite.setVisibility(View.GONE);
-            //show button and listeners
-            checkbox1.setVisibility(View.VISIBLE);
-            checkbox2.setVisibility(View.VISIBLE);
-            checkbox3.setVisibility(View.GONE);
-            checkbox4.setVisibility(View.GONE);
-            //update names for check boxes
-            if(Objects.equals(card1, "null")){
-                checkbox1.setText(card2);
-            }
-            if(Objects.equals(card2, "null")){
-                checkbox1.setText(card1);
-            }
-            checkbox2.setText(exCard1);
-            submitButton.setVisibility(View.VISIBLE);
-            submitButton.setOnClickListener(submitExchange);
 
         }
         //implement later
         else if(playerState.equals("challenge")){
-            //disable exchange
-            checkbox1.setVisibility(View.GONE);
-            checkbox2.setVisibility(View.GONE);
-            checkbox3.setVisibility(View.GONE);
-            checkbox4.setVisibility(View.GONE);
-            submitButton.setVisibility(View.GONE);
-            submitButton.setOnClickListener(null);
+
+            exchangeBtn.setVisibility(View.GONE);
             //hide waiting and dead layout
             waitingOverlay.setVisibility(View.GONE);
             deadOverLay.setVisibility(View.GONE);
@@ -681,6 +654,9 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             longwhite.setOnClickListener(skipButtonListener);
         }
         else if (playerState.equals("dead")){  //hide contest layout
+            //hide game board
+            gameBoard.setVisibility(View.GONE);
+            exchangeBtn.setVisibility(View.GONE);
         bigBlock.setVisibility(View.GONE);
         smallwhite1.setVisibility(View.GONE);
         smallwhite2.setVisibility(View.GONE);
@@ -1025,99 +1001,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         }
     };
 
-    private View.OnClickListener submitExchange = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
 
-            if (Objects.equals(playerState, "Exchange2")) {
-                // Variables to hold the selections
-                String selectedCard1 = "null";
-                String selectedCard2 = "null";
-
-                // Check which checkboxes are checked and record the selections
-                if (checkbox1.isChecked()) {
-                    selectedCard1 = checkbox1.getText().toString();
-                }
-                if (checkbox2.isChecked()) {
-                    if (selectedCard1.equals("null")) {
-                        selectedCard1 = checkbox2.getText().toString();
-                    } else {
-                        selectedCard2 = checkbox2.getText().toString();
-                    }
-                }
-                if (checkbox3.isChecked()) {
-                    if (selectedCard1.equals("null")) {
-                        selectedCard1 = checkbox3.getText().toString();
-                    } else {
-                        selectedCard2 = checkbox3.getText().toString();
-                    }
-                }
-                if (checkbox4.isChecked()) {
-                    if (selectedCard1.equals("null")) {
-                        selectedCard1 = checkbox4.getText().toString();
-                    } else {
-                        selectedCard2 = checkbox4.getText().toString();
-                    }
-                }
-
-                // Verify that two cards are selected
-                if (selectedCard1.equals("null") || selectedCard2.equals("null")) {
-                    // If less than two cards are selected, inform the user and do not proceed
-                    Toast.makeText(PlayActivity.this, "You must select at least two cards to proceed", Toast.LENGTH_SHORT).show();
-                    return; // Exit the onClick method early
-                }
-
-                // Proceed with the exchange
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "*Exchange");
-                    jsonObject.put("targetPlayer", "null");
-                    jsonObject.put("card1", selectedCard1);
-                    jsonObject.put("card2", selectedCard2);
-                    Log.d("Websocket", "MoveMade: Exchange");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-            } else if (Objects.equals(playerState, "Exchange1")) {
-                // Variables to hold the selections
-                String selectedCard1 = "null";
-
-                // Check which checkboxes are checked and record the selections
-                if (checkbox1.isChecked()) {
-                    selectedCard1 = checkbox1.getText().toString();
-                }
-                if (checkbox2.isChecked()) {
-                    selectedCard1 = checkbox2.getText().toString();
-                }
-
-                // Verify that two cards are selected
-                if (selectedCard1.equals("null") ) {
-                    // If less than two cards are selected, inform the user and do not proceed
-                    Toast.makeText(PlayActivity.this, "You must select at least one card to proceed", Toast.LENGTH_SHORT).show();
-                    return; // Exit the onClick method early
-                }
-                // Proceed with the exchange
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("playerEmail", Const.getCurrentEmail());
-                    jsonObject.put("move", "*Exchange");
-                    jsonObject.put("targetPlayer", "null");
-                    jsonObject.put("card1", selectedCard1);
-                    jsonObject.put("card2", "null");
-                    Log.d("Websocket", "MoveMade: Exchange");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
-                String jsonStr = jsonObject.toString();
-                WebSocketManager.getInstance().sendMessage(jsonStr);
-            }
-        }
-    };
     private void addMessageToLayout(String username, String message) {
         //create a new view with xml layout and indicate where to add but dont attach yet
         View messageView = getLayoutInflater().inflate(R.layout.chat_item, layoutMessages1, false);
@@ -1176,7 +1060,28 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
 
         builder.show();
     }
+    public void showGameOverDialog() {
+        Context context = this; // Use 'this' or 'getActivity()' in case of a fragment
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+        builder.setTitle("Game Over");  // Set the title for the dialog
+        builder.setMessage("The game has ended.");  // Set the message to show
+
+        // Add a button to the dialog
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(PlayActivity.this, MainActivity.class);
+                WebSocketManager.getInstance().disconnectWebSocket();
+                startActivity(intent);
+                dialog.dismiss();  // Dismiss the dialog when the button is clicked
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     public void sendMessage(String username, String message) {
         // Add message to layout
         addMessageToLayout(username, message);
@@ -1201,12 +1106,140 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         dialog.show();
     }
 
-    private void setupCheckboxes() {
-        //exchange buttons
-        checkbox1 = findViewById(R.id.radioButton);
-        checkbox2 = findViewById(R.id.radioButton1);
-        checkbox3 = findViewById(R.id.radioButton2);
-        checkbox4 = findViewById(R.id.radioButton3);
+
+    public void showDialog2() {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_exchange);
+
+
+        CheckBox checkbox1 = dialog.findViewById(R.id.radioButtonMain);
+        CheckBox checkbox2 = dialog.findViewById(R.id.radioButtonMain2);
+        CheckBox checkbox3 = dialog.findViewById(R.id.radioButtonMain3);
+        CheckBox checkbox4 = dialog.findViewById(R.id.radioButtonMain4);
+        Button doExchange = dialog.findViewById(R.id.button4);
+        if (playerState.equals("Exchange2")){
+            checkbox1.setVisibility(View.VISIBLE);
+            checkbox2.setVisibility(View.VISIBLE);
+            checkbox3.setVisibility(View.VISIBLE);
+            checkbox4.setVisibility(View.VISIBLE);
+            //update names for check boxes
+            checkbox1.setText(card1);
+            checkbox2.setText(card2);
+            checkbox3.setText(exCard1);
+            checkbox4.setText(exCard2);
+        }
+        else if (playerState.equals("Exchange1")){
+            checkbox1.setVisibility(View.VISIBLE);
+            checkbox2.setVisibility(View.VISIBLE);
+            checkbox3.setVisibility(View.GONE);
+            checkbox4.setVisibility(View.GONE);
+//            update names for check boxes
+            if(Objects.equals(card1, "null")){
+                checkbox1.setText(card2);
+            }
+            if(Objects.equals(card2, "null")){
+                checkbox1.setText(card1);
+            }
+            checkbox2.setText(exCard1);
+        }
+
+        doExchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Objects.equals(playerState, "Exchange2")) {
+                    // Variables to hold the selections
+                    String selectedCard1 = "null";
+                    String selectedCard2 = "null";
+
+                    // Check which checkboxes are checked and record the selections
+                    if (checkbox1.isChecked()) {
+                        selectedCard1 = checkbox1.getText().toString();
+                    }
+                    if (checkbox2.isChecked()) {
+                        if (selectedCard1.equals("null")) {
+                            selectedCard1 = checkbox2.getText().toString();
+                        } else {
+                            selectedCard2 = checkbox2.getText().toString();
+                        }
+                    }
+                    if (checkbox3.isChecked()) {
+                        if (selectedCard1.equals("null")) {
+                            selectedCard1 = checkbox3.getText().toString();
+                        } else {
+                            selectedCard2 = checkbox3.getText().toString();
+                        }
+                    }
+                    if (checkbox4.isChecked()) {
+                        if (selectedCard1.equals("null")) {
+                            selectedCard1 = checkbox4.getText().toString();
+                        } else {
+                            selectedCard2 = checkbox4.getText().toString();
+                        }
+                    }
+
+                    // Verify that two cards are selected
+                    if (selectedCard1.equals("null") || selectedCard2.equals("null")) {
+                        // If less than two cards are selected, inform the user and do not proceed
+                        Toast.makeText(PlayActivity.this, "You must select at least two cards to proceed", Toast.LENGTH_SHORT).show();
+                        return; // Exit the onClick method early
+                    }
+
+                    // Proceed with the exchange
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("playerEmail", Const.getCurrentEmail());
+                        jsonObject.put("move", "*Exchange");
+                        jsonObject.put("targetPlayer", "null");
+                        jsonObject.put("card1", selectedCard1);
+                        jsonObject.put("card2", selectedCard2);
+                        Log.d("Websocket", "MoveMade: Exchange");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String jsonStr = jsonObject.toString();
+                    WebSocketManager.getInstance().sendMessage(jsonStr);
+                } else if (Objects.equals(playerState, "Exchange1")) {
+                    // Variables to hold the selections
+                    String selectedCard1 = "null";
+
+                    // Check which checkboxes are checked and record the selections
+                    if (checkbox1.isChecked()) {
+                        selectedCard1 = checkbox1.getText().toString();
+                    }
+                    if (checkbox2.isChecked()) {
+                        selectedCard1 = checkbox2.getText().toString();
+                    }
+
+                    // Verify that two cards are selected
+                    if (selectedCard1.equals("null") ) {
+                        // If less than two cards are selected, inform the user and do not proceed
+                        Toast.makeText(PlayActivity.this, "You must select at least one card to proceed", Toast.LENGTH_SHORT).show();
+                        return; // Exit the onClick method early
+                    }
+                    // Proceed with the exchange
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("playerEmail", Const.getCurrentEmail());
+                        jsonObject.put("move", "*Exchange");
+                        jsonObject.put("targetPlayer", "null");
+                        jsonObject.put("card1", selectedCard1);
+                        jsonObject.put("card2", "null");
+                        Log.d("Websocket", "MoveMade: Exchange");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String jsonStr = jsonObject.toString();
+                    WebSocketManager.getInstance().sendMessage(jsonStr);
+                }
+                dialog.dismiss();
+            }
+        });
+
+
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -1240,7 +1273,10 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
         checkbox2.setOnCheckedChangeListener(listener);
         checkbox3.setOnCheckedChangeListener(listener);
         checkbox4.setOnCheckedChangeListener(listener);
+
+
+        dialog.setCancelable(true);
+        dialog.show();
     }
-
-
+    
 }

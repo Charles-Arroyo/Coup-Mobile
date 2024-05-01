@@ -36,6 +36,10 @@
             android:name=".LoginActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".SpectatorActivity"
+            android:exported="false">
+        </activity>
 
         <activity
             android:name=".MenuActivity"
@@ -71,9 +75,9 @@
         <activity
             android:name=".AfterJoinLobbyActivity"
             android:exported="false" />
-        <activity
-            android:name=".TestActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".TestActivity"-->
+<!--            android:exported="false" />-->
 
         <activity
             android:name=".ListActivity"
@@ -84,9 +88,9 @@
             android:exported="false" />
 
 
-        <!--        <activity-->
-<!--            android:name=".TestActivity"-->
-<!--            android:exported="false" />-->
+                <activity
+            android:name=".TestActivity"
+            android:exported="false" />
 
 <!--        <activity-->
 <!--            android:name=".TestActivity"-->
@@ -113,6 +117,10 @@
         <activity
             android:name=".GameChatActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

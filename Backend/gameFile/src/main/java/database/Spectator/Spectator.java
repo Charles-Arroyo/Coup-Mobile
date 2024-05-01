@@ -1,6 +1,7 @@
 package database.Spectator;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import database.Game.Player;
 import database.Lobby.Lobby;
 import database.Ranking.Ranking;
 import database.Users.User;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 @Entity
-public class Spectator {
+public class Spectator extends Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,14 +43,22 @@ public class Spectator {
     @Column
     private LocalDateTime leaveTime;
 
+    private String email;
+
     public Spectator(User user) {
+        super(user.getUserEmail(),0,false,0,"spectator","null");
         this.user = user;
         this.isActive = true;
+        email = user.getUserEmail();
+    }
+    public Spectator() {
+
+        super("email",0,false,0,"spectator","null");
     }
 
-    public Spectator() {
-        // Default constructor
-    }
+//    public Spectator() {
+//        // Default constructor
+//    }
 
     public void setId(int id) {
         this.id = id;
