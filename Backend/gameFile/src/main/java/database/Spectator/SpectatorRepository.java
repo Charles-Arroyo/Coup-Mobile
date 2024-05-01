@@ -9,4 +9,6 @@ public interface SpectatorRepository extends JpaRepository<Spectator, Long> {
     // Additional custom methods can be defined here if necessary
 
     Spectator findByUser(User user);
+
+    void deleteByUserId(int id);
 }

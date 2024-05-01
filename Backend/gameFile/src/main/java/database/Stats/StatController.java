@@ -28,6 +28,7 @@ public class StatController {
 
     private String failure = "{\"message\":\"failure\"}"; //Sends a JSON String object named message
 
+    @Autowired
     private RankingController rankingController;
 
 
@@ -88,9 +89,9 @@ public class StatController {
 //
 //        }
 
-    @GetMapping(path = "/getStats/{id}")
-    public Map<String, Object> list(@PathVariable int id) {
-        User user = userRepository.findById(id);
+    @GetMapping(path = "/getStats/{userEmail}")
+    public Map<String, Object> list(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
 
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -153,6 +154,9 @@ public class StatController {
         }
         return rank;
     }
+
+
+
 
 //
 //    @PostMapping(path = "/gameTotal/{id}")

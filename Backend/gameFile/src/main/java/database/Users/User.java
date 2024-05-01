@@ -1,11 +1,14 @@
 package database.Users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import database.Lobby.Lobby;
+import database.ProfilePicture.ProfilePicture;
 import database.Ranking.Ranking;
+import database.Theme.Theme;
 import jakarta.persistence.*;
 import database.Stats.Stat;
-import jakarta.persistence.*;
 import database.FriendRequest.FriendRequest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +19,14 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 /**
- * 
+ *
  * @author Charles Arroyo
  * @author Bo Oo
- * 
- */ 
+ *
+ */
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "lobby", "ranking", "receivedFriendRequests", "sentFriendRequests"})
 public class User {
      /*
      * The annotation @ID marks the field below as the primary key for the table created by springboot
@@ -32,6 +36,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(unique = true)
     private String name;
 
     @Column(unique = true)
@@ -43,6 +48,7 @@ public class User {
     private boolean active;
 
     private int points;
+
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
@@ -57,9 +63,10 @@ public class User {
     @OneToMany(mappedBy = "requestingUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FriendRequest> sentFriendRequests = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "stat_id")
     @JsonManagedReference
+    @JsonIgnore
     private Stat stat;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -67,20 +74,31 @@ public class User {
     private Lobby lobby;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ranking_id")
     private Ranking ranking;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_picture_id")
+    private ProfilePicture profilePicture;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 
 
 
-    public User(String name, String userEmail,int id ,String password ,int UniqueID) {
+
+    public User(String name, String userEmail, int id, String password, int UniqueID) {
         this.name = name;
         this.userEmail = userEmail;
-//        this.ifActive = true;
         this.id = id;
         this.password = password;
         points = 0;
+        profilePicture = new ProfilePicture();
+        theme = new Theme();
+        stat = new Stat();
+        setStat(stat); // Set the stat object explicitly
     }
 
     public User() {
@@ -161,13 +179,15 @@ public class User {
         return stat;
     }
     public void setStat(Stat stat) {
+        if(stat != null){
         this.stat = stat;
         if((stat.getGameWon() * 10) - (stat.getGameLost() * 2) < 0){
             points = 0;
         }else {
             points = (stat.getGameWon() * 10) - (stat.getGameLost() * 2);
         }
-        stat.setUser(this); // Ensure the bidirectional link is established
+        }
+//        stat.setUser(this); // Ensure the bidirectional link is established
     }
 
     @Override
@@ -219,7 +239,20 @@ public class User {
     }
 
 
+    public ProfilePicture getProfilePicture() {
+        return profilePicture;
+    }
 
+    public void setProfilePicture(ProfilePicture profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
 }
 
 

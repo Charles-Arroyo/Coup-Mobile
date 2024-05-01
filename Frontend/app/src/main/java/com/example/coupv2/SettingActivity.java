@@ -123,7 +123,7 @@ public class SettingActivity extends AppCompatActivity {
      *
      */
     private void uploadImage() {
-        String UPLOAD_URL = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+        String UPLOAD_URL = "http://localhost:8080/PFP/" + USER_EMAIL;
         byte[] imageData = convertImageUriToBytes(selectiedUri);
 
         if (imageData != null && imageData.length > 0) {

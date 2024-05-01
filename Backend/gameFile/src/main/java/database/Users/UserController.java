@@ -212,4 +212,27 @@ public class UserController {
 
 
 
+    @PutMapping(path = "/changeName/{userEmail}")
+    @Transactional
+    public ResponseEntity<String> changeName(@PathVariable String userEmail, @RequestBody User updateUserName) {
+        if (updateUserName.getName() == null) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Invalid Name\"}");
+        }
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"message\":\"User not found\"}");
+        }else {
+
+            // Ensure the user is authorized to change the password here
+            user.setName(updateUserName.getName());
+            userRepository.save(user);
+
+            return ResponseEntity.ok("{\"success\":true}");
+        }
+    }
+
+
+
 }
