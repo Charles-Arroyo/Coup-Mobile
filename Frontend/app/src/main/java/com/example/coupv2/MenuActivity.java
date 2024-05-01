@@ -67,7 +67,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
     private final ArrayList<String> messagesList = new ArrayList<>();
     private final String user = Const.getCurrentEmail();
-    private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
+    private Button sendBtn;
+    private TextView playButton, friendsButton,  statsButton, rulesButton;
 
     private ImageView icon;
     private int speed = 100;

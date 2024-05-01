@@ -274,6 +274,10 @@ public class FriendsActivity extends AppCompatActivity implements WebSocketListe
      */
     private void showUserStats(String email) {
         Toast.makeText(this, "Stats for: " + email, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(FriendsActivity.this, StatsActivity.class);
+        intent.putExtra("USER", email);
+        startActivity(intent);
     }
 
     /**

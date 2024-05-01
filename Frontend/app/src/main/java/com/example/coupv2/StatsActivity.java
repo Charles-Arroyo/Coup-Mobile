@@ -24,7 +24,7 @@ public class StatsActivity extends AppCompatActivity {
 
     private TextView  playerWins, playerloses, playerGamesPlayed, playerScore,
             playerRank, playerAverage;
-    private String currentUserEmail;
+    private String currEmail;
     private Button back, email;
 //    public static final String URL_IMAGE = "http://10.0.2.2:8080/images/1";
 
@@ -41,7 +41,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         Intent intent = getIntent();
-        String currEmail = intent.getStringExtra("USER");
+        currEmail = intent.getStringExtra("USER");
 
         // Initialize TextViews
         email = findViewById(R.id.stats_user);
@@ -113,13 +113,18 @@ public class StatsActivity extends AppCompatActivity {
      * Making image request
      * */
     private void makeImageRequest() {
-        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + currentUserEmail;
+        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/getProfile/" + currEmail;
 
         ImageRequest imageRequest = new ImageRequest(
                 URL_IMAGE,
                 response -> {
-                    // Display the image in the ImageView
-                    pfp.setImageBitmap(response);
+                    // Handle the response Bitmap
+                    if (response != null) {
+                        // Display the image in the ImageView
+                        pfp.setImageBitmap(response);
+                    } else {
+                        Log.e("Bitmap Error", "Received null Bitmap");
+                    }
                 },
                 0, // Width, set to 0 to get the original width
                 0, // Height, set to 0 to get the original height
@@ -134,6 +139,8 @@ public class StatsActivity extends AppCompatActivity {
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(imageRequest);
     }
+
+
 
 }
 
