@@ -119,7 +119,7 @@ public class WebSocketManager {
          */
         @Override
         public void onOpen(ServerHandshake handshakedata) {
-            Log.d("WebSocket", "Connected");
+//            Log.d("WebSocket", "Connected");
             if (webSocketListener != null) {
                 webSocketListener.onWebSocketOpen(handshakedata);
             }

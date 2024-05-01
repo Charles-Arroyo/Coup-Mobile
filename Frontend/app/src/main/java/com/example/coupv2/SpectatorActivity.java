@@ -318,10 +318,6 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
         }
-//        else if(){
-//
-//        }
-
 
         // Unknown format
         else {

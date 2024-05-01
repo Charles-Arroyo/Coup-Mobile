@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#8d6e91"
+    android:layout_height="match_parent">
+
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Assassin Card -->
+            <ImageButton
+                android:id="@+id/assassin"
+                android:layout_width="165dp"
+                android:layout_height="220dp"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:contentDescription="@string/assassin"
+                android:scaleType="fitCenter"
+                android:src="@drawable/assassin1" />
+
+            <!-- Captain Card -->
+            <ImageButton
+                android:id="@+id/captain"
+                android:layout_width="165dp"
+                android:layout_height="220dp"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:contentDescription="@string/captain"
+                android:scaleType="fitCenter"
+                android:src="@drawable/captain1" />
+
+            <!-- Duke Card -->
+            <ImageButton
+                android:id="@+id/duke"
+                android:layout_width="165dp"
+                android:layout_height="220dp"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:contentDescription="@string/duke"
+                android:scaleType="fitCenter"
+                android:src="@drawable/duke1" />
+
+            <!-- Contra Card -->
+            <ImageButton
+                android:id="@+id/contra"
+                android:layout_width="165dp"
+                android:layout_height="220dp"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:contentDescription="@string/ambassador"
+                android:scaleType="fitCenter"
+                android:src="@drawable/contra1" />
+
+            <!-- Ambassador Card -->
+            <ImageButton
+                android:id="@+id/ambassador"
+                android:layout_width="165dp"
+                android:layout_height="220dp"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:contentDescription="@string/contra"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ambassador1" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="PLEASE SELECT"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="369dp"
+        android:layout_height="362dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997"
+        app:srcCompat="@drawable/contestblock" />
+
+    <CheckBox
+        android:id="@+id/radioButtonMain3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="RadioButton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.110000014" />
+
+    <CheckBox
+        android:id="@+id/radioButtonMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="RadioButton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <CheckBox
+        android:id="@+id/radioButtonMain4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="RadioButton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.68" />
+
+    <CheckBox
+        android:id="@+id/radioButtonMain2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="RadioButton"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.49" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView10"
+        app:layout_constraintVertical_bias="0.87" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

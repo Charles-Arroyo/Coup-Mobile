@@ -43,29 +43,29 @@ private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.ias
         Player1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("pizza");
-                performLogin("pizza");
+                Const.setCurrentEmail("A");
+                performLogin("A");
             }
         });
         Player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("roll");
-                performLogin("roll");
+                Const.setCurrentEmail("B");
+                performLogin("B");
             }
         });
         Player3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("billy");
-                performLogin("billy");
+                Const.setCurrentEmail("C");
+                performLogin("C");
             }
         });
         Player4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Const.setCurrentEmail("man");
-                performLogin("man");
+                Const.setCurrentEmail("D");
+                performLogin("D");
             }
         });
         }
