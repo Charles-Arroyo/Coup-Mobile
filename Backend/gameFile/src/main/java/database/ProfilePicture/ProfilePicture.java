@@ -11,6 +11,7 @@ public class ProfilePicture {
     private Integer id;
 
     @Lob
+    @Column(length = 25 * 1024 * 1024) // 25 MB
     private byte[] data;
     //The picture data is stored as a byte array in the database using the @Lob annotation,
     //which allows storing large objects.
@@ -20,9 +21,7 @@ public class ProfilePicture {
     @JsonBackReference
     private User user;
 
-
-    public ProfilePicture(){
-
+    public ProfilePicture() {
     }
 
     public void setId(Integer id) {
@@ -41,9 +40,11 @@ public class ProfilePicture {
         return data;
     }
 
-    public void setUser(User user){user = user;}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public User returnUser(){
+    public User returnUser() {
         return user;
     }
 }
