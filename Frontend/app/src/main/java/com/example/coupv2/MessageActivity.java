@@ -24,7 +24,7 @@ public class MessageActivity extends AppCompatActivity implements WebSocketListe
     private TextView title;
     private String user;
     private ScrollView scrollViewMessages;
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chatFriend/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chatFriend/";
     //    private String BASE_URL = "ws://10.0.2.2:8080/chat/";
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chatFriend/";
 

@@ -239,7 +239,7 @@ public class SettingActivity extends AppCompatActivity {
 //    }
 
     private void updateUserSettings(String username) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8443/changeName/" + USER_EMAIL;
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/changeName/" + USER_EMAIL;
 
         JSONObject jsonRequest = new JSONObject();
         try {
@@ -290,7 +290,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void updateUserPassword(String userPassword) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8443/changePass/" + USER_EMAIL;
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/changePass/" + USER_EMAIL;
 
         JSONObject jsonRequest = new JSONObject();
         try {
@@ -343,7 +343,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void updateUserEmail(String email) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8443/changeEmail/" + USER_EMAIL;
+        String url = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/" + USER_EMAIL;
 
         JSONObject jsonRequest = new JSONObject();
         try {

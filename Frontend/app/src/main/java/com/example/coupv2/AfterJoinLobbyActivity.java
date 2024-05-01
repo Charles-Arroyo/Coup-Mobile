@@ -1,26 +1,20 @@
 package com.example.coupv2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
-import org.w3c.dom.Text;
-
-import com.example.coupv2.utils.Const;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
 //    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
-//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
     private EditText lobbyNumber;
     private ImageButton joinBtn;
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,33 +1,29 @@
 package com.example.coupv2;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.java_websocket.handshake.ServerHandshake;
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coupv2.utils.Const;
+
+import org.java_websocket.handshake.ServerHandshake;
 public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSocketListener{
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
     private ImageButton lobbyBackOut;
     private boolean isLobbyFull = false;
     private boolean spectatorMode = false;
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
-    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
