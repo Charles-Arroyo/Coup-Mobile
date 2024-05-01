@@ -5,7 +5,7 @@ stages:
 maven-build:            
   stage: mavenbuild     # one of the stages listed above
   tags:                 # to specify which runner to execute this job
-    - springboot_tag    # change to your runner's tag
+    - bo_tag    # change to your runner's tag
   script:               # what to execute for this job
     - cd Backend/gameFile/        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn package       # maven package
