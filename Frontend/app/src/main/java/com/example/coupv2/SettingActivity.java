@@ -1,18 +1,26 @@
 package com.example.coupv2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
@@ -20,22 +28,28 @@ import com.example.coupv2.utils.Const;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class SettingActivity extends AppCompatActivity {
     //variables
     private EditText userNameText, userPassText, userEmailText;
-    private Button updateUser, updatePass, updateEmail, backButton;
-    private ImageButton uploadImg;
+    private Button updateUser, updatePass, updateEmail, backButton, upload;
+    private ImageView uploadImg;
     private ImageView settingsPicture;
     private String USER_EMAIL;
+    private ActivityResultLauncher<String> mGetContent;
+    private Uri selectiedUri;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(Const.getCurrentTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        uploadImg = findViewById(R.id.uploadImage);
         userNameText = findViewById(R.id.settings_username_edt);
         userPassText = findViewById(R.id.settings_password_edt);
         updateUser = findViewById(R.id.settings_login_btn);
@@ -44,6 +58,25 @@ public class SettingActivity extends AppCompatActivity {
         USER_EMAIL = Const.getCurrentEmail();
         userEmailText = findViewById(R.id.settings_email_edt);
         updateEmail = findViewById(R.id.settings_email_btn);
+        settingsPicture = findViewById(R.id.settings_icon);
+        Animation spin = AnimationUtils.loadAnimation(this, R.anim.spinning);
+        upload = findViewById(R.id.settings_image_upload_btn);
+        settingsPicture.startAnimation(spin);
+
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                uri -> {
+                    // Handle the returned Uri
+                    if (uri != null) {
+                        selectiedUri = uri;
+                        uploadImg.setImageURI(uri);
+
+                    }
+        });
+        uploadImg.setOnClickListener(v -> {
+            mGetContent.launch("image/*");
+        });
+
+        upload.setOnClickListener(v -> uploadImage());
 
         updateUser.setOnClickListener(v -> {
             String username = userNameText.getText().toString();
@@ -79,6 +112,131 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Uploads an image to a remote server using a multipart Volley request.
+     *
+     * This method creates and executes a multipart request using the Volley library to upload
+     * an image to a predefined server endpoint. The image data is sent as a byte array and the
+     * request is configured to handle multipart/form-data content type. The server is expected
+     * to accept the image with a specific key ("image") in the request.
+     *
+     */
+    private void uploadImage() {
+        String UPLOAD_URL = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+        byte[] imageData = convertImageUriToBytes(selectiedUri);
+
+        if (imageData != null && imageData.length > 0) {
+            ImageRequest multipartRequest = new ImageRequest(
+                    UPLOAD_URL,
+                    response -> {
+                        Log.d("Upload", "Response: " + response);
+                        Toast.makeText(this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+                    },
+                    0, // Width, set to 0 for original width
+                    0, // Height, set to 0 for original height
+                    ImageView.ScaleType.CENTER_INSIDE, // ScaleType
+                    Bitmap.Config.ARGB_8888, // Bitmap config
+                    error -> {
+                        // Handle error
+                        Toast.makeText(this, "Failed to upload image: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("Upload", "Error: " + error.getMessage());
+                    }
+            ) {
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return imageData; // Set the image data as the body of the request
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "image/jpeg"; // Set the content type according to your image format (e.g., "image/jpeg", "image/png")
+                }
+            };
+
+            // Add the request to the request queue
+            AppController.getInstance().addToRequestQueue(multipartRequest);
+        } else {
+            Toast.makeText(this, "Image data is null or empty", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+
+    /**
+     * Converts the given image URI to a byte array.
+     *
+     * This method takes a URI pointing to an image and converts it into a byte array. The conversion
+     * involves opening an InputStream from the content resolver using the provided URI, and then
+     * reading the content into a byte array. This byte array represents the binary data of the image,
+     * which can be used for various purposes such as uploading the image to a server.
+     *
+     * @param imageUri The URI of the image to be converted. This should be a content URI that points
+     *                 to an image resource accessible through the content resolver.
+     * @return A byte array representing the image data, or null if the conversion fails.
+     * @throws IOException If an I/O error occurs while reading from the InputStream.
+     */
+    private byte[] convertImageUriToBytes(Uri imageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+
+            int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+
+            int len;
+            while ((len = inputStream.read(buffer)) != -1) {
+                byteBuffer.write(buffer, 0, len);
+            }
+
+            return byteBuffer.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+//    private void uploadImage() {
+//        if (selectiedUri == null) {
+//            Toast.makeText(this, "Please select an image to upload", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        String updateUrl = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+//
+//        // Convert the image URI to a byte array
+//        byte[] imageData = convertImageUriToBytes(selectiedUri);
+//        if (imageData == null) {
+//            Toast.makeText(this, "Error converting image to byte array", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        // Create the JSON request with the image data
+//        JSONObject jsonRequest = new JSONObject();
+//        try {
+//            jsonRequest.put("pictureData", Base64.encodeToString(imageData, Base64.DEFAULT));
+//        } catch (JSONException e) {
+//            Toast.makeText(this, "Error creating JSON for profile update", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        // Create a JsonObjectRequest for the image upload
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, updateUrl, jsonRequest,
+//                response -> {
+//                    // Image up
+//load successful
+//                    Toast.makeText(this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
+//                },
+//                error -> {
+//                    // Error handling for image upload failure
+//                    Toast.makeText(this, "Failed to update profile picture: " + error.toString(), Toast.LENGTH_LONG).show();
+//                });
+//
+//        // Add the JsonObjectRequest to the request queue
+//        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+//    }
 
     private void updateUserSettings(String username) {
         String url = "http://coms-309-023.class.las.iastate.edu:8443/changeName/" + USER_EMAIL;
@@ -136,7 +294,7 @@ public class SettingActivity extends AppCompatActivity {
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("password", userPassword); // newPassword is the updated password provided by the user
+            jsonRequest.put("password", userPassword);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();

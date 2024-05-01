@@ -428,8 +428,8 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
     }
 
     private void showGlobalStatsPopup() {
-        String statsUrl = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/GLB";
-
+//        String statsUrl = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/GLB";
+        String statsUrl = "http://coms-309-023.class.las.iastate.edu:8443/globalStat";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -438,7 +438,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
                     try {
                         int totalPlayers = response.getInt("total_players");
                         int activePlayers = response.getInt("active_players");
-                        int inactivePlayers = response.getInt("inactive_players");
+                        int inactivePlayers = response.getInt("not_active_players");
 
                         // Update the UI using the fetched data
                         updateGlobalStatsUI(totalPlayers, activePlayers, inactivePlayers);
