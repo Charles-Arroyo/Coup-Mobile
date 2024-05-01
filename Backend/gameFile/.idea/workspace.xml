@@ -6,8 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Admin/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Admin/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/ChatSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Chat/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/FriendChat/FriendChatSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/FriendChat/FriendChatSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Friends/FriendController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/ProfilePicture/ProfilePicture.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/ProfilePicture/ProfilePicture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/ProfilePicture/ProfilePictureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/ProfilePicture/ProfilePictureController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Ranking/Ranking.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Ranking/Ranking.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Ranking/RankingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Ranking/RankingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Signin/SigninSocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Signin/SigninSocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Users/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Users/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
     </list>
@@ -56,7 +76,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.Main.executor": "Run",
-    "git-widget-placeholder": "gameCharlesApril29",
+    "git-widget-placeholder": "contessafix",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile",
