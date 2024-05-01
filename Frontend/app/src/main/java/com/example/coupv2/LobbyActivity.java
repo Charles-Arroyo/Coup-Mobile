@@ -17,7 +17,8 @@ import org.java_websocket.handshake.ServerHandshake;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
+private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
 //        private String BASE_URL = "ws://localhost:8080/chat/";
     private ImageButton connectBtn, joinBtn;
 
