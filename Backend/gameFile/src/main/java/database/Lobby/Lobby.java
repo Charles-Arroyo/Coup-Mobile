@@ -22,7 +22,7 @@ public class Lobby {
     //spectators if the lobby is full
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "spectator_lobby_id")
-    private List<User> spectators = new ArrayList<>();
+    private List<User> spectators;
 
 //    @OneToOne
 //    @JoinColumn(name = "user_id")
@@ -45,6 +45,7 @@ public class Lobby {
     public Lobby() {
         userList = new ArrayList<>();
         isFull = false;
+        spectators = new ArrayList<>();
     }
 
 //    @Transactional

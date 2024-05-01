@@ -81,10 +81,12 @@ public class LobbySocket {
 
     private static User userForStats;
     private static Stat stateForUser;
+    private boolean firstUser;
 
 
     @OnOpen
     public void onOpen(Session session, @PathParam("lobbyId") int lobbyId, @PathParam("username") String username) throws IOException {
+
         User user = userRepository.findByUserEmail(username); // find user by their email
 
 
@@ -96,7 +98,9 @@ public class LobbySocket {
             newLobby.addUser(user); // add user to the lobby
             lobbyRepository.save(newLobby); // save the new lobby
             broadcastToAllInLobby(newLobby, "Users in lobby: " + newLobby.getUsers() + " The ID is: " + newLobby.getId());
+            firstUser = true;
         } else { // USER WANTS TO JOIN LOBBY
+            firstUser = false;
              existingLobby = lobbyRepository.findById(lobbyId); // find lobby by ID
             if (existingLobby == null) {
                 session.getBasicRemote().sendText("Lobby not found");
@@ -273,14 +277,14 @@ public class LobbySocket {
                     Card playerCard = new Card(game.getCurrentPlayer().loseInfluence(game.getCurrentPlayer()));
                     game.getDeckDeck().addCardToBottomOfDeck(playerCard);
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + game.getCurrentPlayer().getUserEmail()+ " Lost influence "); //Charles took: income
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + game.getCurrentPlayer().getUserEmail()+ " Lost their card: " + playerCard.getName()); //Charles took: income
                     }
                   game.nextTurn();
                 }else{
                     Card playerCard  = new Card(p.loseInfluence(p));  // The bluffer loses Influence
                     game.getDeckDeck().addCardToBottomOfDeck(playerCard);
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost their card: " + playerCard.getName()); //Charles took: income
                     }
                     String card = game.getCurrentPlayer().removeCard(game.associate(game.getCurrentPlayer().getCurrentMove()),game.getCurrentPlayer()); // The Player their card
                     String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck
@@ -622,7 +626,8 @@ public class LobbySocket {
 
         // Check if the user is a spectator
 
-        if(!existingLobby.getSpectators().isEmpty()){
+
+        if(!lobby.getSpectators().isEmpty()){
             Spectator spectator = spectatorRepository.findByUser(user);
             if (spectator != null && spectator.getActive()) {
                 spectator.leaveLobby();
@@ -642,7 +647,7 @@ public class LobbySocket {
         userSessionMap.remove(user);
 
         ////NEW CODE NEW CODE
-        if(lobby.isEmpty()){
+        if(lobby.isEmpty() && lobby.hasGameStarted()){
             lobbyRepository.delete(lobby);
             for(Player users : game.getPlayerArrayList()){ // Set losers to lost
                     User usersStat = userRepository.findByUserEmail(users.getUserEmail());
@@ -653,6 +658,8 @@ public class LobbySocket {
                     usersStatStat.findMostUsedMove();
                     statRepository.save(usersStatStat);
                 }
+        }else{
+            lobbyRepository.delete(lobby);
         }
         ////NEW CODE NEW CODE
     }
