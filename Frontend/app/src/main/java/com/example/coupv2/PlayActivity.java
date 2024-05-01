@@ -79,6 +79,10 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
     String Player2;
     String Player3;
     String Player4;
+    String Player1Name;
+    String Player2Name;
+    String Player3Name;
+    String Player4Name;
     //screen variables
     ImageView greenCard1;
     ImageView greenCard2;
@@ -184,7 +188,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player1; // Replace with actual logic to retrieve the username
+                String playerUsername = Player1Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -209,7 +213,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player2; // Replace with actual logic to retrieve the username
+                String playerUsername = Player2Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -235,7 +239,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player3; // Replace with actual logic to retrieve the username
+                String playerUsername = Player3Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -261,7 +265,7 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
             @Override
             public void onClick(View view) {
                 // Get the username of the player
-                String playerUsername = Player4; // Replace with actual logic to retrieve the username
+                String playerUsername = Player4Name; // Replace with actual logic to retrieve the username
 
                 // Create an AlertDialog builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(PlayActivity.this);
@@ -425,15 +429,19 @@ public class PlayActivity extends AppCompatActivity implements WebSocketListener
                                     String viewEmail = playerView.getString(j);
                                     if(j == 0){
                                         Player1 = viewEmail;
+                                        Player1Name = viewEmail;
                                     }
                                     else if(j == 1){
                                         Player2 = viewEmail;
+                                        Player2Name = viewEmail;
                                     }
                                     else if(j == 2){
                                         Player3 = viewEmail;
+                                        Player3Name = viewEmail;;
                                     }
                                     else if(j == 3){
                                         Player4 = viewEmail;
+                                        Player2Name = viewEmail;
                                     }
                                 }
 

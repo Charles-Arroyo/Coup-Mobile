@@ -16,15 +16,15 @@
         tools:targetApi="31">
 
 <!--         Main activity that serves as the entry point for the application-->
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-<!--            &lt;!&ndash; This activity is the main entry point of the app and appears in the app launcher &ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <!-- This activity is the main entry point of the app and appears in the app launcher -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
 <!--        <activity android:name=".MainActivity" android:exported="true"/>-->
@@ -88,19 +88,19 @@
             android:exported="false" />
 
 
-        <!--        <activity-->
-<!--            android:name=".TestActivity"-->
-<!--            android:exported="false" />-->
-
-        <activity
+                <activity
             android:name=".TestActivity"
-            android:exported="true">
-            <!-- This activity is the main entry point of the app and appears in the app launcher -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
+
+<!--        <activity-->
+<!--            android:name=".TestActivity"-->
+<!--            android:exported="true">-->
+<!--            &lt;!&ndash; This activity is the main entry point of the app and appears in the app launcher &ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <!-- Set PlayActivity as the starting activity -->
 <!--        <activity-->
