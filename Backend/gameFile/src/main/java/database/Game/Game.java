@@ -133,6 +133,7 @@ public class Game {
 //    }
 
     public void nextTurn() {
+        currentPlayer.setTargetPlayer("null");
         currentPlayer.setTurn(false); // End current player's turn
 
         int index = players.indexOf(currentPlayer); // Get the current player's index
@@ -156,6 +157,7 @@ public class Game {
         for (Player player : players) {
             if (!player.getUserEmail().equals(currentPlayer.getUserEmail())) {
                 player.setPlayerState("wait");
+                player.setTargetPlayer("null");
             }
             if(!player.getUserEmail().equals(currentPlayer.getUserEmail()) && player.getLives() == 0){
                 player.setPlayerState("dead");

@@ -46,6 +46,7 @@ public class LobbySocket {
     private static SpectatorRepository spectatorRepository;
 
     private static StatRepository statRepository;
+    private static boolean exchangeBluffHappened;
 
 
 
@@ -287,12 +288,27 @@ public class LobbySocket {
                     game.getDeckDeck().addCardToBottomOfDeck(card4Deck);
                     game.getCurrentPlayer().gainInfluence(drawCard,game.getCurrentPlayer());
 
-                    if(game.getCurrentPlayer().getTargetPlayer().equals("null")){
+                    if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
                         game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
-                    }else{
+                        game.nextTurn();
+                    }else if (!game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
                         game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getPlayer(game.getCurrentPlayer().getTargetPlayer()));
+                        game.nextTurn();
                     }
-                    game.nextTurn();
+
+                    /**
+                     * Special Case for Exchange
+                     */
+                    if(game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
+                        for(Player player : game.getPlayerArrayList()){ // Set all players to wait so exchange can happen
+                            if(!player.equals(game.getCurrentPlayer())){
+                                player.setPlayerState("wait");
+                                exchangeBluffHappened = true;
+                            }
+                        }
+                    }
+
+
                 }
             }else{ //Special Bluff that reveals Blockers card.
                 // Find Blocking player, if the blocking player has a Card that can block the current players move,
@@ -310,7 +326,17 @@ public class LobbySocket {
                     }
                     Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
-                    game.nextTurn();
+                    /**
+                     * Move Should still happen
+                     */
+                    if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
+                        game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getCurrentPlayer());
+                        game.nextTurn();
+                    }else if (!game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
+                        game.getCurrentPlayer().action(game.getCurrentPlayer().getCurrentMove(),game.getPlayer(game.getCurrentPlayer().getTargetPlayer()));
+                        game.nextTurn();
+                    }
+
                 }else{ //If the blocker was not lying, bluff caller loses card and blocker gets a new card
                     Card playerCard = new Card(p.loseInfluence(p)); // Bluff Caller loses Card
                     Card blockerCard = new Card(blocker.removeCard(blocker.getCurrentMove(),blocker)); // Blockers Loses Card, because it was reveled.
@@ -387,7 +413,7 @@ public class LobbySocket {
 
             //Blocking Final Checks for all other moves
             boolean truth = checkPass(game);
-            if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && !state.equals("Bluff")){ //if all players passed, and block did not happen do move (tax, etc)
+            if(checkPass(game) && (!state.contains("Income") && !state.contains("Coup")) && game.getBlocker().getUserEmail().equals("null") && (!state.equals("Bluff") || exchangeBluffHappened)){ //if all players passed, and block did not happen do move (tax, etc)
                 if(game.getCurrentPlayer().getTargetPlayer().equals("null") && !game.getCurrentPlayer().getCurrentMove().contains("Exchange")){
                     for(Player player : game.getPlayerArrayList()){
                         broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands"); //Charles took: income
@@ -405,8 +431,12 @@ public class LobbySocket {
                     game.nextTurn();
                 }else{ // If we got ambassador
                     if(card1.equals("null") && card2.equals("null")){ // If we have not gotten card
-                        for(Player player : game.getPlayerArrayList()){
-                            broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
+                        if(!exchangeBluffHappened){
+                            for(Player player : game.getPlayerArrayList()){
+                                broadcastToSpecificUser(player.getUserEmail(), "The Coup Conductor: Everyone Passed, move stands");
+                            }
+                        }else{
+                            exchangeBluffHappened = false;
                         }
 
                         if(game.getCurrentPlayer().getLives() == 1){
