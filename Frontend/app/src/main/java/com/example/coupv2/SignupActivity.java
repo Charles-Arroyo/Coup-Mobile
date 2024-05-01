@@ -40,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_charles);
 
-        usernameEditText = findViewById(R.id.signup_username_edt);
+        usernameEditText = findViewById(R.id.signup_name_edt);
 
         emailIdEditText = findViewById(R.id.signup_email_edt);
         passwordEditText = findViewById(R.id.signup_password_edt);
