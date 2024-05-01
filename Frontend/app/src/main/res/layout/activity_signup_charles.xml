@@ -24,7 +24,7 @@
         android:id="@+id/signup_name_edt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/largecirclebtn"
         android:gravity="center"
         android:hint="Enter Name Here"
@@ -40,7 +40,7 @@
         android:id="@+id/signup_email_edt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="41dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/largecirclebtn"
         android:gravity="center"
         android:hint="Enter Email Here"
@@ -67,22 +67,26 @@
         android:id="@+id/signup_signup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription=" "
         android:layout_marginBottom="11dp"
         android:background="@null"
         app:layout_constraintBottom_toTopOf="@+id/signup_login_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_password_edt"
-        app:srcCompat="@drawable/sumbitbtn"
-        tools:layout_editor_absoluteX="126dp" />
+        app:srcCompat="@drawable/sumbitbtn" />
 
     <ImageButton
         android:id="@+id/signup_login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginBottom="12dp"
+        android:contentDescription=" "
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/signup_signup_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_signup_btn"
         app:srcCompat="@drawable/switchtologinbtn" />
 
