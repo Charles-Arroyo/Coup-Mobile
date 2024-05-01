@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +17,15 @@ import org.w3c.dom.Text;
 
 import com.example.coupv2.utils.Const;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
-    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private EditText lobbyNumber;
-    private Button joinBtn;
+    private ImageButton joinBtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_afterjoinlobby);
+        setContentView(R.layout.activity_afterjoinlobbycharles);
         lobbyNumber = findViewById(R.id.lobby_input);
         joinBtn = findViewById(R.id.join_btn);
 
@@ -30,11 +34,12 @@ public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSock
             @Override
             public void onClick(View v) {
                 String lobbyNum = lobbyNumber.getText().toString();
-                String serverUrl = BASE_URL + lobbyNum + '/' +Const.getCurrentEmail();
+//                String serverUrl = BASE_URL + lobbyNum + '/' +Const.getCurrentEmail();
                 // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(AfterJoinLobbyActivity.this);
+//                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+//                WebSocketManager.getInstance().setWebSocketListener(AfterJoinLobbyActivity.this);
                 Intent intent = new Intent(AfterJoinLobbyActivity.this, AfterCreateLobbyActivity.class);
+                intent.putExtra("lobbyNumber", lobbyNum);
                 startActivity(intent);
             }
         });
@@ -49,7 +54,7 @@ public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSock
 
     @Override
     public void onWebSocketMessage(String message) {
-
+        Log.d("WebSocket", "AfterJoinLobby Activity received: " + message);
     }
 
     @Override

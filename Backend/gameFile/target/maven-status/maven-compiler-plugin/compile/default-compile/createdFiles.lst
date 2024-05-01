@@ -51,4 +51,3 @@ database\Game\Player.class
 database\Chat\MessageRepository.class
 database\Chat\MessageController.class
 database\Users\User.class
-database\Game\GameSocket.class

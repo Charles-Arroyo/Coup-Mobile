@@ -1,105 +1,130 @@
 package com.example.coupv2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
-import org.json.JSONObject;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private TextView playerEmail, playerWins, playerLosses, playerGamesPlayed;
+    private TextView  playerWins, playerLosses, playerGamesPlayed, playerScore,
+            playerRank, playerAverage;
     private String currentUserEmail;
-//    private Button backButton;
+    private Button back, email;
+    public static final String URL_IMAGE = "http://10.0.2.2:8080/images/1";
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(Const.getCurrentTheme());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        Intent intent = getIntent();
+        String currEmail = intent.getStringExtra("USERNAME");
+
+        currentUserEmail = Const.getCurrentEmail();
+
         // Initialize TextViews
-//        playerEmail = findViewById(R.id.stats_email);
+        email = findViewById(R.id.stats_user);
         playerWins = findViewById(R.id.stats_wins);
         playerLosses = findViewById(R.id.stats_losses);
         playerGamesPlayed = findViewById(R.id.stats_games_played);
+        playerScore = findViewById(R.id.stats_score);
+        playerRank = findViewById(R.id.stats_rank);
+        playerAverage = findViewById(R.id.stats_average);
+        back = findViewById(R.id.back_stats);
+//        pfp = (ImageView) findViewById(R.id.stats_profile_picture);
 
-        // Get the current user's email or other identifier
-        currentUserEmail = Const.getCurrentEmail(); // Replace with actual method to get the current user's email
 
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
+
+        email.setText(currEmail);
+
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
+
+        email.setAnimation(pulse);
         // Now fetch the primary key using the current user's email
-        fetchPrimaryKey(currentUserEmail);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Start the rules activity
-//                Intent intent = new Intent(StatsActivity.this, MenuActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        getUserStats();
     }
 
-    private void fetchPrimaryKey(String email) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(email);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
-                            // Now fetch the stats using the primary key
-                            fetchUserStats(primaryKey);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                            Log.e("StatsActivity", "Error parsing primary key");
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("StatsActivity", "Error fetching primary key: " + error.toString());
-                    }
-                }
-        );
+//    private void makeImageRequest() {
+//
+//        ImageRequest imageRequest = new ImageRequest(
+//                URL_IMAGE,
+//                response -> {
+//                    // Display the image in the ImageView
+//                    imageView.setImageBitmap(response);
+//                },
+//                0, // Width, set to 0 to get the original width
+//                0, // Height, set to 0 to get the original height
+//                ImageView.ScaleType.FIT_XY, // ScaleType
+//                Bitmap.Config.RGB_565, // Bitmap config
+//
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        // Handle errors here
+//                        Log.e("Volley Error", error.toString());
+//                    }
+//                }
+//        );
+//
+//        // Adding request to request queue
+//        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(imageRequest);
+//    }
 
-        // Add the request to the RequestQueue.
-        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        requestQueue.add(stringRequest);
-    }
 
-    private void fetchUserStats(int primaryKey) {
-        String urlWithPrimaryKey = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + primaryKey;
+    private void getUserStats() {
+        //        String STATS_URL = "https://coms-309-023.class.las.iastate.edu:8443/getStats/" + currentUserEmail;
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlWithPrimaryKey, null,
+        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, STATS_URL, null,
                 response -> {
                     Log.d("StatsActivity", "Response received: " + response.toString()); // Debug log
                     try {
-                        int wins = response.optInt("gameWon", 0); // Use optInt for default value
-                        int losses = response.optInt("gameLost", 0);
-                        int gamesPlayed = response.optInt("gamePlayed", wins + losses); // Use optInt
+                        int wins = response.getInt("wins");
+                        int losses = response.getInt("losses");
+                        double average = ((double) wins / (wins + losses)) * 100; // Corrected average calculation
+                        int score = response.getInt("score");
+                        int rank = response.getInt("rank");
+                        int gamesPlayed = wins + losses;
 
                         playerWins.setText(String.format("Wins: %d", wins));
                         playerLosses.setText(String.format("Losses: %d", losses));
                         playerGamesPlayed.setText(String.format("Games Played: %d", gamesPlayed));
+                        playerAverage.setText(String.format("Average Wins: %.2f%%", average));
+                        playerScore.setText(String.format("Score: %d", score));
+                        playerRank.setText(String.format("Rank: %d", rank));
                     } catch (Exception e) {
                         Log.e("StatsActivity", "Parsing error: " + e.getMessage(), e);
                     }
                 },
                 error -> {
                     Log.e("StatsActivity", "Volley error: " + error.toString());
+                    Toast.makeText(getApplicationContext(), "Failed to load stats", Toast.LENGTH_SHORT).show();
                     if (error.networkResponse != null) {
                         Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
                     }
@@ -110,11 +135,5 @@ public class StatsActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-
-
-    // Handle the back button click by finishing the StatsActivity
-//    public void onBackButtonClick(View view) {
-//        finish();
-//    }
 }
 

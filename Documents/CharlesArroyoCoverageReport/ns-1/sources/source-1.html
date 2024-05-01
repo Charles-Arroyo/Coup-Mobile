@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (database)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Main$$SpringCGLIB$$0</td>
+  </tr>
+  <tr>
+    <td class="name">Main$$SpringCGLIB$$1</td>
+  </tr>
+  <tr>
+    <td class="name">Main$$SpringCGLIB$$2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database;
+&nbsp;import database.Friends.Friend;
+&nbsp;import database.Friends.FriendRepository;
+&nbsp;import database.Lobby.LobbyRepository;
+&nbsp;//import database.Signin.SigninSocketConfigurator;
+&nbsp;import database.Ranking.RankingRepository;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import org.hibernate.Hibernate;
+&nbsp;import org.springframework.boot.CommandLineRunner;
+&nbsp;import org.springframework.boot.SpringApplication;
+&nbsp;import org.springframework.boot.autoconfigure.SpringBootApplication;
+&nbsp;import org.springframework.context.ApplicationContext;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+&nbsp;import database.Game.Deck;
+&nbsp;import database.Game.Game;
+&nbsp;import database.Game.Player;
+&nbsp;
+&nbsp;import static org.springframework.boot.SpringApplication.run;
+&nbsp;import org.springframework.boot.SpringApplication;
+&nbsp;import org.springframework.context.ApplicationContext;
+&nbsp;//import database.Signin.SigninSocketConfigurator;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertTrue;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; *
+&nbsp; * @author Vivek Bengre
+&nbsp; *
+&nbsp; */
+&nbsp;
+&nbsp;@SpringBootApplication
+&nbsp;@EnableJpaRepositories
+<b class="fc">&nbsp;public class Main {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+&nbsp;//        ApplicationContext applicationContext = SpringApplication.run(Main.class, args);
+&nbsp;//        SigninSocketConfigurator.setApplicationContext(applicationContext);
+<b class="nc">&nbsp;        SpringApplication.run(Main.class, args);</b>
+&nbsp;
+&nbsp;        
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a commandLine runner to enter dummy data into the database
+&nbsp;     * As mentioned in User.java just associating the Laptop object with the User will save it into the database because of the CascadeType
+&nbsp;     */
+&nbsp;    @Bean
+&nbsp;    CommandLineRunner initUser(UserRepository userRepository, FriendRepository friendRepository, LobbyRepository lobbyRepository) {
+<b class="fc">&nbsp;        return args -&gt;</b>
+&nbsp;        {
+&nbsp;
+<b class="fc">&nbsp;        };</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;//    @Bean
+&nbsp;//    public Docket api() {
+&nbsp;//        return new Docket(DocumentationType.SWAGGER_2)
+&nbsp;//                .select()
+&nbsp;//                .apis(RequestHandlerSelectors.any())
+&nbsp;//                .paths(PathSelectors.any())
+&nbsp;//                .build();
+&nbsp;//    }
+&nbsp;//    public static void main(String[] args) {
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//
+&nbsp;//    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 17:20</div>
+</div>
+</body>
+</html>

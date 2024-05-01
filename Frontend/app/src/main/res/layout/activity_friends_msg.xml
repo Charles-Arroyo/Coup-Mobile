@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/button_onoff_indicator_off"
-    android:backgroundTint="#FFFFFF"
     android:gravity="bottom|center"
     android:orientation="vertical"
     tools:context=".MessageActivity">
@@ -23,11 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@android:drawable/dialog_holo_dark_frame"
-            android:backgroundTint="#4CAF50"
             android:padding="30dp"
-            android:text="Username"
-            android:textColor="#FFFFFF" />
+            android:text="Username" />
 
         <ImageButton
             android:id="@+id/back_btn"
@@ -44,9 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="1000sp"
             android:layout_weight="1"
-            android:background="@null"
-            android:contentDescription="zone in reach the content of messages that is layed out"
-            android:backgroundTint="#FFFFFF">
+            android:contentDescription="zone in reach the content of messages that is layed out">
 
             <LinearLayout
                 android:id="@+id/layoutMessages"
@@ -60,8 +53,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/dialog_holo_dark_frame"
-            android:backgroundTint="#4CAF50"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -73,8 +64,6 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:hint="message"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#FFFDFD"
                 android:textSize="20sp" />
 
             <Button
@@ -82,9 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="#FFFFFF"
-                android:text="Send"
-                android:textColor="#4CAF50" />
+                android:text="Send" />
 
         </LinearLayout>
 

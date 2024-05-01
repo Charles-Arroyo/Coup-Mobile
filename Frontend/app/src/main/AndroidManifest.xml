@@ -75,6 +75,19 @@
             android:name=".TestActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+
+
+        <!--        <activity-->
+<!--            android:name=".TestActivity"-->
+<!--            android:exported="false" />-->
+
 <!--        <activity-->
 <!--            android:name=".TestActivity"-->
 <!--            android:exported="true">-->

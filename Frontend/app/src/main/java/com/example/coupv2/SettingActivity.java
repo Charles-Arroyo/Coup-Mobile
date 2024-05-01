@@ -1,142 +1,91 @@
 package com.example.coupv2;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.nio.charset.StandardCharsets;
 
 public class SettingActivity extends AppCompatActivity {
     //variables
-    private EditText userNameText;
-    private EditText userPassText;
-    private Button updateUser;
-    private Button updatePass;
-    private Button backButton;
+    private EditText userNameText, userPassText, userEmailText;
+    private Button updateUser, updatePass, updateEmail, backButton;
+    private ImageButton uploadImg;
+    private ImageView settingsPicture;
+    private String USER_EMAIL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(Const.getCurrentTheme());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings); // link to Login activity XML
+        setContentView(R.layout.activity_settings);
         userNameText = findViewById(R.id.settings_username_edt);
         userPassText = findViewById(R.id.settings_password_edt);
         updateUser = findViewById(R.id.settings_login_btn);
         updatePass = findViewById(R.id.settings_pass_btn);
         backButton = findViewById(R.id.backBtn);
+        USER_EMAIL = Const.getCurrentEmail();
+        userEmailText = findViewById(R.id.settings_email_edt);
+        updateEmail = findViewById(R.id.settings_email_btn);
 
         updateUser.setOnClickListener(v -> {
             String username = userNameText.getText().toString();
-            String currentUser = Const.getCurrentEmail();
             if (!username.isEmpty()) {
-                //this fetches id and updates it
-                fetchPrimaryKeyForEmail(username, currentUser);
+                updateUserSettings(username);
             } else {
                 Toast.makeText(SettingActivity.this, "Please enter a username", Toast.LENGTH_SHORT).show();
             }
         });
+
         updatePass.setOnClickListener(v -> {
             String password = userPassText.getText().toString();
-            String currentUser = Const.getCurrentEmail();
             if (!password.isEmpty()) {
-                fetchPrimaryKeyForPassword(password, currentUser);
+                updateUserPassword(password);
             } else {
                 Toast.makeText(SettingActivity.this, "Please enter a password", Toast.LENGTH_SHORT).show();
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the rules activity
-                Intent intent = new Intent(SettingActivity.this, MenuActivity.class);
-                startActivity(intent);
+
+        updateEmail.setOnClickListener(v -> {
+            String email = userEmailText.getText().toString();
+            if (!email.isEmpty()) {
+                updateUserEmail(email);
+            } else {
+                Toast.makeText(SettingActivity.this, "Please enter a password", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        backButton.setOnClickListener(v -> {
+            // Start the rules activity
+            Intent intent = new Intent(SettingActivity.this, MenuActivity.class);
+            startActivity(intent);
         });
     }
 
-    private void fetchPrimaryKeyForEmail(String emailToChange, String firstEmail) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail);
 
-        // Create a request for a response that expects a raw string
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
-                            updateUserSettings(primaryKey, emailToChange);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("SettingActivity", "Error fetching primary key: " + error.toString());
-                        Toast.makeText(SettingActivity.this, "Error fetching primary key", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-
-        // Use AppController to add the request to the queue
-        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        requestQueue.add(stringRequest);
-    }
-
-    private void fetchPrimaryKeyForPassword(String passwordToChange, String firstEmail) {
-//        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail) + "?password=" + Uri.encode(passwordToChange);
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(firstEmail);
-
-        // Create a request for a response that expects a raw string
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            int primaryKey = Integer.parseInt(response); // Convert the response to an integer
-                            updateUserPassword(primaryKey, passwordToChange);
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SettingActivity.this, "Error parsing primary key", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("SettingActivity", "Error fetching primary key: " + error.toString());
-                        Toast.makeText(SettingActivity.this, "Error fetching primary key", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-
-        // Use AppController to add the request to the queue
-        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-        requestQueue.add(stringRequest);
-    }
-
-    private void updateUserSettings(int primaryKey, String userEmail) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/changeEmail/" + primaryKey;
+    private void updateUserSettings(String username) {
+        String url = "http://coms-309-023.class.las.iastate.edu:8443/changeName/" + USER_EMAIL;
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("updateEmail", userEmail); // newEmail is the updated email provided by the user
+            jsonRequest.put("name", username); // newEmail is the updated email provided by the user
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
@@ -150,6 +99,57 @@ public class SettingActivity extends AppCompatActivity {
                         boolean success = response.getBoolean("success");
                         if (success) {
                             Toast.makeText(SettingActivity.this, "Settings updated successfully", Toast.LENGTH_SHORT).show();
+                            Intent menuIntent = new Intent(SettingActivity.this, MenuActivity.class);
+                            startActivity(menuIntent);
+                            Const.setCurrentEmail(username);
+                            finish();
+                        } else {
+                            Toast.makeText(SettingActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SettingActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        Log.e("SettingActivity", "Network Response Body: " + responseBody);
+                        try {
+                            new JSONObject(responseBody);
+                        } catch (JSONException e) {
+                            Log.e("SettingActivity", "Response is not valid JSON", e);
+                        }
+                    } else {
+                        Log.e("SettingActivity", "Network Error: " + error.toString());
+                    }
+                    Toast.makeText(SettingActivity.this, "Network Error: " + error.toString(), Toast.LENGTH_LONG).show();
+                }
+
+        );
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    private void updateUserPassword(String userPassword) {
+        String url = "http://coms-309-023.class.las.iastate.edu:8443/changePass/" + USER_EMAIL;
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("password", userPassword); // newPassword is the updated password provided by the user
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest,
+                response -> {
+                    try {
+                        boolean success = response.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(SettingActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
                             // Start MenuActivity since the update was successful
                             Intent menuIntent = new Intent(SettingActivity.this, MenuActivity.class);
                             startActivity(menuIntent);
@@ -184,12 +184,12 @@ public class SettingActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void updateUserPassword(int primaryKey, String userPassword) {
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/changePass/" + primaryKey;
+    private void updateUserEmail(String email) {
+        String url = "http://coms-309-023.class.las.iastate.edu:8443/changeEmail/" + USER_EMAIL;
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("updatePassword", userPassword); // newPassword is the updated password provided by the user
+            jsonRequest.put("userEmail", email); // newPassword is the updated password provided by the user
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(SettingActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
@@ -202,7 +202,7 @@ public class SettingActivity extends AppCompatActivity {
                     try {
                         boolean success = response.getBoolean("success");
                         if (success) {
-                            Toast.makeText(SettingActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingActivity.this, "email updated successfully", Toast.LENGTH_SHORT).show();
                             // Start MenuActivity since the update was successful
                             Intent menuIntent = new Intent(SettingActivity.this, MenuActivity.class);
                             startActivity(menuIntent);

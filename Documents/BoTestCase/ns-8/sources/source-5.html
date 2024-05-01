@@ -1,0 +1,466 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Player</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Game</a>
+</div>
+
+<h1>Coverage Summary for Class: Player (database.Game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Player</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/82)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Game;
+&nbsp;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;public class Player {
+&nbsp;
+&nbsp;    String userEmail;
+&nbsp;    String cardOne;
+&nbsp;    String cardTwo;
+&nbsp;    int coins;
+&nbsp;    Boolean turn;
+&nbsp;    //made public for testing
+<b class="nc">&nbsp;    public Boolean readyToListen = false;</b>
+&nbsp;
+&nbsp;    String currentMove;
+&nbsp;
+&nbsp;    String playerState; // playerState: wait, turn, contest
+&nbsp;
+&nbsp;    int lives;
+&nbsp;
+&nbsp;    int turnNumber;
+&nbsp;
+<b class="nc">&nbsp;    public Player(String userEmail, int coins, boolean turn,int lives,String playerState) {</b>
+<b class="nc">&nbsp;        this.userEmail = userEmail;</b>
+<b class="nc">&nbsp;        this.coins = 2;</b>
+<b class="nc">&nbsp;        this.turn = turn;</b>
+<b class="nc">&nbsp;        this.lives = 2;</b>
+<b class="nc">&nbsp;        this.playerState = playerState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTurnNumber(int number){
+<b class="nc">&nbsp;        this.turnNumber = number;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;Player{&quot; +</b>
+&nbsp;                &quot;userEmail=&#39;&quot; + userEmail + &#39;\&#39;&#39; +
+&nbsp;                &quot;, cardOne=&#39;&quot; + cardOne + &#39;\&#39;&#39; +
+&nbsp;                &quot;, cardTwo=&#39;&quot; + cardTwo + &#39;\&#39;&#39; +
+&nbsp;                &quot;, coins=&quot; + coins +
+&nbsp;                &quot;, turn=&quot; + turn +
+&nbsp;                &quot;, turnNumber=&quot; + turnNumber +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /*__________________________Player Actions/Outcomes_______________________*/
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     */
+&nbsp;
+&nbsp;    public void action(String action, Player player){
+<b class="nc">&nbsp;        if(action.equals(&quot;Assassinate&quot;)){</b>
+<b class="nc">&nbsp;            assassinate(player);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(action.equals(&quot;Tax&quot;)){</b>
+<b class="nc">&nbsp;            setCurrentMove(&quot;Tax&quot;);</b>
+<b class="nc">&nbsp;            tax();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(action.equals(&quot;Steal&quot;)){</b>
+<b class="nc">&nbsp;            setCurrentMove(&quot;Steal&quot;);</b>
+<b class="nc">&nbsp;            steal(player);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(action.equals(&quot;Income&quot;)){</b>
+<b class="nc">&nbsp;            setCurrentMove(&quot;Income&quot;);</b>
+<b class="nc">&nbsp;            income();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(action.equals(&quot;Coup&quot;)){</b>
+<b class="nc">&nbsp;            setCurrentMove(&quot;Coup&quot;);</b>
+<b class="nc">&nbsp;            coup(player);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if(action.equals(&quot;Waiting&quot;)){</b>
+<b class="nc">&nbsp;            setPlayerState(&quot;Waiting&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void coup(Player player){
+<b class="nc">&nbsp;        if(this.coins &gt;= 7){</b>
+<b class="nc">&nbsp;            loseInfluence(player);</b>
+<b class="nc">&nbsp;            loseCoins(7);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     * @param card
+&nbsp;     */
+&nbsp;    public void callBluff(Player player, String card){
+&nbsp;        // TODO: Implement this functionality
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void income(){
+<b class="nc">&nbsp;        addCoins(1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void foreignAid(){
+<b class="nc">&nbsp;        addCoins(2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void addCoins(int coins){
+<b class="nc">&nbsp;        this.coins += coins;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void loseCoins(int lostCoins){
+<b class="nc">&nbsp;        this.coins -= lostCoins;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void loseInfluence(Player player){
+<b class="nc">&nbsp;        Random random = new Random();</b>
+<b class="nc">&nbsp;        if (random.nextBoolean()) {</b>
+<b class="nc">&nbsp;            player.cardOne = null;</b>
+<b class="nc">&nbsp;            player.lives--;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            player.cardTwo = null;</b>
+<b class="nc">&nbsp;            player.lives--;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public void gainInfluence(String card, Player player){
+<b class="nc">&nbsp;        if(cardOne == null){</b>
+<b class="nc">&nbsp;            player.setCardOne(card);</b>
+<b class="nc">&nbsp;            player.lives++;</b>
+<b class="nc">&nbsp;        }else if(cardTwo == null){</b>
+<b class="nc">&nbsp;            player.setCardTwo(card);</b>
+<b class="nc">&nbsp;            player.lives++;</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            System.out.println(&quot;PLAYER ALREADY HAS MAX CARDS&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    public String revealCard(String card,Player player){
+<b class="nc">&nbsp;        if(player.cardOne.equals(card)){</b>
+<b class="nc">&nbsp;            return cardOne;</b>
+&nbsp;
+<b class="nc">&nbsp;        }else if(player.cardTwo.equals(card)){</b>
+<b class="nc">&nbsp;            return cardTwo;</b>
+&nbsp;        }else{
+&nbsp;
+<b class="nc">&nbsp;            return player.getUserEmail() + &quot; Was a Liar&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public void removeCard(String card, Player player){
+<b class="nc">&nbsp;        if(player.cardOne.equals(card)){</b>
+<b class="nc">&nbsp;            cardOne = null;</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            cardTwo = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /*_______________________End Of Player Actions_______________________*/
+&nbsp;
+&nbsp;
+&nbsp;    /*__________________________Card Actions_______________________*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /*______________________________Duke_______________________*/
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void tax(){
+&nbsp;        // TODO: add bluffing check
+<b class="nc">&nbsp;        addCoins(3);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void blockForeignAid(Player player){
+&nbsp;        // TODO: Implement this functionality
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /*____________________________End of Duke_______________________*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /*______________________________Assassin_______________________*/
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     */
+&nbsp;    public void assassinate(Player player){
+<b class="nc">&nbsp;        if(this.coins &gt;= 3){</b>
+<b class="nc">&nbsp;            loseInfluence(player);</b>
+<b class="nc">&nbsp;            loseCoins(3);</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            System.out.println(&quot;Not enough Coins&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /*______________________________End of Assassin_______________________*/
+&nbsp;
+&nbsp;
+&nbsp;    /*______________________________Captain________________________________*/
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     */
+&nbsp;
+&nbsp;    public void steal(Player player){
+<b class="nc">&nbsp;        int stealAmount = Math.min(2, player.getCoins());</b>
+<b class="nc">&nbsp;        player.loseCoins(stealAmount);</b>
+<b class="nc">&nbsp;        this.addCoins(stealAmount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     */
+&nbsp;    public void blockSteal(Player player){
+&nbsp;        // TODO: Implement this functionality
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /*______________________________End of Captain________________________________*/
+&nbsp;
+&nbsp;
+&nbsp;    /*______________________________Ambassador________________________________*/
+&nbsp;
+&nbsp;    /*______________________________End of Ambassador_______________________________*/
+&nbsp;
+&nbsp;
+&nbsp;    /*____________________________________Contessa________________________________*/
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param player
+&nbsp;     */
+&nbsp;    public void blockAssassinate(Player player){
+&nbsp;        // TODO: Implement this functionality
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /*______________________________End of Contessa________________________________*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Getters and Setters
+&nbsp;     */
+&nbsp;    public String getCardOne() {
+<b class="nc">&nbsp;        return cardOne;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCardOne(String cardOne) {
+<b class="nc">&nbsp;        this.cardOne = cardOne;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getCardTwo() {
+<b class="nc">&nbsp;        return cardTwo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCardTwo(String cardTwo) {
+<b class="nc">&nbsp;        this.cardTwo = cardTwo;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getCoins() {
+<b class="nc">&nbsp;        return coins;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCoins(int coins) {
+<b class="nc">&nbsp;        this.coins = coins;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Boolean getTurn() {
+<b class="nc">&nbsp;        return turn;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTurn(Boolean turn) {
+<b class="nc">&nbsp;        this.turn = turn;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUserEmail() {
+<b class="nc">&nbsp;        return userEmail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserEmail(String userEmail) {
+<b class="nc">&nbsp;        this.userEmail = userEmail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getTurnNumber() {
+<b class="nc">&nbsp;        return turnNumber;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getLives() {
+<b class="nc">&nbsp;        return lives;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLives(int lives) {
+<b class="nc">&nbsp;        this.lives = lives;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getCurrentMove() {
+<b class="nc">&nbsp;        return currentMove;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentMove(String currentMove) {
+<b class="nc">&nbsp;        this.currentMove = currentMove;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPlayerState() {
+<b class="nc">&nbsp;        return playerState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPlayerState(String playerState) {
+<b class="nc">&nbsp;        this.playerState = playerState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*
+&nbsp;     * Getters and Setters
+&nbsp;     */
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

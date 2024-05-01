@@ -1,0 +1,86 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FriendRequestRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.FriendRequest</a>
+</div>
+
+<h1>Coverage Summary for Class: FriendRequestRepository (database.FriendRequest)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">FriendRequestRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.FriendRequest;
+&nbsp;
+&nbsp;import database.Users.User;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface FriendRequestRepository extends JpaRepository&lt;FriendRequest, Long&gt; {
+&nbsp;    List&lt;FriendRequest&gt; findByRequestedUser(User user);
+&nbsp;    List&lt;FriendRequest&gt; findByRequestingUser(User user);
+&nbsp;    boolean existsByRequestingUserAndRequestedUser(User requestingUser, User requestedUser);
+&nbsp;
+&nbsp;    FriendRequest findByRequestingUserAndRequestedUser(User requestingUser, User rrequestUser);
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    void deleteByRequestingUserAndRequestedUser(User requestingUser, User requestedUser);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 17:20</div>
+</div>
+</body>
+</html>

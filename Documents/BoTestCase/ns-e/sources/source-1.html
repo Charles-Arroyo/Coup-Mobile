@@ -1,0 +1,366 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Users</a>
+</div>
+
+<h1>Coverage Summary for Class: User (database.Users)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    11.1%
+  </span>
+  <span class="absValue">
+    (3/27)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    8.5%
+  </span>
+  <span class="absValue">
+    (4/47)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">User$HibernateInstantiator$8ALN6IFQ</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$lVbNWTOu</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    11.1%
+  </span>
+  <span class="absValue">
+    (3/27)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    8.5%
+  </span>
+  <span class="absValue">
+    (4/47)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Users;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonManagedReference;
+&nbsp;import database.Lobby.Lobby;
+&nbsp;import database.Ranking.Ranking;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import database.Stats.Stat;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import database.FriendRequest.FriendRequest;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;/**
+&nbsp; * 
+&nbsp; * @author Charles Arroyo
+&nbsp; * @author Bo Oo
+&nbsp; * 
+&nbsp; */ 
+&nbsp;
+&nbsp;@Entity
+&nbsp;public class User {
+&nbsp;     /*
+&nbsp;     * The annotation @ID marks the field below as the primary key for the table created by springboot
+&nbsp;     * The @GeneratedValue generates a value if not already present, The strategy in this case is to start from 1 and increment for each table
+&nbsp;     */
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private int id;
+&nbsp;
+&nbsp;    @Column(unique = true)
+&nbsp;
+&nbsp;    private String name;
+&nbsp;
+&nbsp;    @Column(unique = true)
+&nbsp;    private String userEmail;
+&nbsp;//    private boolean ifActive;
+&nbsp;
+&nbsp;    private String password;
+&nbsp;
+&nbsp;    private boolean active;
+&nbsp;
+&nbsp;    private int points;
+&nbsp;
+&nbsp;    /*
+&nbsp;     * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User)
+&nbsp;     * cascade is responsible propagating all changes, even to children of the class Eg: changes made to laptop within a user object will be reflected
+&nbsp;     * in the database (more info : https://www.baeldung.com/jpa-cascade-types)
+&nbsp;     * @JoinColumn defines the ownership of the foreign key i.e. the user table will have a field called laptop_id
+&nbsp;     */
+&nbsp;
+<b class="fc">&nbsp;    @OneToMany(mappedBy = &quot;requestedUser&quot;, cascade = CascadeType.ALL, orphanRemoval = true)</b>
+&nbsp;
+&nbsp;    private List&lt;FriendRequest&gt; receivedFriendRequests = new ArrayList&lt;&gt;();
+&nbsp;
+<b class="fc">&nbsp;    @OneToMany(mappedBy = &quot;requestingUser&quot;, cascade = CascadeType.ALL, orphanRemoval = true)</b>
+&nbsp;    private List&lt;FriendRequest&gt; sentFriendRequests = new ArrayList&lt;&gt;();
+&nbsp;
+&nbsp;    @OneToOne
+&nbsp;    @JoinColumn(name = &quot;stat_id&quot;)
+&nbsp;    @JsonManagedReference
+&nbsp;    private Stat stat;
+&nbsp;
+&nbsp;    @ManyToOne(cascade = CascadeType.ALL)
+&nbsp;    @JoinColumn(name = &quot;lobby_id&quot;)
+&nbsp;    private Lobby lobby;
+&nbsp;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    @JoinColumn(name = &quot;ranking_id&quot;)
+&nbsp;    private Ranking ranking;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public User(String name, String userEmail,int id ,String password ,int UniqueID) {</b>
+<b class="nc">&nbsp;        this.name = name;</b>
+<b class="nc">&nbsp;        this.userEmail = userEmail;</b>
+&nbsp;//        this.ifActive = true;
+<b class="nc">&nbsp;        this.id = id;</b>
+<b class="nc">&nbsp;        this.password = password;</b>
+<b class="nc">&nbsp;        points = 0;</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public User() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    // =============================== Getters and Setters for each field ================================== //
+&nbsp;
+&nbsp;    public int getId(){
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getPassword(){
+<b class="nc">&nbsp;        return password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPassword(String password){
+<b class="nc">&nbsp;        this.password = password;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName(){
+<b class="nc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setName(String name){
+<b class="nc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUserEmail(){
+<b class="fc">&nbsp;        return userEmail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserEmail(String userEmail) {
+<b class="nc">&nbsp;        this.userEmail = userEmail;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return &quot;User{&quot; +</b>
+&nbsp;                &quot;id=&quot; + id +
+&nbsp;                &quot;, name=&#39;&quot; + name + &#39;\&#39;&#39; +
+&nbsp;                &quot;, userEmail=&#39;&quot; + userEmail + &#39;\&#39;&#39; +
+&nbsp;//                &quot;, ifActive=&quot; + ifActive +
+&nbsp;                &#39;}&#39;;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void sendFriendRequest(User targetUser) {
+<b class="nc">&nbsp;        FriendRequest friendRequest = new FriendRequest();</b>
+<b class="nc">&nbsp;        friendRequest.setRequestingUser(this);</b>
+<b class="nc">&nbsp;        friendRequest.setRequestedUser(targetUser);</b>
+<b class="nc">&nbsp;        sentFriendRequests.add(friendRequest);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void removeFriendRequest(FriendRequest friendRequest) {
+<b class="nc">&nbsp;        sentFriendRequests.remove(friendRequest);</b>
+<b class="nc">&nbsp;        receivedFriendRequests.remove(friendRequest);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;FriendRequest&gt; getReceivedFriendRequests() {
+<b class="nc">&nbsp;        return receivedFriendRequests;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;FriendRequest&gt; getSentFriendRequests() {
+<b class="nc">&nbsp;        return sentFriendRequests;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public List&lt;String&gt; getFriendRequestEmails() {
+<b class="nc">&nbsp;        return receivedFriendRequests.stream()</b>
+<b class="nc">&nbsp;                .map(fr -&gt; fr.getRequestingUser().getUserEmail())</b>
+<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Stat getStat(){
+<b class="nc">&nbsp;        return stat;</b>
+&nbsp;    }
+&nbsp;    public void setStat(Stat stat) {
+<b class="nc">&nbsp;        this.stat = stat;</b>
+<b class="nc">&nbsp;        if((stat.getGameWon() * 10) - (stat.getGameLost() * 2) &lt; 0){</b>
+<b class="nc">&nbsp;            points = 0;</b>
+&nbsp;        }else {
+<b class="nc">&nbsp;            points = (stat.getGameWon() * 10) - (stat.getGameLost() * 2);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        stat.setUser(this); // Ensure the bidirectional link is established</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object obj) {
+<b class="nc">&nbsp;        if (this == obj) return true;</b>
+<b class="nc">&nbsp;        if (obj == null || getClass() != obj.getClass()) return false;</b>
+<b class="nc">&nbsp;        User user = (User) obj;</b>
+<b class="nc">&nbsp;        return Objects.equals(userEmail, user.userEmail); // Assuming userEmail is a unique identifier.</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int hashCode() {
+<b class="nc">&nbsp;        return Objects.hash(userEmail);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public Lobby getLobby() {
+<b class="nc">&nbsp;        return lobby;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLobby(Lobby lobby) {
+<b class="nc">&nbsp;        this.lobby = lobby;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isActive() {
+<b class="nc">&nbsp;        return active;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;    public void setActive(boolean active) {
+<b class="nc">&nbsp;        this.active = active;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Ranking getRanking() {
+<b class="nc">&nbsp;        return ranking;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRanking(Ranking ranking) {
+<b class="nc">&nbsp;        this.ranking = ranking;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public Integer getPoints() {
+<b class="nc">&nbsp;        return points;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPoints(int points) {
+<b class="nc">&nbsp;        this.points = points;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

@@ -2,41 +2,44 @@ package com.example.coupv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.java_websocket.handshake.ServerHandshake;
-
 import com.example.coupv2.utils.Const;
+
+import org.java_websocket.handshake.ServerHandshake;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
 //        private String BASE_URL = "ws://localhost:8080/chat/";
-    private Button connectBtn, joinBtn;
-
+    private ImageButton connectBtn, joinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lobby);
+        setContentView(R.layout.activity_lobbycharles);
 
         /* initialize UI elements */
-        connectBtn = (Button) findViewById(R.id.button1);
-        joinBtn = (Button) findViewById(R.id.button2);
+        connectBtn = (ImageButton) findViewById(R.id.button1);
+        joinBtn = (ImageButton) findViewById(R.id.button2);
 
 
         connectBtn.setOnClickListener(new View.OnClickListener() {
             //
             @Override
             public void onClick(View v) {
-                String serverUrl = BASE_URL + Const.getCurrentEmail();
-                // Establish WebSocket connection and set listener
-                WebSocketManager.getInstance().connectWebSocket(serverUrl);
-                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+//                String serverUrl = BASE_URL + Const.getCurrentEmail();
+//                // Establish WebSocket connection and set listener
+//                WebSocketManager.getInstance().connectWebSocket(serverUrl);
+//                WebSocketManager.getInstance().setWebSocketListener(LobbyActivity.this);
+
                 Intent intent = new Intent(LobbyActivity.this, AfterCreateLobbyActivity.class);
+                intent.putExtra("createLobby", true);
                 startActivity(intent);
             }
         });
@@ -59,6 +62,7 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
          * is used to post a runnable to the UI thread's message queue, allowing UI updates
          * to occur safely from a background or non-UI thread.
          */
+        Log.d("WebSocket", "Lobby Activity received: " + message);
 //        runOnUiThread(() -> {
 //            String s = msgTv.getText().toString();
 //            msgTv.setText(s + "\n"+message);
@@ -79,5 +83,6 @@ public class LobbyActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     public void onWebSocketError(Exception ex) {}
+
 
 }

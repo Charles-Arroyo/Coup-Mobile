@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > RankingRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Ranking</a>
+</div>
+
+<h1>Coverage Summary for Class: RankingRepository (database.Ranking)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">RankingRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Ranking;
+&nbsp;
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;public interface RankingRepository extends JpaRepository&lt;Ranking, Long&gt; {
+&nbsp;
+&nbsp;    // Find a ranking by its name
+&nbsp;    Optional&lt;Ranking&gt; findByName(String name);
+&nbsp;
+&nbsp;    // Find the ranking with the highest ID (assuming ID is auto-incremented)
+&nbsp;    Optional&lt;Ranking&gt; findTopByOrderByIdDesc();
+&nbsp;
+&nbsp;    // Find all rankings ordered by ID in descending order
+&nbsp;    List&lt;Ranking&gt; findAllByOrderByIdDesc();
+&nbsp;
+&nbsp;    // Delete a ranking by its name
+&nbsp;    @Transactional
+&nbsp;    void deleteByName(String name);
+&nbsp;
+&nbsp;    // Check if a ranking with a specific name exists
+&nbsp;    boolean existsByName(String name);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 09:37</div>
+</div>
+</body>
+</html>

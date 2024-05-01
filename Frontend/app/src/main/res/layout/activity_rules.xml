@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:drawable/button_onoff_indicator_off"
-    android:backgroundTint="#A8E3FD"
-    android:gravity="center"
+      android:gravity="center"
     android:orientation="vertical"
     tools:context=".MenuActivity">
 
@@ -15,9 +13,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#03A9F4"
-        android:backgroundTintMode="src_over"
-        android:orientation="vertical"
+         android:orientation="vertical"
         android:padding="16dp">
 
         <!-- Rule Title -->
@@ -26,8 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@android:drawable/editbox_background_normal"
-            android:gravity="center"
+             android:gravity="center"
             android:text="  Rules  "
             android:textSize="20sp"
 
@@ -38,8 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:background="@android:drawable/editbox_background_normal"
-            android:orientation="vertical">
+             android:orientation="vertical">
 
 
             <!-- Rule Description -->
@@ -54,8 +48,7 @@
                 android:layout_marginTop="12dp"
                 android:text="Coup is a card game of bluffing and deduction. Players use their influence to eliminate opponents."
                 android:textAlignment="center"
-                android:textColor="#4A4343"
-                android:textSize="14sp" />
+                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/rules_coup_details"
@@ -65,8 +58,7 @@
 
                 android:text="Players start with two influence cards. Each turn, a player can perform one action: Income, Foreign Aid, Coup, etc."
                 android:textAlignment="center"
-                android:textColor="#4A4343"
-                android:textSize="14sp" />
+                 android:textSize="14sp" />
 
             <!-- Additional Rules -->
 
@@ -79,8 +71,7 @@
                 android:layout_marginBottom="12dp"
                 android:text="Players can challenge actions. If challenged and wrong, lose influence. Last player standing wins."
                 android:textAlignment="center"
-                android:textColor="#4A4343"
-                android:textSize="14sp" />
+                 android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -89,8 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:background="@android:drawable/editbox_background"
-            android:gravity="center"
+             android:gravity="center"
             android:text="  Cards  "
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -115,7 +105,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/assassin"
+                    android:src="@drawable/assassin1"
                     android:contentDescription="@string/assassin" />
 
                 <!-- Captain Card -->
@@ -126,7 +116,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/captain"
+                    android:src="@drawable/captain1"
                     android:contentDescription="@string/captain" />
 
                 <!-- Duke Card -->
@@ -137,7 +127,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/duke"
+                    android:src="@drawable/duke1"
                     android:contentDescription="@string/duke" />
 
                 <!-- Contra Card -->
@@ -148,7 +138,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/contra"
+                    android:src="@drawable/contra1"
                     android:contentDescription="@string/ambassador" />
 
                 <!-- Ambassador Card -->
@@ -159,7 +149,7 @@
                     android:layout_margin="16dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ambassador"
+                    android:src="@drawable/ambassador1"
                     android:contentDescription="@string/contra" />
 
             </LinearLayout>
@@ -170,11 +160,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:backgroundTint="#2196F3"
-            android:onClick="onCloseButtonClick"
-            android:text="Close Rules Overlay"
-            android:textColorHighlight="#200C0C"
-            app:iconTint="#4CAF50" />
+            android:text="Close Rules Overlay" />
+
 
     </LinearLayout>
 

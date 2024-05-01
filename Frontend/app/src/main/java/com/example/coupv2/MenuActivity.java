@@ -1,15 +1,20 @@
 package com.example.coupv2;
 
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/** @noinspection MismatchedQueryAndUpdateOfCollection*/
+
 public class MenuActivity extends AppCompatActivity implements WebSocketListener {
 
     /*
@@ -51,7 +56,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      */
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
     private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
-    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton;
+    private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton, themeButton;
     private EditText msg;
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
@@ -64,6 +69,9 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
     private final String user = Const.getCurrentEmail();
     private Button sendBtn, playButton, friendsButton,  statsButton, rulesButton;
 
+    private ImageView icon;
+    private int speed = 100;
+
 
     /**
      *
@@ -75,47 +83,63 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      *
      */
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTheme(Const.getCurrentTheme());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu); // Set the layout for this activity
 
+        Toast.makeText(this, "WELCOME!!!", Toast.LENGTH_SHORT).show();
+
         // Initialize UI elements
-        playButton = findViewById(R.id.play_btn);
-        friendsButton = findViewById(R.id.friends_btn);
+        playButton = findViewById(R.id.game);
+        friendsButton = findViewById(R.id.friends_button);
         settingsButton = findViewById(R.id.settings_btn);
         statsButton = findViewById(R.id.stats_btn);
         rulesButton = findViewById(R.id.rules_btn);
         logoffButton = findViewById(R.id.logoff_btn);
         leaderboardButton = findViewById(R.id.ranking_btn);
         msgButton = findViewById(R.id.msg_btn);
+        themeButton = findViewById(R.id.theme_menu);
+
+        icon = findViewById(R.id.icon);
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
+        Animation slideInAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
+        Animation slideOutAnimation = AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right);
+
+        icon.startAnimation(fadeInAnimation);
+
+
+        icon.setOnClickListener(v -> {
+            icon.startAnimation(fadeInAnimation);
+            fadeInAnimation.setDuration(speed);
+            speed += 30;
+
+        });
 
         // Play Button
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start the looby activity
-                Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
-                //for going straight to PlayActivity
+        playButton.setOnClickListener(v -> {
+            // Start the looby activity
+            Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+            //for going straight to PlayActivity
 //                Intent intent = new Intent(MenuActivity.this, PlayActivity.class);
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
         // Friends Button
         friendsButton.setOnClickListener(v -> {
-            // Start the friends activity
             Intent intent = new Intent(MenuActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
         // Settings Button
         settingsButton.setOnClickListener(v -> {
-            // Start the settings activity
             Intent intent = new Intent(MenuActivity.this, SettingActivity.class);
             startActivity(intent);
         });
         // Stats Button
         statsButton.setOnClickListener(v -> {
-            // Start the statistics activity
             Intent intent = new Intent(MenuActivity.this, StatsActivity.class);
             startActivity(intent);
         });
@@ -140,6 +164,46 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         msgButton.setOnClickListener(v -> showGlbChat());
         // Ranking Button
         leaderboardButton.setOnClickListener(v -> showRankingPopup());
+
+
+        themeButton.setOnClickListener(v -> {
+            // Creating the PopupMenu
+            PopupMenu popup = new PopupMenu(MenuActivity.this, themeButton);
+            popup.getMenuInflater().inflate(R.menu.theme_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+
+                if (id == R.id.action_dark_purple) {
+                    Const.setCurrentTheme(R.style.DarkThemePurple);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_purple) {
+                    Const.setCurrentTheme(R.style.LightThemePurple);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_dark_amber) {
+                    Const.setCurrentTheme(R.style.DarkThemeAmber);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_amber) {
+                    Const.setCurrentTheme(R.style.LightThemeAmber);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_dark_turquoise) {
+                    Const.setCurrentTheme(R.style.DarkThemeTurquoise);
+                    setTheme(Const.getCurrentTheme());
+                } else if (id == R.id.action_light_turquoise) {
+                    Const.setCurrentTheme(R.style.LightThemeTurquoise);
+                    setTheme(Const.getCurrentTheme());
+                }
+
+                // Apply the theme change by recreating the current activity
+                recreate();
+
+                return true;
+            });
+
+            // Showing the popup
+            popup.show();
+        });
+
 
     }
 
@@ -224,11 +288,11 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         } else if (rank == 3) {
             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.bronze)));
         } else {
-             btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
+            btnUsername.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.defaultBackground))); // Default background color
         }
 
 
-        btnUsername.setOnClickListener(v -> showUserPopup(username));
+        btnUsername.setOnClickListener(v -> showUserStats(username));
 
         rankingLayout.addView(rankingItemView);
     }
@@ -239,18 +303,15 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
      * @param username requires the
      */
 
-    private void showUserPopup(String username) {
-        // Create and display a popup with user information, or perform any other action
-        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
+    private void showUserStats(String username) {
+        Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(username);
-        builder.setMessage("More info about " + username);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = builder.create();
-        dialog.show();
+//        Intent intent = new Intent(this, StatsActivity.class);
+//        intent.putExtra("USERNAME", username);
+
+        // Launch StatsActivity as a dialog
+//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
-
     /**
      * Sets a bottom dialog for a global messaging activity which connects from everyone in the game
      */
@@ -309,7 +370,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
                 addMessageToLayout(username, message);
             } else {
-                 addMessageToLayout("Server", fullMessage);
+                addMessageToLayout("Server", fullMessage);
             }
         });
     }
@@ -330,7 +391,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         textView.setText(message);
         usernameButton.setText(username);
 
-        usernameButton.setOnClickListener(v -> showUserPopup(username));
+        usernameButton.setOnClickListener(v -> showUserStats(username));
 
         layoutMessages.addView(messageView);
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
@@ -386,24 +447,24 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
         // Set up for the assassin
         ImageButton assassinButton = view.findViewById(R.id.assassin);
-        assassinButton.setOnClickListener(v -> showImagePopup(R.drawable.assassin));
+        assassinButton.setOnClickListener(v -> showImagePopup(R.drawable.assassin1));
 
         // Set up for the captain
         ImageButton captainButton = view.findViewById(R.id.captain);
-        captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain));
+        captainButton.setOnClickListener(v -> showImagePopup(R.drawable.captain1));
 
         // Set up for the duke
         ImageButton dukeButton = view.findViewById(R.id.duke);
-        dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke));
+        dukeButton.setOnClickListener(v -> showImagePopup(R.drawable.duke1));
 
         // Set up for the contra
         ImageButton contraButton = view.findViewById(R.id.contra);
-        contraButton.setOnClickListener(v -> showImagePopup(R.drawable.contra));
+        contraButton.setOnClickListener(v -> showImagePopup(R.drawable.contra1));
 
 
         // Set up for the ambassador
         ImageButton ambassadorButton = view.findViewById(R.id.ambassador);
-        ambassadorButton.setOnClickListener(v -> showImagePopup(R.drawable.ambassador));
+        ambassadorButton.setOnClickListener(v -> showImagePopup(R.drawable.ambassador1));
 
         // Close button inside the BottomSheetDialog
         Button closeButton = view.findViewById(R.id.close_rules_coup_overlay_button);
@@ -427,12 +488,46 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         builder.setView(dialogLayout);
         AlertDialog dialog = builder.create();
 
-         dialogLayout.setOnClickListener(v -> dialog.dismiss());
+        dialogLayout.setOnClickListener(v -> dialog.dismiss());
 
-         if (dialog.getWindow() != null) {
+        if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 
         dialog.show();
     }
+
+    /**
+     * Websocket method to reconnect the user when leaving activity
+     */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WebSocketManager.getInstance().setWebSocketListener(this);
+    }
+
+    /**
+     * Websocket method to pause websocket connection when leaving activity
+     */
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+    /**
+     * Method to disconnect when server breaks in the Web Socket
+     */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        WebSocketManager.getInstance().removeWebSocketListener();
+    }
+
+
+
 }
+

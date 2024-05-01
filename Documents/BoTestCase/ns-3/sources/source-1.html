@@ -1,0 +1,305 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ChatSocket</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">database.Chat</a>
+</div>
+
+<h1>Coverage Summary for Class: ChatSocket (database.Chat)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ChatSocket</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38.5%
+  </span>
+  <span class="absValue">
+    (5/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    13.5%
+  </span>
+  <span class="absValue">
+    (7/52)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package database.Chat;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.Hashtable;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;import database.Friends.FriendRepository;
+&nbsp;import database.Users.User;
+&nbsp;import database.Users.UserRepository;
+&nbsp;import database.Websocketconfig.WebsocketConfig;
+&nbsp;import jakarta.websocket.OnClose;
+&nbsp;import jakarta.websocket.OnError;
+&nbsp;import jakarta.websocket.OnMessage;
+&nbsp;import jakarta.websocket.OnOpen;
+&nbsp;import jakarta.websocket.Session;
+&nbsp;import jakarta.websocket.server.PathParam;
+&nbsp;import jakarta.websocket.server.ServerEndpoint;
+&nbsp;
+&nbsp;import org.slf4j.Logger;
+&nbsp;import org.slf4j.LoggerFactory;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;
+&nbsp;@Controller      // this is needed for this to be an endpoint to springboot
+&nbsp;@ServerEndpoint(value = &quot;/chat/{username}&quot;)  // this is Websocket url
+<b class="fc">&nbsp;public class ChatSocket {</b>
+&nbsp;
+&nbsp;	// cannot autowire static directly (instead we do it by the below
+&nbsp;	// method
+&nbsp;	private static MessageRepository msgRepo;
+&nbsp;
+&nbsp;	private static UserRepository userRepository;
+&nbsp;
+&nbsp;	private static FriendRepository friendRepository;
+&nbsp;
+&nbsp;
+&nbsp;	/*
+&nbsp;	 * Grabs the MessageRepository singleton from the Spring Application
+&nbsp;	 * Context.  This works because of the @Controller annotation on this
+&nbsp;	 * class and because the variable is declared as static.
+&nbsp;	 * There are other ways to set this. However, this approach is
+&nbsp;	 * easiest.
+&nbsp;	 */
+&nbsp;	@Autowired
+&nbsp;	public void setMessageRepository(MessageRepository repo) {
+<b class="fc">&nbsp;		msgRepo = repo;  // we are setting the static variable</b>
+&nbsp;	}
+&nbsp;	@Autowired
+&nbsp;	public void setUserRepository(UserRepository repo) {
+<b class="fc">&nbsp;		userRepository = repo;  // we are setting the static variable</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	@Autowired
+&nbsp;	public void setUserRepository(FriendRepository repo) {
+<b class="fc">&nbsp;		friendRepository = repo;  // we are setting the static variable</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	// Store all socket session and their corresponding username.
+<b class="fc">&nbsp;	private static Map&lt;Session, String&gt; sessionUsernameMap = new Hashtable&lt;&gt;();</b>
+<b class="fc">&nbsp;	private static Map&lt;String, Session&gt; usernameSessionMap = new Hashtable&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);</b>
+&nbsp;
+&nbsp;	@OnOpen
+&nbsp;	public void onOpen(Session session, @PathParam(&quot;username&quot;) String username)
+&nbsp;			throws IOException {
+&nbsp;
+<b class="nc">&nbsp;		if(userRepository.findByUserEmail(username) != null){ // Code checks to make sure username is in repo</b>
+<b class="nc">&nbsp;			logger.info(&quot;Entered into Open&quot;);</b>
+&nbsp;
+&nbsp;			// store connecting user information
+<b class="nc">&nbsp;			sessionUsernameMap.put(session, username);</b>
+<b class="nc">&nbsp;			usernameSessionMap.put(username, session);</b>
+&nbsp;
+&nbsp;			//Send chat history to the newly connected user
+&nbsp;//			sendMessageToPArticularUser(username, getChatHistory());
+&nbsp;
+&nbsp;			// broadcast that new user joined
+<b class="nc">&nbsp;			String message = &quot;User:&quot; + username + &quot; has Joined the Chat&quot;;</b>
+<b class="nc">&nbsp;			broadcast(message);</b>
+&nbsp;
+<b class="nc">&nbsp;			Message joinMessage = new Message(username, &quot;has Joined the Chat&quot;);</b>
+<b class="nc">&nbsp;			msgRepo.save(joinMessage);</b>
+&nbsp;
+&nbsp;		}else {
+&nbsp;			// If user is not found in the database, close the connection with a reason
+<b class="nc">&nbsp;			String message = &quot;User:&quot; + username + &quot; Is not in DB&quot;;</b>
+<b class="nc">&nbsp;			broadcast(message);</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	@OnMessage
+&nbsp;	public void messageFriends(Session session, String message) throws IOException {
+&nbsp;		// Handle new messages
+<b class="nc">&nbsp;		logger.info(&quot;Entered into Message: Got Message:&quot; + message);</b>
+<b class="nc">&nbsp;		String username = sessionUsernameMap.get(session);</b>
+<b class="nc">&nbsp;		User sendingUser = userRepository.findByUserEmail(username);</b>
+&nbsp;
+&nbsp;		// Direct message to a user using the format &quot;@username &lt;message&gt;&quot;
+<b class="nc">&nbsp;		if (message.startsWith(&quot;@&quot;)) {</b>
+<b class="nc">&nbsp;			String destUsername = message.split(&quot; &quot;)[0].substring(1);</b>
+<b class="nc">&nbsp;			User userDest = userRepository.findByUserEmail(destUsername);</b>
+&nbsp;
+&nbsp;			// Check if username and destUsername are friends
+<b class="nc">&nbsp;			if (friendRepository.existsByUser1AndUser2(sendingUser, userDest) || friendRepository.existsByUser1AndUser2(userDest, sendingUser)) {</b>
+&nbsp;				// send the message to the sender and receiver if they are friends
+<b class="nc">&nbsp;				sendMessageToPArticularUser(destUsername, &quot;[DM] &quot; + username + &quot;: &quot; + message);</b>
+<b class="nc">&nbsp;				sendMessageToPArticularUser(username, &quot;[DM] &quot; + username + &quot;: &quot; + message);</b>
+&nbsp;			} else {
+&nbsp;				// If they are not friends, send a message only to the sender that the action is not allowed
+<b class="nc">&nbsp;				sendMessageToPArticularUser(username, &quot;You can only DM your friends.&quot;);</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;		else { // broadcast
+<b class="nc">&nbsp;			broadcast(username + &quot;: &quot; + message);</b>
+&nbsp;		}
+&nbsp;
+&nbsp;		// Saving chat history to repository might be conditional based on your requirements
+<b class="nc">&nbsp;		msgRepo.save(new Message(username, message));</b>
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	@OnClose
+&nbsp;	public void onClose(Session session) throws IOException {
+<b class="nc">&nbsp;		logger.info(&quot;Entered into Close&quot;);</b>
+&nbsp;
+&nbsp;		// remove the user connection information
+<b class="nc">&nbsp;		String username = sessionUsernameMap.get(session);</b>
+&nbsp;
+<b class="nc">&nbsp;		sessionUsernameMap.remove(session);</b>
+<b class="nc">&nbsp;		usernameSessionMap.remove(username);</b>
+&nbsp;
+&nbsp;		// broadcase that the user disconnected
+<b class="nc">&nbsp;		String message = username + &quot; disconnected&quot;;</b>
+<b class="nc">&nbsp;		broadcast(message);</b>
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	@OnError
+&nbsp;	public void onError(Session session, Throwable throwable) {
+&nbsp;		// Do error handling here
+<b class="nc">&nbsp;		logger.info(&quot;Entered into Error&quot;);</b>
+<b class="nc">&nbsp;		throwable.printStackTrace();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	private void sendMessageToPArticularUser(String username, String message) {
+&nbsp;		try {
+<b class="nc">&nbsp;			usernameSessionMap.get(username).getBasicRemote().sendText(message);</b>
+&nbsp;		}
+<b class="nc">&nbsp;		catch (IOException e) {</b>
+<b class="nc">&nbsp;			logger.info(&quot;Exception: &quot; + e.getMessage().toString());</b>
+<b class="nc">&nbsp;			e.printStackTrace();</b>
+&nbsp;		}
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	private void broadcast(String message) {
+<b class="nc">&nbsp;		sessionUsernameMap.forEach((session, username) -&gt; {</b>
+&nbsp;			try {
+<b class="nc">&nbsp;				session.getBasicRemote().sendText(message);</b>
+&nbsp;			}
+<b class="nc">&nbsp;			catch (IOException e) {</b>
+<b class="nc">&nbsp;				logger.info(&quot;Exception: &quot; + e.getMessage().toString());</b>
+<b class="nc">&nbsp;				e.printStackTrace();</b>
+&nbsp;			}
+&nbsp;
+&nbsp;		});
+&nbsp;
+&nbsp;	}
+&nbsp;
+&nbsp;
+&nbsp;	// Gets the Chat history from the repository
+&nbsp;	private String getChatHistory() {
+<b class="nc">&nbsp;		List&lt;Message&gt; messages = msgRepo.findAll();</b>
+&nbsp;
+&nbsp;		// convert the list to a string
+<b class="nc">&nbsp;		StringBuilder sb = new StringBuilder();</b>
+<b class="nc">&nbsp;		if(messages != null &amp;&amp; messages.size() != 0) {</b>
+<b class="nc">&nbsp;			for (Message message : messages) {</b>
+<b class="nc">&nbsp;				sb.append(message.getUserName() + &quot;: &quot; + message.getContent() + &quot;\n&quot;);</b>
+&nbsp;			}
+&nbsp;		}
+<b class="nc">&nbsp;		return sb.toString();</b>
+&nbsp;	}
+&nbsp;
+&nbsp;} // end of Class
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-25 18:33</div>
+</div>
+</body>
+</html>

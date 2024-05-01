@@ -1,105 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutCompat2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
     tools:context=".SettingActivity">
 
     <!-- Back Button -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp">
 
-    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
+    <EditText
+        android:id="@+id/settings_username_edt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="212dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:hint="Enter Username Here"
+        app:layout_constraintBottom_toTopOf="@+id/backBtn"
+        app:layout_constraintEnd_toStartOf="@+id/settings_login_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"></EditText>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change UserName: "
-            android:textColor="#000000"
-            android:textSize="20dp"></TextView>
+    <Button
+        android:id="@+id/settings_login_btn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="257dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:drawable/ic_menu_edit"
+        android:contentDescription=" "
 
-        <EditText
-            android:id="@+id/settings_username_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:hint="Enter Username Here"></EditText>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_pass_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_username_edt"
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change Password: "
-            android:textColor="#000000"
-            android:textSize="20dp"></TextView>
+    <Button
+        android:id="@+id/settings_pass_btn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="26dp"
+        android:background="@android:drawable/ic_menu_edit"
+        android:contentDescription=" "
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_email_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_password_edt"
+        app:layout_constraintTop_toBottomOf="@+id/settings_login_btn"></Button>
 
-        <EditText
-            android:id="@+id/settings_password_edt"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:hint="Enter Password Here"></EditText>
+    <Button
+        android:id="@+id/settings_email_btn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="242dp"
+        android:background="@android:drawable/ic_menu_edit"
+        android:contentDescription=" "
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/settings_email_edt"
+        app:layout_constraintTop_toBottomOf="@+id/settings_pass_btn"></Button>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/settings_login_btn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="Update User"
-            android:textColor="#ffffff"
-            android:textSize="20sp"></Button>
-
-        <Button
-            android:id="@+id/settings_pass_btn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Update Password"
-            android:textColor="#ffffff"
-            android:textSize="20sp"></Button>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/settings_password_edt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:hint="Enter Password Here"
+        app:layout_constraintBottom_toTopOf="@+id/settings_email_edt"
+        app:layout_constraintEnd_toStartOf="@+id/settings_pass_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_username_edt"></EditText>
 
     <Button
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onBackPressed"
+        android:layout_marginBottom="152dp"
         android:text="Back"
-        android:textSize="16sp" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_username_edt" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="66dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="179dp"
+        android:background="@drawable/icon_turquoise_dark"
+        android:backgroundTint="#FFFFFF"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/settings_username_edt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="87dp"
+        android:layout_marginBottom="23dp"
+        android:contentDescription=" "
+        app:layout_constraintBottom_toTopOf="@+id/settings_username_edt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/settings_email_edt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="252dp"
+        android:gravity="center"
+        android:hint="Enter Email Here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/settings_email_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_password_edt"></EditText>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

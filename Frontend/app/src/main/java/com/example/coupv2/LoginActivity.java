@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +25,15 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private static final String ACTIVE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/signin/";
     private EditText emailIdEditText;
     private EditText passwordEditText;
-    private Button loginButton;
-    private Button signupButton;
+    private ImageButton loginButton;
+    private ImageButton signupButton;
 
-//    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8080/signin";
+//    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8443/signin";
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
+    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
     // success
-//    private static final String URL_JSON_OBJECT = "https://63fa0fc8-69e5-4ec7-a84f-aee7fc5648ac.mock.pstmn.io/signin";
+//    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
 
 
     /**
@@ -46,8 +47,10 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_charles);
 
         emailIdEditText = findViewById(R.id.login_email_edt);
         passwordEditText = findViewById(R.id.login_password_edt);
@@ -57,7 +60,14 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
         loginButton.setOnClickListener(v -> {
             String username = emailIdEditText.getText().toString();
             String password = passwordEditText.getText().toString();
-            if (!username.isEmpty() && !password.isEmpty()) {
+
+            if(username.equals("ADMIN") && password.equals("ADMIN")){
+                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                startActivity(intent);
+
+
+            } else if (!username.isEmpty() && !password.isEmpty()) {
+
                 performLogin(username, password);
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
@@ -92,20 +102,20 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                 response -> {
                     try {
 
+                        String success = response.getString("success");
 
-                        boolean success = response.getBoolean("success");
-
-                        if (success) {
-                            // Successful login
+                        if (success.equals("admin")){
+                            Intent mainIntent = new Intent(LoginActivity.this, AdminActivity.class);
+                            startActivity(mainIntent);
+                        }
+                        else if (success.equals("true")){
                             Intent mainIntent = new Intent(LoginActivity.this, MenuActivity.class);
-                            mainIntent.putExtra("EMAIL", emailId);
                             startActivity(mainIntent);
                             Const.setCurrentEmail(emailId);
                             String serverUrl = ACTIVE_URL + emailId;
-                            WebSocketManager.getInstance().connectWebSocket(serverUrl);
+                            WebSocketManager2.getInstance().connectWebSocket(serverUrl);
 
                         } else {
-                            // Failed login
                             Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -114,7 +124,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
                     }
                 },
                 error -> {
-                    // Handle errors here
                     Toast.makeText(LoginActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
@@ -166,4 +175,6 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     public void onWebSocketError(Exception ex) {
 
     }
+
+
 }
