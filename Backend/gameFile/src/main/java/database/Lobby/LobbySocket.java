@@ -537,7 +537,7 @@ public class LobbySocket {
                  */
 
                 for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "Game Over");
+                    broadcastToSpecificUser(player.getUserEmail(),  "over");
                 }
 
 
