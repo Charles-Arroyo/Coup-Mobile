@@ -369,7 +369,7 @@ public class LobbySocket {
                 game.setBlocker(p); // Save Blocker
                 game.getBlocker().setCurrentMove(state.substring(6)); //Saves Move ex (Block Duke)
                 for(Player player : game.getPlayerArrayList()){
-                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " blocks " + game.getCurrentPlayer().getUserEmail()); //Charles took: income
+                    broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " blocks " + game.getCurrentPlayer().getUserEmail() + " with " + game.getBlocker().getCurrentMove()); //Charles took: income
                 }
             }
             for(Player player : game.getPlayerArrayList()){
