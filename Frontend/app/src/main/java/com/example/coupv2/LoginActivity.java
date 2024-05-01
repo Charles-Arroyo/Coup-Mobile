@@ -3,7 +3,6 @@ package com.example.coupv2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -29,15 +28,12 @@ public class LoginActivity extends AppCompatActivity implements WebSocketListene
     private ImageButton signupButton;
 
 //    private static final String URL_JSON_OBJECT = "http://10.90.73.176:8443/signin";
-<<<<<<< HEAD
 //private static final String URL_JSON_OBJECT = "http://localhost:8443/signin";
 
     private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8080/signin";
-=======
 //private static final String URL_JSON_OBJECT = "http://localhost:8080/signin";
 
-    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
->>>>>>> main
+//    private static final String URL_JSON_OBJECT = "http://coms-309-023.class.las.iastate.edu:8443/signin";
     // success
 //    private static final String URL_JSON_OBJECT = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/user";
 

@@ -2,6 +2,7 @@ package com.example.coupv2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +17,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
@@ -119,34 +122,44 @@ public class SettingActivity extends AppCompatActivity {
      * to accept the image with a specific key ("image") in the request.
      *
      */
-//    private void uploadImage() {
-//        byte[] imageData = convertImageUriToBytes(selectiedUri);
-//        String uploadUrl = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
-//
-//        JSONObject jsonRequest = new JSONObject();
-//        try {
-//            jsonRequest.put("pictureData", imageData);
-//        } catch (JSONException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        MultipartRequest multipartRequest = new MultipartRequest(
-//                Request.Method.PUT,
-//                uploadUrl,
-//                jsonRequest,
-//                response -> {
-//                    Toast.makeText(this, "Image uploaded successfully!", Toast.LENGTH_LONG).show();
-//                    // Assuming uploadImg is the ImageButton you want to update:
-//                    runOnUiThread(() -> uploadImg.setImageURI(selectiedUri)); // Update ImageButton on UI thread
-//                },
-//                error -> {
-//                    Toast.makeText(this,
-//                            "Failed to upload image: ",
-//                            Toast.LENGTH_LONG).show();
-//                });
-//
-//        AppController.getInstance().addToRequestQueue(multipartRequest);
-//    }
+    private void uploadImage() {
+        String UPLOAD_URL = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+        byte[] imageData = convertImageUriToBytes(selectiedUri);
+
+        if (imageData != null && imageData.length > 0) {
+            ImageRequest multipartRequest = new ImageRequest(
+                    UPLOAD_URL,
+                    response -> {
+                        Log.d("Upload", "Response: " + response);
+                        Toast.makeText(this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
+                    },
+                    0, // Width, set to 0 for original width
+                    0, // Height, set to 0 for original height
+                    ImageView.ScaleType.CENTER_INSIDE, // ScaleType
+                    Bitmap.Config.ARGB_8888, // Bitmap config
+                    error -> {
+                        // Handle error
+                        Toast.makeText(this, "Failed to upload image: " + error.getMessage(), Toast.LENGTH_LONG).show();
+                        Log.e("Upload", "Error: " + error.getMessage());
+                    }
+            ) {
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return imageData; // Set the image data as the body of the request
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "image/jpeg"; // Set the content type according to your image format (e.g., "image/jpeg", "image/png")
+                }
+            };
+
+            // Add the request to the request queue
+            AppController.getInstance().addToRequestQueue(multipartRequest);
+        } else {
+            Toast.makeText(this, "Image data is null or empty", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 
@@ -185,27 +198,45 @@ public class SettingActivity extends AppCompatActivity {
     }
 
 
-    private void uploadImage() {
-        String updateUrl = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
-        JSONObject jsonRequest = new JSONObject();
-        try {
-            byte[] imageData = convertImageUriToBytes(selectiedUri);
-
-            jsonRequest.put("pictureData", imageData);
-
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, updateUrl, jsonRequest,
-                    response -> {
-                        Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                    },
-                    error -> {
-                        Toast.makeText(this, "Failed to update profile: " + error.toString(), Toast.LENGTH_LONG).show();
-                    });
-
-            AppController.getInstance().addToRequestQueue(jsonObjectRequest);
-        } catch (JSONException e) {
-            Toast.makeText(this, "Error creating JSON for profile update.", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void uploadImage() {
+//        if (selectiedUri == null) {
+//            Toast.makeText(this, "Please select an image to upload", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        String updateUrl = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+//
+//        // Convert the image URI to a byte array
+//        byte[] imageData = convertImageUriToBytes(selectiedUri);
+//        if (imageData == null) {
+//            Toast.makeText(this, "Error converting image to byte array", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        // Create the JSON request with the image data
+//        JSONObject jsonRequest = new JSONObject();
+//        try {
+//            jsonRequest.put("pictureData", Base64.encodeToString(imageData, Base64.DEFAULT));
+//        } catch (JSONException e) {
+//            Toast.makeText(this, "Error creating JSON for profile update", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        // Create a JsonObjectRequest for the image upload
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, updateUrl, jsonRequest,
+//                response -> {
+//                    // Image up
+//load successful
+//                    Toast.makeText(this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
+//                },
+//                error -> {
+//                    // Error handling for image upload failure
+//                    Toast.makeText(this, "Failed to update profile picture: " + error.toString(), Toast.LENGTH_LONG).show();
+//                });
+//
+//        // Add the JsonObjectRequest to the request queue
+//        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+//    }
 
     private void updateUserSettings(String username) {
         String url = "http://coms-309-023.class.las.iastate.edu:8443/changeName/" + USER_EMAIL;

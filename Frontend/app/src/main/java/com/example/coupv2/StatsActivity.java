@@ -115,8 +115,7 @@ public class StatsActivity extends AppCompatActivity {
      * Making image request
      * */
     private void makeImageRequest() {
-//        String URL_IMAGE = "https://www.cs.iastate.?edu/files/styles/people_thumb/public/people/profilepictures/dsc_0069.jpg?itok=KsjxY9d1";
-        String URL_IMAGE = "http:/coms-309-023.class.las.iastate.edu8080/PFP/" + currentUserEmail;
+        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + currentUserEmail;
 
         ImageRequest imageRequest = new ImageRequest(
                 URL_IMAGE,
@@ -128,7 +127,6 @@ public class StatsActivity extends AppCompatActivity {
                 0, // Height, set to 0 to get the original height
                 ImageView.ScaleType.FIT_XY, // ScaleType
                 Bitmap.Config.RGB_565, // Bitmap config
-
                 error -> {
                     // Handle errors here
                     Log.e("Volley Error", error.toString());
