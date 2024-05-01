@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent">
 
 
     <Space
@@ -80,10 +79,11 @@
         app:layout_constraintVertical_bias="0.01999998">
 
         <Button
-            android:id="@+id/game"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/largecirclebtn"
+            android:backgroundTint="#8E4848"
             android:text="Play Game"
             tools:ignore="HardcodedText" />
 

@@ -39,7 +39,6 @@
         android:gravity="center"
         android:hint="Enter Password here"
         android:inputType="textEmailAddress"
-        android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/login_login_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,7 +2,6 @@ package com.example.coupv2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +16,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.coupv2.app.AppController;
 import com.example.coupv2.utils.Const;
@@ -123,20 +120,17 @@ public class SettingActivity extends AppCompatActivity {
      *
      */
     private void uploadImage() {
-        String UPLOAD_URL = "http://coms-309-023.class.las.iastate.edu:8080/PFP/" + USER_EMAIL;
+        String UPLOAD_URL = "http://coms-309-023.class.las.iastate.edu:8080/updateProfile/" + USER_EMAIL;
         byte[] imageData = convertImageUriToBytes(selectiedUri);
 
         if (imageData != null && imageData.length > 0) {
-            ImageRequest multipartRequest = new ImageRequest(
-                    UPLOAD_URL,
+            // Create a JsonObjectRequest for the PUT request
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, UPLOAD_URL, null,
                     response -> {
+                        // Handle response
                         Log.d("Upload", "Response: " + response);
                         Toast.makeText(this, "Image uploaded successfully!", Toast.LENGTH_SHORT).show();
                     },
-                    0, // Width, set to 0 for original width
-                    0, // Height, set to 0 for original height
-                    ImageView.ScaleType.CENTER_INSIDE, // ScaleType
-                    Bitmap.Config.ARGB_8888, // Bitmap config
                     error -> {
                         // Handle error
                         Toast.makeText(this, "Failed to upload image: " + error.getMessage(), Toast.LENGTH_LONG).show();
@@ -144,7 +138,7 @@ public class SettingActivity extends AppCompatActivity {
                     }
             ) {
                 @Override
-                public byte[] getBody() throws AuthFailureError {
+                public byte[] getBody() {
                     return imageData; // Set the image data as the body of the request
                 }
 
@@ -154,12 +148,15 @@ public class SettingActivity extends AppCompatActivity {
                 }
             };
 
-            // Add the request to the request queue
-            AppController.getInstance().addToRequestQueue(multipartRequest);
+            // Add the JsonObjectRequest to the request queue
+            AppController.getInstance().addToRequestQueue(jsonObjectRequest);
         } else {
             Toast.makeText(this, "Image data is null or empty", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+
 
 
 
