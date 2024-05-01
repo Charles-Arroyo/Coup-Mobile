@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/PFP")
 public class ProfilePictureController {
     @Autowired
     private UserRepository userRepository;
@@ -34,7 +35,7 @@ public class ProfilePictureController {
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
 
-    @PutMapping("/profilePicture/{userEmail}")
+    @PutMapping("/{userEmail}")
     public String updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
@@ -52,7 +53,7 @@ public class ProfilePictureController {
         return success;
     }
 
-    @GetMapping("/profilePicture/{userEmail}")
+    @GetMapping("/{userEmail}")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {

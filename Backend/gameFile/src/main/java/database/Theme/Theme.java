@@ -10,19 +10,15 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Lob
-    private byte[] data;
-    //The picture data is stored as a byte array in the database using the @Lob annotation,
-    //which allows storing large objects.
+    @Column(unique = true, nullable = false)
+    private int theme;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
-
-    public Theme(){
-
+    public Theme() {
     }
 
     public void setId(Integer id) {
@@ -33,11 +29,19 @@ public class Theme {
         return id;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
+    public void setData(int theme) {
+        this.theme = theme;
     }
 
-    public byte[] getData() {
-        return data;
+    public int getData() {
+        return theme;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

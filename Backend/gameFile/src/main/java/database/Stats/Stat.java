@@ -1,6 +1,7 @@
 package database.Stats;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import database.Users.User;
 
@@ -20,6 +21,22 @@ public class Stat {
     private int gameLost = 0;
     private int gamePlayed = 0;
     private String gameResult;
+
+    @JsonIgnore
+    private int coupCount = 0;
+    @JsonIgnore
+    private int endGameCoinsLeft = 0;
+    @JsonIgnore
+    private int foreignAid = 0;
+    @JsonIgnore
+    private int bluff = 0;
+    @JsonIgnore
+    private int steal = 0;
+    @JsonIgnore
+    private int tax = 0;
+    @JsonIgnore
+    private int assassinateCount = 0;
+
 
     public Stat(String gameResult) {
         this.gameResult = gameResult;
@@ -70,5 +87,47 @@ public class Stat {
 
     public void addGamePlayed() {
         this.gamePlayed++;
+    }
+
+    public int getCoupCount() {return coupCount;}
+
+    public void setCoupCount(int coupCount) {
+        this.coupCount = coupCount;
+    }
+
+    public int getEndGameCoinsLeft() {return endGameCoinsLeft;}
+
+    public void setEndGameCoinsLeft(int endGameCoinsLeft) {
+        this.endGameCoinsLeft = endGameCoinsLeft;
+    }
+
+    public int getForeignAid() {return foreignAid;}
+
+    public void setForeignAid(int foreignAid) {
+        this.foreignAid = foreignAid;
+    }
+
+    public int getBluff() {return bluff;}
+
+    public void setBluff(int bluff) {
+        this.bluff = bluff;
+    }
+
+    public int getSteal() {return steal;}
+
+    public void setSteal(int steal) {
+        this.steal = steal;
+    }
+
+    public int getTax() {return tax;}
+
+    public void setTax(int tax) {
+        this.tax = tax;
+    }
+
+    public int getAssassinateCount(){return assassinateCount;}
+
+    public void setAssassinateCount(int assassinateCount){
+        this.assassinateCount = assassinateCount;
     }
 }

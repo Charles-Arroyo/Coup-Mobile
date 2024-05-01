@@ -1,54 +1,62 @@
 package database.Theme;
 
-import database.ProfilePicture.ProfilePicture;
 import database.Users.User;
 import database.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/themes")
 public class ThemeController {
+    @Autowired
+    private ThemeRepository themeRepository;
+
     @Autowired
     private UserRepository userRepository;
 
-    private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
-
-    private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
-
-    @PutMapping("/Theme/{userEmail}")
-    public String updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
+    @PostMapping("/{userEmail}")
+    public ResponseEntity<Theme> createTheme(@PathVariable String userEmail, @RequestBody Theme theme) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
-            return failure;
+            return ResponseEntity.notFound().build();
         }
 
-        ProfilePicture profilePicture = user.getProfilePicture();
-        if (profilePicture == null) {
-            profilePicture = new ProfilePicture();
-            user.setProfilePicture(profilePicture);
-        }
-        profilePicture.setData(pictureData);
-        userRepository.save(user);
-
-        return success;
+        theme.setUser(user);
+        Theme savedTheme = themeRepository.save(theme);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedTheme);
     }
 
-    @GetMapping("/Theme/{userEmail}")
-    public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
+    @GetMapping("/{userEmail}")
+    public ResponseEntity<Theme> getThemeByUserId(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.notFound().build();
         }
 
-        ProfilePicture profilePicture = user.getProfilePicture();
-        if (profilePicture == null || profilePicture.getData() == null) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        Theme theme = themeRepository.findByUser(user);
+        if (theme == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        byte[] pictureData = profilePicture.getData();
-        return ResponseEntity.ok(pictureData);
+        return ResponseEntity.ok(theme);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Theme> updateTheme(@PathVariable String userEmail, @RequestBody Theme updatedTheme) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Theme existingTheme = themeRepository.findByUser(user);
+        if (existingTheme == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        existingTheme.setData(updatedTheme.getData());
+        Theme savedTheme = themeRepository.save(existingTheme);
+        return ResponseEntity.ok(savedTheme);
     }
 }

@@ -40,4 +40,10 @@ public class ProfilePicture {
     public byte[] getData() {
         return data;
     }
+
+    public void setUser(User user){user = user;}
+
+    public User returnUser(){
+        return user;
+    }
 }
