@@ -5,22 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1936ec40-f159-4a30-bcb2-3a9a25e2f79a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidget.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/blockwidgets.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhit3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackhitpurple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/cardbackp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/backbtn.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/drawcardswidget.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/lobbyjoinedmessage.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/usercontain.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/waitingforplayer.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Lobby/LobbySocket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/java/com/example/coupv2/PlayActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/bluffwidget.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/drawable/passwidget.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_afterjoinlobbycharles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_play.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/Stats/Stat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Stats/Stat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Lobby/LobbySocket.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/database/Stats/Stat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/database/Stats/Stat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/onetoone-1.0.0.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_aftercreatelobby.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/activity_aftercreatelobby.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/friends_msg_item2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/app/src/main/res/layout/friends_msg_item2.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,12 +78,12 @@
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="CharlesSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="onetoone" />

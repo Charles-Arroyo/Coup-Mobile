@@ -38,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:text=""
+        android:hint="Enter Lobby ID Here"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView7"

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -22,28 +23,16 @@ import com.example.coupv2.utils.Const;
 public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSocketListener{
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
+    private ImageButton lobbyBackOut;
     private boolean isLobbyFull = false;
+    private boolean spectatorMode = false;
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
-    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        // Assuming WebSocketManager is your class that manages the WebSocket connection.
-//        WebSocketManager.getInstance().setWebSocketListener(this);
-//    }
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        // Remove the listener when the activity goes into the background
-//        // to prevent it from receiving WebSocket events
-//        if (WebSocketManager.getInstance().getWebSocketListener() == this) {
-//            WebSocketManager.getInstance().removeWebSocketListener();
-//        }
-//    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftercreatelobby);
+        lobbyBackOut = findViewById(R.id.imageView18);
         boolean createLobby = getIntent().getBooleanExtra("createLobby", false);
         String lobbyNumber = getIntent().getStringExtra("lobbyNumber");
 
@@ -61,29 +50,17 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
         //if user joined lobby
         scrollViewMessages = findViewById(R.id.scrollViewMessages);
         layoutMessages = findViewById(R.id.layoutMessages);
+        lobbyBackOut.setOnClickListener(v -> {
+            Intent intent = new Intent(AfterCreateLobbyActivity.this, LobbyActivity.class);
+            WebSocketManager.getInstance().disconnectWebSocket();
+            startActivity(intent);
+        });
     }
 
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {
         Log.d("WebSocket", "AfterCreateLobby Activity connected: ");
     }
-//old code
-//    @Override
-//    public void onWebSocketMessage(String message) {
-//        Log.d("WebSocket", "Create Lobby received: " + message);
-//        runOnUiThread(() -> {
-////            get whatever in in TextView at moment
-//            String s = msgTv.getText().toString();
-//            //add message from backend to whatever is in TextView
-//            msgTv.setText(s + "\n" + message);
-//            // Check if the received message from backend is "lobby is full"
-//            if ("Lobby is full".equals(message.trim())) {
-//                isLobbyFull = true;
-//                goToNewActivity(); // Call method to transition to the new activity
-//            }
-//        });
-//    }
-
 
     @Override
     public void onWebSocketMessage(String fullMessage) {
@@ -93,6 +70,11 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
             if ("Lobby is full".equals(fullMessage)) {
                 Log.d("WebSocketMessage", "ffsffs");
                  isLobbyFull = true;
+                goToNewActivity(); // Call method to transition to the new activity
+            }
+            else if ("spec".equals(fullMessage)) {
+                Log.d("WebSocketMessage", "ffsffs");
+                spectatorMode = true;
                 goToNewActivity(); // Call method to transition to the new activity
             }
             else{
@@ -115,6 +97,23 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
+        // Log the closure information with the player name, code, reason, and initiator.
+        String initiator = remote ? "Remote" : "Local";
+        Log.e("WebSocketListener", Const.getCurrentEmail() + " disconnected - Code: " + code + ", Reason: " + reason + ", Initiator: " + initiator);
+
+        // Handle different cases based on the closure code if needed
+        switch (code) {
+            case 1000:
+                Log.d("WebSocketListener", "Normal closure");
+                break;
+            case 1001:
+                Log.d("WebSocketListener", "Going away");
+                break;
+            // Add other cases as needed based on the codes you expect to handle.
+            default:
+                Log.d("WebSocketListener", "Disconnected due to unknown or unhandled reason");
+                break;
+        }
 
     }
 
@@ -130,13 +129,18 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
             Intent intent = new Intent(AfterCreateLobbyActivity.this, PlayActivity.class); // Replace NewActivity.class with your target activity class
             startActivity(intent);
         }
+        else if(spectatorMode){
+            WebSocketManager.getInstance().removeWebSocketListener();
+            Intent intent = new Intent(AfterCreateLobbyActivity.this, SpectatorActivity.class); // Replace NewActivity.class with your target activity class
+            startActivity(intent);
+        }
     }
     // Method to add ImageView to a LinearLayout
     private void addMessageToLayout(String username, String message) {
-        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
+        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item2, layoutMessages, false);
 
         TextView textView = messageView.findViewById(R.id.placement);
-        Button usernameButton = messageView.findViewById(R.id.btnUsername);
+        TextView usernameButton = messageView.findViewById(R.id.btnUsername);
 
         textView.setText(message);
         usernameButton.setText(username);
