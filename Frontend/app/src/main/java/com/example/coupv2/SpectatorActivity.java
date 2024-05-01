@@ -954,7 +954,7 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         builder.setMessage("The game has ended.");  // Set the message to show
 
         // Add a button to the dialog
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Go to Main Menu", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(SpectatorActivity.this, MainActivity.class);
