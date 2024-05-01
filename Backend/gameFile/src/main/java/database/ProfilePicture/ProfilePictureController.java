@@ -12,6 +12,7 @@ import database.FriendRequest.FriendRequest;
 import lombok.Singular;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +32,18 @@ public class ProfilePictureController {
     @Autowired
     private UserRepository userRepository;
 
-    private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
-
-    private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
+    private final String SUCCESS_RESPONSE = "{\"success\":true}";
+    private final String FAILURE_RESPONSE = "{\"fail\":false}";
 
     @PutMapping("/{userEmail}")
-    public String updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
+    public ResponseEntity<String> updateProfilePicture(@PathVariable String userEmail, @RequestBody byte[] pictureData) {
+        if (pictureData == null || pictureData.length == 0) {
+            return ResponseEntity.badRequest().body("{\"message\":\"No picture data provided\"}");
+        }
+
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
-            return failure;
+            return ResponseEntity.badRequest().body("{\"message\":\"User not found\"}");
         }
 
         ProfilePicture profilePicture = user.getProfilePicture();
@@ -50,22 +54,24 @@ public class ProfilePictureController {
         profilePicture.setData(pictureData);
         userRepository.save(user);
 
-        return success;
+        return ResponseEntity.ok(SUCCESS_RESPONSE);
     }
 
     @GetMapping("/{userEmail}")
     public ResponseEntity<byte[]> getProfilePicture(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         ProfilePicture profilePicture = user.getProfilePicture();
         if (profilePicture == null || profilePicture.getData() == null) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
         byte[] pictureData = profilePicture.getData();
-        return ResponseEntity.ok(pictureData);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("image/jpeg"))  // Ensure correct media type
+                .body(pictureData);
     }
 }
