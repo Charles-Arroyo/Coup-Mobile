@@ -1,5 +1,6 @@
 package com.example.coupv2;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
@@ -317,6 +318,10 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         else if (message.matches(".*: .*")) {
             // It matches the pattern "Username: 'message'"
             processStringMessage(message);
+        }
+        else if (message.equals("over")) {
+            // It matches the pattern "Username: 'message'"
+            showGameOverDialog();
         }
 
         // Unknown format
@@ -940,6 +945,32 @@ public class SpectatorActivity extends AppCompatActivity implements WebSocketLis
         // Save message to Singleton
         ChatManager.getInstance().addMessage(username, message);
     }
+
+    public void showGameOverDialog() {
+        Context context = this; // Use 'this' or 'getActivity()' in case of a fragment
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setTitle("Game Over");  // Set the title for the dialog
+        builder.setMessage("The game has ended.");  // Set the message to show
+
+        // Add a button to the dialog
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(SpectatorActivity.this, MainActivity.class);
+                WebSocketManager.getInstance().disconnectWebSocket();
+                startActivity(intent);
+                dialog.dismiss();  // Dismiss the dialog when the button is clicked
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+
     private void showImagePopup(int imageResource) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogLayout = getLayoutInflater().inflate(R.layout.popup_image, null);
