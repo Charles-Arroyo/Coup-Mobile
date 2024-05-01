@@ -54,7 +54,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
      */
 
 
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8445/getListUserRanking";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
     private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;

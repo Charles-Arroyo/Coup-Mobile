@@ -43,8 +43,6 @@ public class StatsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String currEmail = intent.getStringExtra("USER");
 
-        currentUserEmail = Const.getCurrentEmail();
-
         // Initialize TextViews
         email = findViewById(R.id.stats_user);
         playerWins = findViewById(R.id.stats_wins);
@@ -73,7 +71,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void getUserStats(String email) {
-        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + currentUserEmail;
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + email;
 
 //        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
 
