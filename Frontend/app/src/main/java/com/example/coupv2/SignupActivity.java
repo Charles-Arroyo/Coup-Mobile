@@ -29,7 +29,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 //    private static final String URL_SIGNUP = "http://10.90.73.176:8080/signup";
-    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8443/signup";
+    private static final String URL_SIGNUP = "http://coms-309-023.class.las.iastate.edu:8080/signnup";
     // success
 //    private static final String URL_SIGNUP = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
     //fail
