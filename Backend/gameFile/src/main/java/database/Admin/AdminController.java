@@ -9,6 +9,7 @@ import database.Ranking.Ranking;
 import database.Ranking.RankingRepository;
 import database.Signin.Signin;
 import database.Signin.SigninRepository;
+import database.Spectator.SpectatorRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
 import database.Ranking.RankingRepository;
@@ -53,6 +54,9 @@ public class AdminController {
 
     @Autowired
     private RankingRepository rankingRepository;
+
+    @Autowired
+    private SpectatorRepository spectatorRepository;
 
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
@@ -155,6 +159,7 @@ public class AdminController {
         }
 
         signinRepository.deleteSigninByUser(user);
+        spectatorRepository.deleteByUserId(user.getId());
 
         // Delete the user
         userRepository.delete(user);

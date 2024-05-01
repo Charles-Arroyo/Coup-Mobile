@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 
 @Entity
 public class ProfilePicture {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,6 +22,9 @@ public class ProfilePicture {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
+
+    @Column(name = "file_path", nullable = true) // adjust this based on your schema requirements
+    private String filePath;
 
     public ProfilePicture() {
     }
@@ -47,4 +52,14 @@ public class ProfilePicture {
     public User returnUser() {
         return user;
     }
+
+    // Getter and setter for filePath
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
 }
