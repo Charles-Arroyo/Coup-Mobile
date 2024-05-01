@@ -59,7 +59,7 @@
     "git-widget-placeholder": "gameCharlesApril29",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/billx/tutorials",
+    "last_opened_file_path": "C:/Users/bohte/Desktop/COMS309/coms309/Backend/gameFile",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -140,8 +140,6 @@
       </list>
     </recent_temporary>
   </component>
-<<<<<<< HEAD
-=======
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -149,7 +147,6 @@
       </set>
     </attachedChunks>
   </component>
->>>>>>> main
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -160,17 +157,14 @@
       <updated>1712786260895</updated>
       <workItem from="1712786261263" duration="4193000" />
       <workItem from="1712979323377" duration="13179000" />
-<<<<<<< HEAD
-      <workItem from="1714535900601" duration="31000" />
-=======
       <workItem from="1713896675713" duration="57308000" />
       <workItem from="1714166081343" duration="610000" />
       <workItem from="1714166699891" duration="245000" />
       <workItem from="1714167515740" duration="1487000" />
       <workItem from="1714268308970" duration="6928000" />
       <workItem from="1714372161182" duration="1093000" />
-      <workItem from="1714460953879" duration="598000" />
->>>>>>> main
+      <workItem from="1714460953879" duration="6496000" />
+      <workItem from="1714538951175" duration="10385000" />
     </task>
     <servers />
   </component>
