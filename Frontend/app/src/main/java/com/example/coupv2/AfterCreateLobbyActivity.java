@@ -23,7 +23,7 @@ import com.example.coupv2.utils.Const;
 public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSocketListener{
     private LinearLayout layoutMessages;
     private ScrollView scrollViewMessages;
-    private Button lobbyBackOut;
+    private ImageButton lobbyBackOut;
     private boolean isLobbyFull = false;
     private boolean spectatorMode = false;
     private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
@@ -32,7 +32,7 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aftercreatelobby);
-        lobbyBackOut = findViewById(R.id.button6);
+        lobbyBackOut = findViewById(R.id.imageView18);
         boolean createLobby = getIntent().getBooleanExtra("createLobby", false);
         String lobbyNumber = getIntent().getStringExtra("lobbyNumber");
 
@@ -137,10 +137,10 @@ public class AfterCreateLobbyActivity extends AppCompatActivity implements WebSo
     }
     // Method to add ImageView to a LinearLayout
     private void addMessageToLayout(String username, String message) {
-        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item, layoutMessages, false);
+        View messageView = getLayoutInflater().inflate(R.layout.friends_msg_item2, layoutMessages, false);
 
         TextView textView = messageView.findViewById(R.id.placement);
-        Button usernameButton = messageView.findViewById(R.id.btnUsername);
+        TextView usernameButton = messageView.findViewById(R.id.btnUsername);
 
         textView.setText(message);
         usernameButton.setText(username);

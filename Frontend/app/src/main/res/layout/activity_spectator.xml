@@ -35,7 +35,7 @@
             android:id="@+id/gameBoard_wait"
             android:layout_width="194dp"
             android:layout_height="178dp"
-            android:src="@drawable/waiting"
+            android:src="@drawable/specwidget"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
