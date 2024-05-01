@@ -35,7 +35,7 @@ public class Player {
 
     public Player(String userEmail, int coins, boolean turn,int lives,String playerState, String targetPlayer) {
         this.userEmail = userEmail;
-        this.coins = 20;
+        this.coins = 2;
         this.turn = turn;
         this.lives = 2;
         this.playerState = playerState;
