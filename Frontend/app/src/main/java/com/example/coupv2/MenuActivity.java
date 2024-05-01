@@ -54,8 +54,8 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         private String BASE_URL = "ws://10.29.182.205:8443/chat/";
 
      */
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton, themeButton;
     private EditText msg;
     private LinearLayout layoutMessages;
@@ -105,7 +105,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         logoffButton = findViewById(R.id.logoff_btn);
         leaderboardButton = findViewById(R.id.ranking_btn);
         msgButton = findViewById(R.id.msg_btn);
-//        themeButton = findViewById(R.id.theme_menu);
 
         icon = findViewById(R.id.icon);
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);
@@ -168,57 +167,6 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         msgButton.setOnClickListener(v -> showGlbChat());
         // Ranking Button
         leaderboardButton.setOnClickListener(v -> showRankingPopup());
-
-//
-//        themeButton.setOnClickListener(v -> {
-//            // Creating the PopupMenu
-//            PopupMenu popup = new PopupMenu(MenuActivity.this, themeButton);
-//            popup.getMenuInflater().inflate(R.menu.theme_menu, popup.getMenu());
-//
-//            popup.setOnMenuItemClickListener(item -> {
-//                int id = item.getItemId();
-//
-//                if (id == R.id.action_dark_purple) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                } else if (id == R.id.action_light_purple) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                } else if (id == R.id.action_dark_amber) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                } else if (id == R.id.action_light_amber) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                } else if (id == R.id.action_dark_turquoise) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                } else if (id == R.id.action_light_turquoise) {
-//                    updateUserTheme(R.style.DarkThemePurple);
-//                    fetchTheme();
-//                    Const.setCurrentTheme(Themes);
-//                    setTheme(Const.getCurrentTheme());
-//                }
-//                // Apply the theme change by recreating the current activity
-//                recreate();
-//
-//                return true;
-//            });
-//
-//            // Showing the popup
-//            popup.show();
-//        });
-
 
     }
 
@@ -307,9 +255,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         }
 
 
-        btnUsername.setOnClickListener(v -> {
-            showUserStats(username);
-        });
+        btnUsername.setOnClickListener(v -> showUserStats(username));
 
         rankingLayout.addView(rankingItemView);
     }
@@ -543,81 +489,5 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         super.onDestroy();
         WebSocketManager.getInstance().removeWebSocketListener();
     }
-
-
-//    private void fetchTheme() {
-//        String url = "http://coms-309-023.class.las.iastate.edu:8443/themes/" + user;
-//
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, null, null,
-//                response -> {
-//                    Log.d("ThemeActivity", "Response received: " + response.toString()); // Debug log
-//                    try {
-//                        Themes = response.getInt("theme");
-//
-//                    } catch (JSONException e) {
-//                        Toast.makeText(MenuActivity.this, "Error parsing JSON data", Toast.LENGTH_SHORT).show();
-//                        e.printStackTrace();
-//                    }
-//                },
-//                error -> {
-//                    Log.e("StatsActivity", "Volley error: " + error.toString());
-//                    Toast.makeText(getApplicationContext(), "Failed to load stats", Toast.LENGTH_SHORT).show();
-//                    if (error.networkResponse != null) {
-//                        Log.e("StatsActivity", "Error Response body: " + new String(error.networkResponse.data));
-//                    }
-//                }
-//        );
-//
-//        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-//        requestQueue.add(jsonObjectRequest);
-//    }
-//
-//    private void updateUserTheme(int theme) {
-//        String url = "http://coms-309-023.class.las.iastate.edu:8443/themes/" + user;
-//
-//        JSONObject jsonRequest = new JSONObject();
-//        try {
-//            jsonRequest.put("theme", theme); // newEmail is the updated email provided by the user
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            Toast.makeText(MenuActivity.this, "Error creating update request", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        RequestQueue requestQueue = AppController.getInstance().getRequestQueue();
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonRequest,
-//                response -> {
-//                    try {
-//                        boolean success = response.getBoolean("success");
-//                        if (success) {
-//                            Toast.makeText(MenuActivity.this, "Theme updated successfully", Toast.LENGTH_SHORT).show();
-//                            Const.setCurrentTheme(theme);
-//                        } else {
-//                            Toast.makeText(MenuActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                        Toast.makeText(MenuActivity.this, "Invalid response from server", Toast.LENGTH_SHORT).show();
-//                    }
-//                },
-//                error -> {
-//                    if (error.networkResponse != null) {
-//                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-//                        Log.e("MenuActivity", "Network Response Body: " + responseBody);
-//                        try {
-//                            new JSONObject(responseBody);
-//                        } catch (JSONException e) {
-//                            Log.e("MenuActivity", "Response is not valid JSON", e);
-//                        }
-//                    } else {
-//                        Log.e("MenuActivity", "Network Error: " + error.toString());
-//                    }
-//                    Toast.makeText(MenuActivity.this, "Network Error: " + error.toString(), Toast.LENGTH_LONG).show();
-//                }
-//
-//        );
-//
-//        requestQueue.add(jsonObjectRequest);
-//    }
 }
 
