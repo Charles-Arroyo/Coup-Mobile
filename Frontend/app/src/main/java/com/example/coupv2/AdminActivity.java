@@ -1,5 +1,6 @@
 package com.example.coupv2;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.ColorDrawable;
@@ -55,7 +56,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
 
     private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://10.29.182.205:8080/chat/";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
     private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
@@ -119,6 +120,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 Intent intent = new Intent(AdminActivity.this, MainActivity.class);
                 startActivity(intent);
+                WebSocketManager2.getInstance().disconnectWebSocket();
                 finish();
             });
             builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
@@ -219,29 +221,25 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
         }
 
 
-        btnUsername.setOnClickListener(v -> showUserPopup(username));
+        btnUsername.setOnClickListener(v -> showUserStats(username));
 
         rankingLayout.addView(rankingItemView);
     }
-
     /**
      * When pressing the users button, display the user stats
      *
      * @param username requires the
      */
 
-    private void showUserPopup(String username) {
-        // Create and display a popup with user information, or perform any other action
-        Toast.makeText(this, "Clicked on user: " + username, Toast.LENGTH_SHORT).show();
+    private void showUserStats(String username) {
+        Toast.makeText(this, "user: " + username, Toast.LENGTH_SHORT).show();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(username);
-        builder.setMessage("More info about " + username);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        Intent intent = new Intent(this, StatsActivity.class);
+        intent.putExtra("USER", username);
+
+//         Launch StatsActivity as a dialog
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
-
     /**
      * Sets a bottom dialog for a global messaging activity which connects from everyone in the game
      */
@@ -321,7 +319,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
         textView.setText(message);
         usernameButton.setText(username);
 
-        usernameButton.setOnClickListener(v -> showUserPopup(username));
+        usernameButton.setOnClickListener(v -> showUserStats(username));
 
         layoutMessages.addView(messageView);
         scrollViewMessages.post(() -> scrollViewMessages.fullScroll(ScrollView.FOCUS_DOWN));
@@ -429,7 +427,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     private void showGlobalStatsPopup() {
 //        String statsUrl = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/GLB";
-        String statsUrl = "http://coms-309-023.class.las.iastate.edu:8443/globalStat";
+        String statsUrl = "http://coms-309-023.class.las.iastate.edu:8080/globalStat";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

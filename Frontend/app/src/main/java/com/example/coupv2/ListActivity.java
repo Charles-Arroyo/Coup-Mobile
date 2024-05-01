@@ -63,7 +63,7 @@ public class ListActivity extends AppCompatActivity {
                     try {
                         for (int i = 0; i < response.getJSONArray("users").length(); i++) {
                             JSONObject person = response.getJSONArray("users").getJSONObject(i);
-                            addPersonToLayout(person.getString("userEmail"));
+                            addPersonToLayout(person.getString("userEmail"), person.getString("name"));
                         }
                     } catch (JSONException e) {
                         Toast.makeText(ListActivity.this, "Error parsing JSON data", Toast.LENGTH_SHORT).show();
@@ -75,14 +75,14 @@ public class ListActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void addPersonToLayout(String name) {
+    private void addPersonToLayout(String email, String name) {
         View userList = getLayoutInflater().inflate(R.layout.person_item, peopleLayout, false);
         TextView textView = userList.findViewById(R.id.tvPersonName);
         Button detailsButton = userList.findViewById(R.id.btnDetails);
         Button deleteButton = userList.findViewById(R.id.delete_user_btn);
         textView.setText(name);
-        detailsButton.setOnClickListener(v -> showUserPopup(name));
-        deleteButton.setOnClickListener(v -> deleteUser(name));
+        detailsButton.setOnClickListener(v -> showUserPopup(email, name));
+        deleteButton.setOnClickListener(v -> deleteUser(email));
         peopleLayout.addView(userList);
     }
 
@@ -124,9 +124,10 @@ public class ListActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void showUserPopup(String username) {
+    private void showUserPopup(String email, String username) {
         LayoutInflater inflater = getLayoutInflater();
         View statsView = inflater.inflate(R.layout.admin_activity_stats, null);
+        TextView userEmail = statsView.findViewById(R.id.stats_email);
         TextView userName = statsView.findViewById(R.id.stats_user);
         TextView statsWins = statsView.findViewById(R.id.stats_wins);
         TextView statsLosses = statsView.findViewById(R.id.stats_losses);
@@ -135,10 +136,10 @@ public class ListActivity extends AppCompatActivity {
         TextView statsAverage = statsView.findViewById(R.id.stats_average);
         TextView statsRank = statsView.findViewById(R.id.stats_rank);
         Button resetStatsButton = statsView.findViewById(R.id.reset_stats);
-
+        userEmail.setText(email);
         userName.setText(username);
-        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/pizza";
-        String userStatsUrl = STATS_URL + username;
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/";
+        String userStatsUrl = STATS_URL + email;
 
         JsonObjectRequest statsRequest = new JsonObjectRequest(Request.Method.GET, userStatsUrl, null,
                 response -> {
@@ -182,7 +183,7 @@ public class ListActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        resetStatsButton.setOnClickListener(v -> resetUserScore(username));
+        resetStatsButton.setOnClickListener(v -> resetUserScore(email));
     }
 
 
