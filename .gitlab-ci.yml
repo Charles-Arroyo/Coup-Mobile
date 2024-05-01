@@ -7,29 +7,30 @@ maven-build:
   tags:                 # to specify which runner to execute this job
     - springboot_tag    # change to your runner's tag
   script:               # what to execute for this job
-    - cd Backend/gameFile/*        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - cd Backend/gameFile/        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn package       # maven package
   artifacts:            # where to output the packaged jar file, change 'Backend' to to where you have the pom.xml
     paths:
-    - Backend/target/*.jar
+    - Backend/gameFile/target/onetoone-1.0.0.jar
+
   only:
     refs:
       - main            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
-      - Backend/gameFile/*    # more specifically - only when changes are made inside the 'Backend' folder
+      - Backend/gameFile/    # more specifically - only when changes are made inside the 'Backend' folder
 
 maven-test:             
   stage: maventest     # one of the stages listed above
   tags:
     - bo_tag      # <-- change to your runner's tag
   script:
-     - cd Backend/gameFile/*       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+     - cd Backend/gameFile/      # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
      - mvn test         # maven test
   only:
     refs:
       - bo_CICD
     changes:
-      - Backend/gameFile/*
+      - Backend/gameFile/
 
 
 maven-test:             
@@ -37,10 +38,10 @@ maven-test:
   tags:
     - bo_tag     # <-- change to your runner's tag
   script:
-    - cd Backend/gameFile/*       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - cd Backend/gameFile/       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn test
   only:
     refs:
       - bo_CICD
     changes:
-      - Backend/gameFile/*
+      - Backend/gameFile/
