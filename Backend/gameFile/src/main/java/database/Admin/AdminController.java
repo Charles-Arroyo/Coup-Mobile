@@ -9,6 +9,7 @@ import database.Ranking.Ranking;
 import database.Ranking.RankingRepository;
 import database.Signin.Signin;
 import database.Signin.SigninRepository;
+import database.Spectator.SpectatorRepository;
 import database.Stats.Stat;
 import database.Stats.StatRepository;
 import database.Ranking.RankingRepository;
@@ -54,6 +55,9 @@ public class AdminController {
     @Autowired
     private RankingRepository rankingRepository;
 
+    @Autowired
+    private SpectatorRepository spectatorRepository;
+
     private String success = "{\"success\":true}"; //Sends a JSON boolean object named success
 
     private String failure = "{\"fail\":false}"; //Sends a JSON String object named message
@@ -64,8 +68,11 @@ public class AdminController {
      * @return
      */
     @GetMapping(path = "/users")
-    List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Map<String, Object> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        Map<String, Object> response = new HashMap<>();
+        response.put("users", users);
+        return response;
     }
 
 
@@ -122,7 +129,6 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(path = "/getuser")
 
 
     /**
@@ -131,14 +137,111 @@ public class AdminController {
      * @param userEmail
      * @return
      */
+    @Transactional
     @DeleteMapping(path = "/deleteUser/{userEmail}")
     public ResponseEntity<?> deleteUser(@PathVariable String userEmail) {
         User user = userRepository.findByUserEmail(userEmail);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"User not found\"}");
         }
+
+        // Remove the user from the lobby
+        user.setLobby(null);
+
+        // Remove the user from the ranking
+        user.setRanking(null);
+
+
+        // Delete the associated stat record
+        Stat stat = user.getStat();
+        if (stat != null) {
+            statRepository.delete(stat);
+        }
+
+        signinRepository.deleteSigninByUser(user);
+        spectatorRepository.deleteByUserId(user.getId());
+
+        // Delete the user
         userRepository.delete(user);
+
         return ResponseEntity.ok("{\"success\":true}");
+    }
+    /**
+     * This will allow the Admin to reset
+     * the score
+     * @param userEmail
+     * @return
+     */
+    @PutMapping(path = "/resetScore/{userEmail}")
+    public ResponseEntity<?> resetScore(@PathVariable String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"User not found\"}");
+        }
+
+        user.setPoints(0);
+        userRepository.save(user);
+        return ResponseEntity.ok("{\"success\":true}");
+    }
+
+    /**
+     * Get a list of user's signin
+     *
+     * @param userEmail
+     * @return
+     */
+    @GetMapping(path = "/getUserLogs/{userEmail}")
+    public ResponseEntity<Map<String, Object>> getSignInLog(@PathVariable String userEmail) {
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByUserEmail(userEmail));
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Signin> signInLogs = signinRepository.findByUser(user);
+
+            List<Map<String, Object>> signInLogList = new ArrayList<>();
+            for (Signin signIn : signInLogs) {
+                Map<String, Object> signInLog = new HashMap<>();
+                signInLog.put("id", signIn.getId());
+                signInLog.put("userId", signIn.getUser().getId());
+                signInLog.put("lastSignInTimestamp", signIn.getLastSignInTimestamp());
+                signInLog.put("signInCount", signIn.getSignInCount());
+                signInLog.put("lastSignOutTimestamp", signIn.getLastSignOutTimestamp());
+                signInLogList.add(signInLog);
+            }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", user.getId());
+            response.put("signInLogs", signInLogList);
+
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @GetMapping(path = "/globalStat")
+    public ResponseEntity<?> globalStat(){
+        User user;
+        int allUsers = userRepository.findAll().size();
+        int i = 0;
+        int active = 0;
+        int notActive = 0;
+
+        while(i < allUsers) {
+            user = userRepository.findAll().get(i);
+            if(user.isActive()){
+                active++;
+            }else{
+                notActive++;
+            }
+            i++;
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("total_players", allUsers);
+        response.put("active_players", active);
+        response.put("not_active_players", notActive);
+        return ResponseEntity.ok(response);
+
     }
 
 

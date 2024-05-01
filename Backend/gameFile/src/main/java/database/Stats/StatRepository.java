@@ -10,7 +10,7 @@ public interface StatRepository extends JpaRepository<Stat, Integer>{
 
     Optional<User> findByUserId(int userId); // Assumes that the User entity's primary key is of type Integer.
 
-
+    Optional<User> deleteByUserId(int userId);
 
     @Transactional
     void deleteById(int id);

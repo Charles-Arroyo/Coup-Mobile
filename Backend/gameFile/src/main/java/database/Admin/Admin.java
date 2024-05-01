@@ -36,13 +36,14 @@ public class Admin {
     private Integer id;
 
     @Column(unique = true)
-    private String loginName = "admin";
+    private String loginName;
 
     @Column(unique = true)
-    private String password = "admin";
+    private String password;
 
     public Admin(){
-
+        loginName = "admin";
+        password = "admin";
     }
 
     public void setId(Integer id) {
@@ -53,9 +54,6 @@ public class Admin {
         return id;
     }
 
-//    public void setUser(User user){
-//        this.user = user;
-//    }
 
 
 }

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@ServerEndpoint(value = "/chatFriend/{userId}/{friendId}")
+@ServerEndpoint(value = "/chatFriend/{userEmail}/{friendEmail}")
 public class FriendChatSocket {
     private static UserRepository userRepository;
     private static FriendRepository friendRepository;
@@ -42,11 +42,13 @@ public class FriendChatSocket {
     private static Map<Integer, Session> sessions = new HashMap<>();
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId") Integer userId, @PathParam("friendId") Integer friendId) throws IOException {
-        sessions.put(userId, session);
+    public void onOpen(Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
-        User user = userRepository.findById(userId);
-        User friend = userRepository.findById(friendId);
+        sessions.put(userId, session);
 
         if (user != null && friend != null) {
             // Check if the users are friends
@@ -61,7 +63,7 @@ public class FriendChatSocket {
 
                 // Send the chat history to the connected client
                 for (FriendChatMessage message : chatHistory) {
-                    String sender = message.getSender().equals(user) ? "You" : message.getSender().getUserEmail();
+                    String sender = message.getSender().equals(user) ? "You" : message.getSender().getName();
                     session.getBasicRemote().sendText(sender + ": " + message.getContent());
                 }
             }
@@ -69,9 +71,11 @@ public class FriendChatSocket {
     }
 
     @OnMessage
-    public void onMessage(String message, Session session, @PathParam("userId") Integer userId, @PathParam("friendId") Integer friendId) throws IOException {
-        User user = userRepository.findById(userId);
-        User friend = userRepository.findById(friendId);
+    public void onMessage(String message, Session session, @PathParam("userEmail") String userEmail, @PathParam("friendEmail") String friendEmail) throws IOException {
+        User user = userRepository.findByUserEmail(userEmail);
+        User friend = userRepository.findByUserEmail(friendEmail);
+        Integer friendId = userRepository.findByUserEmail(friendEmail).getId();
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
 
         if (user != null && friend != null) {
             // Check if the users are friends
@@ -97,14 +101,16 @@ public class FriendChatSocket {
                 // Send the message to the friend's session
                 Session friendSession = sessions.get(friendId);
                 if (friendSession != null && friendSession.isOpen()) {
-                    friendSession.getBasicRemote().sendText(user.getUserEmail() + ": " + message);
+                    friendSession.getBasicRemote().sendText(user.getName() + ": " + message);
                 }
             }
         }
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("userId") Integer userId) {
+    public void onClose(Session session, @PathParam("userEmail") String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        Integer userId = userRepository.findByUserEmail(userEmail).getId();
         sessions.remove(userId);
     }
 }

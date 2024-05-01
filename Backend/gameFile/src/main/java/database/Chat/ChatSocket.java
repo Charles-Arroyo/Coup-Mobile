@@ -74,14 +74,14 @@ public class ChatSocket {
 			usernameSessionMap.put(username, session);
 
 			//Send chat history to the newly connected user
-//			sendMessageToPArticularUser(username, getChatHistory());
+			sendMessageToPArticularUser(username, getChatHistory());
 
 			// broadcast that new user joined
-			String message = "User:" + username + " has Joined the Chat";
-			broadcast(message);
-
-			Message joinMessage = new Message(username, "has Joined the Chat");
-			msgRepo.save(joinMessage);
+//			String message = "User:" + username + " has Joined the Chat";
+//			broadcast(message);
+//
+//			Message joinMessage = new Message(username, "has Joined the Chat");
+//			msgRepo.save(joinMessage);
 
 		}else {
 			// If user is not found in the database, close the connection with a reason
