@@ -326,7 +326,7 @@ public class LobbySocket {
                     Card blockerCard = new Card(blocker.loseInfluence(blocker)); // Removes Card
                     game.getDeckDeck().addCardToBottomOfDeck(blockerCard);
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + blocker.getUserEmail()+ " Lost influence "); //Charles took: income
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + blocker.getUserEmail()+ " Lost Their Card: " + blockerCard.getName()); //Charles took: income
                     }
                     Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
@@ -349,7 +349,7 @@ public class LobbySocket {
                     String drawCard = game.getDeckDeck().drawCard();  //Draw Card from deck for Blocker
                     blocker.gainInfluence(drawCard,blocker); // Blocker gets the card drawed from deck
                     for(Player player : game.getPlayerArrayList()){
-                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost influence "); //Charles took: income
+                        broadcastToSpecificUser(player.getUserEmail(),  "The Coup Conductor: " + p.getUserEmail()+ " Lost Their Card: " + playerCard.getName()); //Charles took: income
                     }
                     Player blockerRestart = new Player("null",2,false,2,"null","null");
                     game.setBlocker(blockerRestart);
