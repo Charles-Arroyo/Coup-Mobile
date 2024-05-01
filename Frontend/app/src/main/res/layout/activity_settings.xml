@@ -15,11 +15,11 @@
         android:id="@+id/linearLayout7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="268dp"
         android:orientation="horizontal"
         android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -82,13 +82,13 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintVertical_bias="0.875" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/settings_icon"
         android:layout_width="66dp"
         android:layout_height="62dp"
         android:layout_marginBottom="179dp"
@@ -103,21 +103,22 @@
         app:layout_constraintVertical_bias="0.014"
         app:srcCompat="@drawable/settings" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <ImageView
+        android:id="@+id/uploadImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="130dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="130dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="50dp"
         android:contentDescription=" "
+        android:src="@drawable/assassin"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/action" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -148,5 +149,14 @@
             android:textColor="#ffffff"
             android:textSize="20sp"></Button>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/settings_image_upload_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

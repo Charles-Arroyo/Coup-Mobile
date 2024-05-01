@@ -30,12 +30,12 @@ public class ListActivity extends AppCompatActivity {
     private String user;
 
 
-    private String ALL_PLAYERS_URL = "http://coms-309-023.class.las.iastate.edu:8443/users";
+    private String ALL_PLAYERS_URL = "http://coms-309-023.class.las.iastate.edu:8080/users";
 
 //    private String ALL_PLAYERS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/players";
 //    private String RESET_SCORE_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/success";
 
-    private String RESET_SCORE_URL = "http://coms-309-023.class.las.iastate.edu:8443/resetScore/";
+    private String RESET_SCORE_URL = "http://coms-309-023.class.las.iastate.edu:8080/resetScore/";
 
 
 
@@ -101,7 +101,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void deleteUser(String email) {
 
-        String URL_DELETE_USER = "http://coms-309-023.class.las.iastate.edu:8443/deleteUser/" + email;
+        String URL_DELETE_USER = "http://coms-309-023.class.las.iastate.edu:8080/deleteUser/" + email;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, URL_DELETE_USER, null,
                 response -> {
@@ -137,14 +137,14 @@ public class ListActivity extends AppCompatActivity {
         Button resetStatsButton = statsView.findViewById(R.id.reset_stats);
 
         userName.setText(username);
-        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8443/getStats/pizza";
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/pizza";
         String userStatsUrl = STATS_URL + username;
 
         JsonObjectRequest statsRequest = new JsonObjectRequest(Request.Method.GET, userStatsUrl, null,
                 response -> {
                     try {
                         int wins = response.getInt("wins");
-                        int losses = response.getInt("losses");
+                        int losses = response.getInt("loses");
                         int score = response.getInt("score");
                         int rank = response.getInt("rank");
                         int gamesPlayed = wins + losses;
