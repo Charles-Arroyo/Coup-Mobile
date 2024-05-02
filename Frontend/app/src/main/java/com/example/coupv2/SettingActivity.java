@@ -257,7 +257,6 @@ public class SettingActivity extends AppCompatActivity {
                             Toast.makeText(SettingActivity.this, "Settings updated successfully", Toast.LENGTH_SHORT).show();
                             Intent menuIntent = new Intent(SettingActivity.this, MenuActivity.class);
                             startActivity(menuIntent);
-                            Const.setCurrentEmail(username);
                             finish();
                         } else {
                             Toast.makeText(SettingActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -362,6 +361,7 @@ public class SettingActivity extends AppCompatActivity {
                             // Start MenuActivity since the update was successful
                             Intent menuIntent = new Intent(SettingActivity.this, MenuActivity.class);
                             startActivity(menuIntent);
+                            Const.setCurrentEmail(email);
                             finish(); // Close the current activity
                         } else {
                             Toast.makeText(SettingActivity.this, response.getString("message"), Toast.LENGTH_SHORT).show();
