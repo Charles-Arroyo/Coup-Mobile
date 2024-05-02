@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 public class EndActivity extends AppCompatActivity {
     private Button winButton;
     private Button lossButton;
-//    private static final String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/";
+//    private static final String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8443/gameTotal/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class EndActivity extends AppCompatActivity {
 
     private void fetchPrimaryKeyAndUpdateGameResult(boolean won) {
         String currentUser = Const.getCurrentEmail();
-        String url = "http://coms-309-023.class.las.iastate.edu:8080/getId/" + Uri.encode(currentUser);
+        String url = "http://coms-309-023.class.las.iastate.edu:8443/getId/" + Uri.encode(currentUser);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -76,7 +76,7 @@ public class EndActivity extends AppCompatActivity {
         AppController.getInstance().getRequestQueue().add(stringRequest);
     }
     private void updateGameResult(int primaryKey, boolean won) {
-        String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8080/gameTotal/" + primaryKey;
+        String URL_UPDATE_GAME_RESULT = "http://coms-309-023.class.las.iastate.edu:8443/gameTotal/" + primaryKey;
         JSONObject jsonRequest = new JSONObject();
         try {
 //            jsonRequest.put("primaryKey", primaryKey);

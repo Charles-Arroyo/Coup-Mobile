@@ -1,25 +1,20 @@
 package com.example.coupv2;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.coupv2.utils.Const;
 
 import org.java_websocket.handshake.ServerHandshake;
 
 public class LobbyActivity extends AppCompatActivity implements WebSocketListener{
 
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
 private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
-//        private String BASE_URL = "ws://localhost:8080/chat/";
+//        private String BASE_URL = "ws://localhost:8443/chat/";
     private ImageButton connectBtn, joinBtn;
 
     @Override

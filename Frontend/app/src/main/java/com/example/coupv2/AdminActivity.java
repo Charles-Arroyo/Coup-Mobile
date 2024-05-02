@@ -49,14 +49,14 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
         GLOBAL CHAT FEATURE
 
         private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8445/chat/";
-        private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-        private String BASE_URL = "ws://10.29.182.205:8080/chat/";
+        private String BASE_URL = "ws://10.0.2.2:8443/chat/";
+        private String BASE_URL = "ws://10.29.182.205:8443/chat/";
 
      */
 
 
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
     private ImageButton backButton, msgButton, logoffButton, leaderboardButton;
     private EditText msg;
     private LinearLayout layoutMessages;
@@ -427,7 +427,7 @@ public class AdminActivity extends AppCompatActivity implements WebSocketListene
 
     private void showGlobalStatsPopup() {
 //        String statsUrl = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/GLB";
-        String statsUrl = "http://coms-309-023.class.las.iastate.edu:8080/globalStat";
+        String statsUrl = "http://coms-309-023.class.las.iastate.edu:8443/globalStat";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

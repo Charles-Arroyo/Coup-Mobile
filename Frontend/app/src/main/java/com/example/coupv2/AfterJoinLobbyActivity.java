@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
 public class AfterJoinLobbyActivity extends AppCompatActivity implements WebSocketListener{
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
-//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8080/lobby/0/";
-//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
+//    private static final String BASE_URL2 = "http://coms-309-023.class.las.iastate.edu:8443/lobby/0/";
+//    private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
 private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/lobby/";
     private EditText lobbyNumber;
     private ImageButton joinBtn;

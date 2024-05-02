@@ -26,7 +26,7 @@ public class StatsActivity extends AppCompatActivity {
             playerRank, playerAverage;
     private String currEmail;
     private Button back, email;
-//    public static final String URL_IMAGE = "http://10.0.2.2:8080/images/1";
+//    public static final String URL_IMAGE = "http://10.0.2.2:8443/images/1";
 
     private ImageView pfp;
 
@@ -71,7 +71,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void getUserStats(String email) {
-        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8080/getStats/" + email;
+        String STATS_URL = "http://coms-309-023.class.las.iastate.edu:8443/getStats/" + email;
 
 //        String STATS_URL = "https://3a856af0-b6ac-48f3-a93a-06d2cd454e01.mock.pstmn.io/stats/";
 
@@ -113,7 +113,7 @@ public class StatsActivity extends AppCompatActivity {
      * Making image request
      * */
     private void makeImageRequest() {
-        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8080/getProfile/" + currEmail;
+        String URL_IMAGE = "http://coms-309-023.class.las.iastate.edu:8443/getProfile/" + currEmail;
 
         ImageRequest imageRequest = new ImageRequest(
                 URL_IMAGE,

@@ -44,18 +44,18 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
         -----------------------------------
         RANKINGS
 
-        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
+        private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
 
         ------------------------------------
         GLOBAL CHAT FEATURE
 
-        private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
-        private String BASE_URL = "ws://10.0.2.2:8080/chat/";
-        private String BASE_URL = "ws://10.29.182.205:8080/chat/";
+        private String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
+        private String BASE_URL = "ws://10.0.2.2:8443/chat/";
+        private String BASE_URL = "ws://10.29.182.205:8443/chat/";
 
      */
-    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8080/getListUserRanking";
-    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8080/chat/";
+    private static final String URL_RANKINGS = "http://coms-309-023.class.las.iastate.edu:8443/getListUserRanking";
+    private final String BASE_URL = "ws://coms-309-023.class.las.iastate.edu:8443/chat/";
     private ImageButton backButton, msgButton, logoffButton, settingsButton, leaderboardButton, themeButton;
     private EditText msg;
     private LinearLayout layoutMessages;
@@ -547,7 +547,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 
 
 //    private void fetchTheme() {
-//        String url = "http://coms-309-023.class.las.iastate.edu:8080/themes/" + user;
+//        String url = "http://coms-309-023.class.las.iastate.edu:8443/themes/" + user;
 //
 //        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, null, null,
 //                response -> {
@@ -574,7 +574,7 @@ public class MenuActivity extends AppCompatActivity implements WebSocketListener
 //    }
 //
 //    private void updateUserTheme(int theme) {
-//        String url = "http://coms-309-023.class.las.iastate.edu:8080/themes/" + user;
+//        String url = "http://coms-309-023.class.las.iastate.edu:8443/themes/" + user;
 //
 //        JSONObject jsonRequest = new JSONObject();
 //        try {
